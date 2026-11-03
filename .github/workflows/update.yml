@@ -2,15 +2,44 @@ name: Обновление данных
 on:
   schedule: [{cron: "0 * * * *"}]
   workflow_dispatch:
-permissions: {contents: write}
+  pull_request:
+    paths:
+      - "index.html"
+      - "fetch_data.py"
+      - "data.json"
+      - "sw.js"
+      - "manifest.json"
+      - "tests/**"
+      - ".github/workflows/update.yml"
+permissions: {contents: read}
 jobs:
-  update:
+  check:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install requests beautifulsoup4
+      - run: python -m unittest discover -s tests -v
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-save --package-lock=false playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/browser.cjs
+  update:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions: {contents: write}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install requests beautifulsoup4
+      # Протоколы входят в data.json. Недоступность отдельного протокола
+      # не блокирует почасовое обновление остальных разделов.
       - run: python fetch_data.py
       # Дополнительная статистика факультативна. Ошибка здесь не должна
       # блокировать сохранение рабочих календаря, таблицы и новостей.
