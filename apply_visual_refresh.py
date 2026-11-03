@@ -55,12 +55,13 @@ manifest.setdefault('description','ФК «Судак» — результаты,
 
 sw_path=root/'sw.js'
 sw=sw_path.read_text(encoding='utf-8')
-for previous in ['sudak-v2','sudak-ui-v3']:
-    sw=sw.replace(f'const CACHE="{previous}";','const CACHE="sudak-crest-v4";',1)
-if 'const CACHE="sudak-crest-v4";' not in sw:
+for previous in ['sudak-v2','sudak-ui-v3','sudak-crest-v4']:
+    sw=sw.replace(f'const CACHE="{previous}";','const CACHE="sudak-launch-v5";',1)
+if 'const CACHE="sudak-launch-v5";' not in sw:
     raise SystemExit('ERROR: unknown service-worker version. No files changed.')
-new='const SHELL=["./","./index.html","./manifest.json","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];'
+new='const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-original.png","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];'
 for previous in [
+    'const SHELL=["./","./index.html","./manifest.json","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];',
     'const SHELL=["./","./index.html","./manifest.json"];',
     'const SHELL=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","./icon-maskable-512.png"];',
 ]:

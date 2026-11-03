@@ -38,6 +38,7 @@ const server=http.createServer((req,res)=>{
       const target=new URL(url);target.searchParams.set("test",String(++navigation));
       await page.goto(target.href);
       await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
+      await page.locator('#launch-splash').waitFor({state:'detached'});
     };
     const section=async(name)=>{
       await page.locator(`#nav [data-t="${name}"]`).click();
@@ -397,7 +398,7 @@ const server=http.createServer((req,res)=>{
     page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'/manifest.json');
     await page.evaluate(async()=>{
-      for(const name of ['sudak-v2','sudak-ui-v3']){
+      for(const name of ['sudak-v2','sudak-ui-v3','sudak-crest-v4']){
         const old=await caches.open(name);await old.put('./icon-192.png',new Response('old icon'));
       }
     });
@@ -408,10 +409,10 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
     assert(await page.evaluate(async()=>!!(await navigator.serviceWorker.getRegistration())));
     const shell=await page.evaluate(async()=>{
-      const keys=await caches.keys(),cache=await caches.open('sudak-crest-v4');
+      const keys=await caches.keys(),cache=await caches.open('sudak-launch-v5');
       return {keys,urls:(await cache.keys()).map(request=>{const url=new URL(request.url);return url.pathname+url.search})};
     });
-    assert(!shell.keys.includes('sudak-v2')&&!shell.keys.includes('sudak-ui-v3'),'Old shell caches must be removed');
+    assert(!shell.keys.includes('sudak-v2')&&!shell.keys.includes('sudak-ui-v3')&&!shell.keys.includes('sudak-crest-v4'),'Old shell caches must be removed');
     for(const icon of ['icon-192.png','icon-512.png','icon-maskable-512.png'])assert(shell.urls.includes('/'+icon+'?v=crest-v4'));
     assert(!shell.urls.some(url=>url.endsWith('/data.json')),'Federation data must still bypass the SW cache');
     const manifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());

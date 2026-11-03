@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#0F2C45">
 <link rel="apple-touch-icon" href="icon-192.png?v=crest-v4">
 <link rel="icon" type="image/png" href="icon-192.png?v=crest-v4">
+<link rel="preload" as="image" href="assets/club-crest-original.png" fetchpriority="high">
 <title>ФК «Судак»</title>
 <style>
 :root{--bg:#EEF3F5;--card:#fff;--ink:#0F2C45;--mute:#5E7486;--line:#D9E3E8;--sea:#1B7A8C;--navy:#0F2C45;--sun:#E3A93B;--win:#1E8E5A;--loss:#C0453A;--onnavy:#fff;color-scheme:light}
@@ -287,8 +288,110 @@ main:has(#squad.on){max-width:1200px}
 @media(prefers-reduced-motion:reduce){#squad .stats-player{animation:none;transition:none}}
 
 </style>
+<style id="launch-splash-styles">
+/* Inline critical styles: the launch screen needs no extra CSS/JS request. */
+#launch-splash[hidden],#launch-error[hidden]{display:none}
+#launch-splash{
+  position:fixed;inset:0;z-index:1000;isolation:isolate;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;justify-items:center;
+  padding:calc(24px + env(safe-area-inset-top,0px))
+    max(16px,env(safe-area-inset-right,0px))
+    calc(40px + env(safe-area-inset-bottom,0px))
+    max(16px,env(safe-area-inset-left,0px));
+  background:#001329;color:#F7E5B0;touch-action:none;
+  opacity:1;transition:opacity .5s ease;
+}
+#launch-splash.is-leaving{opacity:0}
+.launch-crest{
+  display:block;align-self:center;width:min(70vw,380px);height:auto;
+  max-width:100%;max-height:100%;object-fit:contain;opacity:0;
+}
+.crest-ready .launch-crest{animation:launch-appear .5s ease-out both}
+.launch-name{
+  margin:24px 0 0;padding-left:.24em;font-size:clamp(18px,4.6vw,24px);
+  font-weight:650;line-height:1.3;letter-spacing:.24em;text-align:center;
+}
+#launch-error{
+  position:relative;z-index:1001;margin:12px;padding:16px;
+  border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);
+}
+#launch-error button,#retry-data{font:inherit;min-height:44px;padding:8px 12px;cursor:pointer}
+@keyframes launch-appear{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  #launch-splash{transition:none!important}
+  #launch-splash.is-leaving{opacity:1}
+  #launch-splash .launch-crest{animation:none!important;opacity:1}
+}
+</style>
 </head>
 <body>
+<div id="launch-splash" role="status" aria-label="ФК Судак. Запуск приложения" aria-busy="true" hidden>
+  <img class="launch-crest" src="assets/club-crest-original.png" alt="" width="1024" height="1536" fetchpriority="high" decoding="async">
+  <p class="launch-name" aria-hidden="true">ФК СУДАК</p>
+</div>
+<div id="launch-error" role="alert" hidden>
+  <p>Не удалось завершить запуск. Можно продолжить с доступной информацией или повторить загрузку.</p>
+  <button type="button" id="launch-continue">Продолжить</button>
+  <button type="button" id="launch-retry">Повторить загрузку</button>
+</div>
+<script data-launch-splash>
+// One controller per document: hash routes, data refresh and focus never restart it.
+(()=>{
+  const splash=document.getElementById('launch-splash');
+  const image=splash.querySelector('img');
+  const warning=document.getElementById('launch-error');
+  const timers=[];
+  const locked=[];
+  let finished=false,appReady=false,crestReady=false,started=false;
+  let previousFocus=null;
+  splash.hidden=false;
+  function finish(failed=false){
+    if(finished)return;
+    finished=true;
+    timers.forEach(clearTimeout);
+    locked.forEach(([element,inert])=>{element.inert=inert});
+    splash.remove();
+    warning.hidden=!failed;
+    window.removeEventListener('error',onError);
+    window.removeEventListener('unhandledrejection',onError);
+    window.removeEventListener('sudak:ready',onReady);
+    if(previousFocus?.isConnected&&!failed)previousFocus.focus({preventScroll:true});
+  }
+  function start(){
+    if(started||finished||!appReady||!crestReady)return;
+    started=true;
+    // Count the brand interval only once the actual approved PNG is visible.
+    timers.push(setTimeout(()=>splash.classList.add('is-leaving'),3000));
+    timers.push(setTimeout(()=>finish(),3500));
+  }
+  function onReady(){
+    if(finished||appReady)return;
+    appReady=true;
+    previousFocus=document.activeElement===document.body?null:document.activeElement;
+    document.querySelectorAll('body > header,body > main,body > nav').forEach(element=>{
+      locked.push([element,element.inert]);element.inert=true;
+    });
+    start();
+  }
+  function onError(){finish(true)}
+  window.addEventListener('sudak:ready',onReady);
+  window.addEventListener('error',onError);
+  window.addEventListener('unhandledrejection',onError);
+  image.addEventListener('load',()=>{
+    crestReady=true;splash.classList.add('crest-ready');start();
+  },{once:true});
+  image.addEventListener('error',onError,{once:true});
+  if(image.complete){
+    if(image.naturalWidth){crestReady=true;splash.classList.add('crest-ready')}
+    else onError();
+  }
+  // A broken script, unavailable image or stalled startup must never trap users.
+  timers.push(setTimeout(()=>finish(true),8000));
+  document.getElementById('launch-continue').addEventListener('click',()=>{warning.hidden=true});
+  document.getElementById('launch-retry').addEventListener('click',()=>location.reload());
+})();
+</script>
+
 <header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=crest-v4" alt="" width="54" height="54"></div><div class="brand"><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div></header>
 <main>
 <section id="home" class="on" aria-label="Главная"></section>
@@ -299,6 +402,7 @@ main:has(#squad.on){max-width:1200px}
 <section id="match" aria-label="Подробности матча"></section>
 <section id="player" aria-label="Профиль футболиста"></section>
 <p class="note" id="upd" role="status">Загружаем актуальные данные…</p>
+<button type="button" id="retry-data" hidden>Повторить загрузку данных</button>
 </main>
 <nav id="nav" aria-label="Разделы приложения">
 <button type="button" data-t="home" class="on" aria-current="page"><i aria-hidden="true">⌂</i>Главная</button>
@@ -658,11 +762,13 @@ async function refreshData(force=false){
     }
     hasNetworkData=true;
     $("upd").textContent=lastDataLabel;
+    $("retry-data").hidden=true;
   }catch(error){
     // При отсутствии сети не очищаем уже показанный календарь и результаты.
     $("upd").textContent=hasNetworkData||hasSavedData
       ?lastDataLabel+" · Нет связи, показаны последние полученные данные"
       :"Нет свежих данных: показана резервная информация. Проверьте интернет.";
+    $("retry-data").hidden=false;
   }finally{
     clearTimeout(timeout);
     loadingData=false;
@@ -672,7 +778,9 @@ async function refreshData(force=false){
 restoreSavedData();
 render();
 applyRoute(true);
+window.dispatchEvent(new Event("sudak:ready"));
 refreshData();
+$("retry-data").addEventListener("click",()=>refreshData(true));
 setInterval(()=>{if(!document.hidden)refreshData()},DATA_POLL_MS);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshData()});
 window.addEventListener("focus",()=>refreshData());

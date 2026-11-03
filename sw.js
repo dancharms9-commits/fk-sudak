@@ -1,6 +1,6 @@
-// Crest v4: утверждённая эмблема и PWA-иконки; data.json по-прежнему читается из сети.
-const CACHE="sudak-crest-v4";
-const SHELL=["./","./index.html","./manifest.json","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];
+// Launch v5: заставка и оригинал эмблемы доступны в офлайн-оболочке.
+const CACHE="sudak-launch-v5";
+const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-original.png","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];
 
 self.addEventListener("install",event=>{
   event.waitUntil((async()=>{
@@ -27,6 +27,12 @@ self.addEventListener("fetch",event=>{
   // явно сообщает о недоступности свежих данных.
   if(url.pathname.endsWith("/data.json"))return;
   event.respondWith((async()=>{
+    // The approved PNG is immutable within this shell version. Prefer the
+    // precached original so a weak connection cannot delay the launch artwork.
+    if(url.pathname.endsWith("/assets/club-crest-original.png")){
+      const cached=await (await caches.open(CACHE)).match(event.request);
+      if(cached)return cached;
+    }
     try{
       const response=await fetch(event.request,{cache:"no-store"});
       if(response.ok){
