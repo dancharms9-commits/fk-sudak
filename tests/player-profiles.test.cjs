@@ -109,6 +109,7 @@ test('unknown season metrics show dashes and missing protocols never claim zero 
   assert(view.includes('Список может быть неполным'));
   assert(!view.includes('голов: 0'));
   for(const field of ['league_games','league_goals','league_minutes','league_starts','league_substitutions','league_penalty_goals'])assert(view.includes(`data-stat="${field}"><b>—</b>`));
+  assert(view.includes(`Всего игр в карточке РФФК: ${p.federation_games} · общий показатель федерации, не показатель сезона 2026.`));
 });
 test('missing and corrupted saved data do not break startup or invent profiles',()=>{
   for(const raw of [null,'broken json','{}','{"updated":"invalid"}']){
