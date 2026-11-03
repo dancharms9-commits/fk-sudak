@@ -242,6 +242,50 @@ nav button i{font-size:21px}
   #table th:nth-child(4), #table td:nth-child(4) { width: 60px; }
 }
 
+/* Squad cards stay in the cached HTML shell; other sections keep their width. */
+main:has(#squad.on){max-width:1200px}
+#squad .stats-head{align-items:flex-end;margin:8px 2px 18px;gap:12px}
+#squad .squad-kicker{display:block;color:var(--sea);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+#squad .stats-head h2{font-size:30px;line-height:1.1;margin:6px 0 0;letter-spacing:-.7px}
+#squad .squad-summary{display:grid;gap:10px;margin-bottom:14px}
+#squad .squad-summary .card{margin:0;padding:14px 16px;box-shadow:none}
+#squad .squad-coach{border-left:3px solid var(--sun)}
+#squad .squad-coach small{display:block;color:var(--mute);font-size:12px;margin-bottom:5px}
+#squad .squad-leaders h2{margin:0 0 6px;font-size:13px}
+#squad .stats-top{font-size:12px;margin:0;padding-left:18px}
+#squad .stats-filters{gap:8px;padding:6px 2px 14px;margin:6px 0 2px}
+#squad .stats-filters button{min-height:44px;padding:9px 14px;font-weight:600}
+#squad .stats-filters button[aria-pressed="true"]{background:var(--navy);border-color:var(--sea);color:#fff;box-shadow:inset 0 -2px var(--sun)}
+#squad .stats-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#squad .stats-player{min-width:0;padding:0;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 16px #102A4308;transition:border-color .2s ease,box-shadow .2s ease}
+#squad .squad-portrait{position:relative;aspect-ratio:1/1;display:grid;place-items:center;isolation:isolate;overflow:hidden;background:linear-gradient(145deg,var(--navy),#145B80);color:#fff;border-bottom:3px solid var(--sun)}
+#squad .squad-portrait:before{content:"";position:absolute;z-index:-1;width:80%;aspect-ratio:1;border:1px solid #FFFFFF24;border-radius:50%;right:-30%;bottom:-30%;box-shadow:0 0 0 22px #FFFFFF08,0 0 0 44px #FFFFFF05}
+#squad .squad-initials{font-size:clamp(32px,7vw,52px);font-weight:800;letter-spacing:2px;opacity:.8}
+#squad .squad-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+#squad .squad-card-body{display:flex;flex-direction:column;flex:1;min-width:0;padding:12px}
+#squad .stats-name{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+#squad .stats-role{font-size:11px;margin:5px 0 12px;overflow-wrap:anywhere}
+#squad .stats-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:auto}
+#squad .stats-value{min-width:0;padding:8px;border-radius:10px}
+#squad .stats-value b{font-size:22px;line-height:1.2}
+#squad .stats-value small{font-size:11px}
+#squad .squad-card-cue{display:flex;align-items:center;justify-content:space-between;color:var(--sea);font-size:11px;font-weight:700;margin-top:12px}
+#squad .squad-card-cue span{font-size:16px;line-height:1}
+#squad .stats-list>.empty{grid-column:1/-1}
+@media(min-width:640px){
+  #squad .stats-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  #squad .squad-summary{grid-template-columns:1fr 2fr}
+  #squad .squad-card-body{padding:14px}
+}
+@media(min-width:1024px){#squad .stats-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:1280px){#squad .stats-list{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(hover:hover){#squad .stats-player:hover{border-color:var(--sea);box-shadow:0 8px 24px #102A4318}}
+@keyframes squad-appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:no-preference){
+  #squad.on .stats-player{animation:squad-appear .32s ease backwards;animation-delay:var(--squad-delay,0ms)}
+}
+@media(prefers-reduced-motion:reduce){#squad .stats-player{animation:none;transition:none}}
+
 </style>
 </head>
 <body>
@@ -506,21 +550,30 @@ function renderSquad(){
     });
   const source="https://rffk-roo.ru/tournaments/4/";
   const labels=[["all","Все"],...roles.map(role=>[role,role])];
-  const leader=best.length?`<h2>Бомбардиры ФК «Судак» · 2026</h2><div class="card"><ol class="stats-top">${best.map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.league_goals)} гол.</li>`).join("")}</ol></div>`:"";
+  const leader=best.length?`<div class="card squad-leaders"><h2>Бомбардиры · 2026</h2><ol class="stats-top">${best.map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.league_goals)} гол.</li>`).join("")}</ol></div>`:"";
   const stale=PLAYER_STATS_2026?.verified===false&&verified.length>0;
   const statDate=Date.parse(PLAYER_STATS_2026?.stats_as_of||"");
   const asOf=Number.isFinite(statDate)?" ("+new Date(statDate).toLocaleDateString("ru-RU")+")":"";
   const caution=verified.length
     ?(stale?"Статистика чемпионата из последнего подтверждённого обновления"+asOf+": сейчас источник временно недоступен.":"Статистика чемпионата подтверждена турнирной таблицей РФФК"+asOf+".")
     :"Подтверждённая статистика чемпионата пока недоступна: прочерк означает отсутствие данных, а не ноль.";
-  const head=`<div class="stats-head"><strong>Игроки · сезон 2026</strong><a class="stats-source" href="${source}" target="_blank" rel="noopener noreferrer">Источник: РФФК ↗</a></div>`;
-  const coach=COACH?`<div class="card"><b>Главный тренер</b><div>${esc(COACH)}</div></div>`:"";
+  const head=`<div class="stats-head"><div><span class="squad-kicker">Наша команда · 2026</span><h2>Состав</h2></div><a class="stats-source" href="${source}" target="_blank" rel="noopener noreferrer">Источник: РФФК ↗</a></div>`;
+  const coach=COACH?`<div class="card squad-coach"><small>Главный тренер</small><b>${esc(COACH)}</b></div>`:"";
   const filters=`<div class="stats-filters" role="group" aria-label="Фильтр по позиции">${labels.map(([val,label])=>`<button type="button" data-role="${esc(val)}" aria-pressed="${PLAYER_ROLE===val}">${esc(label)}${val==="all"?" ("+players.length+")":""}</button>`).join("")}</div>`;
-  const cards=listing.map(p=>`<a class="stats-player player-link" href="${esc(playerHref(p))}" data-player="${esc(playerKey(p))}" aria-label="Профиль футболиста: ${esc(p.name)}"><div class="stats-name">${esc(p.name)}</div><div class="stats-role">${esc(p.position)}</div><div class="stats-values"><div class="stats-value"><b>${statValue(p.league_goals)}</b><small>Голы · 2026</small></div><div class="stats-value"><b>${statValue(p.league_games)}</b><small>Игры · 2026</small></div><div class="stats-value"><b>${statValue(p.league_minutes)}</b><small>Минуты · 2026</small></div></div><p class="stats-minor">Всего игр в карточке РФФК: ${statValue(p.federation_games)} · не показатель сезона 2026${Number.isInteger(p.league_penalty_goals)?" · из голов с пенальти: "+statValue(p.league_penalty_goals):""}</p><span class="match-cue">Профиль футболиста →</span></a>`).join("");
-  $("squad").innerHTML=head+coach+leader+`<p class="hint">${esc(caution)}</p>`+filters+
+  const cards=listing.map((p,index)=>{
+    const photo=officialPhoto(p);
+    const initials=p.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join("");
+    const portrait=`<div class="squad-portrait" aria-hidden="true"><span class="squad-initials">${esc(initials)}</span>${photo?`<img src="${esc(photo)}" alt="" loading="lazy" decoding="async" width="320" height="320" referrerpolicy="no-referrer">`:""}</div>`;
+    return `<a class="stats-player player-link" href="${esc(playerHref(p))}" data-player="${esc(playerKey(p))}" aria-label="Профиль футболиста: ${esc(p.name)}" style="--squad-delay:${Math.min(index,5)*35}ms">${portrait}<div class="squad-card-body"><div class="stats-name">${esc(p.name)}</div><div class="stats-role">${esc(p.position)}</div><div class="stats-values"><div class="stats-value" data-stat="league_games"><b>${statValue(p.league_games)}</b><small>Матчи · 2026</small></div><div class="stats-value" data-stat="league_goals"><b>${statValue(p.league_goals)}</b><small>Голы · 2026</small></div></div><span class="squad-card-cue">Профиль <span aria-hidden="true">↗</span></span></div></a>`;
+  }).join("");
+  $("squad").innerHTML=head+`<div class="squad-summary">${coach}${leader}</div>`+`<p class="hint">${esc(caution)}</p>`+filters+
     `<div class="stats-list">${cards||'<div class="card empty">Игроки не найдены.</div>'}</div>`+
-    `<p class="hint">Голы, игры и минуты — только Открытый чемпионат РК 2026. Прочерк означает, что значение не подтверждено. Общий показатель федерации приводится отдельно для справки.</p>`;
+    `<p class="hint">Матчи и голы — только Открытый чемпионат РК 2026. Прочерк означает, что значение не подтверждено. Подробная статистика — в профиле. Фото — из подтверждённых карточек РФФК; если снимка нет, показаны инициалы.</p>`;
 }
+// Image errors do not bubble; capture also handles lazy portraits after filtering.
+$("squad").addEventListener("error",event=>{
+  if(event.target.matches(".squad-portrait img"))event.target.remove();
+},true);
 $("squad").addEventListener("click",event=>{
   const btn=event.target.closest("button[data-role]");if(!btn)return;
   if(!["all","Вратари","Защитники","Полузащитники","Нападающие"].includes(btn.dataset.role))return;
