@@ -792,9 +792,13 @@ function matchParentHash(value){
   const params=new URLSearchParams(value.slice(1));
   return params.get('match')?value:'';
 }
-function matchParentTab(hash){
+function matchParentTab(hash,depth=0){
   const params=new URLSearchParams(String(hash||'').slice(1));
-  return params.get('from')==='home'?'home':params.get('from')==='player'?'squad':'matches';
+  if(params.get('from')==='home')return 'home';
+  if(params.get('from')!=='player')return 'matches';
+  if(params.get('profileFrom')==='home')return 'home';
+  const parent=matchParentHash(params.get('profileBack'));
+  return params.get('profileFrom')==='match'&&parent&&depth<8?matchParentTab(parent,depth+1):'squad';
 }
 function currentRoute(){
   const hash=location.hash.slice(1),params=new URLSearchParams(hash);

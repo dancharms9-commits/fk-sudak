@@ -105,3 +105,11 @@ test('unknown fixture date is omitted rather than turned into an invented date',
   const n=['дата уточняется','УОР','','дома'],id=key([n[0],n[1],null,null,n[2],n[3]]);
   assert.equal(model([],[n],{},id).date,'');
 });
+
+test('nested player visits retain the original match tab rather than switching to squad',()=>{
+  for(const origin of ['home','matches']){
+    const original='#match='+encodeURIComponent(firstKey)+'&from='+origin;
+    const nested='#match='+encodeURIComponent(firstKey)+'&from=player&player=rffk-202&profileFrom=match&profileBack='+encodeURIComponent(original);
+    assert.equal(run(`matchParentTab(${JSON.stringify(nested)})`),origin);
+  }
+});

@@ -70,7 +70,11 @@ const server=http.createServer((req,res)=>{
     assert.equal(await page.locator('#player-back').innerText(),'← К матчу');
     assert.equal(await page.locator('#nav [data-t="matches"]').getAttribute('aria-current'),'page');
     const goal=page.locator('#player .player-goal').last();await goal.scrollIntoViewIfNeeded();const profileScroll=await page.evaluate(()=>scrollY);
-    await goal.click();await page.locator('#match.on').waitFor();await page.locator('#match-back').click();await page.locator('#player.on').waitFor();
+    await goal.click();await page.locator('#match.on').waitFor();
+    await page.locator('#match .center-scorers a[data-player]').first().click();await page.locator('#player.on').waitFor();
+    assert.equal(await page.locator('#nav [data-t="matches"]').getAttribute('aria-current'),'page');
+    await page.locator('#player-back').click();await page.locator('#match.on').waitFor();
+    await page.locator('#match-back').click();await page.locator('#player.on').waitFor();
     assert(Math.abs(await page.evaluate(()=>scrollY)-profileScroll)<3);
     await page.locator('#player-back').click();await page.locator('#match.on').waitFor();
     assert.equal(await page.evaluate(()=>document.activeElement.dataset.matchPlayer),entry);assert(Math.abs(await page.evaluate(()=>scrollY)-centerScroll)<3);
