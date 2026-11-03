@@ -43,6 +43,88 @@ const server=http.createServer((req,res)=>{
       await page.locator(`#nav [data-t="${name}"]`).click();
       await page.waitForFunction(name=>document.querySelector('main section.on')?.id===name,name);
     };
+    await load();
+    const iconBytes=fs.readFileSync(path.join(root,'icon-maskable-512.png'));
+    const standardIconBytes=fs.readFileSync(path.join(root,'fk-sudak-pwa-512.png'));
+    const assetChecks=await page.evaluate(async ({icon,original})=>{
+      async function decode(base64){const img=new Image();img.src='data:image/png;base64,'+base64;await img.decode();return img}
+      const [mask,source]=await Promise.all([decode(icon),decode(original)]);
+      const canvas=document.createElement('canvas');canvas.width=canvas.height=512;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(mask,0,0);
+      const pixels=ctx.getImageData(0,0,512,512).data;
+      let opaque=true,maxCrestRadius=0,crestPixels=0;
+      for(let y=0;y<512;y++)for(let x=0;x<512;x++){
+        const i=(y*512+x)*4,r=pixels[i],g=pixels[i+1],b=pixels[i+2];
+        if(pixels[i+3]!==255)opaque=false;
+        // Red shield, yellow sun and white ornaments identify essential artwork.
+        if((r>130&&g<115&&b<140)||(r>180&&g>140&&b<150)||(r>175&&g>175&&b>175)){
+          crestPixels++;maxCrestRadius=Math.max(maxCrestRadius,Math.hypot(x-256,y-256));
+        }
+      }
+      const reference=document.createElement('canvas');reference.width=reference.height=512;
+      const rc=reference.getContext('2d',{willReadFrequently:true});rc.imageSmoothingQuality='high';rc.drawImage(source,64,64,384,384);
+      const expected=rc.getImageData(0,0,512,512).data;
+      let maxChannelDifference=0;
+      // Entire source crest box at 75% fits inside the W3C radius-40% safe zone.
+      for(let y=108;y<=404;y++)for(let x=135;x<=378;x++){
+        const i=(y*512+x)*4;for(let c=0;c<3;c++)maxChannelDifference=Math.max(maxChannelDifference,Math.abs(pixels[i+c]-expected[i+c]));
+      }
+      const safe=document.createElement('canvas');safe.width=safe.height=512;const sc=safe.getContext('2d');
+      sc.beginPath();sc.arc(256,256,204.8,0,Math.PI*2);sc.clip();sc.drawImage(mask,0,0);
+      return {width:mask.naturalWidth,height:mask.naturalHeight,opaque,maxCrestRadius,crestPixels,maxChannelDifference,safePreview:safe.toDataURL('image/png')};
+    },{icon:iconBytes.toString('base64'),original:standardIconBytes.toString('base64')});
+    assert.equal(assetChecks.width,512);assert.equal(assetChecks.height,512);assert(assetChecks.opaque);
+    assert(assetChecks.crestPixels>10000);assert(assetChecks.maxCrestRadius<204.8,'Crest must stay inside maskable safe circle');
+    assert(assetChecks.maxChannelDifference<=1,'Original crest pixels must be preserved after resize');
+    if(process.env.VISUAL_SCREENSHOT_DIR){
+      fs.mkdirSync(process.env.VISUAL_SCREENSHOT_DIR,{recursive:true});
+      fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,'maskable-safe-zone.png'),Buffer.from(assetChecks.safePreview.split(',')[1],'base64'));
+    }
+    console.log('PASS opaque 512px maskable icon, original crest and Android safe circle (radius '+assetChecks.maxCrestRadius.toFixed(1)+'px)');
+    const layout=async()=>{
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),await page.evaluate(()=>innerWidth),'Horizontal overflow');
+      const clipped=await page.evaluate(()=>{
+        const selector='header .crest,header .brand,header h1,header p,main,nav,nav button,main section.on h2,main section.on .card,main section.on .stats-player,main section.on .vs,main section.on .num,main section.on .tm,main section.on .profile-values,main section.on .goal-timeline,main section.on .match-back';
+        return [...document.querySelectorAll(selector)].filter(el=>el.getClientRects().length).filter(el=>{
+          const r=el.getBoundingClientRect();return r.left<-.5||r.right>innerWidth+.5;
+        }).map(el=>el.tagName+'.'+el.className);
+      });
+      assert.deepEqual(clipped,[],'Clipped layout or controls');
+      // At the end of the document, fixed bottom navigation must not cover content.
+      await page.evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));
+      const overlap=await page.evaluate(()=>{
+        const nav=document.getElementById('nav').getBoundingClientRect();
+        const last=document.getElementById('upd').getBoundingClientRect();
+        return last.bottom>nav.top+.5;
+      });
+      assert.equal(overlap,false,'Bottom navigation covers the final content');
+      await page.evaluate(()=>scrollTo(0,0));
+    };
+    for(const colorScheme of ['light','dark'])for(const reducedMotion of ['no-preference','reduce'])for(const width of [320,390,768,1440]){
+      await page.emulateMedia({colorScheme,reducedMotion});
+      await page.setViewportSize({width,height:844});
+      await load();
+      await page.evaluate(async()=>{await document.fonts.ready;await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})))});
+      await layout();
+      assert.equal(await page.locator('header .crest img').evaluate(img=>img.complete&&img.naturalWidth===192),true);
+      assert.equal(await page.locator('#home .home-intro').count(),1);
+      assert.equal(await page.locator('#home .home-next').count(),data.next.length?1:0);
+      assert.equal(await page.locator('#home .home-result').count(),1);
+      assert.equal(await page.locator('#home .home-standing').count(),1);
+      if(reducedMotion==='reduce'){
+        const motion=await page.locator('#home .home-result').evaluate(el=>{
+          const s=getComputedStyle(el);return {animation:parseFloat(s.animationDuration),transition:parseFloat(s.transitionDuration),scroll:getComputedStyle(document.documentElement).scrollBehavior};
+        });
+        assert(motion.animation<=.00001&&motion.transition<=.00001);assert.equal(motion.scroll,'auto');
+      }
+      if(process.env.VISUAL_SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.VISUAL_SCREENSHOT_DIR,`home-${colorScheme}-${reducedMotion}-${width}.png`),fullPage:true});
+      for(const name of ['matches','table','squad','news']){await section(name);await layout()}
+      // Profile and match screens remain readable under the same theme/motion settings.
+      await section('squad');await page.locator('#squad a[data-player]').first().click();await page.locator('#player.on').waitFor();await layout();
+      await section('matches');await page.locator('#matches a[data-match]').first().click();await page.locator('#match.on').waitFor();await layout();
+      console.log('PASS visual layout, navigation clearance and header icon: '+colorScheme+', '+reducedMotion+', '+width+'px');
+    }
+    await page.emulateMedia({colorScheme:'light',reducedMotion:'no-preference'});
     for(const width of [320,390,768,1440]){
       await page.setViewportSize({width,height:844});
       await load();
@@ -253,12 +335,25 @@ const server=http.createServer((req,res)=>{
     context=await browser.newContext({viewport:{width:390,height:844}});
     page=await context.newPage();
     page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(base+'/manifest.json');
+    await page.evaluate(async()=>{
+      const old=await caches.open('sudak-v2');await old.put('./obsolete-icon.png',new Response('old icon'));
+    });
     await load(base+'/#match='+encodeURIComponent(firstKey)+'&from=matches');
     // New routes use only hash fragments: the existing PWA shell still works offline.
     await page.evaluate(()=>navigator.serviceWorker.ready);
     await page.reload();
     await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
     assert(await page.evaluate(async()=>!!(await navigator.serviceWorker.getRegistration())));
+    const shell=await page.evaluate(async()=>{
+      const keys=await caches.keys(),cache=await caches.open('sudak-ui-v3');
+      return {keys,urls:(await cache.keys()).map(request=>new URL(request.url).pathname)};
+    });
+    assert(!shell.keys.includes('sudak-v2'),'Old shell cache must be removed');
+    for(const icon of ['icon-192.png','icon-512.png','icon-maskable-512.png'])assert(shell.urls.includes('/'+icon));
+    assert(!shell.urls.some(url=>url.endsWith('/data.json')),'Federation data must still bypass the SW cache');
+    const manifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
+    assert.deepEqual(manifest.icons.map(i=>i.purpose),['any','any','maskable']);
     assert.equal(await page.locator('link[rel="manifest"]').getAttribute('href'),'manifest.json');
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
     await context.setOffline(true);

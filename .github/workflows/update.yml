@@ -10,6 +10,10 @@ on:
       - "data.json"
       - "sw.js"
       - "manifest.json"
+      - "modern-home.css"
+      - "apply_visual_refresh.py"
+      - "fk-sudak-pwa-*.png"
+      - "icon-*.png"
       - "tests/**"
       - ".github/workflows/update.yml"
 permissions: {contents: read}

@@ -1,11 +1,11 @@
-// v2: автоматическое обновление HTML и данных без устаревшего data.json.
-const CACHE="sudak-v2";
-const SHELL=["./","./index.html","./manifest.json"];
+// UI v3: обновлённые иконки и оболочка; data.json по-прежнему читается из сети.
+const CACHE="sudak-ui-v3";
+const SHELL=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","./icon-maskable-512.png"];
 
 self.addEventListener("install",event=>{
   event.waitUntil((async()=>{
     const cache=await caches.open(CACHE);
-    await cache.addAll(SHELL);
+    await cache.addAll(SHELL.map(url=>new Request(url,{cache:"reload"})));
     await self.skipWaiting();
   })());
 });
