@@ -49,6 +49,21 @@ table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:ta
 nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
 nav button{flex:1;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-radius:10px;min-width:0}nav button i{font-style:normal;font-size:20px}nav button.on{color:var(--sea);font-weight:700}nav button:focus-visible{outline:2px solid var(--sea)}
 .note{font-size:12.5px;color:var(--mute);text-align:center;margin:18px 8px 0}.empty{color:var(--mute);font-size:14px}.hint{color:var(--mute);font-size:12px;line-height:1.45;margin:10px 2px}.venue{color:var(--mute)}
+/* Match links retain the existing cards, colours and mobile spacing. */
+a.match-link{display:block;color:inherit;text-decoration:none;cursor:pointer}
+a.match-link:focus-visible,.match-back:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+a.match-link:hover{background:var(--bg)}
+.match-cue{display:block;color:var(--sea);font-size:12px;text-align:center;margin-top:9px}
+.match-back{font:inherit;background:var(--card);color:var(--sea);border:1px solid var(--line);border-radius:10px;min-height:44px;padding:9px 14px;cursor:pointer}
+.match-meta{text-align:center;color:var(--mute);font-size:14px;line-height:1.7;margin:0}
+#match .tm small{display:block;font-size:11px;font-weight:400;color:var(--mute);margin-top:4px}
+.goal-timeline{list-style:none;padding:0;margin:0}
+.goal-timeline li{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.goal-timeline li:last-child{border:0}
+.goal-minute{color:var(--sea);font-weight:700;min-width:46px;font-variant-numeric:tabular-nums}
+.goal-player{flex:1;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.goal-player small{display:block;color:var(--mute);font-size:12px;margin-top:3px}
+@media(max-width:360px){#match .board{gap:6px}#match .num{font-size:36px;min-width:44px;padding:9px 8px}}
 </style>
 </head>
 <body>
@@ -59,6 +74,7 @@ nav button{flex:1;background:none;border:0;color:var(--mute);font:inherit;font-s
 <section id="table" aria-label="Таблица"></section>
 <section id="squad" aria-label="Состав"></section>
 <section id="news" aria-label="Новости"></section>
+<section id="match" aria-label="Подробности матча"></section>
 <p class="note" id="upd" role="status">Загружаем актуальные данные…</p>
 </main>
 <nav id="nav" aria-label="Разделы приложения">
@@ -75,6 +91,7 @@ let TABLE=[["СК «Каштан»",16,"90–21",48],["ФК «Судак»",16,"
 let RES=[["25 октября","ФК «Саки»",3,2,"","в гостях"],["10 октября","«СТО-Газель»",4,2,"","дома"],["4 октября","ФК «Фуна»",3,2,"","в гостях"],["26 сентября","АФК",6,1,"","дома"],["12 сентября","ФК «НКСТРОЙ-Керчь»",4,0,"","в гостях"]];
 let NEXT=[["14 ноября","УОР","","в гостях"],["22 ноября","ФК «Сталкер»","","в гостях"],["28 ноября","СК «Каштан»","","дома"]];
 let SQUAD={};let COACH="";let NEWS=[];
+let MATCH_DETAILS={};
 let PLAYER_STATS_2026=null;let PLAYER_ROLE="all";
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -89,15 +106,86 @@ function render(){
   const N=NEXT[0],L=RES[0],me=TABLE.findIndex(t=>String(t[0]).includes("Судак")),mt=TABLE[me]||[],lead=TABLE[0]||[];
   const form=RES.slice(0,5).map(kind);
   const nearest=N?`<div class="card next"><span class="tag">Ближайший матч</span><div class="vs">${N[3]==="дома"?"ФК «Судак» — "+esc(N[1]):esc(N[1])+" — ФК «Судак»"}</div><small>${esc(N[0])}</small><small>${venue(N[2])}</small></div>`:`<div class="card empty">Ближайший матч пока не назначен.</div>`;
-  const latest=L?`<h2>Последний матч</h2><div class="card"><div class="board"><div class="tm">ФК «Судак»</div><div class="num us">${esc(L[2])}</div><div class="num">${esc(L[3])}</div><div class="tm">${esc(L[1])}</div></div><small style="display:block;text-align:center;color:var(--mute)">${esc(L[0])} · ${venue(L[4])}</small></div>`:"";
+  const latest=L?`<h2>Последний матч</h2><a class="card match-link" href="${esc(matchHref(L))}" data-match="${esc(matchKey(L))}" aria-label="Подробности последнего матча: ФК Судак — ${esc(L[1])}, ${esc(L[2])}:${esc(L[3])}"><div class="board"><div class="tm">ФК «Судак»</div><div class="num us">${esc(L[2])}</div><div class="num">${esc(L[3])}</div><div class="tm">${esc(L[1])}</div></div><small style="display:block;text-align:center;color:var(--mute)">${esc(L[0])} · ${venue(L[4])}</small><span class="match-cue">Подробности матча →</span></a>`:"";
   const position=me>=0?`<h2>В таблице</h2><div class="card"><div class="row"><div class="l"><b>${me+1} место</b><small>${esc(mt[1])} игр, мячи ${esc(mt[2])}</small></div><div class="sc">${esc(mt[3])} очков</div></div>${me>0?`<div class="row"><div class="l"><b>До лидера</b><small>${esc(lead[0])}</small></div><div class="sc">${asNumber(lead[3])-asNumber(mt[3])} очк.</div></div>`:""}</div>`:"";
   $("home").innerHTML=nearest+latest+(form.length?`<h2>Форма: последние 5 игр</h2><div class="card"><div class="form">${form.map(f=>`<div class="dot ${f}">${lt[f]}</div>`).join("")}</div></div>`:"")+position;
-  $("matches").innerHTML=`<h2>Календарь</h2><div class="card">${NEXT.length?NEXT.map(n=>`<div class="row"><div class="l"><b>${esc(n[1])}</b><small class="venue">${venue(n[2])}</small></div><div style="text-align:right"><b>${esc(n[0])}</b><small>${esc(n[3])}</small></div></div>`).join(""):`<div class="empty">Матчи пока не назначены.</div>`}</div><h2>Результаты</h2><div class="card">${RES.length?RES.map(r=>{const k=kind(r);return `<div class="row"><div style="display:flex;gap:10px;align-items:center;min-width:0;flex:1"><div class="dot ${k}">${lt[k]}</div><div class="l"><b>${esc(r[1])}</b><small>${esc(r[0])} · ${venue(r[4])}</small></div></div><div class="sc">${esc(r[2])}:${esc(r[3])}</div></div>`}).join(""):`<div class="empty">Результаты не опубликованы.</div>`}</div>`;
+  $("matches").innerHTML=`<h2>Календарь</h2><div class="card">${NEXT.length?NEXT.map(n=>`<div class="row"><div class="l"><b>${esc(n[1])}</b><small class="venue">${venue(n[2])}</small></div><div style="text-align:right"><b>${esc(n[0])}</b><small>${esc(n[3])}</small></div></div>`).join(""):`<div class="empty">Матчи пока не назначены.</div>`}</div><h2>Результаты</h2><div class="card">${RES.length?RES.map(r=>{const k=kind(r);return `<a class="row match-link" style="display:flex" href="#match=${encodeURIComponent(matchKey(r))}&amp;from=matches" data-match="${esc(matchKey(r))}" aria-label="Подробности матча: ${esc(r[1])}, ${esc(r[0])}, ${esc(r[2])}:${esc(r[3])}"><div style="display:flex;gap:10px;align-items:center;min-width:0;flex:1"><div class="dot ${k}">${lt[k]}</div><div class="l"><b>${esc(r[1])}</b><small>${esc(r[0])} · ${venue(r[4])}</small></div></div><div class="sc">${esc(r[2])}:${esc(r[3])} <span aria-hidden="true">›</span></div></a>`}).join(""):`<div class="empty">Результаты не опубликованы.</div>`}</div>`;
   $("table").innerHTML=`<h2>Открытый чемпионат РК · сезон 2026</h2><div class="card" style="padding:6px 10px"><table><thead><tr><th>#</th><th>Команда</th><th>И</th><th>Мячи</th><th>О</th></tr></thead><tbody>${TABLE.map((t,i)=>`<tr class="${i===me?"me":""}"><td>${i+1}</td><td>${esc(t[0])}</td><td>${esc(t[1])}</td><td>${esc(t[2])}</td><td>${esc(t[3])}</td></tr>`).join("")}</tbody></table></div><p class="hint">И — игры, О — очки. Источник: Республиканская федерация футбола Крыма.</p>`;
   renderSquad();
   const published=NEWS.filter(n=>Array.isArray(n)&&n.length>=4&&newsLink(n[3]));
   $("news").innerHTML=`<h2>Новости федерации · 2026</h2><div class="card news">${published.length?published.map(n=>`<a href="${esc(newsLink(n[3]))}" target="_blank" rel="noopener noreferrer"><b>${esc(n[1])}</b><small>${esc(n[0])}${n[2]?" · "+esc(n[2]):""}</small><span class="source">Открыть на сайте федерации ↗</span></a>`).join(""):`<div class="empty">Свежие новости пока не удалось подтвердить. Показываем только публикации текущего года с рабочей ссылкой на источник.</div>`}</div>`;
+  renderMatch();
 }
+const matchKey=r=>[2026,r[0],r[1],r[5]].join("|");
+const matchHref=r=>"#match="+encodeURIComponent(matchKey(r))+"&from=home";
+function protocolLink(raw){
+  try{const u=new URL(String(raw||""),"https://rffk-roo.ru");return u.protocol==="https:"&&u.host==="rffk-roo.ru"&&/^\/matches\/\d+\/?$/.test(u.pathname)&&!u.search&&!u.hash?u.href:""}catch{return ""}
+}
+function currentRoute(){
+  const hash=location.hash.slice(1);
+  if(hash.startsWith("match=")){
+    const params=new URLSearchParams(hash);
+    return {section:"match",key:params.get("match"),origin:params.get("from")==="home"?"home":"matches"};
+  }
+  return {section:["home","matches","table","squad","news"].includes(hash)?hash:"home"};
+}
+function renderMatch(){
+  const route=currentRoute();if(route.section!=="match")return;
+  const row=RES.find(r=>matchKey(r)===route.key);
+  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==="home"?"На главную":"К матчам"}</button>`;
+  if(!row){$("match").innerHTML=back+'<h2 tabindex="-1" id="match-title">Матч недоступен</h2><div class="card empty">Сведения об этом матче пока недоступны. Проверьте подключение или выберите матч в разделе «Матчи».</div>';return}
+  const detail=Object.hasOwn(MATCH_DETAILS,route.key)?MATCH_DETAILS[route.key]:null;
+  const home=row[5]==="дома";
+  const teams=home?["ФК «Судак»",row[1]]:[row[1],"ФК «Судак»"];
+  const scores=home?[row[2],row[3]]:[row[3],row[2]];
+  const validDate=/^2026-\d{2}-\d{2}$/.test(detail?.date||"")?detail.date.split("-").reverse().join("."):row[0]+" 2026";
+  const source=protocolLink(detail?.source_url);
+  const available=detail?.status==="available"&&Array.isArray(detail.goals);
+  const types={penalty:" · с пенальти",own_goal:" · автогол"};
+  const goals=available?detail.goals:[];
+  const events=available?(goals.length?`<ol class="goal-timeline">${goals.map(g=>`<li><span class="goal-minute">${esc(g.minute)}′</span><div class="goal-player"><b>${esc(g.player)}</b><small>${esc(teams[g.side==="home"?0:1])}${esc(types[g.type]||"")}</small></div><b class="sc">${esc(g.score[0])}:${esc(g.score[1])}</b></li>`).join("")}</ol>`:'<p class="empty">В этом матче голов не было.</p>'):'<p class="empty" role="status">Протокол матча недоступен или содержит неполные данные. Авторы голов, минуты и хронология пока не подтверждены.</p>';
+  $("match").innerHTML=back+`<h2 tabindex="-1" id="match-title">Подробности матча</h2><div class="card"><div class="board"><div class="tm">${esc(teams[0])}<small>Хозяева</small></div><div class="num ${home?"us":""}">${esc(scores[0])}</div><div class="num ${home?"":"us"}">${esc(scores[1])}</div><div class="tm">${esc(teams[1])}<small>Гости</small></div></div><p class="match-meta">${esc(validDate)}${detail?.time?" · "+esc(detail.time):""}<br>${esc(detail?.venue||row[4]||"Стадион не указан")}</p></div><h2>Хронология голов</h2><div class="card">${events}</div>${source?`<p class="hint"><a class="stats-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Протокол на сайте РФФК ↗</a></p>`:""}<p class="hint">Счёт указан в порядке: хозяева — гости. Сведения из официального протокола РФФК.</p>`;
+}
+function applyRoute(restore=false){
+  const route=currentRoute();
+  document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
+  document.querySelectorAll('#nav button').forEach(el=>{
+    const active=el.dataset.t===(route.section==="match"?route.origin:route.section);
+    el.classList.toggle("on",active);
+    if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");
+  });
+  if(route.section==="match")renderMatch();
+  document.title=route.section==="match"?"Матч · ФК «Судак»":"ФК «Судак»";
+  window.scrollTo(0,restore?(history.state?.scrollY||0):0);
+  if(route.section==="match")$("match-title")?.focus({preventScroll:true});
+  else if(restore&&history.state?.focusMatch){
+    const link=[...$(route.section).querySelectorAll("a[data-match]")].find(a=>a.dataset.match===history.state.focusMatch);
+    link?.focus({preventScroll:true});
+  }
+}
+function rememberPosition(focusMatch){
+  history.replaceState({...history.state,scrollY:window.scrollY,focusMatch},"",location.href);
+}
+$("home").addEventListener("click",openMatch);
+$("matches").addEventListener("click",openMatch);
+function openMatch(event){
+  const link=event.target.closest("a[data-match]");
+  if(!link||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();
+  const origin=currentRoute().section;
+  rememberPosition(link.dataset.match);
+  history.pushState({matchEntry:true},"","#match="+encodeURIComponent(link.dataset.match)+"&from="+origin);
+  applyRoute();
+}
+$("match").addEventListener("click",event=>{
+  if(!event.target.closest("#match-back"))return;
+  if(history.state?.matchEntry)history.back();
+  else{history.replaceState({},"","#"+currentRoute().origin);applyRoute()}
+});
+window.addEventListener("popstate",()=>applyRoute(true));
+window.addEventListener("hashchange",()=>applyRoute(true));
+if("scrollRestoration" in history)history.scrollRestoration="manual";
+
 // Отдельная статистика конкретного турнира: 2026, не смешиваем с общим числом игр.
 function playerRows(){
   if(PLAYER_STATS_2026?.season===2026&&Array.isArray(PLAYER_STATS_2026.players)&&
@@ -150,9 +238,8 @@ $("squad").addEventListener("click",event=>{
 
 $("nav").addEventListener("click",event=>{
   const b=event.target.closest("button[data-t]");if(!b)return;
-  document.querySelectorAll("nav button,main section").forEach(el=>el.classList.remove("on"));
-  document.querySelectorAll("nav button").forEach(el=>el.removeAttribute("aria-current"));
-  b.classList.add("on");b.setAttribute("aria-current","page");$(b.dataset.t).classList.add("on");window.scrollTo(0,0);
+  rememberPosition();
+  history.pushState({},"","#"+b.dataset.t);applyRoute();
 });
 // Данные федерации обновляются в GitHub каждый час. Открытая вкладка
 // проверяет опубликованный data.json каждые пять минут, а также при
@@ -202,6 +289,7 @@ async function refreshData(force=false){
         TABLE=d.table;RES=d.res;NEXT=d.next;SQUAD=d.squad;
         NEWS=d.news;COACH=typeof d.coach==="string"?d.coach:COACH;
         PLAYER_STATS_2026=d.player_stats_2026||null;
+        MATCH_DETAILS=d.match_details&&typeof d.match_details==="object"&&!Array.isArray(d.match_details)?d.match_details:{};
         render();
       }
       lastDataTimestamp=stamp;
@@ -221,6 +309,7 @@ async function refreshData(force=false){
 }
 
 render();
+applyRoute();
 refreshData();
 setInterval(()=>{if(!document.hidden)refreshData()},DATA_POLL_MS);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshData()});

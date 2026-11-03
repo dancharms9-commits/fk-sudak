@@ -8,6 +8,7 @@ import json
 import os
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urljoin, urlparse
 
 import requests
@@ -164,7 +165,20 @@ def venues_by_date(soup, season_year=SEASON_YEAR):
     return found
 
 
-def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
+def match_key(row, season_year=SEASON_YEAR):
+    """Stable UI key without changing any of the six legacy result fields."""
+    return "|".join((str(season_year), row[0], row[1], row[5]))
+
+
+def safe_match_url(href):
+    url = urljoin(BASE, href or "")
+    parsed = urlparse(url)
+    return url if (parsed.scheme == "https" and parsed.netloc == "rffk-roo.ru"
+                   and re.fullmatch(r"/matches/\d+/?", parsed.path)
+                   and not parsed.query and not parsed.fragment) else ""
+
+
+def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None, match_refs=None):
     today = today or datetime.datetime.now(
         datetime.timezone(datetime.timedelta(hours=3))
     ).date()
@@ -208,7 +222,20 @@ def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
         if score:
             home_goals, away_goals = map(int, score.groups())
             ours, theirs = (home_goals, away_goals) if home_match else (away_goals, home_goals)
-            results.append((date, [human(date_str), opponent, ours, theirs, venue, location]))
+            row = [human(date_str), opponent, ours, theirs, venue, location]
+            results.append((date, row))
+            if match_refs is not None:
+                # The protocol link is outside .score_line, in the SAME match.
+                card = link.find_parent(class_="matches_calendar_line")
+                source_links = card.select('a[href*="/matches/"]') if card else []
+                urls = {safe_match_url(a.get("href")) for a in source_links} - {""}
+                match_refs[match_key(row, season_year)] = {
+                    "id": next(iter(urls)).rstrip("/").rsplit("/", 1)[-1] if len(urls) == 1 else None,
+                    "source_url": next(iter(urls)) if len(urls) == 1 else "",
+                    "date": date.isoformat(),
+                    "home": txt(home), "away": txt(away),
+                    "home_score": home_goals, "away_score": away_goals,
+                }
         elif date >= today:
             upcoming.append((date, [human(date_str), opponent, venue, location]))
 
@@ -222,6 +249,115 @@ def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
 
     return ([row for _, row in sorted(unique(results), key=lambda x: x[0], reverse=True)],
             [row for _, row in sorted(unique(upcoming), key=lambda x: x[0])])
+
+
+def minute_parts(value):
+    match = re.fullmatch(r"(\d{1,3})(?:\s*\+\s*(\d{1,2}))?\s*[’′']?", value)
+    if not match:
+        return None
+    minute, added = int(match[1]), int(match[2] or 0)
+    if not 1 <= minute <= 120 or added > 30:
+        return None
+    return minute, added
+
+
+def parse_match_protocol(soup, expected):
+    """Accept only a matching protocol with a complete, consistent goal list.
+
+    РФФК CSS maps icon_1=goal, icon_3=penalty, icon_2=own goal,
+    icon_4=missed penalty. Scorer columns identify the credited team (also
+    for own goals); never infer the credited side from the player's name.
+    """
+    info = soup.select_one(".match_info")
+    if info is None:
+        return None
+    names = [txt(el) for el in info.select(".score_line .team_name")]
+    scores = [txt(info.select_one(selector)) if info.select_one(selector) else ""
+              for selector in (".score .first", ".score .second")]
+    date_el = info.select_one(".head .date")
+    date_hit = DATE.search(txt(date_el)) if date_el else None
+    if (names != [expected["home"], expected["away"]]
+            or scores != [str(expected["home_score"]), str(expected["away_score"])]
+            or not date_hit or datetime.datetime.strptime(date_hit[0], "%d.%m.%Y").date().isoformat() != expected["date"]):
+        return None
+    # Verify the tournament and season, not a similarly named cup fixture.
+    crumbs = soup.select_one(".breadcrumbs")
+    if (not crumbs or not crumbs.select_one(f'a[href="{LEAGUE_URL}"]')
+            or not re.search(rf"Сезон\s+{SEASON_YEAR}(?:/{SEASON_YEAR})?\b", txt(crumbs))):
+        return None
+    columns = info.select(".score_balls .scorers")
+    timeline = info.select_one(".timeline .list")
+    if len(columns) != 2 or timeline is None:
+        return None
+    scorers = []
+    for side, column in zip(("home", "away"), columns):
+        for entry in column.find_all("div", recursive=False):
+            fio, minute = entry.select_one(".fio"), entry.select_one(".minute")
+            if fio is None or minute is None or not txt(fio) or minute_parts(txt(minute)) is None:
+                return None
+            scorers.append((side, txt(fio), minute_parts(txt(minute))))
+    goals = []
+    types = {"icon_1": "goal", "icon_3": "penalty", "icon_2": "own_goal"}
+    for item in timeline.select(".item"):
+        for column, side in ((".team1", "home"), (".team2", "away")):
+            team = item.select_one(column)
+            classes = set(team.get("class", [])) if team else set()
+            goal_type = classes.intersection(types)
+            if not goal_type:
+                continue
+            minute = item.select_one(".time")
+            parts = minute_parts(txt(minute)) if minute else None
+            player = txt(team)
+            if len(goal_type) != 1 or parts is None or not player:
+                return None
+            # Own goals can be presented in either column by the source.
+            # Use the scorer summary to determine which score increased.
+            candidates = [s for s in scorers if s[1:] == (player, parts)
+                          and (s[0] == side or "icon_2" in goal_type)]
+            if len(candidates) != 1:
+                return None
+            credited = candidates[0]
+            scorers.remove(credited)
+            goals.append({"side": credited[0], "player": player,
+                          "minute": str(parts[0]) + (f"+{parts[1]}" if parts[1] else ""),
+                          "type": types[next(iter(goal_type))], "_order": parts})
+    # Missing events / technical results must never become a made-up timeline.
+    if scorers or len(goals) != expected["home_score"] + expected["away_score"]:
+        return None
+    goals.sort(key=lambda goal: goal["_order"])
+    running = {"home": 0, "away": 0}
+    for goal in goals:
+        del goal["_order"]
+        running[goal["side"]] += 1
+        goal["score"] = [running["home"], running["away"]]
+    if [running["home"], running["away"]] != [expected["home_score"], expected["away_score"]]:
+        return None
+    place = info.select_one(".head .place")
+    time_hit = re.search(r"\b\d{2}:\d{2}\b", txt(date_el))
+    return {"goals": goals, "venue": clean_venue(txt(place)) if place else "",
+            "time": time_hit[0] if time_hit else ""}
+
+
+def load_match_details(results, refs, loader=None):
+    loader = loader or get
+
+    def load(row):
+        key = match_key(row)
+        ref = refs.get(key, {})
+        detail = {**ref, "venue": row[4], "status": "unavailable", "goals": []}
+        if ref.get("source_url"):
+            try:
+                protocol = parse_match_protocol(loader(ref["source_url"]), ref)
+                if protocol is not None:
+                    detail.update(protocol, status="available")
+                    detail["venue"] = protocol["venue"] or row[4]
+            except (requests.RequestException, ValueError, TypeError, KeyError) as exc:
+                print(f"Протокол {ref.get('id')} недоступен: {type(exc).__name__}")
+        return key, detail
+
+    # Optional protocols cannot prevent the main hourly dataset from updating.
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        return dict(pool.map(load, results))
 
 
 def parse_squad(soup):
@@ -403,7 +539,8 @@ def parse_news(soup, year=SEASON_YEAR, limit=6):
 def main():
     soup = get(f"/teams/{TEAM}/")
     table = parse_table(soup)
-    res, nxt = parse_matches(soup, (row[0] for row in table))
+    match_refs = {}
+    res, nxt = parse_matches(soup, (row[0] for row in table), match_refs=match_refs)
     squad, coach = parse_squad(soup)
     nplayers = sum(map(len, squad.values()))
     print(f"Сезон {SEASON_YEAR}: команд={len(table)}, сыграно={len(res)}, "
@@ -456,11 +593,15 @@ def main():
     player_stats = make_player_stats(squad, league_stats, league_verified, stats_as_of)
     print(f"Статистика чемпионата 2026: подтверждено {len(league_stats)} игроков")
 
+    match_details = load_match_details(res, match_refs)
+    print(f"Протоколы матчей: {sum(d['status'] == 'available' for d in match_details.values())}/{len(res)}")
+
     data = {
         "updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
         "table": table, "res": res, "next": nxt,
         "squad": squad, "coach": coach, "news": news,
         "player_stats_2026": player_stats,
+        "match_details": match_details,
     }
     with open("data.json.tmp", "w", encoding="utf-8") as out:
         json.dump(data, out, ensure_ascii=False, indent=1)

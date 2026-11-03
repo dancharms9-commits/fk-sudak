@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T14:05+00:00",
+ "updated": "2026-11-03T14:50+00:00",
  "table": [
   [
    "СК «Каштан»",
@@ -851,5 +851,1161 @@
     "stats_current": true
    }
   ]
+ },
+ "match_details": {
+  "2026|25 октября|ФК «Саки»|в гостях": {
+   "id": "38762",
+   "source_url": "https://rffk-roo.ru/matches/38762/",
+   "date": "2026-10-25",
+   "home": "ФК «Саки»",
+   "away": "ФК «Судак»",
+   "home_score": 2,
+   "away_score": 3,
+   "venue": "Стадион \"Авангард\", Саки",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Колодяжный А.",
+     "minute": "3",
+     "type": "penalty",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Добровольский В.",
+     "minute": "6",
+     "type": "goal",
+     "score": [
+      1,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "27",
+     "type": "goal",
+     "score": [
+      1,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "44",
+     "type": "goal",
+     "score": [
+      1,
+      3
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Бондаренко А.",
+     "minute": "72",
+     "type": "goal",
+     "score": [
+      2,
+      3
+     ]
+    }
+   ],
+   "time": "15:00"
+  },
+  "2026|10 октября|«СТО-Газель»|дома": {
+   "id": "38760",
+   "source_url": "https://rffk-roo.ru/matches/38760/",
+   "date": "2026-10-10",
+   "home": "ФК «Судак»",
+   "away": "«СТО-Газель»",
+   "home_score": 4,
+   "away_score": 2,
+   "venue": "Стадион \"Юность\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "6",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Добровольский В.",
+     "minute": "31",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Добровольский В.",
+     "minute": "43",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Джемилев А.",
+     "minute": "57",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "75",
+     "type": "penalty",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Берегуля М.",
+     "minute": "82",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    }
+   ],
+   "time": "15:00"
+  },
+  "2026|4 октября|ФК «Фуна»|в гостях": {
+   "id": "38751",
+   "source_url": "https://rffk-roo.ru/matches/38751/",
+   "date": "2026-10-04",
+   "home": "ФК «Фуна»",
+   "away": "ФК «Судак»",
+   "home_score": 2,
+   "away_score": 3,
+   "venue": "Стадион «Демерджи», Нижняя Кутузовка",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Угаров В.",
+     "minute": "10",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мудрак Р.",
+     "minute": "29",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "37",
+     "type": "goal",
+     "score": [
+      2,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Шилов Б.",
+     "minute": "42",
+     "type": "goal",
+     "score": [
+      2,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Демьяненко А.",
+     "minute": "85",
+     "type": "goal",
+     "score": [
+      2,
+      3
+     ]
+    }
+   ],
+   "time": "15:00"
+  },
+  "2026|26 сентября|АФК|дома": {
+   "id": "38747",
+   "source_url": "https://rffk-roo.ru/matches/38747/",
+   "date": "2026-09-26",
+   "home": "ФК «Судак»",
+   "away": "АФК",
+   "home_score": 6,
+   "away_score": 1,
+   "venue": "Стадион \"Юность\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "5",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "19",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "30",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Харебин М.",
+     "minute": "66",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "80",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "86",
+     "type": "goal",
+     "score": [
+      5,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "90",
+     "type": "goal",
+     "score": [
+      6,
+      1
+     ]
+    }
+   ],
+   "time": "16:00"
+  },
+  "2026|12 сентября|ФК «НКСТРОЙ-Керчь»|в гостях": {
+   "id": "38740",
+   "source_url": "https://rffk-roo.ru/matches/38740/",
+   "date": "2026-09-12",
+   "home": "ФК «НКСТРОЙ-Керчь»",
+   "away": "ФК «Судак»",
+   "home_score": 0,
+   "away_score": 4,
+   "venue": "Стадион \"им. 50-летия октября\" (синтетическое поле), Керчь",
+   "status": "available",
+   "goals": [
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "23",
+     "type": "goal",
+     "score": [
+      0,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Филатов Н.",
+     "minute": "49",
+     "type": "goal",
+     "score": [
+      0,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Монахов А.",
+     "minute": "63",
+     "type": "goal",
+     "score": [
+      0,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Филатов Н.",
+     "minute": "76",
+     "type": "goal",
+     "score": [
+      0,
+      4
+     ]
+    }
+   ],
+   "time": "13:30"
+  },
+  "2026|6 сентября|«Темп»|дома": {
+   "id": "38734",
+   "source_url": "https://rffk-roo.ru/matches/38734/",
+   "date": "2026-09-06",
+   "home": "ФК «Судак»",
+   "away": "«Темп»",
+   "home_score": 4,
+   "away_score": 0,
+   "venue": "Стадион \"Раздольное\", Раздольное",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "18",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "74",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "77",
+     "type": "penalty",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Абильванов О.",
+     "minute": "89",
+     "type": "goal",
+     "score": [
+      4,
+      0
+     ]
+    }
+   ],
+   "time": "16:00"
+  },
+  "2026|29 августа|ФК «Турбо»|дома": {
+   "id": "38729",
+   "source_url": "https://rffk-roo.ru/matches/38729/",
+   "date": "2026-08-29",
+   "home": "ФК «Судак»",
+   "away": "ФК «Турбо»",
+   "home_score": 7,
+   "away_score": 3,
+   "venue": "Стадион \"Юность\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "5",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "14",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "24",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Постоев Н.",
+     "minute": "45",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "58",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Мельничук М.",
+     "minute": "61",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "83",
+     "type": "goal",
+     "score": [
+      5,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "85",
+     "type": "goal",
+     "score": [
+      6,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Мельничук М.",
+     "minute": "92",
+     "type": "goal",
+     "score": [
+      6,
+      3
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "93",
+     "type": "goal",
+     "score": [
+      7,
+      3
+     ]
+    }
+   ],
+   "time": "17:00"
+  },
+  "2026|21 июня|СК «Каштан»|в гостях": {
+   "id": "38721",
+   "source_url": "https://rffk-roo.ru/matches/38721/",
+   "date": "2026-06-21",
+   "home": "СК «Каштан»",
+   "away": "ФК «Судак»",
+   "home_score": 4,
+   "away_score": 1,
+   "venue": "Стадион \"Гвардеец\", Гвардейское",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Автаев В.",
+     "minute": "21",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Александров А.",
+     "minute": "25",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Тохиров А.",
+     "minute": "36",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Попов Я.",
+     "minute": "81",
+     "type": "goal",
+     "score": [
+      4,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Чебышев А.",
+     "minute": "87",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    }
+   ],
+   "time": "14:00"
+  },
+  "2026|13 июня|ФК «Сталкер»|дома": {
+   "id": "38719",
+   "source_url": "https://rffk-roo.ru/matches/38719/",
+   "date": "2026-06-13",
+   "home": "ФК «Судак»",
+   "away": "ФК «Сталкер»",
+   "home_score": 3,
+   "away_score": 0,
+   "venue": "Стадион СК \"Арена-Крым\", Евпатория",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Бардин В.",
+     "minute": "37",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Волобуев Н.",
+     "minute": "43",
+     "type": "own_goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "54",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    }
+   ],
+   "time": "17:00"
+  },
+  "2026|23 мая|ФК «Саки»|дома": {
+   "id": "38697",
+   "source_url": "https://rffk-roo.ru/matches/38697/",
+   "date": "2026-05-23",
+   "home": "ФК «Судак»",
+   "away": "ФК «Саки»",
+   "home_score": 10,
+   "away_score": 3,
+   "venue": "Стадион \"Юность\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "5",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "9",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "10",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "19",
+     "type": "goal",
+     "score": [
+      4,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "24",
+     "type": "goal",
+     "score": [
+      5,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "26",
+     "type": "goal",
+     "score": [
+      6,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "33",
+     "type": "goal",
+     "score": [
+      7,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "34",
+     "type": "goal",
+     "score": [
+      8,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "45",
+     "type": "goal",
+     "score": [
+      9,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Барканов С.",
+     "minute": "54",
+     "type": "goal",
+     "score": [
+      9,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Бровко А.",
+     "minute": "80",
+     "type": "goal",
+     "score": [
+      9,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "83",
+     "type": "goal",
+     "score": [
+      10,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Самойлов Н.",
+     "minute": "89",
+     "type": "goal",
+     "score": [
+      10,
+      3
+     ]
+    }
+   ],
+   "time": "14:00"
+  },
+  "2026|17 мая|«СТО-Газель»|в гостях": {
+   "id": "38694",
+   "source_url": "https://rffk-roo.ru/matches/38694/",
+   "date": "2026-05-17",
+   "home": "«СТО-Газель»",
+   "away": "ФК «Судак»",
+   "home_score": 6,
+   "away_score": 2,
+   "venue": "Стадион \"Карат-Арена\", Победное",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Кабисов С.",
+     "minute": "9",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Цой В.",
+     "minute": "12",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "23",
+     "type": "goal",
+     "score": [
+      2,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Кабисов С.",
+     "minute": "32",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "40",
+     "type": "goal",
+     "score": [
+      3,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Сидоренко Д.",
+     "minute": "47",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Михалищев Н.",
+     "minute": "56",
+     "type": "goal",
+     "score": [
+      5,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Цой В.",
+     "minute": "65",
+     "type": "goal",
+     "score": [
+      6,
+      2
+     ]
+    }
+   ],
+   "time": "17:00"
+  },
+  "2026|2 мая|ФК «Фуна»|дома": {
+   "id": "38686",
+   "source_url": "https://rffk-roo.ru/matches/38686/",
+   "date": "2026-05-02",
+   "home": "ФК «Судак»",
+   "away": "ФК «Фуна»",
+   "home_score": 5,
+   "away_score": 2,
+   "venue": "Стадион \"Юность\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "8",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "31",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Халилов С.",
+     "minute": "35",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "51",
+     "type": "own_goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "52",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Сеитмеметов З.",
+     "minute": "84",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Монахов А.",
+     "minute": "92",
+     "type": "goal",
+     "score": [
+      5,
+      2
+     ]
+    }
+   ],
+   "time": "16:00"
+  },
+  "2026|29 апреля|АФК|в гостях": {
+   "id": "38681",
+   "source_url": "https://rffk-roo.ru/matches/38681/",
+   "date": "2026-04-29",
+   "home": "АФК",
+   "away": "ФК «Судак»",
+   "home_score": 1,
+   "away_score": 1,
+   "venue": "Стадион СК \"Арена-Крым\", Евпатория",
+   "status": "available",
+   "goals": [
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "17",
+     "type": "goal",
+     "score": [
+      0,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Агагин А.",
+     "minute": "69",
+     "type": "goal",
+     "score": [
+      1,
+      1
+     ]
+    }
+   ],
+   "time": "17:00"
+  },
+  "2026|18 апреля|ФК «НКСТРОЙ-Керчь»|дома": {
+   "id": "38675",
+   "source_url": "https://rffk-roo.ru/matches/38675/",
+   "date": "2026-04-18",
+   "home": "ФК «Судак»",
+   "away": "ФК «НКСТРОЙ-Керчь»",
+   "home_score": 3,
+   "away_score": 1,
+   "venue": "Стадион \"Колос\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Глушков Н.",
+     "minute": "5",
+     "type": "penalty",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Скворцов О.",
+     "minute": "31",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Халилов Э.",
+     "minute": "41",
+     "type": "goal",
+     "score": [
+      2,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "76",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    }
+   ],
+   "time": "14:00"
+  },
+  "2026|5 апреля|«Темп»|в гостях": {
+   "id": "38668",
+   "source_url": "https://rffk-roo.ru/matches/38668/",
+   "date": "2026-04-05",
+   "home": "«Темп»",
+   "away": "ФК «Судак»",
+   "home_score": 2,
+   "away_score": 5,
+   "venue": "Стадион \"Юность\", Судак",
+   "status": "available",
+   "goals": [
+    {
+     "side": "away",
+     "player": "Гайдаш А.",
+     "minute": "7",
+     "type": "goal",
+     "score": [
+      0,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Глушков Н.",
+     "minute": "14",
+     "type": "penalty",
+     "score": [
+      0,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "20",
+     "type": "goal",
+     "score": [
+      0,
+      3
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Давидюк О.",
+     "minute": "25",
+     "type": "penalty",
+     "score": [
+      1,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "51",
+     "type": "penalty",
+     "score": [
+      1,
+      4
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Давидюк О.",
+     "minute": "66",
+     "type": "penalty",
+     "score": [
+      2,
+      4
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "71",
+     "type": "goal",
+     "score": [
+      2,
+      5
+     ]
+    }
+   ],
+   "time": "15:00"
+  },
+  "2026|29 марта|ФК «Турбо»|в гостях": {
+   "id": "38664",
+   "source_url": "https://rffk-roo.ru/matches/38664/",
+   "date": "2026-03-29",
+   "home": "ФК «Турбо»",
+   "away": "ФК «Судак»",
+   "home_score": 1,
+   "away_score": 2,
+   "venue": "Стадион \"им. 50-летия октября\" (синтетическое поле), Керчь",
+   "status": "available",
+   "goals": [
+    {
+     "side": "home",
+     "player": "Гусейханов М.",
+     "minute": "37",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Бардин В.",
+     "minute": "65",
+     "type": "goal",
+     "score": [
+      1,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "67",
+     "type": "goal",
+     "score": [
+      1,
+      2
+     ]
+    }
+   ],
+   "time": "15:00"
+  }
  }
 }
