@@ -109,6 +109,7 @@ test('unknown season metrics show dashes and missing protocols never claim zero 
   assert(view.includes('Список может быть неполным'));
   assert(!view.includes('голов: 0'));
   for(const field of ['league_games','league_goals','league_minutes','league_starts','league_substitutions','league_penalty_goals'])assert(view.includes(`data-stat="${field}"><b>—</b>`));
+  assert(view.includes(`Всего игр в карточке РФФК: ${p.federation_games} · общий показатель федерации, не показатель сезона 2026.`));
 });
 test('missing and corrupted saved data do not break startup or invent profiles',()=>{
   for(const raw of [null,'broken json','{}','{"updated":"invalid"}']){
@@ -126,4 +127,66 @@ test('saved dataset restores actual league stats and protocols without changing 
   assert.equal(run('hasSavedData'),true);
   assert.equal(run('playerRows().find(p=>p.name==="Донской Илья").league_goals'),5);
   assert.deepEqual(run('MATCH_DETAILS'),data.match_details);
+});
+
+test('squad keeps all 41 profile identities and only confirmed 2026 games/goals on cards',()=>{
+  const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
+  const players=data.player_stats_2026.players;
+  const before=JSON.stringify(data);
+  vm.runInContext(`PLAYER_STATS_2026=${JSON.stringify(data.player_stats_2026)};PLAYER_ROLE='all';renderSquad()`,context);
+  const view=node('squad').innerHTML;
+  const cards=[...view.matchAll(/<a class="stats-player player-link"[\s\S]*?<\/a>/g)].map(m=>m[0]);
+  assert.equal(cards.length,41);
+  for(const p of players){
+    const id=run(`playerKey(${JSON.stringify(p)})`);
+    const card=cards.find(card=>card.includes(`data-player="${id}"`));
+    assert(card,p.name);
+    assert(card.includes(run(`esc(playerHref(${JSON.stringify(p)}))`)));
+    assert(card.includes(`<div class="stats-name">${p.name}</div>`));
+    assert(card.includes(`<div class="stats-role">${p.position}</div>`));
+    for(const field of ['league_games','league_goals']){
+      assert(card.includes(`data-stat="${field}"><b>${run(`statValue(${JSON.stringify(p[field])})`)}</b>`),p.name+' '+field);
+    }
+    for(const detail of ['league_minutes','league_penalty_goals','federation_games','Минуты','пенальти'])assert(!card.includes(detail));
+    const photo=run(`officialPhoto(${JSON.stringify(p)})`);
+    assert.equal(card.includes('<img '),!!photo,p.name);
+    if(photo)assert(card.includes(`src="${photo}"`));
+  }
+  assert.equal(JSON.stringify(data),before);
+  assert.deepEqual(run('PLAYER_STATS_2026.players'),players);
+});
+
+test('all position filters retain their exact players and profile role links',()=>{
+  const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
+  for(const role of ['all','Вратари','Защитники','Полузащитники','Нападающие']){
+    vm.runInContext(`PLAYER_STATS_2026=${JSON.stringify(data.player_stats_2026)};PLAYER_ROLE=${JSON.stringify(role)};renderSquad()`,context);
+    const view=node('squad').innerHTML;
+    const expected=data.player_stats_2026.players.filter(p=>role==='all'||p.position===role);
+    assert.equal((view.match(/data-player=/g)||[]).length,expected.length);
+    assert(view.includes(`data-role="${role}" aria-pressed="true"`));
+    for(const p of expected)assert(view.includes(run(`esc(playerHref(${JSON.stringify(p)}))`)));
+  }
+});
+
+test('squad rejects unverified portraits, escapes names and keeps unknown season totals as dashes',()=>{
+  const p={...player('Иванов <Иван>',1),league_games:null,league_goals:null,
+    photo_url:'https://rffk-roo.ru/uploads/people/large/unverified.jpg',photo_source_url:'https://rffk-roo.ru/players/2/'};
+  vm.runInContext(`PLAYER_STATS_2026={season:2026,players:[${JSON.stringify(p)}]};PLAYER_ROLE='all';renderSquad()`,context);
+  const view=node('squad').innerHTML;
+  assert(!view.includes('<img '));
+  assert(view.includes('Иванов &lt;Иван&gt;'));
+  assert(!view.includes('Иванов <Иван>'));
+  for(const field of ['league_games','league_goals'])assert(view.includes(`data-stat="${field}"><b>—</b>`));
+  vm.runInContext('PLAYER_ROLE="Вратари";renderSquad()',context);
+  assert(node('squad').innerHTML.includes('Игроки не найдены.'));
+});
+
+test('legacy offline squad data keeps every profile without borrowing federation games for 2026',()=>{
+  const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
+  vm.runInContext(`PLAYER_STATS_2026=null;SQUAD=${JSON.stringify(data.squad)};PLAYER_ROLE='all';renderSquad()`,context);
+  const view=node('squad').innerHTML;
+  assert.equal((view.match(/data-player=/g)||[]).length,41);
+  assert.equal((view.match(/data-stat="league_games"><b>—<\/b>/g)||[]).length,41);
+  assert.equal((view.match(/data-stat="league_goals"><b>—<\/b>/g)||[]).length,41);
+  assert(!view.includes('<img '));
 });

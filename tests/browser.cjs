@@ -44,11 +44,9 @@ const server=http.createServer((req,res)=>{
       await page.waitForFunction(name=>document.querySelector('main section.on')?.id===name,name);
     };
     await load();
-    const iconBytes=fs.readFileSync(path.join(root,'icon-maskable-512.png'));
-    const standardIconBytes=fs.readFileSync(path.join(root,'fk-sudak-pwa-512.png'));
-    const assetChecks=await page.evaluate(async ({icon,original})=>{
-      async function decode(base64){const img=new Image();img.src='data:image/png;base64,'+base64;await img.decode();return img}
-      const [mask,source]=await Promise.all([decode(icon),decode(original)]);
+    const assetChecks=await page.evaluate(async ()=>{
+      async function decode(src){const img=new Image();img.src=src;await img.decode();return img}
+      const [mask,source]=await Promise.all([decode('icon-maskable-512.png'),decode('fk-sudak-pwa-512.png')]);
       const canvas=document.createElement('canvas');canvas.width=canvas.height=512;
       const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(mask,0,0);
       const pixels=ctx.getImageData(0,0,512,512).data;
@@ -71,15 +69,18 @@ const server=http.createServer((req,res)=>{
       }
       const safe=document.createElement('canvas');safe.width=safe.height=512;const sc=safe.getContext('2d');
       sc.beginPath();sc.arc(256,256,204.8,0,Math.PI*2);sc.clip();sc.drawImage(mask,0,0);
-      return {width:mask.naturalWidth,height:mask.naturalHeight,opaque,maxCrestRadius,crestPixels,maxChannelDifference,safePreview:safe.toDataURL('image/png')};
-    },{icon:iconBytes.toString('base64'),original:standardIconBytes.toString('base64')});
+      safe.id='maskable-safe-zone';safe.hidden=true;document.body.append(safe);
+      return {width:mask.naturalWidth,height:mask.naturalHeight,opaque,maxCrestRadius,crestPixels,maxChannelDifference};
+    });
     assert.equal(assetChecks.width,512);assert.equal(assetChecks.height,512);assert(assetChecks.opaque);
     assert(assetChecks.crestPixels>10000);assert(assetChecks.maxCrestRadius<204.8,'Crest must stay inside maskable safe circle');
     assert(assetChecks.maxChannelDifference<=1,'Original crest pixels must be preserved after resize');
     if(process.env.VISUAL_SCREENSHOT_DIR){
       fs.mkdirSync(process.env.VISUAL_SCREENSHOT_DIR,{recursive:true});
-      fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,'maskable-safe-zone.png'),Buffer.from(assetChecks.safePreview.split(',')[1],'base64'));
+      await page.locator('#maskable-safe-zone').evaluate(canvas=>{canvas.hidden=false});
+      await page.locator('#maskable-safe-zone').screenshot({path:path.join(process.env.VISUAL_SCREENSHOT_DIR,'maskable-safe-zone.png')});
     }
+    await page.locator('#maskable-safe-zone').evaluate(canvas=>canvas.remove());
     console.log('PASS opaque 512px maskable icon, original crest and Android safe circle (radius '+assetChecks.maxCrestRadius.toFixed(1)+'px)');
     const layout=async()=>{
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),await page.evaluate(()=>innerWidth),'Horizontal overflow');
@@ -119,6 +120,40 @@ const server=http.createServer((req,res)=>{
       }
       if(process.env.VISUAL_SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.VISUAL_SCREENSHOT_DIR,`home-${colorScheme}-${reducedMotion}-${width}.png`),fullPage:true});
       for(const name of ['matches','table','squad','news']){await section(name);await layout()}
+      await section('squad');
+      await page.evaluate(async()=>{await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})))});
+      const grid=await page.locator('#squad .stats-list').evaluate(el=>{
+        const cards=[...el.querySelectorAll('.stats-player')];
+        const rects=cards.map(card=>card.getBoundingClientRect());
+        return {
+          columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,
+          firstRow:rects.filter(r=>Math.abs(r.top-rects[0].top)<1).length,
+          widths:rects.map(r=>r.width),
+          clipped:cards.filter(card=>[card,...card.querySelectorAll('.squad-card-body,.stats-name,.stats-role,.stats-values,.stats-value,.squad-card-cue')]
+            .some(el=>el.scrollWidth>el.clientWidth+1)).map(card=>card.dataset.player),
+          photos:cards.filter(card=>card.querySelector('img')).map(card=>({id:card.dataset.player,src:card.querySelector('img').src})),
+          animations:cards.map(card=>getComputedStyle(card).animationName),
+        };
+      });
+      const expectedColumns=width<640?2:width<1024?3:width<1280?4:5;
+      assert.equal(grid.columns,expectedColumns,'Squad grid columns at '+width);
+      assert.equal(grid.firstRow,expectedColumns);
+      assert(Math.max(...grid.widths)-Math.min(...grid.widths)<1,'Equal squad card widths');
+      assert.deepEqual(grid.clipped,[],'Card text or metrics overflow');
+      assert.equal(await page.locator('#squad .stats-player').count(),41);
+      assert.equal(await page.locator('#squad .stats-player [data-stat="league_minutes"]').count(),0);
+      assert.equal(await page.locator('#squad .stats-player [data-stat="league_penalty_goals"]').count(),0);
+      for(const photo of grid.photos){
+        const p=data.player_stats_2026.players.find(p=>'rffk-'+p.profile_url.match(/\/players\/(\d+)/)[1]===photo.id);
+        assert.equal(photo.src,p.photo_url);assert.equal(p.photo_source_url,p.profile_url);
+      }
+      if(reducedMotion==='reduce')assert(grid.animations.every(name=>name==='none'),'Squad respects reduced motion');
+      if(process.env.VISUAL_SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.VISUAL_SCREENSHOT_DIR,`squad-${colorScheme}-${reducedMotion}-${width}.png`),fullPage:true});
+      for(const role of ['Вратари','Защитники','Полузащитники','Нападающие','all']){
+        await page.locator(`#squad [data-role="${role}"]`).click();
+        assert.equal(await page.locator('#squad .stats-player').count(),data.player_stats_2026.players.filter(p=>role==='all'||p.position===role).length);
+        assert.equal(await page.locator('#squad [aria-pressed="true"]').getAttribute('data-role'),role);
+      }
       // Profile and match screens remain readable under the same theme/motion settings.
       await section('squad');await page.locator('#squad a[data-player]').first().click();await page.locator('#player.on').waitFor();await layout();
       await section('matches');await page.locator('#matches a[data-match]').first().click();await page.locator('#match.on').waitFor();await layout();
@@ -228,8 +263,9 @@ const server=http.createServer((req,res)=>{
     const role='Полузащитники';
     const profileURL=base+'/#player='+playerID+'&name='+encodeURIComponent(footballer.name)+'&role='+encodeURIComponent(role);
     const metric=field=>page.locator(`#player [data-stat="${field}"] b`);
-    // Photos are tested as trusted URLs here; network is stubbed for repeatability.
-    await context.route('https://rffk-roo.ru/uploads/people/**',r=>r.fulfill({contentType:'image/png',body:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l9sAAAAASUVORK5CYII=','base64')}));
+    // Only this player's own confirmed portrait is served by the test fixture.
+    await context.route('https://rffk-roo.ru/uploads/people/**',r=>r.request().url()===footballer.photo_url
+      ?r.fulfill({contentType:'image/jpeg',body:fs.readFileSync(path.join(__dirname,'fixtures/player-202.jpg'))}):r.abort());
     for(const width of [320,390,768,1440]){
       await page.setViewportSize({width,height:844});
       await load(base+'/#squad&role='+encodeURIComponent(role));
@@ -324,6 +360,12 @@ const server=http.createServer((req,res)=>{
     // Broken official images fall back to initials without breaking the profile.
     await context.unroute('https://rffk-roo.ru/uploads/people/**');
     await context.route('https://rffk-roo.ru/uploads/people/**',r=>r.abort());
+    await load(base+'/#squad&role=all');
+    const brokenCard=page.locator(`#squad [data-player="${playerID}"]`);
+    await brokenCard.scrollIntoViewIfNeeded();
+    await page.waitForFunction(id=>!document.querySelector(`#squad [data-player="${id}"] img`),playerID);
+    assert.equal(await brokenCard.locator('.squad-initials').innerText(),'ДИ');
+    assert.equal(await brokenCard.locator('[data-stat="league_games"] b').innerText(),String(footballer.league_games));
     await load(profileURL);
     await page.waitForFunction(()=>!document.querySelector('#player .player-avatar img'));
     assert.equal(await page.locator('#player .player-avatar span').innerText(),'ДИ');
