@@ -7,6 +7,7 @@ const http=require('node:http');
 const root=path.resolve(__dirname,'..');
 const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
 const screenshots=process.env.VISUAL_SCREENSHOT_DIR;
+const featuredDuration=page=>page.locator('#home .home-next').evaluate(el=>parseFloat(getComputedStyle(el).transitionDuration));
 let previousWorker=false;
 const server=http.createServer((req,res)=>{
   const pathname=new URL(req.url,'http://localhost').pathname.replace(/^\/fk-sudak(?=\/)/,'');
@@ -42,7 +43,13 @@ const server=http.createServer((req,res)=>{
     await load();
     for(const width of [320,390,768,1440])for(const colorScheme of ['light','dark'])for(const reducedMotion of ['no-preference','reduce']){
       await page.emulateMedia({colorScheme,reducedMotion});await page.setViewportSize({width,height:844});
-      await page.evaluate(()=>scrollTo(0,0));
+      // Chromium 130 may retain theme-transition objects until its next frame,
+      // even with a 0.01 ms reduced-motion duration. Wait for actual completion.
+      await page.evaluate(async()=>{
+        scrollTo(0,0);await new Promise(requestAnimationFrame);
+        await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));
+        await new Promise(requestAnimationFrame);
+      });
       const layout=await page.evaluate(()=>{
         const root=document.documentElement;
         const clipped=[...document.querySelectorAll('#home a,#home h2,#home h3,#home .home-teams span,#home .home-player span')]
@@ -56,7 +63,13 @@ const server=http.createServer((req,res)=>{
       assert.equal(await page.locator('#home .home-result').count(),1);
       assert.equal(await page.locator('#home .home-standing-top>b').innerText(),'2\nместо');
       assert.deepEqual(await page.locator('#home .home-metrics dd').allTextContents(),['16','40','+33']);
-      if(reducedMotion==='reduce')assert.equal(await page.evaluate(()=>document.getAnimations().length),0);
+      if(reducedMotion==='reduce'){
+        assert.equal(await page.evaluate(()=>document.getAnimations().length),0);
+        const duration=await featuredDuration(page);
+        assert(duration<=.00001,'Reduced-motion card transition must be effectively instant');
+        await page.evaluate(()=>homeMotion(document.querySelector('#home')));
+        assert.equal(await page.locator('#home').evaluate(el=>el.getAnimations({subtree:true}).length),0);
+      }
       await page.evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));
       const clearance=await page.evaluate(()=>document.querySelector('#home').getBoundingClientRect().bottom<=document.querySelector('#nav').getBoundingClientRect().top);
       assert(clearance,'Home must clear bottom navigation');
