@@ -1,5 +1,5 @@
-// Launch v5: заставка и оригинал эмблемы доступны в офлайн-оболочке.
-const CACHE="sudak-launch-v5";
+// Launch v6: единый цвет системного и веб-запуска; прежние офлайн-ресурсы.
+const CACHE="sudak-launch-v6";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-original.png","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];
 
 self.addEventListener("install",event=>{
