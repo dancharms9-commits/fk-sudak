@@ -1,7 +1,7 @@
 """Данные PWA ФК «Судак»: открытый чемпионат Республики Крым, сезон 2026.
 
-Сохраняем прежнюю схему data.json (table/res/next/squad/coach/news),
-добавляя URL к новостям. При неполных данных не перезаписываем рабочий файл.
+Сохраняем схему data.json (table/res/next/squad/coach/news), включая ссылки
+на новости. Не перезаписываем рабочий файл при неполных данных федерации.
 """
 import datetime
 import json
@@ -39,7 +39,7 @@ TABLE_ROW = re.compile(
 def get(path):
     response = requests.get(
         urljoin(BASE, path), timeout=30,
-        headers={"User-Agent": "Mozilla/5.0 (compatible; FKSudakPWA/1.2)"},
+        headers={"User-Agent": "Mozilla/5.0 (compatible; FKSudakPWA/1.3)"},
     )
     response.raise_for_status()
     return BeautifulSoup(response.text, "html.parser")
@@ -92,12 +92,17 @@ def parse_table(soup):
     return rows if any(norm_team(row[0]) == "фк судак" for row in rows) else []
 
 
-def parse_venue(box):
-    """Поле стадиона берём из самостоятельной строки, не из всего текста матча.
+def clean_venue(value):
+    """Оставляем только название стадиона, без служебного текста матчей."""
+    candidate = re.sub(r"\s+", " ", value).strip(" ,:—–-")
+    if (not candidate or len(candidate) > 140 or DATE.search(candidate)
+            or candidate in {"-", "Подробности матча"}):
+        return ""
+    return candidate
 
-    Это предотвращает старую ошибку, когда регулярка захватывала последующие
-    карточки матчей и затем поле становилось пустым или некорректным.
-    """
+
+def parse_venue(box):
+    """Ищем стадион внутри одной карточки матча, если он туда входит."""
     lines = [re.sub(r"\s+", " ", line).strip() for line in box.stripped_strings]
     for i, line in enumerate(lines):
         match = re.match(r"^Стадион\s*:?[\s]*(.*)$", line, re.I)
@@ -105,12 +110,56 @@ def parse_venue(box):
             value = match.group(1).strip(" ,")
             if not value and i + 1 < len(lines):
                 value = lines[i + 1].strip()
-            if value and len(value) <= 130 and "Подробности" not in value:
+            value = clean_venue(value)
+            if value and "Подробности" not in value:
                 return value
-    # Подстраховка для сайта, где строки склеены вложенными div.
     raw = box.get_text("\n", strip=True)
     match = re.search(r"(?:^|\n)\s*Стадион\s*:?[\s]*([^\n]{2,130})", raw, re.I)
-    return match.group(1).strip(" ,") if match else ""
+    return clean_venue(match.group(1)) if match else ""
+
+
+def venues_by_date(soup, season_year=SEASON_YEAR):
+    """Резервный способ для реальной разметки сайта федерации.
+
+    Название стадиона находится ПОСЛЕ двух команд и даты, но часто в соседнем
+    DOM-блоке, за пределами мини-карточки с двумя ссылками /teams/.
+    Ищем его по строкам внутри календаря и результатов, не смешивая с другим
+    матчем или списком футболистов. Даты без года не используются.
+    """
+    lines = [re.sub(r"\s+", " ", line).strip() for line in soup.stripped_strings]
+    start = next((i for i, line in enumerate(lines) if line == "Календарь матчей"), None)
+    if start is None:
+        return {}
+    found = {}
+    # Ограничиваем поиск после даты первым же следующим матчем с датой,
+    # завершением карточки результата или 18 строками, чтобы не приписать
+    # чужой стадион. Для результатов сайт использует «Подробности матча».
+    for i in range(start + 1, len(lines)):
+        m = DATE.search(lines[i])
+        if not m:
+            continue
+        raw_date = m.group()
+        try:
+            value = datetime.datetime.strptime(raw_date, "%d.%m.%Y")
+        except ValueError:
+            continue
+        if value.year != season_year:
+            continue
+        for j in range(i + 1, min(i + 19, len(lines))):
+            line = lines[j]
+            if DATE.search(line) or line == "Подробности матча":
+                break
+            stadium = re.match(r"^Стадион\s*:?\s*(.*)$", line, re.I)
+            if not stadium:
+                continue
+            name = stadium.group(1)
+            if not name and j + 1 < len(lines):
+                name = lines[j + 1]
+            name = clean_venue(name)
+            if name and "Подробности" not in name:
+                found.setdefault(raw_date, name)
+            break
+    return found
 
 
 def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
@@ -118,6 +167,7 @@ def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
         datetime.timezone(datetime.timedelta(hours=3))
     ).date()
     allowed = {norm_team(name) for name in allowed_teams}
+    date_venues = venues_by_date(soup, season_year=season_year)
     seen_boxes, results, upcoming = set(), [], []
     for link in soup.select('a[href*="/teams/"]'):
         if tid(link) != TEAM:
@@ -149,7 +199,7 @@ def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
             continue
         if date.year != season_year:
             continue
-        venue = parse_venue(box)
+        venue = parse_venue(box) or date_venues.get(date_str, "")
         location = "дома" if home_match else "в гостях"
         score = re.search(r"(\d+)\s+" + re.escape(date_str)
                           + r"(?:\s+\d{2}:\d{2})?\s+(\d+)", content)
@@ -173,7 +223,7 @@ def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
 
 
 def parse_squad(soup):
-    """Игр = показатель на странице федерации; он может включать другие турниры."""
+    """Игр = показатель на странице федерации; может включать другие турниры."""
     page_text = txt(soup)
     squad, coach = {}, ""
     if "Состав команды" in page_text:
@@ -215,11 +265,7 @@ def safe_news_url(href):
 
 
 def parse_news(soup, year=SEASON_YEAR, limit=6):
-    """Публикации текущего года с прямыми проверяемыми ссылками.
-
-    На странице команды встречаются новости 2017 года: дату с полным годом
-    ищем около конкретной карточки статьи, а не во всей странице сразу.
-    """
+    """Публикации текущего года с прямыми проверяемыми ссылками."""
     news = []
     seen = set()
     for link in soup.select('a[href*="/news/"]'):
@@ -261,7 +307,9 @@ def main():
     squad, coach = parse_squad(soup)
     nplayers = sum(map(len, squad.values()))
     print(f"Сезон {SEASON_YEAR}: команд={len(table)}, сыграно={len(res)}, "
-          f"предстоит={len(nxt)}, игроков={nplayers}")
+          f"предстоит={len(nxt)}, игроков={nplayers}; "
+          f"стадионы: сыгранные={sum(bool(row[4]) for row in res)}, "
+          f"предстоящие={sum(bool(row[2]) for row in nxt)}")
     if len(table) < 5 or len(res) < 3 or nplayers < 10:
         sys.exit("Неполный ответ сайта федерации — прежний data.json сохранён")
     played = next((row[1] for row in table if norm_team(row[0]) == "фк судак"), None)
@@ -275,8 +323,6 @@ def main():
         news = []
     if not news:
         news = parse_news(soup)
-    # Если лента недоступна, сохраняем предыдущие новости, но не выдаём старые
-    # записи за проверенные публикации нового сезона.
     if not news and os.path.exists("data.json"):
         try:
             with open("data.json", encoding="utf-8") as src:
