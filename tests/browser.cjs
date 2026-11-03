@@ -102,19 +102,27 @@ const server=http.createServer((req,res)=>{
       });
       assert.deepEqual(clipped,[],'Clipped layout or controls');
       // At the end of the document, fixed bottom navigation must not cover content.
-      await page.evaluate(async()=>{
-        scrollTo(0,document.documentElement.scrollHeight);
-        // Let Chromium commit scrolling and scroll anchoring before measuring.
-        await new Promise(requestAnimationFrame);
-        scrollTo(0,document.documentElement.scrollHeight);
-        await new Promise(requestAnimationFrame);
+      const end=await page.evaluate(async()=>{
+        await document.fonts.ready;
+        await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));
+        let previous='',stable=0;
+        // A fixed number of frames can race Chrome's scroll anchoring after a
+        // section change. Measure at the actual, stable end of the document.
+        for(let frame=0;frame<120;frame++){
+          scrollTo(0,document.documentElement.scrollHeight);
+          await new Promise(requestAnimationFrame);
+          const height=document.documentElement.scrollHeight;
+          const bottom=document.getElementById('upd').getBoundingClientRect().bottom;
+          const top=document.getElementById('nav').getBoundingClientRect().top;
+          const signature=JSON.stringify([height,scrollY,bottom,top]);
+          stable=signature===previous?stable+1:0;previous=signature;
+          if(stable>=2&&Math.abs(scrollY-Math.max(0,height-innerHeight))<1){
+            return {bottom,top,height,scroll:scrollY,width:innerWidth,section:document.querySelector('main section.on').id};
+          }
+        }
+        throw Error('Document scrolling did not settle at its end');
       });
-      const overlap=await page.evaluate(()=>{
-        const nav=document.getElementById('nav').getBoundingClientRect();
-        const last=document.getElementById('upd').getBoundingClientRect();
-        return last.bottom>nav.top+.5;
-      });
-      assert.equal(overlap,false,'Bottom navigation covers the final content at '+await page.evaluate(()=>innerWidth+'px, '+document.querySelector('main section.on').id));
+      assert(end.bottom<=end.top+.5,'Bottom navigation covers the final content: '+JSON.stringify(end));
       await page.evaluate(()=>scrollTo(0,0));
     };
     for(const colorScheme of ['light','dark'])for(const reducedMotion of ['no-preference','reduce'])for(const width of [320,390,768,1440]){
