@@ -34,6 +34,7 @@ const server=http.createServer((req,res)=>{
     page.on('pageerror',e=>errors.push(e.message));
     let navigation=0;
     const load=async(url=base)=>{
+      if(page.url().startsWith(base))await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));
       const target=new URL(url);target.searchParams.set("test",String(++navigation));
       await page.goto(target.href);
       await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
@@ -140,6 +141,113 @@ const server=http.createServer((req,res)=>{
     await page.locator('#matches a[data-match]').first().click();
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);
     await page.emulateMedia({colorScheme:'light'});
+    const footballer=data.player_stats_2026.players.find(p=>p.name==='Донской Илья');
+    const playerID='rffk-'+footballer.profile_url.match(/\/players\/(\d+)/)[1];
+    const role='Полузащитники';
+    const profileURL=base+'/#player='+playerID+'&name='+encodeURIComponent(footballer.name)+'&role='+encodeURIComponent(role);
+    const metric=field=>page.locator(`#player [data-stat="${field}"] b`);
+    // Photos are tested as trusted URLs here; network is stubbed for repeatability.
+    await context.route('https://rffk-roo.ru/uploads/people/**',r=>r.fulfill({contentType:'image/png',body:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l9sAAAAASUVORK5CYII=','base64')}));
+    for(const width of [320,390,768,1440]){
+      await page.setViewportSize({width,height:844});
+      await load(base+'/#squad&role='+encodeURIComponent(role));
+      const card=page.locator(`#squad [data-player="${playerID}"]`);
+      await card.scrollIntoViewIfNeeded();
+      const squadScroll=await page.evaluate(()=>scrollY);
+      await card.click();await page.locator('#player.on').waitFor();
+      assert.equal(await page.locator('#player-title').innerText(),footballer.name);
+      for(const field of ['league_games','league_goals','league_minutes','league_starts','league_substitutions','league_penalty_goals']){
+        assert.equal(await metric(field).innerText(),String(footballer[field]??'—'),field);
+      }
+      assert.equal(await page.locator('#nav [data-t="squad"]').getAttribute('aria-current'),'page');
+      assert.equal(await page.locator('#player .player-goal').count(),5);
+      if(footballer.photo_url)assert.equal(await page.locator('#player .player-avatar img').getAttribute('src'),footballer.photo_url);
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width,'Profile overflow at '+width);
+      const match=page.locator('#player .player-goal').last();
+      const matchHash=await match.getAttribute('href');
+      await match.scrollIntoViewIfNeeded();
+      const playerScroll=await page.evaluate(()=>scrollY);
+      const goalIndex=await match.getAttribute('data-goal');
+      await match.click();await page.locator('#match.on').waitFor();
+      assert.equal(await page.locator('#match-back').innerText(),'← К футболисту');
+      assert.equal(await page.locator('#nav [data-t="squad"]').getAttribute('aria-current'),'page');
+      await page.locator('#match-back').click();await page.locator('#player.on').waitFor();
+      assert.equal(await page.locator('#player-title').innerText(),footballer.name);
+      assert.equal(await page.locator(`#player [data-goal="${goalIndex}"]`).evaluate(el=>el===document.activeElement),true);
+      assert(Math.abs(await page.evaluate(()=>scrollY)-playerScroll)<3,'Restore player scroll at '+width);
+      await page.locator('#player-back').click();await page.locator('#squad.on').waitFor();
+      assert.equal(await page.locator('#squad [aria-pressed="true"]').getAttribute('data-role'),role);
+      assert.equal(await card.evaluate(el=>el===document.activeElement),true);
+      assert(Math.abs(await page.evaluate(()=>scrollY)-squadScroll)<3,'Restore squad scroll at '+width);
+      await page.goForward();await page.locator('#player.on').waitFor();
+      await page.goForward();await page.locator('#match.on').waitFor();
+      assert.equal(await page.evaluate(()=>location.hash),matchHash);
+      await page.goBack();await page.locator('#player.on').waitFor();
+      await page.goBack();await page.locator('#squad.on').waitFor();
+      console.log('PASS player → match → player → filtered squad, history/focus/scroll at '+width+'px');
+    }
+    await page.setViewportSize({width:390,height:844});
+    await load(base+'/#squad');
+    assert.equal(await page.locator('#squad a[data-player]').count(),data.player_stats_2026.players.length);
+    for(let i=0;i<data.player_stats_2026.players.length;i++){
+      const card=page.locator('#squad a[data-player]').nth(i);
+      const name=await card.locator('.stats-name').innerText();
+      await card.click();await page.locator('#player.on').waitFor();
+      assert.equal(await page.locator('#player-title').innerText(),name);
+      await page.goBack();await page.locator('#squad.on').waitFor();
+    }
+    console.log('PASS all '+data.player_stats_2026.players.length+' footballer cards open their own profiles');
+    await load(profileURL);
+    assert.equal(await page.locator('#player-title').innerText(),footballer.name);
+    // A direct match URL still knows the return chain even after a reload/new tab.
+    const directMatch=await page.locator('#player .player-goal').first().getAttribute('href');
+    await load(base+'/'+directMatch);await page.reload();
+    await page.locator('#match-back').click();await page.locator('#player.on').waitFor();
+    await page.locator('#player-back').click();await page.locator('#squad.on').waitFor();
+    assert.equal(await page.locator('#squad [aria-pressed="true"]').getAttribute('data-role'),role);
+    const keyboardCard=page.locator(`#squad [data-player="${playerID}"]`);
+    await keyboardCard.focus();await page.keyboard.press('Enter');
+    await page.locator('#player.on').waitFor();
+    await page.emulateMedia({colorScheme:'dark'});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);
+    await page.emulateMedia({colorScheme:'light'});
+    const unknown=base+'/#player=unknown&role='+encodeURIComponent(role);
+    await load(unknown);assert((await page.locator('#player').innerText()).includes('Футболист недоступен'));
+    await page.locator('#player-back').click();await page.locator('#squad.on').waitFor();
+    console.log('PASS player/match deep links, reload, keyboard, unknown profile and dark mode');
+    const absent=structuredClone(data);absent.match_details={};
+    await page.route('**/data.json?*',r=>r.fulfill({json:absent}));
+    await load(profileURL);
+    assert.equal(await metric('league_goals').innerText(),String(footballer.league_goals));
+    assert.equal(await page.locator('#player .player-goal').count(),0);
+    assert((await page.locator('#goal-coverage').innerText()).includes('Список может быть неполным'));
+    assert(!(await page.locator('#goal-coverage').innerText()).includes('голов: 0'));
+    await page.unroute('**/data.json?*');
+    const homonyms=structuredClone(data);
+    homonyms.player_stats_2026.players.push({...footballer,name:'Донской Иван',profile_url:'https://rffk-roo.ru/players/999999/'});
+    await page.route('**/data.json?*',r=>r.fulfill({json:homonyms}));
+    await load(profileURL);
+    assert.equal(await page.locator('#player .player-goal').count(),0);
+    assert((await page.locator('#goal-coverage').innerText()).includes('неоднозначные сокращённые имена'));
+    assert.equal(await metric('league_goals').innerText(),String(footballer.league_goals));
+    await page.unroute('**/data.json?*');
+    const noMetrics=structuredClone(data);delete noMetrics.player_stats_2026;
+    await page.route('**/data.json?*',r=>r.fulfill({json:noMetrics}));
+    await load(profileURL);
+    assert.equal(await page.locator('#player-title').innerText(),footballer.name);
+    for(const field of ['league_games','league_goals','league_minutes','league_starts','league_substitutions','league_penalty_goals'])assert.equal(await metric(field).innerText(),'—');
+    assert.equal(await page.locator('#player .player-avatar img').count(),0);
+    assert.equal(await page.locator('#player .player-avatar span').innerText(),'ДИ');
+    await page.unroute('**/data.json?*');
+    // Broken official images fall back to initials without breaking the profile.
+    await context.unroute('https://rffk-roo.ru/uploads/people/**');
+    await context.route('https://rffk-roo.ru/uploads/people/**',r=>r.abort());
+    await load(profileURL);
+    await page.waitForFunction(()=>!document.querySelector('#player .player-avatar img'));
+    assert.equal(await page.locator('#player .player-avatar span').innerText(),'ДИ');
+    await context.unroute('https://rffk-roo.ru/uploads/people/**');
+    console.log('PASS missing protocols keep official totals, homonyms are rejected, unknown metrics stay unknown, photo fallback');
+
     // Separate context permits real service-worker requests (which bypass route mocks).
     await context.close();
     context=await browser.newContext({viewport:{width:390,height:844}});
@@ -159,11 +267,26 @@ const server=http.createServer((req,res)=>{
     await page.locator('#matches a[data-match]').first().click();
     assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
     await page.reload();
+    await page.waitForFunction(()=>document.querySelector('#upd').textContent.includes('Нет связи'));
+    assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
+    // A warm offline reload keeps player metrics, goal links, filters and return chain.
+    await page.evaluate(hash=>{location.hash=hash},new URL(profileURL).hash);
+    await page.locator('#player.on').waitFor();
+    assert.equal(await metric('league_goals').innerText(),String(footballer.league_goals));
+    await page.locator('#player .player-goal').first().click();await page.locator('#match.on').waitFor();
+    await page.reload();
+    await page.waitForFunction(()=>document.querySelector('#upd').textContent.includes('Нет связи'));
+    await page.locator('#match-back').click();await page.locator('#player.on').waitFor();
+    await page.locator('#player-back').click();await page.locator('#squad.on').waitFor();
+    assert.equal(await page.locator('#squad [aria-pressed="true"]').getAttribute('data-role'),role);
+    // No saved dataset: the shell still loads with a clear unavailable message.
+    await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));
+    await page.reload();
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.includes('Нет свежих данных'));
-    assert((await page.locator('#match').innerText()).includes('Протокол матча недоступен'));
+    assert.equal(await page.locator('#squad a[data-player]').count(),0);
     await context.setOffline(false);
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
-    assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
+    assert.equal(await page.locator('#squad a[data-player]').count(),data.player_stats_2026.players.filter(p=>p.position===role).length);
     console.log('PASS standings, player stats/filter, news, dark mode, PWA offline shell and reconnect');
     assert.deepEqual(errors,[],'Browser script errors');
     console.log('PASS no browser JavaScript errors');

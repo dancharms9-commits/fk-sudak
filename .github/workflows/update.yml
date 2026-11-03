@@ -6,6 +6,7 @@ on:
     paths:
       - "index.html"
       - "fetch_data.py"
+      - "update_player_stats.py"
       - "data.json"
       - "sw.js"
       - "manifest.json"
@@ -27,6 +28,7 @@ jobs:
         with: {node-version: "22"}
       - run: npm install --no-save --package-lock=false playwright@1.48.2
       - run: npx playwright install --with-deps chromium
+      - run: node --test tests/player-profiles.test.cjs
       - run: node tests/browser.cjs
   update:
     if: github.event_name != 'pull_request'
