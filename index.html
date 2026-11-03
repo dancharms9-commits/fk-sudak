@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0F2C45">
+<meta name="theme-color" content="#001329">
+<style id="launch-canvas">html{background:#001329}</style>
 <link rel="apple-touch-icon" href="icon-192.png?v=crest-v4">
 <link rel="icon" type="image/png" href="icon-192.png?v=crest-v4">
 <link rel="preload" as="image" href="assets/club-crest-original.png" fetchpriority="high">
@@ -293,10 +294,11 @@ main:has(#squad.on){max-width:1200px}
 #launch-splash[hidden],#launch-error[hidden]{display:none}
 #launch-splash{
   position:fixed;inset:0;z-index:1000;isolation:isolate;
-  display:grid;grid-template-rows:minmax(0,1fr) auto;justify-items:center;
+  /* Keep the crest centred independently of the label, like the OS launch icon. */
+  display:grid;grid-template-rows:minmax(0,1fr);place-items:center;
   padding:calc(24px + env(safe-area-inset-top,0px))
     max(16px,env(safe-area-inset-right,0px))
-    calc(40px + env(safe-area-inset-bottom,0px))
+    calc(24px + env(safe-area-inset-bottom,0px))
     max(16px,env(safe-area-inset-left,0px));
   background:#001329;color:#F7E5B0;touch-action:none;
   opacity:1;transition:opacity .5s ease;
@@ -304,11 +306,12 @@ main:has(#squad.on){max-width:1200px}
 #launch-splash.is-leaving{opacity:0}
 .launch-crest{
   display:block;align-self:center;width:min(70vw,380px);height:auto;
-  max-width:100%;max-height:100%;object-fit:contain;opacity:0;
+  max-width:100%;max-height:calc(100% - 96px);object-fit:contain;opacity:0;
 }
 .crest-ready .launch-crest{animation:launch-appear .5s ease-out both}
 .launch-name{
-  margin:24px 0 0;padding-left:.24em;font-size:clamp(18px,4.6vw,24px);
+  position:absolute;inset-inline:16px;bottom:calc(40px + env(safe-area-inset-bottom,0px));
+  margin:0;padding-left:.24em;font-size:clamp(18px,4.6vw,24px);
   font-weight:650;line-height:1.3;letter-spacing:.24em;text-align:center;
 }
 #launch-error{
@@ -351,6 +354,7 @@ main:has(#squad.on){max-width:1200px}
     timers.forEach(clearTimeout);
     locked.forEach(([element,inert])=>{element.inert=inert});
     splash.remove();
+    document.getElementById('launch-canvas')?.remove();
     warning.hidden=!failed;
     window.removeEventListener('error',onError);
     window.removeEventListener('unhandledrejection',onError);

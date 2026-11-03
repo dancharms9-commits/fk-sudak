@@ -7,7 +7,10 @@ const fs=require('node:fs');
 const path=require('node:path');
 const http=require('node:http');
 const root=path.resolve(__dirname,'..');
-const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
+const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
+assert.equal(manifest.background_color,manifest.theme_color);
+assert.equal(manifest.display,'standalone');
+assert.deepEqual(manifest.icons.map(icon=>icon.purpose),['any','any','maskable']);
 const approvedSHA='31c854f9497403ceb37824a6115b4496dfd1f9d2984b859bb480f3d7d71bcba2';
 assert.equal(require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,'assets/club-crest-original.png'))).digest('hex'),approvedSHA);
 const server=http.createServer((req,res)=>{
@@ -61,6 +64,7 @@ function observeLaunch(){
     assert(times.firstFrameCovered,'The first app frame must be covered');
     assert.equal(await page.locator('header[inert],main[inert],nav[inert]').count(),0);
     assert.equal(await page.locator('#launch-error').isVisible(),false);
+    assert.equal(await page.locator('#launch-canvas').count(),0,'Restore the normal page canvas after launch');
     return Math.round(times.removed-start);
   };
   try{
@@ -79,12 +83,16 @@ function observeLaunch(){
           r:{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height},
           n:{top:n.top,bottom:n.bottom},src:image.getAttribute('src'),natural:[image.naturalWidth,image.naturalHeight],
           fit:s.objectFit,opacity:s.opacity,animation:s.animationName,transition:getComputedStyle(splash).transitionDuration,
-          background:getComputedStyle(splash).backgroundColor,blocked:document.querySelector('main').inert};
+          background:getComputedStyle(splash).backgroundColor,canvas:getComputedStyle(document.documentElement).backgroundColor,
+          theme:document.querySelector('meta[name="theme-color"]').content,blocked:document.querySelector('main').inert};
       });
       assert.equal(view.scroll,width);
       assert.equal(view.src,'assets/club-crest-original.png');
       assert.deepEqual(view.natural,[1024,1536]);assert.equal(view.fit,'contain');assert.equal(view.opacity,'1');
       assert.equal(view.background,'rgb(0, 19, 41)');assert(view.blocked);
+      assert.equal(view.canvas,view.background);assert.equal(view.theme,manifest.background_color);
+      assert(Math.abs((view.r.top+view.r.bottom)/2-view.height/2)<1,'Crest must share the OS screen centre');
+      assert.equal(await page.locator('#launch-splash').count(),1,'Only one web splash');
       assert(Math.abs((view.r.left+view.r.right)/2-width/2)<1);
       assert(view.r.left>=0&&view.r.right<=width&&view.r.top>=24&&view.r.bottom<=view.n.top);
       assert(view.n.bottom<=view.height-39);
@@ -162,11 +170,14 @@ function observeLaunch(){
     await page.evaluate(()=>navigator.serviceWorker.ready);
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
     const cached=await page.evaluate(async()=>{
-      const cache=await caches.open('sudak-launch-v5');
+      const cache=await caches.open('sudak-launch-v6');
       return (await cache.keys()).map(r=>new URL(r.url).pathname);
     });
     assert(cached.includes('/fk-sudak/assets/club-crest-original.png'));
     await context.setOffline(true);await page.reload();await completed(page);
+    const offlineManifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
+    assert.equal(offlineManifest.background_color,manifest.background_color);
+    assert.equal(offlineManifest.theme_color,manifest.theme_color);
     assert((await page.locator('#upd').innerText()).includes('Нет связи'));
     await page.locator('#nav [data-t="squad"]').click();assert.equal(await page.locator('#squad a[data-player]').count(),41);
     await page.locator('#squad a[data-player]').first().click();await page.locator('#player.on').waitFor();
