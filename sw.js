@@ -1,5 +1,5 @@
-// Launch v7: утверждённая финальная эмблема и единый фон запуска.
-const CACHE="sudak-launch-v7";
+// Home v8: обновлённая главная; утверждённые ресурсы запуска сохранены.
+const CACHE="sudak-home-v8";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
 
 self.addEventListener("install",event=>{

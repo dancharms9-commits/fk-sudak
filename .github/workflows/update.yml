@@ -34,6 +34,9 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node --test tests/*.test.cjs
       - run: node tests/browser.cjs
+      - run: node tests/home-dashboard.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: dashboard-screenshots
       - run: node tests/launch-splash.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: launch-screenshots
@@ -41,7 +44,9 @@ jobs:
         if: always()
         with:
           name: launch-screenshots
-          path: launch-screenshots/
+          path: |
+            launch-screenshots/
+            dashboard-screenshots/
           if-no-files-found: ignore
   update:
     if: github.event_name != 'pull_request'

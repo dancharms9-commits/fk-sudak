@@ -8,6 +8,7 @@ const path=require('node:path');
 const http=require('node:http');
 const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..');
+const shellCache=fs.readFileSync(path.join(root,'sw.js'),'utf8').match(/const CACHE="([^"]+)"/)[1];
 const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
 const key=r=>[2026,r[0],r[1],r[5]].join('|');
 const first=data.res[0],firstKey=key(first);
@@ -36,7 +37,7 @@ const server=http.createServer((req,res)=>{
     const load=async(url=base)=>{
       if(page.url().startsWith(base))await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));
       const target=new URL(url);target.searchParams.set("test",String(++navigation));
-      await page.goto(target.href);
+      await page.goto(target.href,{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
       await page.locator('#launch-splash').waitFor({state:'detached'});
     };
@@ -191,8 +192,8 @@ const server=http.createServer((req,res)=>{
     for(const width of [320,390,768,1440]){
       await page.setViewportSize({width,height:844});
       await load();
-      assert.equal(await page.locator('#home a[data-match]').count(),1);
-      await page.locator('#home a[data-match]').click();
+      assert.equal(await page.locator('#home .home-result[data-match]').count(),1);
+      await page.locator('#home .home-result[data-match]').click();
       await page.locator('#match.on').waitFor();
       assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
       assert.equal(await page.locator('#match .num').nth(0).innerText(),String(source.home_score));
@@ -203,7 +204,7 @@ const server=http.createServer((req,res)=>{
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width,'Detail overflow at '+width);
       await page.locator('#match-back').click();
       await page.locator('#home.on').waitFor();
-      assert.equal(await page.locator('#home a[data-match]').evaluate(el=>el===document.activeElement),true);
+      assert.equal(await page.locator('#home .home-result[data-match]').evaluate(el=>el===document.activeElement),true);
       await section('matches');
       assert.equal(await page.locator('#matches a[data-match]').count(),data.res.length);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width,'Matches overflow at '+width);
@@ -244,7 +245,7 @@ const server=http.createServer((req,res)=>{
     await page.unroute('**/data.json?*');
     await page.route('**/data.json?*',r=>r.fulfill({json:legacy}));
     await load();
-    await page.locator('#home a[data-match]').click();
+    await page.locator('#home .home-result[data-match]').click();
     assert((await page.locator('#match').innerText()).includes('Протокол матча недоступен'));
     await page.unroute('**/data.json?*');
     console.log('PASS unavailable protocol and compatibility with legacy data.json');
@@ -407,7 +408,7 @@ const server=http.createServer((req,res)=>{
     page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'/manifest.json');
     await page.evaluate(async()=>{
-      for(const name of ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5','sudak-launch-v6']){
+      for(const name of ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5','sudak-launch-v6','sudak-launch-v7']){
         const old=await caches.open(name);await old.put('./icon-192.png',new Response('old icon'));
       }
     });
@@ -417,11 +418,11 @@ const server=http.createServer((req,res)=>{
     await page.reload();
     await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
     assert(await page.evaluate(async()=>!!(await navigator.serviceWorker.getRegistration())));
-    const shell=await page.evaluate(async()=>{
-      const keys=await caches.keys(),cache=await caches.open('sudak-launch-v7');
+    const shell=await page.evaluate(async(cacheName)=>{
+      const keys=await caches.keys(),cache=await caches.open(cacheName);
       return {keys,urls:(await cache.keys()).map(request=>{const url=new URL(request.url);return url.pathname+url.search})};
-    });
-    assert(!shell.keys.includes('sudak-v2')&&!shell.keys.includes('sudak-ui-v3')&&!shell.keys.includes('sudak-crest-v4')&&!shell.keys.includes('sudak-launch-v5')&&!shell.keys.includes('sudak-launch-v6'),'Old shell caches must be removed');
+    },shellCache);
+    assert(!shell.keys.includes('sudak-v2')&&!shell.keys.includes('sudak-ui-v3')&&!shell.keys.includes('sudak-crest-v4')&&!shell.keys.includes('sudak-launch-v5')&&!shell.keys.includes('sudak-launch-v6')&&!shell.keys.includes('sudak-launch-v7'),'Old shell caches must be removed');
     for(const icon of ['icon-192.png','icon-512.png','icon-maskable-512.png'])assert(shell.urls.includes('/'+icon+'?v=final-crest-v7'));
     for(const icon of ['favicon.png','apple-touch-icon.png'])assert(shell.urls.includes('/'+icon+'?v=final-crest-v7'));
     assert(!shell.urls.some(url=>url.endsWith('/data.json')),'Federation data must still bypass the SW cache');
