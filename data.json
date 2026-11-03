@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T12:49+00:00",
+ "updated": "2026-11-03T13:24+00:00",
  "table": [
   [
    "СК «Каштан»",
@@ -307,5 +307,383 @@
    "",
    "https://rffk-roo.ru/news/2975/"
   ]
- ]
+ ],
+ "player_stats_2026": {
+  "season": 2026,
+  "competition": "Открытый чемпионат Республики Крым",
+  "source_url": "https://rffk-roo.ru/tournaments/4/",
+  "verified": true,
+  "stats_as_of": "2026-11-03T13:24+00:00",
+  "players": [
+   {
+    "name": "Абидов Руслан",
+    "position": "Защитники",
+    "federation_games": 37,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Козиянчук Олег",
+    "position": "Защитники",
+    "federation_games": 28,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Храмов Олег",
+    "position": "Защитники",
+    "federation_games": 12,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Скворцов Олег",
+    "position": "Защитники",
+    "federation_games": 8,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Кормилин Александр",
+    "position": "Защитники",
+    "federation_games": 7,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Мыкуляк Тарас",
+    "position": "Защитники",
+    "federation_games": 2,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Сгинухин Александр",
+    "position": "Полузащитники",
+    "federation_games": 29,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Мустафаев Арсен",
+    "position": "Полузащитники",
+    "federation_games": 28,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Османов Исмет",
+    "position": "Полузащитники",
+    "federation_games": 27,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Симончук Владимир",
+    "position": "Полузащитники",
+    "federation_games": 27,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Донской Илья",
+    "position": "Полузащитники",
+    "federation_games": 22,
+    "league_games": 14,
+    "league_goals": 5,
+    "league_penalty_goals": 0,
+    "league_minutes": 1051
+   },
+   {
+    "name": "Семенов Владимир",
+    "position": "Полузащитники",
+    "federation_games": 22,
+    "league_games": 12,
+    "league_goals": 10,
+    "league_penalty_goals": 0,
+    "league_minutes": 1013
+   },
+   {
+    "name": "Чебышев Александр",
+    "position": "Полузащитники",
+    "federation_games": 22,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Лебедев Владимир",
+    "position": "Полузащитники",
+    "federation_games": 21,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Куртиев Арсен",
+    "position": "Полузащитники",
+    "federation_games": 20,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Добровольский Владислав",
+    "position": "Полузащитники",
+    "federation_games": 18,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Абильванов Осман",
+    "position": "Полузащитники",
+    "federation_games": 17,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Глушков Никита",
+    "position": "Полузащитники",
+    "federation_games": 15,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Монахов Антон",
+    "position": "Полузащитники",
+    "federation_games": 13,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Смирнов Владислав",
+    "position": "Полузащитники",
+    "federation_games": 12,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Бардин Вадим",
+    "position": "Полузащитники",
+    "federation_games": 11,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Сарычев Дмитрий",
+    "position": "Полузащитники",
+    "federation_games": 11,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Патокин Александр",
+    "position": "Полузащитники",
+    "federation_games": 10,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Халилов Сулейман",
+    "position": "Полузащитники",
+    "federation_games": 10,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Бредун Евгений",
+    "position": "Полузащитники",
+    "federation_games": 8,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Горбачев Виталий",
+    "position": "Полузащитники",
+    "federation_games": 8,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Хистов Артём",
+    "position": "Полузащитники",
+    "federation_games": 7,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Одинцов Евгений",
+    "position": "Полузащитники",
+    "federation_games": 6,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Демьяненко Артём",
+    "position": "Полузащитники",
+    "federation_games": 5,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Майстренко Богдан",
+    "position": "Полузащитники",
+    "federation_games": 5,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Шилов Богдан",
+    "position": "Полузащитники",
+    "federation_games": 5,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Филатов Никита",
+    "position": "Полузащитники",
+    "federation_games": 3,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Демидов Максим",
+    "position": "Полузащитники",
+    "federation_games": 0,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Мустафаев Фатих",
+    "position": "Полузащитники",
+    "federation_games": 0,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Петраш Андрей",
+    "position": "Полузащитники",
+    "federation_games": 0,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Полнер Кирилл",
+    "position": "Полузащитники",
+    "federation_games": 0,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Гайдаш Андрей",
+    "position": "Нападающие",
+    "federation_games": 12,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Фароян Саак",
+    "position": "Нападающие",
+    "federation_games": 12,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Абильвапов Энвер",
+    "position": "Нападающие",
+    "federation_games": 11,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Ибраимов Эльдар",
+    "position": "Вратари",
+    "federation_games": 39,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   },
+   {
+    "name": "Мельник Андрей",
+    "position": "Вратари",
+    "federation_games": 5,
+    "league_games": null,
+    "league_goals": null,
+    "league_penalty_goals": null,
+    "league_minutes": null
+   }
+  ]
+ }
 }
