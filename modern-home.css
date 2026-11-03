@@ -3,7 +3,8 @@
   --bg:#EDF4F8; --card:#FFFFFF; --ink:#102A43; --mute:#61798A;
   --line:#DBE6ED; --sea:#147F9A; --navy:#0B2A4A; --sun:#F4BA4C;
 }
-html{overflow-x:hidden;scroll-behavior:smooth}
+/* History restores scroll synchronously; do not animate programmatic routing. */
+html{scroll-behavior:auto}
 body{
   background:radial-gradient(ellipse 560px 380px at 87% -6%,#DCEFF8 0,transparent 85%),var(--bg);
   -webkit-tap-highlight-color:transparent;
