@@ -11,12 +11,16 @@ const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'
 assert.equal(manifest.background_color,manifest.theme_color);
 assert.equal(manifest.display,'standalone');
 assert.deepEqual(manifest.icons.map(icon=>icon.purpose),['any','any','maskable']);
-const approvedSHA='31c854f9497403ceb37824a6115b4496dfd1f9d2984b859bb480f3d7d71bcba2';
-assert.equal(require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,'assets/club-crest-original.png'))).digest('hex'),approvedSHA);
+const approvedSHA='c8ed5b87dbf6a9c17fcbcc61974a9f4bd06418b3ef60ac8dddb534a6a504513b';
+assert.equal(require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,'assets/club-crest-final-original.png'))).digest('hex'),approvedSHA);
+let servePreviousWorker=false;
 const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost');
   const pathname=url.pathname.replace(/^\/fk-sudak(?=\/)/,'');
-  const file=path.join(root,pathname==='/'?'index.html':pathname);
+  let relative=pathname==='/'?'index.html':pathname;
+  if(servePreviousWorker&&pathname==='/sw.js')relative='tests/fixtures/sw-launch-v6.js';
+  if(url.searchParams.get('v')==='crest-v4'&&/^\/icon-(?:192|512|maskable-512)\.png$/.test(pathname))relative='assets/previous-crest/crest-v4'+pathname;
+  const file=path.join(root,relative);
   if(!file.startsWith(root+path.sep)){res.writeHead(403);res.end();return}
   fs.readFile(file,(error,body)=>{
     if(error){res.writeHead(404);res.end();return}
@@ -75,6 +79,7 @@ function observeLaunch(){
       await page.locator('#launch-splash.crest-ready').waitFor();
       await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
       assert(await page.locator('#launch-splash').isVisible(),'App data must be ready behind the splash');
+      assert.equal(await page.locator('.launch-crest').evaluate(el=>getComputedStyle(el).opacity),'1','No second fade-in after the OS screen');
       await page.waitForTimeout(600);
       const view=await page.evaluate(()=>{
         const splash=document.querySelector('#launch-splash'),image=splash.querySelector('img'),name=splash.querySelector('p');
@@ -87,8 +92,8 @@ function observeLaunch(){
           theme:document.querySelector('meta[name="theme-color"]').content,blocked:document.querySelector('main').inert};
       });
       assert.equal(view.scroll,width);
-      assert.equal(view.src,'assets/club-crest-original.png');
-      assert.deepEqual(view.natural,[1024,1536]);assert.equal(view.fit,'contain');assert.equal(view.opacity,'1');
+      assert.equal(view.src,'assets/club-crest-final-original.png');
+      assert.deepEqual(view.natural,[1086,1448]);assert.equal(view.fit,'contain');assert.equal(view.opacity,'1');
       assert.equal(view.background,'rgb(0, 19, 41)');assert(view.blocked);
       assert.equal(view.canvas,view.background);assert.equal(view.theme,manifest.background_color);
       assert(Math.abs((view.r.top+view.r.bottom)/2-view.height/2)<1,'Crest must share the OS screen centre');
@@ -96,7 +101,7 @@ function observeLaunch(){
       assert(Math.abs((view.r.left+view.r.right)/2-width/2)<1);
       assert(view.r.left>=0&&view.r.right<=width&&view.r.top>=24&&view.r.bottom<=view.n.top);
       assert(view.n.bottom<=view.height-39);
-      assert(Math.abs(view.r.width/view.r.height-2/3)<.01,'Preserve original PNG aspect ratio');
+      assert(Math.abs(view.r.width/view.r.height-3/4)<.01,'Preserve original PNG aspect ratio');
       if(width<=390)assert(view.r.width/width>=.65&&view.r.width/width<=.701);
       if(reducedMotion==='reduce'){assert.equal(view.animation,'none');assert.equal(view.transition,'0s')}
       if(process.env.VISUAL_SCREENSHOT_DIR){
@@ -159,7 +164,7 @@ function observeLaunch(){
     console.log('PASS slow/failed data: accessible app after 3500 ms, clear error and working retry');
     // Delayed PNG: keep the full brand interval after the actual crest loads.
     page=await setup();let release;
-    await page.route('**/assets/club-crest-original.png',r=>{release=r});
+    await page.route('**/assets/club-crest-final-original.png',r=>{release=r});
     await page.goto(base,{waitUntil:'domcontentloaded'});
     await page.waitForTimeout(700);assert(await page.locator('#launch-splash').isVisible());
     await release.continue();await completed(page);
@@ -170,10 +175,10 @@ function observeLaunch(){
     await page.evaluate(()=>navigator.serviceWorker.ready);
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
     const cached=await page.evaluate(async()=>{
-      const cache=await caches.open('sudak-launch-v6');
+      const cache=await caches.open('sudak-launch-v7');
       return (await cache.keys()).map(r=>new URL(r.url).pathname);
     });
-    assert(cached.includes('/fk-sudak/assets/club-crest-original.png'));
+    assert(cached.includes('/fk-sudak/assets/club-crest-final-original.png'));
     await context.setOffline(true);await page.reload();await completed(page);
     const offlineManifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
     assert.equal(offlineManifest.background_color,manifest.background_color);
@@ -187,6 +192,27 @@ function observeLaunch(){
     await context.setOffline(false);
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
     console.log('PASS real SW offline launches with/without saved data, 41 profiles and reconnect');
+    // Upgrade a genuinely active previous worker with its old original/icon cache.
+    servePreviousWorker=true;
+    page=await setup({serviceWorkers:'allow'});
+    await page.goto(base+'manifest.json');
+    await page.evaluate(async()=>{await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready});
+    await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+    assert(await page.evaluate(async()=>!!await (await caches.open('sudak-launch-v6')).match('./assets/club-crest-original.png')));
+    const previousIcon=await page.evaluate(async()=>Array.from(new Uint8Array(await (await fetch('icon-192.png?v=crest-v4')).arrayBuffer())));
+    assert.deepEqual(Buffer.from(previousIcon),fs.readFileSync(path.join(root,'assets/previous-crest/crest-v4/icon-192.png')));
+    servePreviousWorker=false;
+    await page.evaluate(async()=>{const registration=await navigator.serviceWorker.getRegistration();await registration.update()});
+    await page.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('sudak-launch-v7')&&!keys.includes('sudak-launch-v6')});
+    await page.goto(base);await completed(page);
+    await context.setOffline(true);await page.reload();await completed(page);
+    const cachedOriginal=await page.evaluate(async()=>Array.from(new Uint8Array(await (await fetch('assets/club-crest-final-original.png')).arrayBuffer())));
+    assert.equal(require('node:crypto').createHash('sha256').update(Buffer.from(cachedOriginal)).digest('hex'),approvedSHA);
+    for(const filename of ['icon-192.png','icon-512.png','icon-maskable-512.png','favicon.png','apple-touch-icon.png']){
+      const bytes=await page.evaluate(async src=>Array.from(new Uint8Array(await (await fetch(src)).arrayBuffer())),filename+'?v=final-crest-v7');
+      assert.deepEqual(Buffer.from(bytes),fs.readFileSync(path.join(root,filename)),'Exact new offline icon after worker upgrade: '+filename);
+    }
+    console.log('PASS actual v6 worker upgrade to v7, new approved PNG and all five icons byte-exact offline');
     // A startup script error reveals recovery immediately instead of blocking UI.
     page=await setup();
     await page.route(base,r=>r.fulfill({contentType:'text/html',body:fs.readFileSync(path.join(root,'index.html'),'utf8').replace('window.dispatchEvent(new Event("sudak:ready"));',"window.dispatchEvent(new ErrorEvent('error',{message:'simulated boot error'}));")}));
@@ -197,7 +223,7 @@ function observeLaunch(){
     assert(await page.locator('#home .home-intro').isVisible());
     console.log('PASS startup error releases UI immediately and Continue works');
     // Broken image and stalled app boot release the UI with explicit recovery.
-    page=await setup();await page.route('**/assets/club-crest-original.png',r=>r.abort());
+    page=await setup();await page.route('**/assets/club-crest-final-original.png',r=>r.abort());
     await page.goto(base);await page.locator('#launch-error').waitFor();
     assert.equal(await page.locator('#launch-splash').count(),0);
     await page.locator('#launch-continue').click();assert.equal(await page.locator('#launch-error').isVisible(),false);

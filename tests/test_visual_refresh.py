@@ -60,14 +60,16 @@ class VisualRefreshTests(unittest.TestCase):
                                ('fk-sudak-pwa-512.png', 'icon-512.png'),
                                ('fk-sudak-pwa-maskable-512.png', 'icon-maskable-512.png')]:
             self.assertEqual((ROOT / source).read_bytes(), (ROOT / output).read_bytes())
+        self.assertEqual(png_size(ROOT / 'favicon.png'), (32, 32))
+        self.assertEqual(png_size(ROOT / 'apple-touch-icon.png'), (180, 180))
 
     def test_inline_css_matches_source_and_header_uses_new_icon(self):
         html = (ROOT / 'index.html').read_text()
         css = (ROOT / 'modern-home.css').read_text()
         self.assertIn(css, html)
         self.assertEqual(html.count('/* Modern Football Home 2026'), 1)
-        self.assertIn('<img src="icon-192.png?v=crest-v4" alt="" width="54" height="54">', html)
-        self.assertIn('<link rel="icon" type="image/png" href="icon-192.png?v=crest-v4">', html)
+        self.assertIn('<img src="icon-192.png?v=final-crest-v7" alt="" width="54" height="54">', html)
+        self.assertIn('<link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=final-crest-v7">', html)
 
     def test_rerun_is_idempotent_and_preserves_federation_files(self):
         with tempfile.TemporaryDirectory() as tmp:

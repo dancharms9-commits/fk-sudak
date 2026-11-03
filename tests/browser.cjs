@@ -47,10 +47,11 @@ const server=http.createServer((req,res)=>{
     await load();
     const assetChecks=await page.evaluate(async ()=>{
       async function decode(src){const img=new Image();img.src=src;await img.decode();return img}
-      const source=await decode('assets/club-crest-original.png');
+      const source=await decode('assets/club-crest-final-original.png');
       const results=[];
-      for(const [name,size,scale] of [['192',192,1],['512',512,1],['maskable-512',512,.64]]){
-        const icon=await decode('icon-'+name+'.png?v=crest-v4');
+      for(const [name,size,scale] of [['192',192,.94],['512',512,.94],['maskable-512',512,.63],['favicon',32,.94],['apple-touch-icon',180,.94]]){
+        const filename=['favicon','apple-touch-icon'].includes(name)?name:'icon-'+name;
+        const icon=await decode(filename+'.png?v=final-crest-v7');
         const canvas=document.createElement('canvas');canvas.width=canvas.height=size;
         const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(icon,0,0);
         const pixels=ctx.getImageData(0,0,size,size).data;
@@ -82,7 +83,7 @@ const server=http.createServer((req,res)=>{
     });
     for(const asset of assetChecks){
       assert.equal(asset.width,asset.size);assert.equal(asset.height,asset.size);assert(asset.opaque);
-      assert(asset.crestPixels>500);assert.equal(asset.maxChannelDifference,0,'Full approved source must be preserved: '+asset.name);
+      assert(asset.crestPixels>asset.size*asset.size*.01);assert.equal(asset.maxChannelDifference,0,'Full approved source must be preserved: '+asset.name);
       if(asset.name==='maskable-512')assert(asset.maxCrestRadius<asset.size*.4,'Crest must stay inside maskable safe circle');
     }
     if(process.env.VISUAL_SCREENSHOT_DIR){
@@ -406,7 +407,7 @@ const server=http.createServer((req,res)=>{
     page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'/manifest.json');
     await page.evaluate(async()=>{
-      for(const name of ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5']){
+      for(const name of ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5','sudak-launch-v6']){
         const old=await caches.open(name);await old.put('./icon-192.png',new Response('old icon'));
       }
     });
@@ -417,15 +418,16 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
     assert(await page.evaluate(async()=>!!(await navigator.serviceWorker.getRegistration())));
     const shell=await page.evaluate(async()=>{
-      const keys=await caches.keys(),cache=await caches.open('sudak-launch-v6');
+      const keys=await caches.keys(),cache=await caches.open('sudak-launch-v7');
       return {keys,urls:(await cache.keys()).map(request=>{const url=new URL(request.url);return url.pathname+url.search})};
     });
-    assert(!shell.keys.includes('sudak-v2')&&!shell.keys.includes('sudak-ui-v3')&&!shell.keys.includes('sudak-crest-v4')&&!shell.keys.includes('sudak-launch-v5'),'Old shell caches must be removed');
-    for(const icon of ['icon-192.png','icon-512.png','icon-maskable-512.png'])assert(shell.urls.includes('/'+icon+'?v=crest-v4'));
+    assert(!shell.keys.includes('sudak-v2')&&!shell.keys.includes('sudak-ui-v3')&&!shell.keys.includes('sudak-crest-v4')&&!shell.keys.includes('sudak-launch-v5')&&!shell.keys.includes('sudak-launch-v6'),'Old shell caches must be removed');
+    for(const icon of ['icon-192.png','icon-512.png','icon-maskable-512.png'])assert(shell.urls.includes('/'+icon+'?v=final-crest-v7'));
+    for(const icon of ['favicon.png','apple-touch-icon.png'])assert(shell.urls.includes('/'+icon+'?v=final-crest-v7'));
     assert(!shell.urls.some(url=>url.endsWith('/data.json')),'Federation data must still bypass the SW cache');
     const manifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
     assert.deepEqual(manifest.icons.map(i=>i.purpose),['any','any','maskable']);
-    assert(manifest.icons.every(icon=>icon.src.endsWith('?v=crest-v4')));
+    assert(manifest.icons.every(icon=>icon.src.endsWith('?v=final-crest-v7')));
     assert.equal(await page.locator('link[rel="manifest"]').getAttribute('href'),'manifest.json');
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
     await context.setOffline(true);
