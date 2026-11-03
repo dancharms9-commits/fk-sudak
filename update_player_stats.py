@@ -61,6 +61,39 @@ def safe_player_url(href):
     return None
 
 
+def safe_photo_url(raw):
+    if not isinstance(raw, str):
+        return None
+    parsed = urlparse(raw)
+    filename = parsed.path.rsplit("/", 1)[-1].lower()
+    if (parsed.scheme != "https" or parsed.netloc != "rffk-roo.ru"
+            or parsed.query or parsed.fragment
+            or not re.fullmatch(r"/uploads/people/(?:large|medium|small)/[A-Za-z0-9_-]+\.(?:jpe?g|png|webp)", parsed.path, re.I)
+            or re.search(r"(?:default|no[-_]?photo|placeholder|unknown|empty|avatar)\.", filename)):
+        return None
+    return raw
+
+
+def parse_profile_photo(soup, expected_name, profile_url):
+    """Only the portrait attached to this exact official player identity."""
+    if safe_player_url(profile_url) != profile_url:
+        return {}
+    last = soup.select_one(".player-data__lastname")
+    first = soup.select_one(".player-data__name")
+    images = soup.select(".player-data__image img")
+    if not last or not first or len(images) != 1:
+        return {}
+    name = normalized_text(last) + " " + normalized_text(first).split(" ")[0]
+    if name != expected_name:
+        return {}
+    image = images[0]
+    # Ignore page logos, generic avatars, and portraits with a different alt name.
+    if normalized_text(BeautifulSoup(image.get("alt", ""), "html.parser")) != expected_name:
+        return {}
+    url = safe_photo_url(urljoin(BASE, image.get("src", "")))
+    return {"photo_url": url, "photo_source_url": profile_url} if url else {}
+
+
 def parse_profile_stats(soup, expected_name, played, team_goals):
     """Returns None for missing/ambiguous; zero goals for a verified 0-goal player."""
     title = soup.title.get_text(" ", strip=True) if soup.title else ""
@@ -130,13 +163,18 @@ def valid_stat_fields(item, played, team_goals):
         output.update(league_starts=starts, league_substitutions=subs)
     if item.get("profile_url") and safe_player_url(item["profile_url"]) == item["profile_url"]:
         output["profile_url"] = item["profile_url"]
+    if (output.get("profile_url") and item.get("photo_source_url") == output["profile_url"]
+            and safe_photo_url(item.get("photo_url"))):
+        output.update(photo_url=item["photo_url"], photo_source_url=item["photo_source_url"])
     return output
 
 
 def fetch_one_player(name, url, played, team_goals):
     try:
-        stats = parse_profile_stats(fetch_html(url), name, played, team_goals)
-        return name, ({**stats, "profile_url": url} if stats else None)
+        soup = fetch_html(url)
+        stats = parse_profile_stats(soup, name, played, team_goals)
+        photo = parse_profile_photo(soup, name, url)
+        return name, ({**stats, "profile_url": url, **photo} if stats else None)
     except (requests.RequestException, ValueError, TypeError, AttributeError):
         return name, None
 
@@ -239,6 +277,8 @@ def main():
             "profile_url": stats.get("profile_url", links.get(name)),
             "stats_current": name in fresh,
         }
+        if stats.get("photo_url"):
+            row.update(photo_url=stats["photo_url"], photo_source_url=stats["photo_source_url"])
         players.append(row)
     available = sum(row["league_games"] is not None for row in players)
     updated_stats = {
