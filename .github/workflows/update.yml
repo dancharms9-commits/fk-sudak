@@ -12,7 +12,11 @@ jobs:
         with: {python-version: "3.12"}
       - run: pip install requests beautifulsoup4
       - run: python fetch_data.py
+      # Дополнительная статистика факультативна. Ошибка здесь не должна
+      # блокировать сохранение рабочих календаря, таблицы и новостей.
+      - run: python update_player_stats.py || echo "Статистика игроков временно недоступна"
       - run: |
           git config user.name "bot"; git config user.email "bot@users.noreply.github.com"
           git add data.json
+          if [ -f player_stats_cache_2026.json ]; then git add player_stats_cache_2026.json; fi
           git diff --cached --quiet || (git commit -m "Обновление данных" && git push)
