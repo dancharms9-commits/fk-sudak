@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T21:34+00:00",
+ "updated": "2026-11-03T21:42+00:00",
  "table": [
   [
    "СК «Каштан»",
@@ -937,7 +937,435 @@
      ]
     }
    ],
-   "time": "15:00"
+   "time": "15:00",
+   "events": [
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "3",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Колодяжный А.",
+     "minute": "3",
+     "type": "penalty",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Добровольский В.",
+     "minute": "6",
+     "type": "goal",
+     "score": [
+      1,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Одинцов Е.",
+     "minute": "19",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "27",
+     "type": "goal",
+     "score": [
+      1,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "44",
+     "type": "goal",
+     "score": [
+      1,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Абильвапов Э.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Биленко В.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Нелюбов А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Халилов С.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Смирнов В.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Бондаренко А.",
+     "minute": "59",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Делинда И.",
+     "minute": "59",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мирошниченко А.",
+     "minute": "59",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Сеитвелиев Э.",
+     "minute": "59",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "59",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Одинцов Е.",
+     "minute": "59",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Абильвапов Э.",
+     "minute": "59",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Горбачев В.",
+     "minute": "70",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "70",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бондаренко А.",
+     "minute": "72",
+     "type": "goal",
+     "score": [
+      2,
+      3
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Куценко А.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Попович А.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Романовский В.",
+     "minute": "76",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Самойлов Н.",
+     "minute": "76",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Гайдаш А.",
+     "minute": "80",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Хистов А.",
+     "minute": "80",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Фанин Е.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Лепетюха С.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бардин В.",
+     "minute": "88",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Попович А.",
+     "minute": "90",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Абильванов О.",
+     "minute": "92",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "92",
+     "type": "substitution_out"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "АБДУЛЛАЕВ Тимур",
+       "profile_url": "https://rffk-roo.ru/players/2614/",
+       "number": null
+      },
+      {
+       "name": "Галушко Никита",
+       "profile_url": "https://rffk-roo.ru/players/1702/",
+       "number": null
+      },
+      {
+       "name": "Делинда Игорь",
+       "profile_url": "https://rffk-roo.ru/players/828/",
+       "number": null
+      },
+      {
+       "name": "Колодяжный Алексей",
+       "profile_url": "https://rffk-roo.ru/players/1707/",
+       "number": null
+      },
+      {
+       "name": "Куценко Алексей",
+       "profile_url": "https://rffk-roo.ru/players/2330/",
+       "number": null
+      },
+      {
+       "name": "Лепетюха Станислав",
+       "profile_url": "https://rffk-roo.ru/players/1709/",
+       "number": null
+      },
+      {
+       "name": "Мирошниченко Александр",
+       "profile_url": "https://rffk-roo.ru/players/834/",
+       "number": null
+      },
+      {
+       "name": "Нелюбов Александр",
+       "profile_url": "https://rffk-roo.ru/players/3337/",
+       "number": null
+      },
+      {
+       "name": "Ракович Никита",
+       "profile_url": "https://rffk-roo.ru/players/3370/",
+       "number": null
+      },
+      {
+       "name": "Самойлов Никита",
+       "profile_url": "https://rffk-roo.ru/players/1712/",
+       "number": null
+      },
+      {
+       "name": "Тытюк Никита",
+       "profile_url": "https://rffk-roo.ru/players/3333/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Биленко Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2075/",
+       "number": null
+      },
+      {
+       "name": "Бондаренко Александр",
+       "profile_url": "https://rffk-roo.ru/players/1699/",
+       "number": null
+      },
+      {
+       "name": "Попович Артём",
+       "profile_url": "https://rffk-roo.ru/players/3340/",
+       "number": null
+      },
+      {
+       "name": "Романовский Владимир",
+       "profile_url": "https://rffk-roo.ru/players/3342/",
+       "number": null
+      },
+      {
+       "name": "Сеитвелиев Эмир",
+       "profile_url": "https://rffk-roo.ru/players/3459/",
+       "number": null
+      },
+      {
+       "name": "Фанин Егор",
+       "profile_url": "https://rffk-roo.ru/players/3341/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Горбачев Виталий",
+       "profile_url": "https://rffk-roo.ru/players/3179/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": 99
+      },
+      {
+       "name": "Одинцов Евгений",
+       "profile_url": "https://rffk-roo.ru/players/618/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Абильвапов Энвер",
+       "profile_url": "https://rffk-roo.ru/players/775/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Османов Исмет",
+       "profile_url": "https://rffk-roo.ru/players/772/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "18-й тур. Матч №103"
   },
   "2026|10 октября|«СТО-Газель»|дома": {
    "id": "38760",
@@ -1011,7 +1439,386 @@
      ]
     }
    ],
-   "time": "15:00"
+   "time": "15:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "6",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Добровольский В.",
+     "minute": "31",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Добровольский В.",
+     "minute": "43",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Смирнов А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Джемилев А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Джемилев А.",
+     "minute": "57",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Берегуля М.",
+     "minute": "68",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Малышев А.",
+     "minute": "68",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Берегуля А.",
+     "minute": "68",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Михалищев Н.",
+     "minute": "68",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Джемилев Р.",
+     "minute": "73",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "75",
+     "type": "penalty",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Халилов С.",
+     "minute": "76",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "76",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Демьяненко А.",
+     "minute": "79",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "79",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "79",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Добровольский В.",
+     "minute": "79",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "82",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Абильвапов Э.",
+     "minute": "82",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Берегуля М.",
+     "minute": "82",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Джемилев А.",
+     "minute": "85",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Абидов Р.",
+     "minute": "91",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "91",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "91",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Хистов А.",
+     "minute": "91",
+     "type": "substitution_in"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Горбачев Виталий",
+       "profile_url": "https://rffk-roo.ru/players/3179/",
+       "number": null
+      },
+      {
+       "name": "Демьяненко Артём",
+       "profile_url": "https://rffk-roo.ru/players/173/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Мыкуляк Тарас",
+       "profile_url": "https://rffk-roo.ru/players/859/",
+       "number": null
+      },
+      {
+       "name": "Одинцов Евгений",
+       "profile_url": "https://rffk-roo.ru/players/618/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Шилов Богдан",
+       "profile_url": "https://rffk-roo.ru/players/1994/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Абильвапов Энвер",
+       "profile_url": "https://rffk-roo.ru/players/775/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Османов Исмет",
+       "profile_url": "https://rffk-roo.ru/players/772/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Атаев Азамат",
+       "profile_url": "https://rffk-roo.ru/players/3527/",
+       "number": null
+      },
+      {
+       "name": "Бразда Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3362/",
+       "number": null
+      },
+      {
+       "name": "Губский Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3463/",
+       "number": null
+      },
+      {
+       "name": "Джемилев Рустем",
+       "profile_url": "https://rffk-roo.ru/players/776/",
+       "number": null
+      },
+      {
+       "name": "Костенков Василий",
+       "profile_url": "https://rffk-roo.ru/players/3364/",
+       "number": null
+      },
+      {
+       "name": "Малышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/711/",
+       "number": null
+      },
+      {
+       "name": "Манонин Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/443/",
+       "number": null
+      },
+      {
+       "name": "Михалищев Никита",
+       "profile_url": "https://rffk-roo.ru/players/1970/",
+       "number": null
+      },
+      {
+       "name": "Онянов Роман",
+       "profile_url": "https://rffk-roo.ru/players/3363/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Александр",
+       "profile_url": "https://rffk-roo.ru/players/374/",
+       "number": null
+      },
+      {
+       "name": "Хромов Михаил",
+       "profile_url": "https://rffk-roo.ru/players/2174/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Берегуля Андрей",
+       "profile_url": "https://rffk-roo.ru/players/1523/",
+       "number": null
+      },
+      {
+       "name": "Берегуля Максим",
+       "profile_url": "https://rffk-roo.ru/players/2281/",
+       "number": null
+      },
+      {
+       "name": "Джемилев Алим",
+       "profile_url": "https://rffk-roo.ru/players/2453/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "17-й тур. Матч №101"
   },
   "2026|4 октября|ФК «Фуна»|в гостях": {
    "id": "38751",
@@ -1075,7 +1882,312 @@
      ]
     }
    ],
-   "time": "15:00"
+   "time": "15:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Угаров В.",
+     "minute": "10",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мудрак Р.",
+     "minute": "29",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "37",
+     "type": "goal",
+     "score": [
+      2,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Шилов Б.",
+     "minute": "42",
+     "type": "goal",
+     "score": [
+      2,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Бардин В.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Смирнов В.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Патокин А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Ковальчук В.",
+     "minute": "50",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "61",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "73",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Шилов Б.",
+     "minute": "82",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Нежинский Д.",
+     "minute": "84",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Сеитмеметов З.",
+     "minute": "84",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Демьяненко А.",
+     "minute": "85",
+     "type": "goal",
+     "score": [
+      2,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Демьяненко А.",
+     "minute": "91",
+     "type": "yellow"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Белошапка Артем",
+       "profile_url": "https://rffk-roo.ru/players/676/",
+       "number": null
+      },
+      {
+       "name": "Киселев Михаил",
+       "profile_url": "https://rffk-roo.ru/players/3407/",
+       "number": null
+      },
+      {
+       "name": "Кугаевский Владимир",
+       "profile_url": "https://rffk-roo.ru/players/3131/",
+       "number": null
+      },
+      {
+       "name": "Кутенков Илья",
+       "profile_url": "https://rffk-roo.ru/players/3408/",
+       "number": null
+      },
+      {
+       "name": "Мудрак Ренат",
+       "profile_url": "https://rffk-roo.ru/players/3149/",
+       "number": null
+      },
+      {
+       "name": "Мудрак Дэвид",
+       "profile_url": "https://rffk-roo.ru/players/3286/",
+       "number": null
+      },
+      {
+       "name": "Рубченко Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/680/",
+       "number": null
+      },
+      {
+       "name": "Сеитмеметов Закир",
+       "profile_url": "https://rffk-roo.ru/players/3145/",
+       "number": null
+      },
+      {
+       "name": "Угаров Владислав",
+       "profile_url": "https://rffk-roo.ru/players/1300/",
+       "number": null
+      },
+      {
+       "name": "Угаров Ярослав",
+       "profile_url": "https://rffk-roo.ru/players/1265/",
+       "number": null
+      },
+      {
+       "name": "Чумаченко Игорь",
+       "profile_url": "https://rffk-roo.ru/players/3137/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Ковальчук Виктор",
+       "profile_url": "https://rffk-roo.ru/players/1480/",
+       "number": null
+      },
+      {
+       "name": "Колодий Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3138/",
+       "number": null
+      },
+      {
+       "name": "Нежинский Денис",
+       "profile_url": "https://rffk-roo.ru/players/3141/",
+       "number": null
+      },
+      {
+       "name": "Сорин Евгений",
+       "profile_url": "https://rffk-roo.ru/players/3151/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Демьяненко Артём",
+       "profile_url": "https://rffk-roo.ru/players/173/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Одинцов Евгений",
+       "profile_url": "https://rffk-roo.ru/players/618/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      },
+      {
+       "name": "Шилов Богдан",
+       "profile_url": "https://rffk-roo.ru/players/1994/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Абильвапов Энвер",
+       "profile_url": "https://rffk-roo.ru/players/775/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Османов Исмет",
+       "profile_url": "https://rffk-roo.ru/players/772/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "16-й тур. Матч №92"
   },
   "2026|26 сентября|АФК|дома": {
    "id": "38747",
@@ -1159,7 +2271,514 @@
      ]
     }
    ],
-   "time": "16:00"
+   "time": "16:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "5",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Чайка Д.",
+     "minute": "13",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "19",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "30",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Фролов В.",
+     "minute": "31",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Федосюк Н.",
+     "minute": "49",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Кудлай Д.",
+     "minute": "49",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Кушнирук Д.",
+     "minute": "52",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Борщ Р.",
+     "minute": "52",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "62",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Осташевский Д.",
+     "minute": "63",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Карнаухов В.",
+     "minute": "63",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Харебин М.",
+     "minute": "66",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Маврин Т.",
+     "minute": "69",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Чайка Д.",
+     "minute": "69",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Козлов В.",
+     "minute": "71",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бусин Д.",
+     "minute": "71",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Лебедев В.",
+     "minute": "73",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "73",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Тарасенко А.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Каторгин И.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Богатырёв М.",
+     "minute": "76",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Харебин М.",
+     "minute": "76",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "80",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "80",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "80",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Османов И.",
+     "minute": "82",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "82",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Абидов Р.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Одинцов Е.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Чебышев А.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "86",
+     "type": "goal",
+     "score": [
+      5,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Абильванов О.",
+     "minute": "86",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Храмов О.",
+     "minute": "86",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Фароян С.",
+     "minute": "86",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бардин В.",
+     "minute": "86",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "90",
+     "type": "goal",
+     "score": [
+      6,
+      1
+     ]
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Одинцов Евгений",
+       "profile_url": "https://rffk-roo.ru/players/618/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Филатов Никита",
+       "profile_url": "https://rffk-roo.ru/players/2419/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Абильвапов Энвер",
+       "profile_url": "https://rffk-roo.ru/players/775/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Османов Исмет",
+       "profile_url": "https://rffk-roo.ru/players/772/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бабицын Илья",
+       "profile_url": "https://rffk-roo.ru/players/3384/",
+       "number": null
+      },
+      {
+       "name": "Борщ Роман",
+       "profile_url": "https://rffk-roo.ru/players/3488/",
+       "number": null
+      },
+      {
+       "name": "Гожа Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3389/",
+       "number": null
+      },
+      {
+       "name": "Каторгин Иван",
+       "profile_url": "https://rffk-roo.ru/players/3480/",
+       "number": null
+      },
+      {
+       "name": "Козлов Вячеслав",
+       "profile_url": "https://rffk-roo.ru/players/3392/",
+       "number": null
+      },
+      {
+       "name": "Коровка Севастьян",
+       "profile_url": "https://rffk-roo.ru/players/3483/",
+       "number": null
+      },
+      {
+       "name": "Кудлай Даниил",
+       "profile_url": "https://rffk-roo.ru/players/3484/",
+       "number": null
+      },
+      {
+       "name": "Мочкаль Тимофей",
+       "profile_url": "https://rffk-roo.ru/players/3398/",
+       "number": null
+      },
+      {
+       "name": "Осташевский Денис",
+       "profile_url": "https://rffk-roo.ru/players/3399/",
+       "number": null
+      },
+      {
+       "name": "Харебин Максим",
+       "profile_url": "https://rffk-roo.ru/players/3493/",
+       "number": null
+      },
+      {
+       "name": "Чайка Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3406/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Баласанян Илья",
+       "profile_url": "https://rffk-roo.ru/players/3479/",
+       "number": null
+      },
+      {
+       "name": "Богатырёв Марат",
+       "profile_url": "https://rffk-roo.ru/players/3460/",
+       "number": null
+      },
+      {
+       "name": "Бусин Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3380/",
+       "number": null
+      },
+      {
+       "name": "Волобуев Никита",
+       "profile_url": "https://rffk-roo.ru/players/3374/",
+       "number": null
+      },
+      {
+       "name": "Горшков Богдан",
+       "profile_url": "https://rffk-roo.ru/players/3489/",
+       "number": null
+      },
+      {
+       "name": "Карнаухов Вадим",
+       "profile_url": "https://rffk-roo.ru/players/3490/",
+       "number": null
+      },
+      {
+       "name": "Кушнирук Давид",
+       "profile_url": "https://rffk-roo.ru/players/3376/",
+       "number": null
+      },
+      {
+       "name": "Маврин Тимофей",
+       "profile_url": "https://rffk-roo.ru/players/3491/",
+       "number": null
+      },
+      {
+       "name": "Стахиев Иван",
+       "profile_url": "https://rffk-roo.ru/players/3485/",
+       "number": null
+      },
+      {
+       "name": "Тарасенко Артём",
+       "profile_url": "https://rffk-roo.ru/players/3492/",
+       "number": null
+      },
+      {
+       "name": "Федосюк Николай",
+       "profile_url": "https://rffk-roo.ru/players/3487/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "15-й тур. Матч №88"
   },
   "2026|12 сентября|ФК «НКСТРОЙ-Керчь»|в гостях": {
    "id": "38740",
@@ -1213,7 +2832,517 @@
      ]
     }
    ],
-   "time": "13:30"
+   "time": "13:30",
+   "events": [
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "21",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Османов И.",
+     "minute": "21",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "23",
+     "type": "goal",
+     "score": [
+      0,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Яблочников А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Кулиш Д.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Филатов Н.",
+     "minute": "49",
+     "type": "goal",
+     "score": [
+      0,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Муслимов А.",
+     "minute": "58",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Гафаров Т.",
+     "minute": "58",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Винокуров С.",
+     "minute": "61",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Быков В.",
+     "minute": "63",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Мелих А.",
+     "minute": "63",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Смирнов В.",
+     "minute": "63",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Монахов А.",
+     "minute": "63",
+     "type": "goal",
+     "score": [
+      0,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "63",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Вятчанин Д.",
+     "minute": "67",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Калина В.",
+     "minute": "67",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Козиянчук О.",
+     "minute": "67",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Куртиев А.",
+     "minute": "67",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "68",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Каторгин О.",
+     "minute": "69",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Кирсанов А.",
+     "minute": "69",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Костырин Д.",
+     "minute": "71",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Потапович А.",
+     "minute": "71",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Лебедев В.",
+     "minute": "76",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Абидов Р.",
+     "minute": "76",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мыкуляк Т.",
+     "minute": "76",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Филатов Н.",
+     "minute": "76",
+     "type": "goal",
+     "score": [
+      0,
+      4
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Гайдаш А.",
+     "minute": "76",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Цымбаленко В.",
+     "minute": "77",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "77",
+     "type": "second_yellow"
+    },
+    {
+     "side": "home",
+     "player": "Геенко С.",
+     "minute": "78",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Радченко Е.",
+     "minute": "78",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Лалаян К.",
+     "minute": "83",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Винокуров С.",
+     "minute": "83",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Набока В.",
+     "minute": "83",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Цымбаленко В.",
+     "minute": "83",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "87",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Хистов А.",
+     "minute": "87",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Филатов Н.",
+     "minute": "87",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Абильванов О.",
+     "minute": "87",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Одинцов Е.",
+     "minute": "88",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Чебышев А.",
+     "minute": "88",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "88",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Фароян С.",
+     "minute": "88",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Хистов А.",
+     "minute": "90",
+     "type": "yellow"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Винокуров Сергей",
+       "profile_url": "https://rffk-roo.ru/players/963/",
+       "number": null
+      },
+      {
+       "name": "Калина Вячеслав",
+       "profile_url": "https://rffk-roo.ru/players/2256/",
+       "number": null
+      },
+      {
+       "name": "Кикава Давид",
+       "profile_url": "https://rffk-roo.ru/players/1407/",
+       "number": null
+      },
+      {
+       "name": "Киричек Егор",
+       "profile_url": "https://rffk-roo.ru/players/3266/",
+       "number": null
+      },
+      {
+       "name": "Кирсанов Андрей",
+       "profile_url": "https://rffk-roo.ru/players/707/",
+       "number": null
+      },
+      {
+       "name": "Кулиш Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3192/",
+       "number": null
+      },
+      {
+       "name": "Мелих Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3068/",
+       "number": null
+      },
+      {
+       "name": "Муслимов Асан",
+       "profile_url": "https://rffk-roo.ru/players/1009/",
+       "number": null
+      },
+      {
+       "name": "Потапович Александр",
+       "profile_url": "https://rffk-roo.ru/players/3074/",
+       "number": null
+      },
+      {
+       "name": "Радченко Евгений",
+       "profile_url": "https://rffk-roo.ru/players/475/",
+       "number": null
+      },
+      {
+       "name": "Цымбаленко Василий",
+       "profile_url": "https://rffk-roo.ru/players/3455/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Быков Владислв",
+       "profile_url": "https://rffk-roo.ru/players/3348/",
+       "number": null
+      },
+      {
+       "name": "Вятчанин Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3198/",
+       "number": null
+      },
+      {
+       "name": "Гафаров Тимур",
+       "profile_url": "https://rffk-roo.ru/players/3201/",
+       "number": null
+      },
+      {
+       "name": "Геенко Сергей",
+       "profile_url": "https://rffk-roo.ru/players/1402/",
+       "number": null
+      },
+      {
+       "name": "Каторгин Олег",
+       "profile_url": "https://rffk-roo.ru/players/3462/",
+       "number": null
+      },
+      {
+       "name": "Костырин Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3259/",
+       "number": null
+      },
+      {
+       "name": "Лалаян Карим",
+       "profile_url": "https://rffk-roo.ru/players/3349/",
+       "number": null
+      },
+      {
+       "name": "Набока Валерий",
+       "profile_url": "https://rffk-roo.ru/players/3265/",
+       "number": null
+      },
+      {
+       "name": "Некрасов Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3070/",
+       "number": null
+      },
+      {
+       "name": "Яблочников Артемий",
+       "profile_url": "https://rffk-roo.ru/players/3178/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Мыкуляк Тарас",
+       "profile_url": "https://rffk-roo.ru/players/859/",
+       "number": null
+      },
+      {
+       "name": "Одинцов Евгений",
+       "profile_url": "https://rffk-roo.ru/players/618/",
+       "number": null
+      },
+      {
+       "name": "Османов Исмет",
+       "profile_url": "https://rffk-roo.ru/players/772/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Филатов Никита",
+       "profile_url": "https://rffk-roo.ru/players/2419/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": 4
+      },
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "14-й тур. Матч №81"
   },
   "2026|6 сентября|«Темп»|дома": {
    "id": "38734",
@@ -1267,7 +3396,368 @@
      ]
     }
    ],
-   "time": "16:00"
+   "time": "16:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "18",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Захаров С.",
+     "minute": "24",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Лисной Н.",
+     "minute": "28",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Ягъяев М.",
+     "minute": "53",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Фалько Д.",
+     "minute": "53",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Чебышев А.",
+     "minute": "62",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Лебедев В.",
+     "minute": "62",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "74",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Курбесов П.",
+     "minute": "75",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мельнийчук И.",
+     "minute": "75",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Абидов Р.",
+     "minute": "75",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Османов И.",
+     "minute": "75",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Лисной Н.",
+     "minute": "76",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Македонов Л.",
+     "minute": "77",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Папук А.",
+     "minute": "77",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "77",
+     "type": "penalty",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "82",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Одинцов Е.",
+     "minute": "82",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Хистов А.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "86",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Абильванов О.",
+     "minute": "86",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Филатов Н.",
+     "minute": "86",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Фароян С.",
+     "minute": "86",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Македонов Л.",
+     "minute": "87",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Абильванов О.",
+     "minute": "89",
+     "type": "goal",
+     "score": [
+      4,
+      0
+     ]
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Одинцов Евгений",
+       "profile_url": "https://rffk-roo.ru/players/618/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Филатов Никита",
+       "profile_url": "https://rffk-roo.ru/players/2419/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Османов Исмет",
+       "profile_url": "https://rffk-roo.ru/players/772/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Ахмедов Игорь",
+       "profile_url": "https://rffk-roo.ru/players/1912/",
+       "number": null
+      },
+      {
+       "name": "Давидюк Олег",
+       "profile_url": "https://rffk-roo.ru/players/3242/",
+       "number": null
+      },
+      {
+       "name": "Захаров Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3418/",
+       "number": null
+      },
+      {
+       "name": "Мельнийчук Иван",
+       "profile_url": "https://rffk-roo.ru/players/3409/",
+       "number": null
+      },
+      {
+       "name": "Папук Александр",
+       "profile_url": "https://rffk-roo.ru/players/3416/",
+       "number": null
+      },
+      {
+       "name": "Пинчук Александр",
+       "profile_url": "https://rffk-roo.ru/players/3414/",
+       "number": null
+      },
+      {
+       "name": "Попиль Илья",
+       "profile_url": "https://rffk-roo.ru/players/3241/",
+       "number": null
+      },
+      {
+       "name": "Рыбачинский Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3421/",
+       "number": null
+      },
+      {
+       "name": "Стринжа Никита",
+       "profile_url": "https://rffk-roo.ru/players/3424/",
+       "number": null
+      },
+      {
+       "name": "Фалько Денис",
+       "profile_url": "https://rffk-roo.ru/players/3412/",
+       "number": null
+      },
+      {
+       "name": "Чигаков Роман",
+       "profile_url": "https://rffk-roo.ru/players/2910/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Курбесов Павел",
+       "profile_url": "https://rffk-roo.ru/players/3417/",
+       "number": null
+      },
+      {
+       "name": "Куртасанов Алихан",
+       "profile_url": "https://rffk-roo.ru/players/3419/",
+       "number": null
+      },
+      {
+       "name": "Лисной Никита",
+       "profile_url": "https://rffk-roo.ru/players/3422/",
+       "number": null
+      },
+      {
+       "name": "Македонов Лев",
+       "profile_url": "https://rffk-roo.ru/players/3454/",
+       "number": null
+      },
+      {
+       "name": "Шибецкий Александр",
+       "profile_url": "https://rffk-roo.ru/players/2757/",
+       "number": null
+      },
+      {
+       "name": "Ягъяев Мустафа",
+       "profile_url": "https://rffk-roo.ru/players/3426/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "13-й тур. Матч №75"
   },
   "2026|29 августа|ФК «Турбо»|дома": {
    "id": "38729",
@@ -1381,7 +3871,393 @@
      ]
     }
    ],
-   "time": "17:00"
+   "time": "17:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "5",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "14",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Постоев Н.",
+     "minute": "19",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "24",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Постоев Н.",
+     "minute": "45",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "58",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "59",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "59",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Мельничук М.",
+     "minute": "61",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "72",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "72",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "79",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "79",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Храмов О.",
+     "minute": "81",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "81",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Абидов Р.",
+     "minute": "81",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Чебышев А.",
+     "minute": "81",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "83",
+     "type": "goal",
+     "score": [
+      5,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "84",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бардин В.",
+     "minute": "84",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "84",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Хистов А.",
+     "minute": "84",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Абильванов О.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "85",
+     "type": "goal",
+     "score": [
+      6,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Фароян С.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мельничук М.",
+     "minute": "92",
+     "type": "goal",
+     "score": [
+      6,
+      3
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "93",
+     "type": "goal",
+     "score": [
+      7,
+      3
+     ]
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      },
+      {
+       "name": "Шилов Богдан",
+       "profile_url": "https://rffk-roo.ru/players/1994/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Витенко Алексей",
+       "profile_url": "https://rffk-roo.ru/players/3223/",
+       "number": null
+      },
+      {
+       "name": "Гогичаишвили Тамаз",
+       "profile_url": "https://rffk-roo.ru/players/1400/",
+       "number": null
+      },
+      {
+       "name": "Дранишников Максим",
+       "profile_url": "https://rffk-roo.ru/players/3215/",
+       "number": null
+      },
+      {
+       "name": "Кандыба Евгений",
+       "profile_url": "https://rffk-roo.ru/players/3211/",
+       "number": null
+      },
+      {
+       "name": "Лоленко Родион",
+       "profile_url": "https://rffk-roo.ru/players/3210/",
+       "number": null
+      },
+      {
+       "name": "Мельничук Максим",
+       "profile_url": "https://rffk-roo.ru/players/3495/",
+       "number": null
+      },
+      {
+       "name": "Нарыков Вячеслав",
+       "profile_url": "https://rffk-roo.ru/players/1411/",
+       "number": null
+      },
+      {
+       "name": "Погорелов Александр",
+       "profile_url": "https://rffk-roo.ru/players/3190/",
+       "number": null
+      },
+      {
+       "name": "Постоев Никита",
+       "profile_url": "https://rffk-roo.ru/players/3430/",
+       "number": null
+      },
+      {
+       "name": "Цюник Данил",
+       "profile_url": "https://rffk-roo.ru/players/3217/",
+       "number": null
+      },
+      {
+       "name": "Щербина Илья",
+       "profile_url": "https://rffk-roo.ru/players/3213/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "12-й тур. Матч №70"
   },
   "2026|21 июня|СК «Каштан»|в гостях": {
    "id": "38721",
@@ -1445,7 +4321,444 @@
      ]
     }
    ],
-   "time": "14:00"
+   "time": "14:00",
+   "events": [
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "11",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Автаев В.",
+     "minute": "21",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Александров А.",
+     "minute": "25",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Тохиров А.",
+     "minute": "36",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Автаев В.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Попов Я.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Тохиров А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Эминов Р.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Патокин А.",
+     "minute": "54",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "54",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Добровольский В.",
+     "minute": "64",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Халилов С.",
+     "minute": "64",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Поддячий Е.",
+     "minute": "68",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Шевчук А.",
+     "minute": "68",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Эминов Р.",
+     "minute": "70",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Мустафаев А.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Шилов Б.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "75",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Бардин В.",
+     "minute": "75",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Александров А.",
+     "minute": "80",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Жабокрицкий А.",
+     "minute": "80",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Попов Я.",
+     "minute": "81",
+     "type": "goal",
+     "score": [
+      4,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Монахов А.",
+     "minute": "82",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Абидов Р.",
+     "minute": "82",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Демьяненко А.",
+     "minute": "84",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Чебышев А.",
+     "minute": "84",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Куртиев А.",
+     "minute": "86",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Мустафаев Ф.",
+     "minute": "86",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Чебышев А.",
+     "minute": "87",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Добродеев Г.",
+     "minute": "87",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Юдин Я.",
+     "minute": "87",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Козиянчук О.",
+     "minute": "88",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Горбачев В.",
+     "minute": "88",
+     "type": "substitution_out"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Автаев Вадим",
+       "profile_url": "https://rffk-roo.ru/players/1949/",
+       "number": null
+      },
+      {
+       "name": "Александров Андрей",
+       "profile_url": "https://rffk-roo.ru/players/22/",
+       "number": null
+      },
+      {
+       "name": "Ануфриенко Арсентий",
+       "profile_url": "https://rffk-roo.ru/players/698/",
+       "number": null
+      },
+      {
+       "name": "Захаров Сергей",
+       "profile_url": "https://rffk-roo.ru/players/1246/",
+       "number": null
+      },
+      {
+       "name": "Марисюк Артём",
+       "profile_url": "https://rffk-roo.ru/players/2355/",
+       "number": null
+      },
+      {
+       "name": "Слюсаренко Владислав",
+       "profile_url": "https://rffk-roo.ru/players/887/",
+       "number": null
+      },
+      {
+       "name": "Тохиров Абдурашидбек",
+       "profile_url": "https://rffk-roo.ru/players/1234/",
+       "number": null
+      },
+      {
+       "name": "Чмирев Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2005/",
+       "number": null
+      },
+      {
+       "name": "Шевчук Антон",
+       "profile_url": "https://rffk-roo.ru/players/1202/",
+       "number": null
+      },
+      {
+       "name": "Шендрик Антон",
+       "profile_url": "https://rffk-roo.ru/players/2283/",
+       "number": null
+      },
+      {
+       "name": "Юдин Ярослав",
+       "profile_url": "https://rffk-roo.ru/players/902/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Ваапов Бекир",
+       "profile_url": "https://rffk-roo.ru/players/3276/",
+       "number": null
+      },
+      {
+       "name": "Галета Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3271/",
+       "number": null
+      },
+      {
+       "name": "Глухов Арсений",
+       "profile_url": "https://rffk-roo.ru/players/2258/",
+       "number": null
+      },
+      {
+       "name": "Добродеев Глеб",
+       "profile_url": "https://rffk-roo.ru/players/3272/",
+       "number": null
+      },
+      {
+       "name": "Жабокрицкий Александр",
+       "profile_url": "https://rffk-roo.ru/players/1824/",
+       "number": null
+      },
+      {
+       "name": "Кузнецов Максим",
+       "profile_url": "https://rffk-roo.ru/players/2284/",
+       "number": null
+      },
+      {
+       "name": "Поддячий Егор",
+       "profile_url": "https://rffk-roo.ru/players/667/",
+       "number": null
+      },
+      {
+       "name": "Попов Ярослав",
+       "profile_url": "https://rffk-roo.ru/players/2335/",
+       "number": null
+      },
+      {
+       "name": "Эминов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/558/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Горбачев Виталий",
+       "profile_url": "https://rffk-roo.ru/players/3179/",
+       "number": null
+      },
+      {
+       "name": "Демьяненко Артём",
+       "profile_url": "https://rffk-roo.ru/players/173/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      },
+      {
+       "name": "Шилов Богдан",
+       "profile_url": "https://rffk-roo.ru/players/1994/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Фатих",
+       "profile_url": "https://rffk-roo.ru/players/3358/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "11-й тур. Матч №62"
   },
   "2026|13 июня|ФК «Сталкер»|дома": {
    "id": "38719",
@@ -1489,7 +4802,335 @@
      ]
     }
    ],
-   "time": "17:00"
+   "time": "17:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Бардин В.",
+     "minute": "37",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Волобуев Н.",
+     "minute": "43",
+     "type": "own_goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Храмов О.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бусин Д.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сагайдак Б.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Абидов Р.",
+     "minute": "50",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "50",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "54",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Бейтуллаев К.",
+     "minute": "60",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Кушнирук Д.",
+     "minute": "60",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "62",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "62",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Леонов Ю.",
+     "minute": "71",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мазуренко Н.",
+     "minute": "71",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "72",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "72",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Мазуренко Н.",
+     "minute": "72",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Парфенюк Е.",
+     "minute": "80",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Компаниец А.",
+     "minute": "80",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мамутов А.",
+     "minute": "87",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Тарасов Б.",
+     "minute": "87",
+     "type": "substitution_out"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Демьяненко Артём",
+       "profile_url": "https://rffk-roo.ru/players/173/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": 4
+      },
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": 9
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Хистов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3458/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бейтуллаев Кемал",
+       "profile_url": "https://rffk-roo.ru/players/3180/",
+       "number": null
+      },
+      {
+       "name": "Богатырёв Марат",
+       "profile_url": "https://rffk-roo.ru/players/3460/",
+       "number": null
+      },
+      {
+       "name": "Бусин Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3380/",
+       "number": null
+      },
+      {
+       "name": "Волобуев Никита",
+       "profile_url": "https://rffk-roo.ru/players/3374/",
+       "number": null
+      },
+      {
+       "name": "Грибко Климентий",
+       "profile_url": "https://rffk-roo.ru/players/3184/",
+       "number": null
+      },
+      {
+       "name": "Лепетюха Станислав",
+       "profile_url": "https://rffk-roo.ru/players/1709/",
+       "number": null
+      },
+      {
+       "name": "Мазуренко Никита",
+       "profile_url": "https://rffk-roo.ru/players/2166/",
+       "number": null
+      },
+      {
+       "name": "Парфенюк Евгений",
+       "profile_url": "https://rffk-roo.ru/players/3373/",
+       "number": null
+      },
+      {
+       "name": "Ракович Никита",
+       "profile_url": "https://rffk-roo.ru/players/3370/",
+       "number": null
+      },
+      {
+       "name": "Тарасов Богдан",
+       "profile_url": "https://rffk-roo.ru/players/3176/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Компаниец Антон",
+       "profile_url": "https://rffk-roo.ru/players/1862/",
+       "number": null
+      },
+      {
+       "name": "Кушнирук Давид",
+       "profile_url": "https://rffk-roo.ru/players/3376/",
+       "number": null
+      },
+      {
+       "name": "Леонов Юрий",
+       "profile_url": "https://rffk-roo.ru/players/1977/",
+       "number": null
+      },
+      {
+       "name": "Мамутов Арсен",
+       "profile_url": "https://rffk-roo.ru/players/1315/",
+       "number": null
+      },
+      {
+       "name": "Миносянц Денис",
+       "profile_url": "https://rffk-roo.ru/players/58/",
+       "number": null
+      },
+      {
+       "name": "Сагайдак Богдан",
+       "profile_url": "https://rffk-roo.ru/players/3378/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "10-й тур. Матч №60"
   },
   "2026|23 мая|ФК «Саки»|дома": {
    "id": "38697",
@@ -1633,7 +5274,520 @@
      ]
     }
    ],
-   "time": "14:00"
+   "time": "14:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "5",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "9",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "10",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "19",
+     "type": "goal",
+     "score": [
+      4,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "24",
+     "type": "goal",
+     "score": [
+      5,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "26",
+     "type": "goal",
+     "score": [
+      6,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "33",
+     "type": "goal",
+     "score": [
+      7,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Патокин А.",
+     "minute": "34",
+     "type": "goal",
+     "score": [
+      8,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Фурсенко Д.",
+     "minute": "36",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "45",
+     "type": "goal",
+     "score": [
+      9,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Халилов С.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Фароян С.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Добровольский В.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Нелюбов А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Шкель Н.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Коршков Р.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Куценко А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Делинда И.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Самойлов Н.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Галушко Н.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бондаренко А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Абидов Р.",
+     "minute": "50",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "50",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Барканов С.",
+     "minute": "54",
+     "type": "goal",
+     "score": [
+      9,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "56",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "56",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Тытюк Н.",
+     "minute": "61",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мирошниченко А.",
+     "minute": "61",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бровко А.",
+     "minute": "61",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Ивасюк Н.",
+     "minute": "61",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "63",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "63",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Чебышев А.",
+     "minute": "69",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Монахов А.",
+     "minute": "69",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Шилов Б.",
+     "minute": "71",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "71",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Фароян С.",
+     "minute": "77",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Бровко А.",
+     "minute": "80",
+     "type": "goal",
+     "score": [
+      9,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "81",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "83",
+     "type": "goal",
+     "score": [
+      10,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Самойлов Н.",
+     "minute": "89",
+     "type": "goal",
+     "score": [
+      10,
+      3
+     ]
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Демьяненко Артём",
+       "profile_url": "https://rffk-roo.ru/players/173/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Мельник Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3355/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Шилов Богдан",
+       "profile_url": "https://rffk-roo.ru/players/1994/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Абильванов Осман",
+       "profile_url": "https://rffk-roo.ru/players/230/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Барканов Сергей",
+       "profile_url": "https://rffk-roo.ru/players/1698/",
+       "number": null
+      },
+      {
+       "name": "Галушко Никита",
+       "profile_url": "https://rffk-roo.ru/players/1702/",
+       "number": null
+      },
+      {
+       "name": "Делинда Игорь",
+       "profile_url": "https://rffk-roo.ru/players/828/",
+       "number": null
+      },
+      {
+       "name": "Ивасюк Назар",
+       "profile_url": "https://rffk-roo.ru/players/3375/",
+       "number": null
+      },
+      {
+       "name": "Колодяжный Алексей",
+       "profile_url": "https://rffk-roo.ru/players/1707/",
+       "number": null
+      },
+      {
+       "name": "Коршков Роман",
+       "profile_url": "https://rffk-roo.ru/players/283/",
+       "number": null
+      },
+      {
+       "name": "Куценко Алексей",
+       "profile_url": "https://rffk-roo.ru/players/2330/",
+       "number": null
+      },
+      {
+       "name": "Мирошниченко Александр",
+       "profile_url": "https://rffk-roo.ru/players/834/",
+       "number": null
+      },
+      {
+       "name": "Плюснин Иван",
+       "profile_url": "https://rffk-roo.ru/players/3335/",
+       "number": null
+      },
+      {
+       "name": "Ткаченко Ярослав",
+       "profile_url": "https://rffk-roo.ru/players/1714/",
+       "number": null
+      },
+      {
+       "name": "Фурсенко Даниил",
+       "profile_url": "https://rffk-roo.ru/players/3334/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Бондаренко Александр",
+       "profile_url": "https://rffk-roo.ru/players/1699/",
+       "number": null
+      },
+      {
+       "name": "Бровко Анатолий",
+       "profile_url": "https://rffk-roo.ru/players/1928/",
+       "number": null
+      },
+      {
+       "name": "Нелюбов Александр",
+       "profile_url": "https://rffk-roo.ru/players/3337/",
+       "number": null
+      },
+      {
+       "name": "Романовский Владимир",
+       "profile_url": "https://rffk-roo.ru/players/3342/",
+       "number": null
+      },
+      {
+       "name": "Самойлов Никита",
+       "profile_url": "https://rffk-roo.ru/players/1712/",
+       "number": null
+      },
+      {
+       "name": "Тытюк Никита",
+       "profile_url": "https://rffk-roo.ru/players/3333/",
+       "number": null
+      },
+      {
+       "name": "Шкель Никита",
+       "profile_url": "https://rffk-roo.ru/players/449/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "7-й тур. Матч №38"
   },
   "2026|17 мая|«СТО-Газель»|в гостях": {
    "id": "38694",
@@ -1727,7 +5881,304 @@
      ]
     }
    ],
-   "time": "17:00"
+   "time": "17:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Кабисов С.",
+     "minute": "9",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Цой В.",
+     "minute": "12",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Цой В.",
+     "minute": "15",
+     "type": "missed_penalty"
+    },
+    {
+     "side": "home",
+     "player": "Сторчун О.",
+     "minute": "23",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "23",
+     "type": "goal",
+     "score": [
+      2,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Кабисов С.",
+     "minute": "32",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "40",
+     "type": "goal",
+     "score": [
+      3,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Сидоренко Д.",
+     "minute": "47",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Михалищев Н.",
+     "minute": "56",
+     "type": "goal",
+     "score": [
+      5,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Цой В.",
+     "minute": "65",
+     "type": "goal",
+     "score": [
+      6,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Бразда Д.",
+     "minute": "69",
+     "type": "yellow"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Берегуля Андрей",
+       "profile_url": "https://rffk-roo.ru/players/1523/",
+       "number": null
+      },
+      {
+       "name": "Бразда Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3362/",
+       "number": null
+      },
+      {
+       "name": "Джемилев Алим",
+       "profile_url": "https://rffk-roo.ru/players/2453/",
+       "number": null
+      },
+      {
+       "name": "Кабисов Сослан",
+       "profile_url": "https://rffk-roo.ru/players/3437/",
+       "number": null
+      },
+      {
+       "name": "Калиниченко Сергей",
+       "profile_url": "https://rffk-roo.ru/players/2226/",
+       "number": null
+      },
+      {
+       "name": "Онянов Роман",
+       "profile_url": "https://rffk-roo.ru/players/3363/",
+       "number": null
+      },
+      {
+       "name": "Сидоренко Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/2880/",
+       "number": null
+      },
+      {
+       "name": "Сторчун Олег",
+       "profile_url": "https://rffk-roo.ru/players/805/",
+       "number": null
+      },
+      {
+       "name": "Хромов Михаил",
+       "profile_url": "https://rffk-roo.ru/players/2174/",
+       "number": null
+      },
+      {
+       "name": "Цой Владислав",
+       "profile_url": "https://rffk-roo.ru/players/801/",
+       "number": null
+      },
+      {
+       "name": "Яковенко Егор",
+       "profile_url": "https://rffk-roo.ru/players/1280/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Берегуля Максим",
+       "profile_url": "https://rffk-roo.ru/players/2281/",
+       "number": null
+      },
+      {
+       "name": "Егоров Геннадий",
+       "profile_url": "https://rffk-roo.ru/players/865/",
+       "number": null
+      },
+      {
+       "name": "Костенко Антон",
+       "profile_url": "https://rffk-roo.ru/players/3366/",
+       "number": null
+      },
+      {
+       "name": "Малышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/711/",
+       "number": null
+      },
+      {
+       "name": "Михалищев Никита",
+       "profile_url": "https://rffk-roo.ru/players/1970/",
+       "number": null
+      },
+      {
+       "name": "Молоков Валентин",
+       "profile_url": "https://rffk-roo.ru/players/3361/",
+       "number": null
+      },
+      {
+       "name": "Никишенко Никита",
+       "profile_url": "https://rffk-roo.ru/players/2194/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Бредун Евгений",
+       "profile_url": "https://rffk-roo.ru/players/684/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Майстренко Богдан",
+       "profile_url": "https://rffk-roo.ru/players/2271/",
+       "number": null
+      },
+      {
+       "name": "Мельник Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3355/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": 4
+      },
+      {
+       "name": "Глушков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3269/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Сарычев Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/2840/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "6-й тур. Матч №35"
   },
   "2026|2 мая|ФК «Фуна»|дома": {
    "id": "38686",
@@ -1811,7 +6262,426 @@
      ]
     }
    ],
-   "time": "16:00"
+   "time": "16:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "8",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "31",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Халилов С.",
+     "minute": "35",
+     "type": "goal",
+     "score": [
+      3,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Рубченко Д.",
+     "minute": "38",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Кугаевский В.",
+     "minute": "38",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Кутенков И.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Глушков Н.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Чумаченко И.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сеитмеметов З.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Плешаков Н.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бредун Е.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "51",
+     "type": "own_goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "52",
+     "type": "goal",
+     "score": [
+      4,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мустафаев А.",
+     "minute": "61",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Халилов С.",
+     "minute": "61",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Монахов А.",
+     "minute": "61",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Гайдаш А.",
+     "minute": "61",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "72",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "72",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Ибраимов Э.",
+     "minute": "73",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мельник А.",
+     "minute": "73",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Семенов В.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Лебедев В.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бардин В.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "80",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Чебышев А.",
+     "minute": "84",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "84",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сеитмеметов З.",
+     "minute": "84",
+     "type": "goal",
+     "score": [
+      4,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Фароян С.",
+     "minute": "89",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Донской И.",
+     "minute": "89",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Монахов А.",
+     "minute": "92",
+     "type": "goal",
+     "score": [
+      5,
+      2
+     ]
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Бредун Евгений",
+       "profile_url": "https://rffk-roo.ru/players/684/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Глушков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3269/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Мельник Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3355/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Белошапка Артем",
+       "profile_url": "https://rffk-roo.ru/players/676/",
+       "number": null
+      },
+      {
+       "name": "Дорофеев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/3140/",
+       "number": null
+      },
+      {
+       "name": "Киселев Михаил",
+       "profile_url": "https://rffk-roo.ru/players/3407/",
+       "number": null
+      },
+      {
+       "name": "Кратынский Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3130/",
+       "number": null
+      },
+      {
+       "name": "Кутенков Илья",
+       "profile_url": "https://rffk-roo.ru/players/3408/",
+       "number": null
+      },
+      {
+       "name": "Мудрак Ренат",
+       "profile_url": "https://rffk-roo.ru/players/3149/",
+       "number": null
+      },
+      {
+       "name": "Мудрак Дэвид",
+       "profile_url": "https://rffk-roo.ru/players/3286/",
+       "number": null
+      },
+      {
+       "name": "Рубченко Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/680/",
+       "number": null
+      },
+      {
+       "name": "Угаров Владислав",
+       "profile_url": "https://rffk-roo.ru/players/1300/",
+       "number": null
+      },
+      {
+       "name": "Угаров Ярослав",
+       "profile_url": "https://rffk-roo.ru/players/1265/",
+       "number": null
+      },
+      {
+       "name": "Чумаченко Игорь",
+       "profile_url": "https://rffk-roo.ru/players/3137/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Дашевский Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3129/",
+       "number": null
+      },
+      {
+       "name": "Кугаевский Владимир",
+       "profile_url": "https://rffk-roo.ru/players/3131/",
+       "number": null
+      },
+      {
+       "name": "Плешаков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3134/",
+       "number": null
+      },
+      {
+       "name": "Сеитмеметов Закир",
+       "profile_url": "https://rffk-roo.ru/players/3145/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "5-й тур. Матч №27"
   },
   "2026|29 апреля|АФК|в гостях": {
    "id": "38681",
@@ -1845,7 +6715,413 @@
      ]
     }
    ],
-   "time": "17:00"
+   "time": "17:00",
+   "events": [
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "17",
+     "type": "goal",
+     "score": [
+      0,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "23",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Граков Я.",
+     "minute": "45",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Майстренко Б.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Халилов С.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Мустафаев А.",
+     "minute": "56",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "56",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Вивтаник Г.",
+     "minute": "57",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Сидоркин И.",
+     "minute": "57",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "61",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Крамаренко М.",
+     "minute": "69",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Агагин А.",
+     "minute": "69",
+     "type": "goal",
+     "score": [
+      1,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Мартынов В.",
+     "minute": "69",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Иванченко К.",
+     "minute": "69",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Сейтбилялов В.",
+     "minute": "69",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Осташевский Д.",
+     "minute": "69",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бесков А.",
+     "minute": "69",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "72",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "72",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Агагин А.",
+     "minute": "72",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Хромов А.",
+     "minute": "72",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Глушков Н.",
+     "minute": "75",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Лебедев В.",
+     "minute": "75",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Добровольский В.",
+     "minute": "81",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Монахов А.",
+     "minute": "81",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Гожа А.",
+     "minute": "84",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Чайка Д.",
+     "minute": "84",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Мочкаль Т.",
+     "minute": "87",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Крещенецкий Д.",
+     "minute": "87",
+     "type": "substitution_in"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Агагин Алексей",
+       "profile_url": "https://rffk-roo.ru/players/2066/",
+       "number": null
+      },
+      {
+       "name": "Бабицын Илья",
+       "profile_url": "https://rffk-roo.ru/players/3384/",
+       "number": null
+      },
+      {
+       "name": "Гожа Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3389/",
+       "number": null
+      },
+      {
+       "name": "Граков Ярослав",
+       "profile_url": "https://rffk-roo.ru/players/3390/",
+       "number": null
+      },
+      {
+       "name": "Крамаренко Максим",
+       "profile_url": "https://rffk-roo.ru/players/3393/",
+       "number": null
+      },
+      {
+       "name": "Макарчук Денис",
+       "profile_url": "https://rffk-roo.ru/players/3396/",
+       "number": null
+      },
+      {
+       "name": "Мартынов Алексей",
+       "profile_url": "https://rffk-roo.ru/players/3397/",
+       "number": null
+      },
+      {
+       "name": "Мочкаль Тимофей",
+       "profile_url": "https://rffk-roo.ru/players/3398/",
+       "number": null
+      },
+      {
+       "name": "Панасенко Владислав",
+       "profile_url": "https://rffk-roo.ru/players/3400/",
+       "number": null
+      },
+      {
+       "name": "Сейтбилялов Вадим",
+       "profile_url": "https://rffk-roo.ru/players/3403/",
+       "number": null
+      },
+      {
+       "name": "Сидоркин Илья",
+       "profile_url": "https://rffk-roo.ru/players/3404/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Бесков Артем",
+       "profile_url": "https://rffk-roo.ru/players/3385/",
+       "number": null
+      },
+      {
+       "name": "Биленко Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2075/",
+       "number": null
+      },
+      {
+       "name": "Вивтаник Глеб",
+       "profile_url": "https://rffk-roo.ru/players/3386/",
+       "number": null
+      },
+      {
+       "name": "Вильховый Владислав",
+       "profile_url": "https://rffk-roo.ru/players/3388/",
+       "number": null
+      },
+      {
+       "name": "Иванченко Кирилл",
+       "profile_url": "https://rffk-roo.ru/players/3391/",
+       "number": null
+      },
+      {
+       "name": "Крещенецкий Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3394/",
+       "number": null
+      },
+      {
+       "name": "Лобко Никита",
+       "profile_url": "https://rffk-roo.ru/players/3395/",
+       "number": null
+      },
+      {
+       "name": "Осташевский Денис",
+       "profile_url": "https://rffk-roo.ru/players/3399/",
+       "number": null
+      },
+      {
+       "name": "Савченко Денис",
+       "profile_url": "https://rffk-roo.ru/players/3401/",
+       "number": null
+      },
+      {
+       "name": "Хромов Артём",
+       "profile_url": "https://rffk-roo.ru/players/3405/",
+       "number": null
+      },
+      {
+       "name": "Чайка Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3406/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бредун Евгений",
+       "profile_url": "https://rffk-roo.ru/players/684/",
+       "number": null
+      },
+      {
+       "name": "Глушков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3269/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Майстренко Богдан",
+       "profile_url": "https://rffk-roo.ru/players/2271/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "4-й тур. Матч №22"
   },
   "2026|18 апреля|ФК «НКСТРОЙ-Керчь»|дома": {
    "id": "38675",
@@ -1899,7 +7175,397 @@
      ]
     }
    ],
-   "time": "14:00"
+   "time": "14:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Глушков Н.",
+     "minute": "5",
+     "type": "penalty",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Скворцов О.",
+     "minute": "31",
+     "type": "goal",
+     "score": [
+      2,
+      0
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Нерода С.",
+     "minute": "33",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Поленов С.",
+     "minute": "33",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Халилов Э.",
+     "minute": "41",
+     "type": "goal",
+     "score": [
+      2,
+      1
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Скворцов О.",
+     "minute": "44",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Кирсанов А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Тыщенко М.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "52",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Сгинухин А.",
+     "minute": "56",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Куртиев А.",
+     "minute": "56",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Халилов Э.",
+     "minute": "63",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Поленов С.",
+     "minute": "63",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Мельник А.",
+     "minute": "65",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Майстренко Б.",
+     "minute": "65",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Мишков Д.",
+     "minute": "70",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Вятчанин Д.",
+     "minute": "70",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Ибраимов Э.",
+     "minute": "73",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Мельник А.",
+     "minute": "73",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "76",
+     "type": "goal",
+     "score": [
+      3,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Яблочников А.",
+     "minute": "79",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "79",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Бредун Е.",
+     "minute": "81",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Смирнов В.",
+     "minute": "83",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Чебышев А.",
+     "minute": "83",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Поленов С.",
+     "minute": "84",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Кирсанов А.",
+     "minute": "85",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Симончук В.",
+     "minute": "88",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Козиянчук О.",
+     "minute": "88",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Бредун Е.",
+     "minute": "92",
+     "type": "substitution_out"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Бредун Евгений",
+       "profile_url": "https://rffk-roo.ru/players/684/",
+       "number": null
+      },
+      {
+       "name": "Глушков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3269/",
+       "number": null
+      },
+      {
+       "name": "Добровольский Владислав",
+       "profile_url": "https://rffk-roo.ru/players/854/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": 99
+      },
+      {
+       "name": "Куртиев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/811/",
+       "number": null
+      },
+      {
+       "name": "Майстренко Богдан",
+       "profile_url": "https://rffk-roo.ru/players/2271/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Мельник Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3355/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Фароян Саак",
+       "profile_url": "https://rffk-roo.ru/players/3357/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Вятчанин Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3198/",
+       "number": null
+      },
+      {
+       "name": "Кикава Давид",
+       "profile_url": "https://rffk-roo.ru/players/1407/",
+       "number": null
+      },
+      {
+       "name": "Кирсанов Андрей",
+       "profile_url": "https://rffk-roo.ru/players/707/",
+       "number": null
+      },
+      {
+       "name": "Колемасов Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3202/",
+       "number": null
+      },
+      {
+       "name": "Кулиш Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3192/",
+       "number": null
+      },
+      {
+       "name": "Мелих Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3068/",
+       "number": null
+      },
+      {
+       "name": "Окерешко Максим",
+       "profile_url": "https://rffk-roo.ru/players/3067/",
+       "number": null
+      },
+      {
+       "name": "Потапович Александр",
+       "profile_url": "https://rffk-roo.ru/players/3074/",
+       "number": null
+      },
+      {
+       "name": "Солдатов Игорь",
+       "profile_url": "https://rffk-roo.ru/players/3075/",
+       "number": null
+      },
+      {
+       "name": "Халилов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/3193/",
+       "number": null
+      },
+      {
+       "name": "Яблочников Артемий",
+       "profile_url": "https://rffk-roo.ru/players/3178/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Лях Владимир",
+       "profile_url": "https://rffk-roo.ru/players/3064/",
+       "number": null
+      },
+      {
+       "name": "Мишков Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3204/",
+       "number": null
+      },
+      {
+       "name": "Нерода Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3280/",
+       "number": null
+      },
+      {
+       "name": "Поленов Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3069/",
+       "number": null
+      },
+      {
+       "name": "Скрипко Даниил",
+       "profile_url": "https://rffk-roo.ru/players/3306/",
+       "number": null
+      },
+      {
+       "name": "Тыщенко Михаил",
+       "profile_url": "https://rffk-roo.ru/players/3345/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "3-й тур. Матч №16"
   },
   "2026|5 апреля|«Темп»|в гостях": {
    "id": "38668",
@@ -1983,7 +7649,455 @@
      ]
     }
    ],
-   "time": "15:00"
+   "time": "15:00",
+   "events": [
+    {
+     "side": "away",
+     "player": "Гайдаш А.",
+     "minute": "7",
+     "type": "goal",
+     "score": [
+      0,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Глушков Н.",
+     "minute": "14",
+     "type": "penalty",
+     "score": [
+      0,
+      2
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "20",
+     "type": "goal",
+     "score": [
+      0,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "24",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Давидюк О.",
+     "minute": "25",
+     "type": "penalty",
+     "score": [
+      1,
+      3
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Халилов С.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Мельнийчук И.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Ягъяев М.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бардин В.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Монахов А.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "51",
+     "type": "penalty",
+     "score": [
+      1,
+      4
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Ибраимов Э.",
+     "minute": "52",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Мельник А.",
+     "minute": "52",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Гайдаш А.",
+     "minute": "55",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Мустафаев А.",
+     "minute": "55",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Глушков Н.",
+     "minute": "57",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Стринжа Н.",
+     "minute": "60",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Фалько Д.",
+     "minute": "60",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Папук А.",
+     "minute": "60",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Саруханян М.",
+     "minute": "60",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Смирнов В.",
+     "minute": "64",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Чебышев А.",
+     "minute": "64",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Давидюк О.",
+     "minute": "66",
+     "type": "penalty",
+     "score": [
+      2,
+      4
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Захаров С.",
+     "minute": "70",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Рыбачинский С.",
+     "minute": "70",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "71",
+     "type": "goal",
+     "score": [
+      2,
+      5
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сарычев Д.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Козиянчук О.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Припута К.",
+     "minute": "74",
+     "type": "substitution_in"
+    },
+    {
+     "side": "home",
+     "player": "Данильченко Д.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Патокин А.",
+     "minute": "74",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Абидов Р.",
+     "minute": "81",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Глушков Н.",
+     "minute": "81",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сарычев Д.",
+     "minute": "81",
+     "type": "yellow"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Алисов Юрий",
+       "profile_url": "https://rffk-roo.ru/players/1860/",
+       "number": null
+      },
+      {
+       "name": "Ахмедов Игорь",
+       "profile_url": "https://rffk-roo.ru/players/1912/",
+       "number": null
+      },
+      {
+       "name": "Давидюк Олег",
+       "profile_url": "https://rffk-roo.ru/players/3242/",
+       "number": null
+      },
+      {
+       "name": "Данильченко Даниил",
+       "profile_url": "https://rffk-roo.ru/players/3425/",
+       "number": null
+      },
+      {
+       "name": "Качур Евгений",
+       "profile_url": "https://rffk-roo.ru/players/1857/",
+       "number": null
+      },
+      {
+       "name": "Попиль Илья",
+       "profile_url": "https://rffk-roo.ru/players/3241/",
+       "number": null
+      },
+      {
+       "name": "Рыбачинский Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3421/",
+       "number": null
+      },
+      {
+       "name": "Саруханян Максим",
+       "profile_url": "https://rffk-roo.ru/players/3420/",
+       "number": null
+      },
+      {
+       "name": "Турусов Александр",
+       "profile_url": "https://rffk-roo.ru/players/3429/",
+       "number": null
+      },
+      {
+       "name": "Фалько Денис",
+       "profile_url": "https://rffk-roo.ru/players/3412/",
+       "number": null
+      },
+      {
+       "name": "Ягъяев Мустафа",
+       "profile_url": "https://rffk-roo.ru/players/3426/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Захаров Сергей",
+       "profile_url": "https://rffk-roo.ru/players/3418/",
+       "number": null
+      },
+      {
+       "name": "Кузьмич Николай",
+       "profile_url": "https://rffk-roo.ru/players/3411/",
+       "number": null
+      },
+      {
+       "name": "Мельнийчук Иван",
+       "profile_url": "https://rffk-roo.ru/players/3409/",
+       "number": null
+      },
+      {
+       "name": "Папук Александр",
+       "profile_url": "https://rffk-roo.ru/players/3416/",
+       "number": null
+      },
+      {
+       "name": "Припута Константин",
+       "profile_url": "https://rffk-roo.ru/players/3413/",
+       "number": null
+      },
+      {
+       "name": "Стринжа Никита",
+       "profile_url": "https://rffk-roo.ru/players/3424/",
+       "number": null
+      },
+      {
+       "name": "Стринжа Руслан",
+       "profile_url": "https://rffk-roo.ru/players/3410/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Гайдаш Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3359/",
+       "number": null
+      },
+      {
+       "name": "Глушков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3269/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": 99
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Патокин Александр",
+       "profile_url": "https://rffk-roo.ru/players/636/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": 4
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Мельник Андрей",
+       "profile_url": "https://rffk-roo.ru/players/3355/",
+       "number": null
+      },
+      {
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
+       "number": null
+      },
+      {
+       "name": "Сарычев Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/2840/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      },
+      {
+       "name": "Чебышев Александр",
+       "profile_url": "https://rffk-roo.ru/players/1379/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "2-й тур. Матч №9"
   },
   "2026|29 марта|ФК «Турбо»|в гостях": {
    "id": "38664",
@@ -2027,7 +8141,345 @@
      ]
     }
    ],
-   "time": "15:00"
+   "time": "15:00",
+   "events": [
+    {
+     "side": "home",
+     "player": "Гусейханов М.",
+     "minute": "37",
+     "type": "goal",
+     "score": [
+      1,
+      0
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Журо И.",
+     "minute": "46",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Федоров М.",
+     "minute": "46",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Храмов О.",
+     "minute": "50",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Скворцов О.",
+     "minute": "60",
+     "type": "yellow"
+    },
+    {
+     "side": "away",
+     "player": "Майстренко Б.",
+     "minute": "62",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Халилов С.",
+     "minute": "62",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "64",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Смирнов В.",
+     "minute": "64",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Лебедев В.",
+     "minute": "65",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Глушков Н.",
+     "minute": "65",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Бардин В.",
+     "minute": "65",
+     "type": "goal",
+     "score": [
+      1,
+      1
+     ]
+    },
+    {
+     "side": "away",
+     "player": "Сгинухин А.",
+     "minute": "67",
+     "type": "goal",
+     "score": [
+      1,
+      2
+     ]
+    },
+    {
+     "side": "home",
+     "player": "Цюник Д.",
+     "minute": "85",
+     "type": "yellow"
+    },
+    {
+     "side": "home",
+     "player": "Федоров М.",
+     "minute": "85",
+     "type": "substitution_out"
+    },
+    {
+     "side": "home",
+     "player": "Левковский А.",
+     "minute": "85",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Кормилин А.",
+     "minute": "89",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Семенов В.",
+     "minute": "89",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Донской И.",
+     "minute": "91",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Сарычев Д.",
+     "minute": "91",
+     "type": "substitution_in"
+    },
+    {
+     "side": "away",
+     "player": "Симончук В.",
+     "minute": "92",
+     "type": "substitution_out"
+    },
+    {
+     "side": "away",
+     "player": "Козиянчук О.",
+     "minute": "92",
+     "type": "substitution_in"
+    }
+   ],
+   "events_complete": true,
+   "lineups": {
+    "home": {
+     "starters": [
+      {
+       "name": "Гогичаишвили Тамаз",
+       "profile_url": "https://rffk-roo.ru/players/1400/",
+       "number": null
+      },
+      {
+       "name": "Гусейханов Марат",
+       "profile_url": "https://rffk-roo.ru/players/3212/",
+       "number": null
+      },
+      {
+       "name": "Доценко Руслан",
+       "profile_url": "https://rffk-roo.ru/players/3066/",
+       "number": null
+      },
+      {
+       "name": "Журо Илья",
+       "profile_url": "https://rffk-roo.ru/players/3298/",
+       "number": null
+      },
+      {
+       "name": "Иванов Вячеслав",
+       "profile_url": "https://rffk-roo.ru/players/3209/",
+       "number": null
+      },
+      {
+       "name": "Крыжановский Михаил",
+       "profile_url": "https://rffk-roo.ru/players/3219/",
+       "number": null
+      },
+      {
+       "name": "Лоленко Родион",
+       "profile_url": "https://rffk-roo.ru/players/3210/",
+       "number": null
+      },
+      {
+       "name": "Погорелов Александр",
+       "profile_url": "https://rffk-roo.ru/players/3190/",
+       "number": null
+      },
+      {
+       "name": "Цюник Данил",
+       "profile_url": "https://rffk-roo.ru/players/3217/",
+       "number": null
+      },
+      {
+       "name": "Чекунов Денис",
+       "profile_url": "https://rffk-roo.ru/players/3317/",
+       "number": null
+      },
+      {
+       "name": "Щербина Илья",
+       "profile_url": "https://rffk-roo.ru/players/3213/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Бирюченко Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/3225/",
+       "number": null
+      },
+      {
+       "name": "Витенко Алексей",
+       "profile_url": "https://rffk-roo.ru/players/3223/",
+       "number": null
+      },
+      {
+       "name": "Конюхов Семён",
+       "profile_url": "https://rffk-roo.ru/players/3221/",
+       "number": null
+      },
+      {
+       "name": "Левковский Александр",
+       "profile_url": "https://rffk-roo.ru/players/3228/",
+       "number": null
+      },
+      {
+       "name": "Нарыков Вячеслав",
+       "profile_url": "https://rffk-roo.ru/players/1411/",
+       "number": null
+      },
+      {
+       "name": "Федоров Марк",
+       "profile_url": "https://rffk-roo.ru/players/3216/",
+       "number": null
+      }
+     ]
+    },
+    "away": {
+     "starters": [
+      {
+       "name": "Бардин Вадим",
+       "profile_url": "https://rffk-roo.ru/players/2320/",
+       "number": null
+      },
+      {
+       "name": "Глушков Никита",
+       "profile_url": "https://rffk-roo.ru/players/3269/",
+       "number": null
+      },
+      {
+       "name": "Донской Илья",
+       "profile_url": "https://rffk-roo.ru/players/202/",
+       "number": null
+      },
+      {
+       "name": "Ибраимов Эльдар",
+       "profile_url": "https://rffk-roo.ru/players/769/",
+       "number": null
+      },
+      {
+       "name": "Майстренко Богдан",
+       "profile_url": "https://rffk-roo.ru/players/2271/",
+       "number": null
+      },
+      {
+       "name": "Монахов Антон",
+       "profile_url": "https://rffk-roo.ru/players/2310/",
+       "number": null
+      },
+      {
+       "name": "Семенов Владимир",
+       "profile_url": "https://rffk-roo.ru/players/1151/",
+       "number": null
+      },
+      {
+       "name": "Симончук Владимир",
+       "profile_url": "https://rffk-roo.ru/players/806/",
+       "number": null
+      },
+      {
+       "name": "Скворцов Олег",
+       "profile_url": "https://rffk-roo.ru/players/551/",
+       "number": null
+      },
+      {
+       "name": "Смирнов Владислав",
+       "profile_url": "https://rffk-roo.ru/players/2290/",
+       "number": null
+      },
+      {
+       "name": "Храмов Олег",
+       "profile_url": "https://rffk-roo.ru/players/1270/",
+       "number": null
+      }
+     ],
+     "substitutes": [
+      {
+       "name": "Абидов Руслан",
+       "profile_url": "https://rffk-roo.ru/players/774/",
+       "number": null
+      },
+      {
+       "name": "Козиянчук Олег",
+       "profile_url": "https://rffk-roo.ru/players/3152/",
+       "number": null
+      },
+      {
+       "name": "Кормилин Александр",
+       "profile_url": "https://rffk-roo.ru/players/3153/",
+       "number": null
+      },
+      {
+       "name": "Лебедев Владимир",
+       "profile_url": "https://rffk-roo.ru/players/710/",
+       "number": null
+      },
+      {
+       "name": "Сарычев Дмитрий",
+       "profile_url": "https://rffk-roo.ru/players/2840/",
+       "number": null
+      },
+      {
+       "name": "Сгинухин Александр",
+       "profile_url": "https://rffk-roo.ru/players/1299/",
+       "number": null
+      },
+      {
+       "name": "Халилов Сулейман",
+       "profile_url": "https://rffk-roo.ru/players/1822/",
+       "number": null
+      }
+     ]
+    }
+   },
+   "competition": "Открытый Чемпионат Республики Крым среди мужских любительских команд",
+   "round": "1-й тур. Матч №5"
   }
  }
 }

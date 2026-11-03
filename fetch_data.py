@@ -261,6 +261,82 @@ def minute_parts(value):
     return minute, added
 
 
+def parse_match_lineups(info):
+    """Optional official team sheets; never infer starters from events."""
+    lineups = {}
+    for selector, side in ((".players_list > .team_1", "home"),
+                           (".players_list > .team_2", "away")):
+        columns = info.select(selector)
+        if len(columns) != 1:
+            continue
+        groups, seen, invalid = {}, set(), False
+        for head in columns[0].select(".players_list_head"):
+            group = {"Стартовый состав": "starters", "Запасные": "substitutes"}.get(txt(head))
+            if not group:
+                continue  # Coaches / representatives are not playing lineups.
+            listing = head.find_next_sibling("div", class_="list")
+            if group in groups or listing is None:
+                invalid = True
+                break
+            entries = []
+            for row in listing.select(".player"):
+                link, number = row.select_one("a.name"), row.select_one(".number")
+                url = urljoin(BASE, link.get("href", "")) if link else ""
+                parsed = urlparse(url)
+                if (not link or not txt(link) or parsed.scheme != "https"
+                        or parsed.netloc != "rffk-roo.ru" or parsed.query or parsed.fragment
+                        or not re.fullmatch(r"/players/\d+/", parsed.path) or url in seen):
+                    invalid = True
+                    break
+                seen.add(url)
+                value = txt(number) if number else ""
+                entries.append({"name": txt(link), "profile_url": url,
+                                "number": int(value) if value.isdigit() and 0 <= int(value) <= 99 else None})
+            groups[group] = entries
+        if not invalid and groups:
+            lineups[side] = groups
+    return lineups
+
+
+def parse_match_events(info, goals):
+    """Keep source order at equal minutes. Never invent substitution pairs."""
+    types = {"icon_1": "goal", "icon_2": "own_goal", "icon_3": "penalty",
+             "icon_4": "missed_penalty", "icon_5": "yellow", "icon_6": "second_yellow",
+             "icon_7": "red", "icon_8": "substitution", "icon_9": "substitution_out",
+             "icon_10": "substitution_in"}
+    remaining = list(goals)
+    events, complete = [], True
+    for item in info.select(".timeline .list .item"):
+        clock = item.select_one(".time")
+        parts = minute_parts(txt(clock)) if clock else None
+        for selector, side in ((".team1", "home"), (".team2", "away")):
+            column = item.select_one(selector)
+            if column is None:
+                continue
+            icons = set(column.get("class", [])).intersection(types)
+            if not txt(column) and not icons:
+                continue
+            if len(icons) != 1 or parts is None or not txt(column):
+                complete = False
+                continue
+            event_type = types[next(iter(icons))]
+            minute = str(parts[0]) + (f"+{parts[1]}" if parts[1] else "")
+            event = {"side": side, "player": txt(column), "minute": minute, "type": event_type}
+            if event_type in {"goal", "penalty", "own_goal"}:
+                matches = [g for g in remaining if g["type"] == event_type
+                           and g["player"] == event["player"] and g["minute"] == minute
+                           and (g["side"] == side or event_type == "own_goal")]
+                if not matches:
+                    complete = False
+                    continue
+                goal = matches[0]
+                remaining.remove(goal)
+                event = dict(goal)  # Existing credited side and running score are authoritative.
+            events.append(event)
+    events.sort(key=lambda event: minute_parts(event["minute"]))
+    return events, complete and not remaining
+
+
 def parse_match_protocol(soup, expected):
     """Accept only a matching protocol with a complete, consistent goal list.
 
@@ -334,8 +410,18 @@ def parse_match_protocol(soup, expected):
         return None
     place = info.select_one(".head .place")
     time_hit = re.search(r"\b\d{2}:\d{2}\b", txt(date_el))
-    return {"goals": goals, "venue": clean_venue(txt(place)) if place else "",
-            "time": time_hit[0] if time_hit else ""}
+    events, events_complete = parse_match_events(info, goals)
+    result = {"goals": goals, "venue": clean_venue(txt(place)) if place else "",
+              "time": time_hit[0] if time_hit else "", "events": events,
+              "events_complete": events_complete}
+    lineups = parse_match_lineups(info)
+    if lineups:
+        result["lineups"] = lineups
+    for selector, field in ((".head .champ_name", "competition"), (".head .tour", "round")):
+        element = info.select_one(selector)
+        if element is not None and txt(element):
+            result[field] = txt(element)
+    return result
 
 
 def load_match_details(results, refs, loader=None):

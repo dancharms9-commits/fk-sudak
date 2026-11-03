@@ -11,6 +11,7 @@ on:
       - "sw.js"
       - "manifest.json"
       - "modern-home.css"
+      - "match-center.css"
       - "apply_visual_refresh.py"
       - "fk-sudak-pwa-*.png"
       - "icon-*.png"
@@ -37,6 +38,9 @@ jobs:
       - run: node tests/home-dashboard.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: dashboard-screenshots
+      - run: node tests/match-center.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: match-center-screenshots
       - run: node tests/launch-splash.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: launch-screenshots
@@ -47,6 +51,7 @@ jobs:
           path: |
             launch-screenshots/
             dashboard-screenshots/
+            match-center-screenshots/
           if-no-files-found: ignore
   update:
     if: github.event_name != 'pull_request'
