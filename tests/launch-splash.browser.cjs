@@ -7,6 +7,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const http=require('node:http');
 const root=path.resolve(__dirname,'..');
+const shellCache=fs.readFileSync(path.join(root,'sw.js'),'utf8').match(/const CACHE="([^"]+)"/)[1];
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
 assert.equal(manifest.background_color,manifest.theme_color);
 assert.equal(manifest.display,'standalone');
@@ -174,10 +175,10 @@ function observeLaunch(){
     await page.goto(base);await completed(page);
     await page.evaluate(()=>navigator.serviceWorker.ready);
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
-    const cached=await page.evaluate(async()=>{
-      const cache=await caches.open('sudak-launch-v7');
+    const cached=await page.evaluate(async(cacheName)=>{
+      const cache=await caches.open(cacheName);
       return (await cache.keys()).map(r=>new URL(r.url).pathname);
-    });
+    },shellCache);
     assert(cached.includes('/fk-sudak/assets/club-crest-final-original.png'));
     await context.setOffline(true);await page.reload();await completed(page);
     const offlineManifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
@@ -203,7 +204,7 @@ function observeLaunch(){
     assert.deepEqual(Buffer.from(previousIcon),fs.readFileSync(path.join(root,'assets/previous-crest/crest-v4/icon-192.png')));
     servePreviousWorker=false;
     await page.evaluate(async()=>{const registration=await navigator.serviceWorker.getRegistration();await registration.update()});
-    await page.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('sudak-launch-v7')&&!keys.includes('sudak-launch-v6')});
+    await page.waitForFunction(async(cacheName)=>{const keys=await caches.keys();return keys.includes(cacheName)&&!keys.includes('sudak-launch-v6')},shellCache);
     await page.goto(base);await completed(page);
     await context.setOffline(true);await page.reload();await completed(page);
     const cachedOriginal=await page.evaluate(async()=>Array.from(new Uint8Array(await (await fetch('assets/club-crest-final-original.png')).arrayBuffer())));
@@ -212,7 +213,7 @@ function observeLaunch(){
       const bytes=await page.evaluate(async src=>Array.from(new Uint8Array(await (await fetch(src)).arrayBuffer())),filename+'?v=final-crest-v7');
       assert.deepEqual(Buffer.from(bytes),fs.readFileSync(path.join(root,filename)),'Exact new offline icon after worker upgrade: '+filename);
     }
-    console.log('PASS actual v6 worker upgrade to v7, new approved PNG and all five icons byte-exact offline');
+    console.log('PASS actual v6 worker upgrade to current shell, new approved PNG and all five icons byte-exact offline');
     // A startup script error reveals recovery immediately instead of blocking UI.
     page=await setup();
     await page.route(base,r=>r.fulfill({contentType:'text/html',body:fs.readFileSync(path.join(root,'index.html'),'utf8').replace('window.dispatchEvent(new Event("sudak:ready"));',"window.dispatchEvent(new ErrorEvent('error',{message:'simulated boot error'}));")}));
