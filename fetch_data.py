@@ -1,7 +1,7 @@
-"""Данные ФК «Судак» с rffk-roo.ru -> data.json для PWA.
+"""Данные ФК «Судак» для PWA: Открытый чемпионат Крыма, сезон 2026.
 
-Для страниц федерации, где таблица и состав могут быть сделаны из div,
-а не из стандартных HTML-таблиц. Схема data.json сохранена.
+Матчи других сезонов и команд вне текущей таблицы чемпионата исключаются.
+Схема data.json (res/next/table/squad/coach/news) сохранена.
 """
 import datetime
 import json
@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 
 BASE = "https://rffk-roo.ru"
 TEAM = 141
+SEASON_YEAR = 2026
 MONTHS = "января февраля марта апреля мая июня июля августа сентября октября ноября декабря".split()
 GROUPS = {
     "Вратарь": "Вратари",
@@ -50,10 +51,23 @@ def human(date):
     return f"{int(day)} {MONTHS[int(month) - 1]}"
 
 
-def parse_matches(soup):
+def normalise_team(name):
+    """Единое написание названий из таблицы и карточек матчей."""
+    return re.sub(r"\s+", " ", re.sub(r'[«»"“”]', "", name)).strip().casefold()
+
+
+def parse_matches(soup, allowed_teams, season_year=SEASON_YEAR, today=None):
+    """Матчи сезона только против участников текущего чемпионата.
+
+    На странице команды смешаны сезоны и турниры; сначала определяем дату
+    с годом и соперника, а лишь затем включаем матч. Игры без даты не
+    записываются в «ближайшие»: их нельзя надёжно упорядочить.
+    """
+    today = today or datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).date()
     seen, results, upcoming = set(), [], []
-    for a in soup.select(f'a[href*="/teams/{TEAM}"]'):
-        box = a
+    allowed_teams = {normalise_team(name) for name in allowed_teams}
+    for link in soup.select(f'a[href*="/teams/{TEAM}"]'):
+        box = link
         while box.parent and len({tid(x) for x in box.select('a[href*="/teams/"]') if tid(x)}) < 2:
             box = box.parent
         links = [x for x in box.select('a[href*="/teams/"]') if tid(x)]
@@ -62,24 +76,46 @@ def parse_matches(soup):
             continue
         seen.add(id(box))
         home, away = links[0], links[-1]
-        text = txt(box)
-        score = re.search(r"(\d+)\s+(\d{2}\.\d{2}\.\d{4})(?:\s+\d{2}:\d{2})?\s+(\d+)", text)
-        venue = re.search(r"Стадион\s+.+?(?=\s*Подробности|$)", text)
-        venue = venue.group(0).replace("Стадион", "", 1).strip() if venue else ""
         home_match = tid(home) == TEAM
         opponent = txt(away if home_match else home)
+        if normalise_team(opponent) not in allowed_teams:
+            continue
+
+        text = txt(box)
+        date_match = DATE.search(text)
+        if not date_match:
+            continue
+        raw_date = date_match.group(0)
+        try:
+            match_date = datetime.datetime.strptime(raw_date, "%d.%m.%Y").date()
+        except ValueError:
+            continue
+        if match_date.year != season_year:
+            continue
+
+        venue_match = re.search(r"Стадион\s+.+?(?=\s*Подробности|$)", text)
+        venue = venue_match.group(0).replace("Стадион", "", 1).strip() if venue_match else ""
         where = "дома" if home_match else "в гостях"
+        score = re.search(r"(\d+)\s+" + re.escape(raw_date) + r"(?:\s+\d{2}:\d{2})?\s+(\d+)", text)
         if score:
-            h, date, a_goals = score.groups()
-            ours, theirs = (int(h), int(a_goals)) if home_match else (int(a_goals), int(h))
-            results.append((date, [human(date), opponent, ours, theirs, venue, where]))
-        else:
-            date_match = DATE.search(text)
-            date = date_match.group(0) if date_match else None
-            upcoming.append((date, [human(date), opponent, venue, where]))
-    key = lambda item: tuple(reversed((item[0] or "99.99.9999").split(".")))
-    results.sort(key=key, reverse=True)
-    upcoming.sort(key=key)
+            h, a_goals = map(int, score.groups())
+            ours, theirs = (h, a_goals) if home_match else (a_goals, h)
+            results.append((match_date, [human(raw_date), opponent, ours, theirs, venue, where]))
+        elif match_date >= today:
+            upcoming.append((match_date, [human(raw_date), opponent, venue, where]))
+
+    # При повторе одного матча на странице оставляем лишь одну карточку.
+    def unique(items):
+        collected, visited = [], set()
+        for date, record in items:
+            key = (date, normalise_team(record[1]), record[-1])
+            if key not in visited:
+                visited.add(key)
+                collected.append((date, record))
+        return collected
+
+    results = unique(sorted(results, key=lambda item: item[0], reverse=True))
+    upcoming = unique(sorted(upcoming, key=lambda item: item[0]))
     return [record for _, record in results], [record for _, record in upcoming]
 
 
@@ -195,13 +231,18 @@ def parse_news(soup):
 
 def main():
     soup = get(f"/teams/{TEAM}/")
-    results, upcoming = parse_matches(soup)
     table = parse_table(soup)
+    results, upcoming = parse_matches(soup, (row[0] for row in table))
     squad, coach = parse_squad(soup)
     count = sum(map(len, squad.values()))
-    print(f"Найдено: таблица={len(table)}, матчи={len(results)}, состав={count}, тренер={coach or 'не указан'}")
+    print(f"Чемпионат {SEASON_YEAR}: таблица={len(table)}, сыграно={len(results)}, впереди={len(upcoming)}, состав={count}, тренер={coach or 'не указан'}")
     if len(table) < 5 or len(results) < 3 or count < 10:
         sys.exit("Ошибка чтения страницы: data.json сохранён без изменений")
+
+    # Защита от попадания кубковых матчей с соперниками из той же лиги.
+    played = next((row[1] for row in table if normalise_team(row[0]) == normalise_team("ФК «Судак»")), None)
+    if played is not None and len(results) > played:
+        sys.exit(f"Матчей ({len(results)}) больше, чем игр в таблице ({played}): обновление остановлено для проверки турнира")
 
     data = {
         "updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
