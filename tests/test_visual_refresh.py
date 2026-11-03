@@ -54,7 +54,7 @@ class VisualRefreshTests(unittest.TestCase):
                          [('192x192', 'any'), ('512x512', 'any'), ('512x512', 'maskable')])
         for icon in manifest['icons']:
             size = tuple(map(int, icon['sizes'].split('x')))
-            self.assertEqual(png_size(ROOT / icon['src']), size)
+            self.assertEqual(png_size(ROOT / icon['src'].split('?')[0]), size)
             self.assertEqual(icon['type'], 'image/png')
         for source, output in [('fk-sudak-pwa-192.png', 'icon-192.png'),
                                ('fk-sudak-pwa-512.png', 'icon-512.png'),
@@ -66,8 +66,8 @@ class VisualRefreshTests(unittest.TestCase):
         css = (ROOT / 'modern-home.css').read_text()
         self.assertIn(css, html)
         self.assertEqual(html.count('/* Modern Football Home 2026'), 1)
-        self.assertIn('<img src="icon-192.png" alt="" width="54" height="54">', html)
-        self.assertIn('<link rel="icon" type="image/png" href="icon-192.png">', html)
+        self.assertIn('<img src="icon-192.png?v=crest-v4" alt="" width="54" height="54">', html)
+        self.assertIn('<link rel="icon" type="image/png" href="icon-192.png?v=crest-v4">', html)
 
     def test_rerun_is_idempotent_and_preserves_federation_files(self):
         with tempfile.TemporaryDirectory() as tmp:

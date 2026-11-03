@@ -28,7 +28,7 @@ header .crest{
   border:1px solid #FFFFFF3D;border-radius:14px;overflow:hidden;
   background:#0D3A6B;box-shadow:0 5px 15px #0005;
 }
-header .crest img{width:100%;height:100%;object-fit:cover;display:block}
+header .crest img{width:100%;height:100%;object-fit:contain;display:block}
 header .brand{min-width:0}
 header h1{font-size:clamp(18px,5.4vw,23px);line-height:1.15;letter-spacing:.1px}
 header p{font-size:11.5px;opacity:.8;margin-top:5px;overflow-wrap:anywhere}
