@@ -6,9 +6,9 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#001329">
 <style id="launch-canvas">html{background:#001329}</style>
-<link rel="apple-touch-icon" href="icon-192.png?v=crest-v4">
-<link rel="icon" type="image/png" href="icon-192.png?v=crest-v4">
-<link rel="preload" as="image" href="assets/club-crest-original.png" fetchpriority="high">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=final-crest-v7">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=final-crest-v7">
+<link rel="preload" as="image" href="assets/club-crest-final-original.png" fetchpriority="high">
 <title>ФК «Судак»</title>
 <style>
 :root{--bg:#EEF3F5;--card:#fff;--ink:#0F2C45;--mute:#5E7486;--line:#D9E3E8;--sea:#1B7A8C;--navy:#0F2C45;--sun:#E3A93B;--win:#1E8E5A;--loss:#C0453A;--onnavy:#fff;color-scheme:light}
@@ -306,9 +306,8 @@ main:has(#squad.on){max-width:1200px}
 #launch-splash.is-leaving{opacity:0}
 .launch-crest{
   display:block;align-self:center;width:min(70vw,380px);height:auto;
-  max-width:100%;max-height:calc(100% - 96px);object-fit:contain;opacity:0;
+  max-width:100%;max-height:calc(100% - 96px);object-fit:contain;opacity:1;
 }
-.crest-ready .launch-crest{animation:launch-appear .5s ease-out both}
 .launch-name{
   position:absolute;inset-inline:16px;bottom:calc(40px + env(safe-area-inset-bottom,0px));
   margin:0;padding-left:.24em;font-size:clamp(18px,4.6vw,24px);
@@ -319,7 +318,6 @@ main:has(#squad.on){max-width:1200px}
   border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);
 }
 #launch-error button,#retry-data{font:inherit;min-height:44px;padding:8px 12px;cursor:pointer}
-@keyframes launch-appear{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){
   #launch-splash{transition:none!important}
   #launch-splash.is-leaving{opacity:1}
@@ -329,7 +327,7 @@ main:has(#squad.on){max-width:1200px}
 </head>
 <body>
 <div id="launch-splash" role="status" aria-label="ФК Судак. Запуск приложения" aria-busy="true" hidden>
-  <img class="launch-crest" src="assets/club-crest-original.png" alt="" width="1024" height="1536" fetchpriority="high" decoding="async">
+  <img class="launch-crest" src="assets/club-crest-final-original.png" alt="" width="1086" height="1448" fetchpriority="high" decoding="async">
   <p class="launch-name" aria-hidden="true">ФК СУДАК</p>
 </div>
 <div id="launch-error" role="alert" hidden>
@@ -396,7 +394,7 @@ main:has(#squad.on){max-width:1200px}
 })();
 </script>
 
-<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=crest-v4" alt="" width="54" height="54"></div><div class="brand"><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div></header>
+<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=final-crest-v7" alt="" width="54" height="54"></div><div class="brand"><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div></header>
 <main>
 <section id="home" class="on" aria-label="Главная"></section>
 <section id="matches" aria-label="Матчи"></section>

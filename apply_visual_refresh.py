@@ -19,7 +19,7 @@ marker='/* Modern Football Home 2026'
 # Verify exact anchors before any file is changed; no partial transformations.
 if marker not in html:
     header_old='<header><div class="crest" aria-hidden="true">С</div><div><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div></header>'
-    header_new='<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=crest-v4" alt="" width="54" height="54"></div><div class="brand"><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div></header>'
+    header_new='<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=final-crest-v7" alt="" width="54" height="54"></div><div class="brand"><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div></header>'
     tag_nearest='`<div class="card next"><span class="tag">Ближайший матч</span>'
     tag_result='`<h2>Последний матч</h2><a class="card match-link"'
     tag_position='?`<h2>В таблице</h2><div class="card"><div class="row">'
@@ -39,7 +39,7 @@ if marker not in html:
            '<p>Следите за матчами, результатами и командой в одном месте.</p></div>`+')
     html=html.replace(tag_home,'$("home").innerHTML='+intro+'nearest+latest+',1)
     html=html.replace('<link rel="apple-touch-icon" href="icon-192.png">',
-                      '<link rel="apple-touch-icon" href="icon-192.png?v=crest-v4">\n<link rel="icon" type="image/png" href="icon-192.png?v=crest-v4">',1)
+                      '<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=final-crest-v7">\n<link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=final-crest-v7">',1)
 else:
     print('UI already applied; verifying PWA icons and manifest')
 
@@ -47,20 +47,21 @@ else:
 manifest_path=root/'manifest.json'
 manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
 manifest['icons']=[
-    {'src':'icon-192.png?v=crest-v4','sizes':'192x192','type':'image/png','purpose':'any'},
-    {'src':'icon-512.png?v=crest-v4','sizes':'512x512','type':'image/png','purpose':'any'},
-    {'src':'icon-maskable-512.png?v=crest-v4','sizes':'512x512','type':'image/png','purpose':'maskable'},
+    {'src':'icon-192.png?v=final-crest-v7','sizes':'192x192','type':'image/png','purpose':'any'},
+    {'src':'icon-512.png?v=final-crest-v7','sizes':'512x512','type':'image/png','purpose':'any'},
+    {'src':'icon-maskable-512.png?v=final-crest-v7','sizes':'512x512','type':'image/png','purpose':'maskable'},
 ]
 manifest.setdefault('description','ФК «Судак» — результаты, календарь, состав и новости')
 
 sw_path=root/'sw.js'
 sw=sw_path.read_text(encoding='utf-8')
-for previous in ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5']:
-    sw=sw.replace(f'const CACHE="{previous}";','const CACHE="sudak-launch-v6";',1)
-if 'const CACHE="sudak-launch-v6";' not in sw:
+for previous in ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5','sudak-launch-v6']:
+    sw=sw.replace(f'const CACHE="{previous}";','const CACHE="sudak-launch-v7";',1)
+if 'const CACHE="sudak-launch-v7";' not in sw:
     raise SystemExit('ERROR: unknown service-worker version. No files changed.')
-new='const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-original.png","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];'
+new='const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];'
 for previous in [
+    'const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-original.png","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];',
     'const SHELL=["./","./index.html","./manifest.json","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];',
     'const SHELL=["./","./index.html","./manifest.json"];',
     'const SHELL=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","./icon-maskable-512.png"];',

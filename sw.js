@@ -1,6 +1,6 @@
-// Launch v6: единый цвет системного и веб-запуска; прежние офлайн-ресурсы.
-const CACHE="sudak-launch-v6";
-const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-original.png","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];
+// Launch v7: утверждённая финальная эмблема и единый фон запуска.
+const CACHE="sudak-launch-v7";
+const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
 
 self.addEventListener("install",event=>{
   event.waitUntil((async()=>{
@@ -29,7 +29,7 @@ self.addEventListener("fetch",event=>{
   event.respondWith((async()=>{
     // The approved PNG is immutable within this shell version. Prefer the
     // precached original so a weak connection cannot delay the launch artwork.
-    if(url.pathname.endsWith("/assets/club-crest-original.png")){
+    if(url.pathname.endsWith("/assets/club-crest-final-original.png")){
       const cached=await (await caches.open(CACHE)).match(event.request);
       if(cached)return cached;
     }
