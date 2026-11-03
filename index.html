@@ -239,6 +239,80 @@ main:has(#squad.on){max-width:1200px}
 @media(prefers-reduced-motion:reduce){#squad .stats-player{animation:none;transition:none}}
 
 </style>
+<style data-match-center>
+/* Match centre: scoped to the existing match route; inline in the offline shell. */
+#match #match-title{font-size:22px;letter-spacing:-.4px;margin:18px 0 14px}
+#match .match-back{margin-top:2px}
+#match .center-hero{background:#001329;color:#fff;padding:20px 16px;border-color:#C8A45766;border-radius:16px}
+#match .center-hero-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#match .center-competition{color:#C7D3DF;font-size:12px;line-height:1.5;flex:1;min-width:130px}
+#match .center-hero .tag{background:#C8A457;color:#001329;font-size:12px;padding:4px 9px;white-space:nowrap}
+#match .center-round{margin:8px 0 0;font-size:12px;color:#C7D3DF}
+#match .board{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:9px;margin:24px 0}
+#match .tm{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:0;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+#match .tm b{font-weight:700;width:100%}
+#match .tm small{font-size:12px;color:#C7D3DF;margin:0}
+#match .center-badge{display:grid;place-items:center;width:48px;height:48px;border-radius:10px;background:#001329;flex:none}
+#match .center-badge img{display:block;width:48px;height:48px;object-fit:contain}
+#match .center-neutral{background:#142B42;border:1px solid #FFFFFF25;color:#C7D3DF;font-size:16px;letter-spacing:1px}
+#match .center-score{min-width:0;text-align:center;align-self:center}
+#match .center-score-numbers{display:flex;align-items:center;justify-content:center;gap:4px;font-size:28px;color:#E0C186;font-weight:750}
+#match .num{font-size:clamp(34px,8vw,58px);padding:0;min-width:0;background:none;color:#fff;border-radius:0;line-height:1.1;letter-spacing:-1px}
+#match .num.us{color:#E0C186}
+#match .center-score>small{display:block;font-size:11px;color:#C7D3DF;margin-top:8px}
+#match .center-not-started{display:block;max-width:95px;font-size:12px;line-height:1.45;color:#E0C186;font-weight:650}
+#match .match-meta{font-size:13px;color:#C7D3DF;line-height:1.7}
+#match .center-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding:16px;margin:12px 0 20px}
+#match .center-info>div{min-width:0;overflow-wrap:anywhere}
+#match .center-info>div:nth-child(2){grid-column:1/-1}
+#match .center-info dt{font-size:12px;color:var(--mute);margin-bottom:3px}
+#match .center-info dd{margin:0;font-size:13px;line-height:1.5;font-weight:550}
+#match h2{font-size:16px;margin:20px 0 10px}
+#match h3{font-size:15px;line-height:1.4;margin:0 0 16px;overflow-wrap:anywhere}
+#match h4{font-size:12px;color:var(--mute);font-weight:550;margin:0 0 8px}
+#match .center-scorers{list-style:none;margin:0;padding:0}
+#match .center-scorers li{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 0}
+#match .center-scorers li:first-child{padding-top:0}#match .center-scorers li:last-child{border:0;padding-bottom:0}
+#match .center-goal-name{min-width:0;flex:1;overflow-wrap:anywhere;font-size:14px}
+#match .center-goal-name small{display:block;color:var(--mute);font-size:12px;line-height:1.5}
+#match .center-goal-minute{text-align:right;max-width:100px;flex:none}
+#match .center-goal-minute b{font-size:18px;font-variant-numeric:tabular-nums}
+#match .center-goal-minute small{display:block;font-size:12px;color:var(--mute);margin-top:3px}
+#match .center-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 22px;align-items:start}
+#match .center-grid>article{min-width:0}
+#match .center-timeline{list-style:none;margin:0;padding:0}
+#match .center-timeline li{display:flex;align-items:center;gap:10px;padding:12px 0;position:relative;border-bottom:1px solid var(--line)}
+#match .center-timeline li:last-child{border:0}
+#match .center-event-clock{width:42px;flex:none;display:flex;align-self:stretch;align-items:center;flex-direction:column;gap:8px;position:relative;padding-top:3px}
+#match .center-event-clock>span:first-child{font-variant-numeric:tabular-nums;font-size:13px;font-weight:650;position:relative;z-index:1;background:var(--card)}
+#match .is-timed li:not(:last-child) .center-event-clock:after{content:"";position:absolute;width:1px;background:var(--line);top:38px;bottom:-24px;left:50%}
+#match .center-event-icon{font-size:16px;line-height:1.5;color:var(--sea);background:var(--card);position:relative;z-index:1}
+#match .center-event-icon.yellow,#match .center-event-icon.second_yellow{color:#A8780D}
+#match .center-event-icon.red{color:var(--loss)}
+#match .center-event-label{font-size:12px;color:var(--mute);display:block;margin-bottom:2px}
+#match .goal-player{font-size:14px;line-height:1.45;min-width:0;overflow-wrap:anywhere}
+#match .goal-player>span:not(.center-event-label){display:block;padding-block:7px}
+#match .goal-player small{font-size:12px;line-height:1.5}
+#match .center-timeline .sc{font-size:16px;align-self:center}
+#match .center-player{color:var(--sea);min-height:44px;display:inline-flex;align-items:center;text-decoration:none;line-height:1.4;overflow-wrap:anywhere;border-radius:4px;transition:background-color 180ms ease,transform 180ms ease}
+#match .center-player:hover{text-decoration:underline;text-underline-offset:3px}
+#match .center-player:active{background:var(--bg);transform:scale(.99)}
+#match .center-player:focus-visible,#match summary:focus-visible,#match .center-protocol:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+#match .center-lineup-list{list-style:none;padding:0;margin:0}
+#match .center-lineup-list li{display:flex;gap:10px;align-items:center;min-height:44px;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere}
+#match .center-lineup-list li:last-child{border:0}
+#match .center-shirt{font-size:12px;color:var(--mute);min-width:22px;flex:none;font-variant-numeric:tabular-nums}
+#match .center-lineup-grid{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+#match .center-lineup-team{margin:0;min-width:0}
+#match summary{font-size:14px;color:var(--sea);font-weight:650;min-height:44px;padding:12px 0;cursor:pointer}
+#match summary span{color:var(--mute);font-size:12px;margin-left:7px;font-weight:400}
+#match details{margin-top:8px;border-top:1px solid var(--line)}
+#match .center-protocol{display:flex;gap:16px;align-items:center;justify-content:space-between;text-decoration:none;margin-top:22px;min-height:64px;padding:16px}
+#match .center-protocol b{font-size:15px}#match .center-protocol small{display:block;color:var(--mute);font-size:12px;margin-top:5px;line-height:1.5}
+#match .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:768px){main:has(#match.on){max-width:1040px}#match .center-hero{padding:24px}#match .tm{font-size:21px}#match .center-info{grid-template-columns:repeat(3,minmax(0,1fr))}#match .center-info>div:nth-child(2){grid-column:auto}#match .center-grid:has(.center-lineups){grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}#match .center-goals .center-scorers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}#match .center-not-started{max-width:140px;font-size:16px}#match .center-lineups:only-child .center-lineup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){#match .center-player{transition:none}}
+</style>
 <style id="launch-splash-styles">
 /* Inline critical styles: the launch screen needs no extra CSS/JS request. */
 #launch-splash[hidden],#launch-error[hidden]{display:none}
@@ -472,7 +546,7 @@ function renderHome(){
 function render(){
   const me=TABLE.findIndex(t=>String(t[0]).includes("Судак"));
   renderHome();
-  $("matches").innerHTML=`<h2>Календарь</h2><div class="card">${NEXT.length?NEXT.map(n=>`<div class="row"><div class="l"><b>${esc(n[1])}</b><small class="venue">${venue(n[2])}</small></div><div style="text-align:right"><b>${esc(n[0])}</b><small>${esc(n[3])}</small></div></div>`).join(""):`<div class="empty">Матчи пока не назначены.</div>`}</div><h2>Результаты</h2><div class="card">${RES.length?RES.map(r=>{const k=kind(r);return `<a class="row match-link" style="display:flex" href="#match=${encodeURIComponent(matchKey(r))}&amp;from=matches" data-match="${esc(matchKey(r))}" aria-label="Подробности матча: ${esc(r[1])}, ${esc(r[0])}, ${esc(r[2])}:${esc(r[3])}"><div style="display:flex;gap:10px;align-items:center;min-width:0;flex:1"><div class="dot ${k}">${lt[k]}</div><div class="l"><b>${esc(r[1])}</b><small>${esc(r[0])} · ${venue(r[4])}</small></div></div><div class="sc">${esc(r[2])}:${esc(r[3])} <span aria-hidden="true">›</span></div></a>`}).join(""):`<div class="empty">Результаты не опубликованы.</div>`}</div>`;
+  $("matches").innerHTML=`<h2>Календарь</h2><div class="card">${NEXT.length?NEXT.map(n=>`<a class="row match-link" style="display:flex" href="#match=${encodeURIComponent(matchKey(upcomingMatchRow(n)))}&amp;from=matches" data-match="${esc(matchKey(upcomingMatchRow(n)))}"><div class="l"><b>${esc(n[1])}</b><small class="venue">${venue(n[2])}</small></div><div style="text-align:right"><b>${esc(n[0])}</b><small>${esc(n[3])}</small></div></a>`).join(""):`<div class="empty">Матчи пока не назначены.</div>`}</div><h2>Результаты</h2><div class="card">${RES.length?RES.map(r=>{const k=kind(r);return `<a class="row match-link result-link" style="display:flex" href="#match=${encodeURIComponent(matchKey(r))}&amp;from=matches" data-match="${esc(matchKey(r))}" aria-label="Подробности матча: ${esc(r[1])}, ${esc(r[0])}, ${esc(r[2])}:${esc(r[3])}"><div style="display:flex;gap:10px;align-items:center;min-width:0;flex:1"><div class="dot ${k}">${lt[k]}</div><div class="l"><b>${esc(r[1])}</b><small>${esc(r[0])} · ${venue(r[4])}</small></div></div><div class="sc">${esc(r[2])}:${esc(r[3])} <span aria-hidden="true">›</span></div></a>`}).join(""):`<div class="empty">Результаты не опубликованы.</div>`}</div>`;
   $("table").innerHTML=`<h2>Открытый чемпионат РК · сезон 2026</h2><div class="card" style="padding:6px 10px"><table><thead><tr><th>#</th><th>Команда</th><th>И</th><th>Мячи</th><th>О</th></tr></thead><tbody>${TABLE.map((t,i)=>`<tr class="${i===me?"me":""}"><td>${i+1}</td><td>${esc(t[0])}</td><td>${esc(t[1])}</td><td>${esc(t[2])}</td><td>${esc(t[3])}</td></tr>`).join("")}</tbody></table></div><p class="hint">И — игры, О — очки. Источник: Республиканская федерация футбола Крыма.</p>`;
   renderSquad();
   const published=NEWS.filter(n=>Array.isArray(n)&&n.length>=4&&newsLink(n[3]));
@@ -528,7 +602,7 @@ function resolveScorer(goal,players){
 function playerGoalMatches(player,players=playerRows(),results=RES,details=MATCH_DETAILS){
   const entries=[];let unavailable=0,ambiguous=0;
   for(const row of results){
-    const d=details[matchKey(row)];
+    const d=verifiedMatchDetail(row,details[matchKey(row)]);
     const side=row[5]==="дома"?"home":"away";
     const scores=side==="home"?[row[2],row[3]]:[row[3],row[2]];
     const names=side==="home"?["ФК «Судак»",row[1]]:[row[1],"ФК «Судак»"];
@@ -550,7 +624,7 @@ function playerGoalMatches(player,players=playerRows(),results=RES,details=MATCH
 function renderPlayer(){
   const route=currentRoute();if(route.section!=="player")return;
   const p=findPlayer(route);
-  const back=`<button type="button" class="match-back" id="player-back">← ${route.origin==="home"?"На главную":"К составу"}</button>`;
+  const back=`<button type="button" class="match-back" id="player-back">← ${route.origin==="match"?"К матчу":route.origin==="home"?"На главную":"К составу"}</button>`;
   if(!p){$("player").innerHTML=back+'<h2 id="player-title" tabindex="-1">Футболист недоступен</h2><div class="card empty">Профиль пока не найден в загруженном составе. Проверьте подключение или вернитесь к составу.</div>';return}
   document.title=p.name+" · ФК «Судак»";
   const initials=p.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join("");
@@ -565,57 +639,186 @@ function renderPlayer(){
   if(unavailable)coverage+=` Недоступны или неполны протоколы: ${unavailable}.`;
   if(ambiguous)coverage+=' Есть неоднозначные сокращённые имена: такие голы не приписаны футболисту.';
   if(uncertain)coverage+=' Список может быть неполным; итоговая статистика РФФК показана отдельно и не пересчитывается по протоколам.';
-  const list=entries.length?entries.map(({row,goal,date},i)=>`<a class="row match-link player-goal" href="#match=${encodeURIComponent(matchKey(row))}&amp;from=player&amp;player=${encodeURIComponent(playerKey(p))}&amp;name=${encodeURIComponent(p.name)}&amp;role=${encodeURIComponent(PLAYER_ROLE)}" data-match="${esc(matchKey(row))}" data-goal="${i}"><div class="l"><b>${esc(row[1])}</b><small>${esc(date.split("-").reverse().join("."))} · ${esc(goal.minute)}′${goal.type==="penalty"?" · с пенальти":""}</small></div><div class="sc">${esc(row[5]==="дома"?row[2]:row[3])}:${esc(row[5]==="дома"?row[3]:row[2])} <span aria-hidden="true">›</span></div></a>`).join(""):
+  const list=entries.length?entries.map(({row,goal,date},i)=>`<a class="row match-link player-goal" href="#match=${encodeURIComponent(matchKey(row))}&amp;from=player&amp;player=${encodeURIComponent(playerKey(p))}&amp;name=${encodeURIComponent(p.name)}&amp;role=${encodeURIComponent(PLAYER_ROLE)}${route.origin==="home"?"&amp;profileFrom=home":route.origin==="match"?"&amp;profileFrom=match&amp;profileBack="+encodeURIComponent(route.matchParent):""}" data-match="${esc(matchKey(row))}" data-goal="${i}"><div class="l"><b>${esc(row[1])}</b><small>${esc(date.split("-").reverse().join("."))} · ${esc(goal.minute)}′${goal.type==="penalty"?" · с пенальти":""}</small></div><div class="sc">${esc(row[5]==="дома"?row[2]:row[3])}:${esc(row[5]==="дома"?row[3]:row[2])} <span aria-hidden="true">›</span></div></a>`).join(""):
     `<p class="empty">${total===0&&!uncertain?"По статистике РФФК голов в чемпионате 2026 нет.":"Подтверждённые голы в доступных протоколах не найдены. Это не означает, что футболист не забивал."}</p>`;
   const stale=p.stats_current===false||PLAYER_STATS_2026?.verified===false;
   $("player").innerHTML=back+`<div class="card player-hero">${avatar}<div><h2 id="player-title" tabindex="-1">${esc(p.name)}</h2><p class="stats-role">${esc(p.position)}</p><span class="tag">Сезон 2026</span></div></div><h2>Открытый чемпионат Республики Крым · 2026</h2><div class="card"><div class="profile-values">${stats}</div><p class="hint">${stale?"Последние подтверждённые значения РФФК. ":""}Прочерк означает отсутствие подтверждённых данных. Голы с пенальти входят в общее число голов.</p></div><p class="hint">Всего игр в карточке РФФК: ${statValue(p.federation_games)} · общий показатель федерации, не показатель сезона 2026.</p>${source?`<p class="hint"><a class="stats-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Карточка футболиста на сайте РФФК ↗</a>${photo?" · Фото: РФФК":""}</p>`:""}<h2>Голы в матчах</h2><p class="hint" id="goal-coverage">${esc(coverage)}</p><div class="card player-goals">${list}</div><p class="hint">Итоговый счёт в списке: хозяева — гости. Автоголы не включены в личные голы футболиста.</p>`;
   const image=$("player").querySelector('.player-avatar img');
   if(image)image.addEventListener("error",()=>image.remove(),{once:true});
 }
-function renderMatch(){
-  const route=currentRoute();if(route.section!=="match")return;
-  const row=RES.find(r=>matchKey(r)===route.key);
-  const upcoming=NEXT.map(upcomingMatchRow).find(r=>matchKey(r)===route.key);
-  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==="player"?"К футболисту":route.origin==="home"?"На главную":"К матчам"}</button>`;
-  if(!row&&upcoming){
-    $("match").innerHTML=back+'<h2 tabindex="-1" id="match-title">Подробности матча</h2>'+homeMatchCard(NEXT.find(n=>matchKey(upcomingMatchRow(n))===route.key),true,false)+'<p class="hint">Матч запланирован. Итоговый счёт и протокол появятся после публикации.</p>';return;
+// Match centre shares existing calendar identities, protocol data and player matching.
+const MATCH_EVENT_LABELS={goal:'Гол',penalty:'Гол с пенальти',own_goal:'Автогол',missed_penalty:'Пенальти не реализован',yellow:'Жёлтая карточка',second_yellow:'Повторное предупреждение',red:'Красная карточка',substitution:'Замена',substitution_out:'Уход с поля',substitution_in:'Выход на поле'};
+const MATCH_GOAL_TYPES=['goal','penalty','own_goal'];
+function matchMinute(value){
+  const hit=String(value??'').trim().match(/^(\d{1,3})(?:\+(\d{1,2}))?$/);
+  return hit&&Number(hit[1])>=1&&Number(hit[1])<=120&&Number(hit[2]||0)<=30?hit[1]+(hit[2]?'+'+hit[2]:''):null;
+}
+function verifiedMatchDetail(row,detail){
+  if(!detail||!['дома','в гостях'].includes(row[5]))return null;
+  const source=protocolLink(detail.source_url);
+  if(source&&detail.id&&new URL(source).pathname.split('/')[2]!==String(detail.id))return null;
+  const home=row[5]==='дома',date=homeDate(row[0]);
+  if(date===null||detail.date!==new Date(date).toISOString().slice(0,10)||
+     detail.home!==(home?'ФК «Судак»':row[1])||detail.away!==(home?row[1]:'ФК «Судак»'))return null;
+  if(Number.isInteger(row[2])&&Number.isInteger(row[3])&&
+    (detail.home_score!==(home?row[2]:row[3])||detail.away_score!==(home?row[3]:row[2])))return null;
+  return detail;
+}
+function confirmedMatchGoals(detail,scores){
+  if(detail?.status!=='available'||!Array.isArray(detail.goals))return null;
+  const running=[0,0],goals=[];
+  for(const raw of detail.goals){
+    if(!raw||!MATCH_GOAL_TYPES.includes(raw.type)||!['home','away'].includes(raw.side))return null;
+    running[raw.side==='home'?0:1]++;
+    if(!Array.isArray(raw.score)||raw.score.length!==2||raw.score.some((v,i)=>v!==running[i]))return null;
+    goals.push({...raw,player:typeof raw.player==='string'?raw.player:'',minute:matchMinute(raw.minute)});
   }
-  if(!row){$("match").innerHTML=back+'<h2 tabindex="-1" id="match-title">Матч недоступен</h2><div class="card empty">Сведения об этом матче пока недоступны. Проверьте подключение или выберите матч в разделе «Матчи».</div>';return}
-  const detail=Object.hasOwn(MATCH_DETAILS,route.key)?MATCH_DETAILS[route.key]:null;
-  const home=row[5]==="дома";
-  const teams=home?["ФК «Судак»",row[1]]:[row[1],"ФК «Судак»"];
-  const scores=home?[row[2],row[3]]:[row[3],row[2]];
-  const validDate=/^2026-\d{2}-\d{2}$/.test(detail?.date||"")?detail.date.split("-").reverse().join("."):row[0]+" 2026";
-  const source=protocolLink(detail?.source_url);
-  const available=detail?.status==="available"&&Array.isArray(detail.goals);
-  const types={penalty:" · с пенальти",own_goal:" · автогол"};
-  const goals=available?detail.goals:[];
-  const events=available?(goals.length?`<ol class="goal-timeline">${goals.map(g=>`<li><span class="goal-minute">${esc(g.minute)}′</span><div class="goal-player"><b>${esc(g.player)}</b><small>${esc(teams[g.side==="home"?0:1])}${esc(types[g.type]||"")}</small></div><b class="sc">${esc(g.score[0])}:${esc(g.score[1])}</b></li>`).join("")}</ol>`:'<p class="empty">В этом матче голов не было.</p>'):'<p class="empty" role="status">Протокол матча недоступен или содержит неполные данные. Авторы голов, минуты и хронология пока не подтверждены.</p>';
-  $("match").innerHTML=back+`<h2 tabindex="-1" id="match-title">Подробности матча</h2><div class="card"><div class="board"><div class="tm">${esc(teams[0])}<small>Хозяева</small></div><div class="num ${home?"us":""}">${esc(scores[0])}</div><div class="num ${home?"":"us"}">${esc(scores[1])}</div><div class="tm">${esc(teams[1])}<small>Гости</small></div></div><p class="match-meta">${esc(validDate)}${detail?.time?" · "+esc(detail.time):""}<br>${esc(detail?.venue||row[4]||"Стадион не указан")}</p></div><h2>Хронология голов</h2><div class="card">${events}</div>${source?`<p class="hint"><a class="stats-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Протокол на сайте РФФК ↗</a></p>`:""}<p class="hint">Счёт указан в порядке: хозяева — гости. Сведения из официального протокола РФФК.</p>`;
+  return running.every((v,i)=>v===scores[i])?goals:null;
+}
+function confirmedMatchEvents(detail,goals){
+  if(!goals)return {items:[],complete:false};
+  if(!Array.isArray(detail.events))return {items:goals,complete:false};
+  const items=detail.events.filter(e=>e&&Object.hasOwn(MATCH_EVENT_LABELS,e.type)&&['home','away'].includes(e.side))
+    .map(e=>({...e,player:typeof e.player==='string'?e.player:'',minute:matchMinute(e.minute)}));
+  const signature=g=>JSON.stringify([g.type,g.side,g.player,g.minute,g.score]);
+  const scoring=items.filter(e=>MATCH_GOAL_TYPES.includes(e.type));
+  if(scoring.length!==goals.length||scoring.some((e,i)=>signature(e)!==signature(goals[i])))return {items:goals,complete:false};
+  return {items,complete:detail.events_complete===true&&items.length===detail.events.length};
+}
+function matchCenter(key,results=RES,upcoming=NEXT,details=MATCH_DETAILS){
+  const result=results.find(r=>Array.isArray(r)&&matchKey(r)===key);
+  const planned=upcoming.find(n=>Array.isArray(n)&&matchKey(upcomingMatchRow(n))===key);
+  const row=result||(planned?upcomingMatchRow(planned):null);
+  if(!row)return null;
+  const home=row[5]==='дома',finished=!!result&&[row[2],row[3]].every(n=>Number.isInteger(n)&&n>=0);
+  const scores=finished?(home?[row[2],row[3]]:[row[3],row[2]]):null;
+  const detail=verifiedMatchDetail(row,details[key]);
+  const goals=finished?confirmedMatchGoals(detail,scores):null;
+  const events=confirmedMatchEvents(detail,goals);
+  const status=finished?'Завершён':detail?.match_status==='cancelled'?'Отменён':detail?.match_status==='postponed'?'Перенесён':planned?'Запланирован':'Результат уточняется';
+  const lineups={};
+  for(const side of ['home','away']){
+    const raw=detail?.lineups?.[side],groups={};
+    for(const group of ['starters','substitutes']){
+      if(Array.isArray(raw?.[group]))groups[group]=raw[group].filter(p=>p&&typeof p.name==='string'&&p.name.trim())
+        .map(p=>({name:p.name,profile_url:officialPlayerURL(p.profile_url),number:Number.isInteger(p.number)&&p.number>=0&&p.number<=99?p.number:null}));
+    }
+    if(Object.values(groups).some(group=>group.length))lineups[side]=groups;
+  }
+  return {key,row,home,finished,scores,detail,goals,events,lineups,status,
+    teams:home?['ФК «Судак»',row[1]]:[row[1],'ФК «Судак»'],clubSide:home?'home':'away',
+    time:/^([01]\d|2[0-3]):[0-5]\d$/.test(detail?.time||'')?detail.time:'',
+    date:detail?.date?detail.date.split('-').reverse().join('.'):homeDate(row[0])!==null?row[0]+(!/\b2026\b/.test(row[0])?' 2026':''):'',
+    venue:typeof detail?.venue==='string'&&detail.venue?detail.venue:typeof row[4]==='string'?row[4]:'',
+    competition:typeof detail?.competition==='string'&&detail.competition?detail.competition:'Открытый чемпионат Республики Крым',round:typeof detail?.round==='string'?detail.round:'',source:protocolLink(detail?.source_url)};
+}
+function matchPlayer(name,side,model,players=playerRows(),sourceURL=''){
+  if(side!==model.clubSide||!name)return null;
+  const groups=model.lineups[side];
+  const entries=groups?Object.values(groups).flat():[];
+  if(sourceURL){
+    const matches=players.filter(p=>officialPlayerURL(p.profile_url)===sourceURL&&normalizedName(p.name)===normalizedName(name));
+    return matches.length===1?matches[0]:null;
+  }
+  if(entries.length){
+    const identities=entries.filter(p=>scorerMatchesName(name,p.name));
+    if(identities.length!==1)return null;
+    if(identities[0].profile_url)return matchPlayer(identities[0].name,side,model,players,identities[0].profile_url);
+    const exact=players.filter(p=>normalizedName(p.name)===normalizedName(identities[0].name));
+    return exact.length===1?exact[0]:null;
+  }
+  const matches=players.filter(p=>scorerMatchesName(name,p.name));
+  return matches.length===1?matches[0]:null;
+}
+const eventActorSide=e=>e.type==='own_goal'?(e.side==='home'?'away':'home'):e.side;
+function matchPersonHTML(name,side,model,entry,sourceURL=''){
+  const person=matchPlayer(name,side,model,playerRows(),sourceURL);
+  if(!person)return `<span>${esc(name||'Футболист не указан')}</span>`;
+  const parent=location.hash.startsWith('#match=')?location.hash:matchHref(model.row);
+  return `<a class="player-link center-player" data-player="${esc(playerKey(person))}" data-match-player="${esc(entry)}" href="${esc(playerHref(person)+'&from=match&back='+encodeURIComponent(parent))}">${esc(name)}<span class="sr-only"> — профиль футболиста</span></a>`;
+}
+function matchGoalsHTML(model){
+  if(!model.finished)return '';
+  if(model.goals===null)return '<div class="card empty center-unavailable" role="status">Протокол матча недоступен или содержит неполные данные. Авторы голов, минуты и хронология пока не подтверждены.</div>';
+  if(!model.goals.length)return '<div class="card empty">В этом матче голов не было.</div>';
+  return `<article class="center-goals"><h2>Авторы голов</h2><div class="card"><ul class="center-scorers">${model.goals.map((goal,index)=>{
+    const actor=eventActorSide(goal),team=model.teams[actor==='home'?0:1];
+    return `<li><div class="center-goal-name">${matchPersonHTML(goal.player,actor,model,'scorer-'+index)}<small>${esc(team)}${goal.type==='own_goal'?' · В пользу '+esc(model.teams[goal.side==='home'?0:1]):''}</small></div><div class="center-goal-minute">${goal.minute?`<b>${esc(goal.minute)}′</b>`:''}<small>${MATCH_EVENT_LABELS[goal.type]}</small></div></li>`;
+  }).join('')}</ul></div></article>`;
+}
+function matchEventsHTML(model){
+  const items=model.events.items;if(!items.length)return '';
+  const timed=items.every(e=>e.minute!==null);
+  const goalsOnly=items.every(e=>MATCH_GOAL_TYPES.includes(e.type));
+  const symbol=e=>({goal:'●',penalty:'●',own_goal:'●',missed_penalty:'×',yellow:'▰',second_yellow:'▰',red:'▰',substitution:'↔',substitution_in:'↗',substitution_out:'↙'})[e.type];
+  return `<article class="center-events"><h2>${timed?'Хронология матча':'Подтверждённые события'}</h2><p class="hint">${goalsOnly?'Доступны только события голов. ':model.events.complete?'События из официального протокола. ':'Показаны доступные подтверждённые события. '}${timed?'':'Минуты части событий не указаны; сохранён порядок источника.'}</p><div class="card"><ol class="center-timeline ${timed?'is-timed':''}">${items.map((e,index)=>{
+    const actor=eventActorSide(e),team=model.teams[actor==='home'?0:1];
+    return `<li class="${MATCH_GOAL_TYPES.includes(e.type)?'is-goal':''}" data-event="${esc(e.type)}"><div class="center-event-clock">${e.minute?`<span>${esc(e.minute)}′</span>`:''}<span class="center-event-icon ${esc(e.type)}" aria-hidden="true">${symbol(e)}</span></div><div class="goal-player"><span class="center-event-label">${MATCH_EVENT_LABELS[e.type]}</span>${matchPersonHTML(e.player,actor,model,'event-'+index)}<small>${esc(team)}${e.type==='own_goal'?' · В пользу '+esc(model.teams[e.side==='home'?0:1]):''}</small></div>${MATCH_GOAL_TYPES.includes(e.type)?`<b class="sc">${esc(e.score[0])}:${esc(e.score[1])}</b>`:''}</li>`;
+  }).join('')}</ol></div></article>`;
+}
+function matchLineupsHTML(model){
+  if(!Object.keys(model.lineups).length)return '';
+  const list=(entries,side,group)=>`<ul class="center-lineup-list">${entries.map((p,index)=>`<li>${p.number!==null?`<span class="center-shirt">${p.number}</span>`:''}${matchPersonHTML(p.name,side,model,side+'-'+group+'-'+index,p.profile_url)}</li>`).join('')}</ul>`;
+  return `<article class="center-lineups"><h2>Составы команд</h2><div class="center-lineup-grid">${['home','away'].map((side,i)=>{
+    const groups=model.lineups[side];if(!groups)return '';
+    return `<div class="card center-lineup-team"><h3>${esc(model.teams[i])}</h3>${groups.starters?.length?'<h4>Стартовый состав</h4>'+list(groups.starters,side,'starters'):''}${groups.substitutes?.length?`<details data-center-list="${side}-bench"><summary>Запасные <span>${groups.substitutes.length}</span></summary>${list(groups.substitutes,side,'substitutes')}</details>`:''}</div>`;
+  }).join('')}</div></article>`;
+}
+function renderMatch(){
+  const route=currentRoute();if(route.section!=='match')return;
+  const model=matchCenter(route.key),root=$('match');
+  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==='player'?'К футболисту':route.origin==='home'?'На главную':'К матчам'}</button>`;
+  let html=back+'<h2 tabindex="-1" id="match-title">Центр матча</h2>';
+  if(!model)html+='<div class="card empty">Сведения об этом матче пока недоступны. Проверьте подключение или выберите матч в разделе «Матчи».</div>';
+  else{
+    const {teams,home,scores}=model;
+    const badge=(side,name)=>side===model.clubSide?'<span class="center-badge"><img src="icon-192.png?v=final-crest-v7" alt="" width="48" height="48"></span>':'<span class="center-badge center-neutral" aria-hidden="true">'+esc(name.replace(/[«»"']/g,'').split(/\s+/).filter(n=>!['ФК','СК','АФК'].includes(n)).slice(0,2).map(n=>n[0]).join('')||'—')+'</span>';
+    const team=(i)=>`<div class="tm">${badge(i===0?'home':'away',teams[i])}<b>${esc(teams[i])}</b><small>${i===0?'Хозяева':'Гости'}</small></div>`;
+    const fields=[['Дата',model.date+(model.time?' · '+model.time:'')],['Турнир',model.competition],['Тур',model.round],['Стадион',model.venue],['Статус',model.status]].filter(([,value])=>value);
+    html+=`<div class="card center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="tag">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num ${home?'us':''}">${scores[0]}</span><span aria-hidden="true">:</span><span class="num ${home?'':'us'}">${scores[1]}</span></div><small>Итоговый счёт</small>`:`<span class="center-not-started">${model.status==='Запланирован'?'Матч не начался':esc(model.status)}</span>`}</div>${team(1)}</div><p class="match-meta">${esc(model.date)}${model.time?' · '+esc(model.time):''}${model.venue?'<br>'+esc(model.venue):''}</p></div><dl class="card center-info">${fields.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${!model.finished?'<p class="hint">'+(model.status==='Запланирован'?'Матч запланирован. Итоговый счёт и протокол появятся после публикации.':'Подтверждённый результат пока не опубликован.')+'</p>':''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="card center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол</b><small>Официальный сайт РФФК · откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}`;
+  }
+  if(root._centerHTML===html)return;
+  const open=[...(root.querySelectorAll?.('details[open]')||[])].map(el=>el.dataset.centerList);
+  const focused=root.contains?.(document.activeElement)?document.activeElement?.dataset?.matchPlayer:null;
+  const sameMatch=root._centerKey===route.key;
+  root.innerHTML=html;root._centerHTML=html;root._centerKey=route.key;
+  if(sameMatch){
+    for(const el of root.querySelectorAll?.('details')||[])el.open=open.includes(el.dataset.centerList);
+    if(focused)[...(root.querySelectorAll?.('a[data-match-player]')||[])].find(a=>a.dataset.matchPlayer===focused)?.focus({preventScroll:true});
+  }else if(!$('launch-splash'))homeMotion(root);
+}
+function matchParentHash(value){
+  if(typeof value!=='string'||!value.startsWith('#match=')||value.length>4096)return '';
+  const params=new URLSearchParams(value.slice(1));
+  return params.get('match')?value:'';
+}
+function matchParentTab(hash){
+  const params=new URLSearchParams(String(hash||'').slice(1));
+  return params.get('from')==='home'?'home':params.get('from')==='player'?'squad':'matches';
 }
 function currentRoute(){
   const hash=location.hash.slice(1),params=new URLSearchParams(hash);
   const role=PLAYER_ROLES.includes(params.get("role"))?params.get("role"):
     (PLAYER_ROLES.includes(history.state?.playerRole)?history.state.playerRole:PLAYER_ROLE);
   const player=params.get("player"),playerName=params.get("name")||"";
-  if(hash.startsWith("player="))return {section:"player",player,playerName,role,origin:params.get("from")==="home"?"home":"squad"};
+  if(hash.startsWith("player="))return {section:"player",player,playerName,role,origin:params.get("from")==="home"?"home":params.get("from")==="match"?"match":"squad",matchParent:matchParentHash(params.get("back"))};
   if(hash.startsWith("match=")){
     const from=params.get("from");
-    return {section:"match",key:params.get("match"),origin:from==="player"&&player?"player":from==="home"?"home":"matches",player,playerName,role};
+    return {section:"match",key:params.get("match"),origin:from==="player"&&player?"player":from==="home"?"home":"matches",player,playerName,role,profileOrigin:params.get("profileFrom"),profileBack:matchParentHash(params.get("profileBack"))};
   }
   const section=hash.split("&")[0];
   return {section:["home","matches","table","squad","news"].includes(section)?section:"home",role};
 }
 function routeParent(route){
-  if(route.section==="player")return route.origin==="home"?"#home":"#squad&role="+encodeURIComponent(route.role);
-  if(route.origin==="player")return profileHash(route.player,route.playerName,route.role);
+  if(route.section==="player")return route.origin==="match"?(route.matchParent||"#matches"):route.origin==="home"?"#home":"#squad&role="+encodeURIComponent(route.role);
+  if(route.origin==="player")return profileHash(route.player,route.playerName,route.role)+(route.profileOrigin==="home"?"&from=home":route.profileOrigin==="match"?"&from=match&back="+encodeURIComponent(route.profileBack):"");
   return "#"+route.origin;
 }
 function applyRoute(restore=false){
   const route=currentRoute();
   if(PLAYER_ROLE!==route.role){PLAYER_ROLE=route.role;renderSquad()}
   document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
-  const tab=route.section==="player"?route.origin:route.origin==="player"?"squad":route.section==="match"?route.origin:route.section;
+  const tab=route.section==="player"?(route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?route.origin:route.section;
   document.querySelectorAll('#nav button').forEach(el=>{
     const active=el.dataset.t===tab;
     el.classList.toggle("on",active);
@@ -629,14 +832,14 @@ function applyRoute(restore=false){
   if(restore){
     const focus=history.state?.focusPlayer?{selector:"a[data-player]",field:"player",value:history.state.focusPlayer}:
       history.state?.focusMatch?{selector:"a[data-match]",field:"match",value:history.state.focusMatch}:null;
-    const link=focus?[...$(route.section).querySelectorAll(focus.selector)].find(a=>a.dataset[focus.field]===focus.value&&(!history.state?.focusGoal||a.dataset.goal===history.state.focusGoal)):null;
+    const link=focus?[...$(route.section).querySelectorAll(focus.selector)].find(a=>a.dataset[focus.field]===focus.value&&(!history.state?.focusGoal||a.dataset.goal===history.state.focusGoal)&&(!history.state?.focusEntry||a.dataset.matchPlayer===history.state.focusEntry)):null;
     if(link){link.focus({preventScroll:true});return}
   }
   $(route.section+"-title")?.focus({preventScroll:true});
   revealHome();
 }
-function rememberPosition(focusMatch,focusPlayer,focusGoal){
-  history.replaceState({...history.state,scrollY:window.scrollY,playerRole:PLAYER_ROLE,focusMatch,focusPlayer,focusGoal},"",location.href);
+function rememberPosition(focusMatch,focusPlayer,focusGoal,focusEntry){
+  history.replaceState({...history.state,scrollY:window.scrollY,playerRole:PLAYER_ROLE,focusMatch,focusPlayer,focusGoal,focusEntry},"",location.href);
 }
 for(const section of ["home","matches","player"])$(section).addEventListener("click",openMatch);
 function plainClick(event){return event.button===0&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.altKey}
@@ -649,10 +852,10 @@ function openMatch(event){
   history.pushState({matchEntry:true,parent:location.hash},"",origin==="player"?link.getAttribute("href"):"#match="+encodeURIComponent(link.dataset.match)+"&from="+origin);
   applyRoute();
 }
-for(const section of ["squad","home"])$(section).addEventListener("click",event=>{
+for(const section of ["squad","home","match"])$(section).addEventListener("click",event=>{
   const link=event.target.closest("a[data-player]");
   if(!link||!plainClick(event))return;
-  event.preventDefault();rememberPosition(undefined,link.dataset.player);
+  event.preventDefault();rememberPosition(undefined,link.dataset.player,undefined,link.dataset.matchPlayer);
   history.pushState({playerEntry:true,parent:location.hash||"#"+currentRoute().section},"",link.getAttribute("href"));applyRoute();
 });
 function returnToParent(){

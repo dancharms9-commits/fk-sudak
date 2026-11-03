@@ -5,6 +5,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const http=require('node:http');
 const root=path.resolve(__dirname,'..');
+const shellCache=fs.readFileSync(path.join(root,'sw.js'),'utf8').match(/const CACHE="([^"]+)"/)[1];
 const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
 const screenshots=process.env.VISUAL_SCREENSHOT_DIR;
 const featuredDuration=page=>page.locator('#home .home-next').evaluate(el=>parseFloat(getComputedStyle(el).transitionDuration));
@@ -85,7 +86,7 @@ const server=http.createServer((req,res)=>{
     await page.locator('#match-back').click();await page.locator('#home.on').waitFor();
     assert(await featured.evaluate(el=>el===document.activeElement));
     await page.locator('#home .home-result').click();await page.locator('#match.on').waitFor();
-    assert.equal(await page.locator('#match .goal-timeline li').count(),data.match_details[[2026,...[data.res[0][0],data.res[0][1],data.res[0][5]]].join('|')].goals.length);
+    assert.equal(await page.locator('#match .center-timeline li.is-goal').count(),data.match_details[[2026,...[data.res[0][0],data.res[0][1],data.res[0][5]]].join('|')].goals.length);
     await page.locator('#match-back').click();await page.locator('#home.on').waitFor();
     const leader=page.locator('#home a[data-player]').first();
     const leaderName=await leader.locator('span').nth(2).textContent();
@@ -164,8 +165,8 @@ const server=http.createServer((req,res)=>{
     assert(await offline.evaluate(async()=>(await caches.keys()).includes('sudak-launch-v7')));
     previousWorker=false;
     await offline.evaluate(async()=>{const reg=await navigator.serviceWorker.getRegistration();await reg.update()});
-    await offline.waitForFunction(async()=>{const keys=await caches.keys();return keys.includes('sudak-home-v8')&&!keys.includes('sudak-launch-v7')});
-    console.log('PASS actual approved v7 worker upgrades to dashboard v8 without changing crest assets');
+    await offline.waitForFunction(async(cacheName)=>{const keys=await caches.keys();return keys.includes(cacheName)&&!keys.includes('sudak-launch-v7')},shellCache);
+    console.log('PASS actual approved v7 worker upgrades to current shell without changing crest assets');
     await offline.goto(base,{waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});
     await offline.waitForFunction(()=>!!navigator.serviceWorker.controller&&localStorage.getItem('sudak-data-v1'));
     await context.setOffline(true);await offline.reload({waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});

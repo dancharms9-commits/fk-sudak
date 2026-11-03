@@ -185,7 +185,7 @@ const server=http.createServer((req,res)=>{
       }
       // Profile and match screens remain readable under the same theme/motion settings.
       await section('squad');await page.locator('#squad a[data-player]').first().click();await page.locator('#player.on').waitFor();await layout();
-      await section('matches');await page.locator('#matches a[data-match]').first().click();await page.locator('#match.on').waitFor();await layout();
+      await section('matches');await page.locator('#matches .result-link[data-match]').first().click();await page.locator('#match.on').waitFor();await layout();
       console.log('PASS visual layout, navigation clearance and header icon: '+colorScheme+', '+reducedMotion+', '+width+'px');
     }
     await page.emulateMedia({colorScheme:'light',reducedMotion:'no-preference'});
@@ -195,7 +195,7 @@ const server=http.createServer((req,res)=>{
       assert.equal(await page.locator('#home .home-result[data-match]').count(),1);
       await page.locator('#home .home-result[data-match]').click();
       await page.locator('#match.on').waitFor();
-      assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
+      assert.equal(await page.locator('#match .center-timeline li.is-goal').count(),source.goals.length);
       assert.equal(await page.locator('#match .num').nth(0).innerText(),String(source.home_score));
       assert.equal(await page.locator('#match .num').nth(1).innerText(),String(source.away_score));
       if(source.goals.length)assert((await page.locator('#match').innerText()).includes(source.goals[0].player));
@@ -206,13 +206,13 @@ const server=http.createServer((req,res)=>{
       await page.locator('#home.on').waitFor();
       assert.equal(await page.locator('#home .home-result[data-match]').evaluate(el=>el===document.activeElement),true);
       await section('matches');
-      assert.equal(await page.locator('#matches a[data-match]').count(),data.res.length);
+      assert.equal(await page.locator('#matches .result-link[data-match]').count(),data.res.length);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width,'Matches overflow at '+width);
-      await page.locator('#matches a[data-match]').last().click();
+      await page.locator('#matches .result-link[data-match]').last().click();
       await page.locator('#match.on').waitFor();
       await page.locator('#match-back').click();
       await page.locator('#matches.on').waitFor();
-      assert.equal(await page.locator('#matches a[data-match]').last().evaluate(el=>el===document.activeElement),true);
+      assert.equal(await page.locator('#matches .result-link[data-match]').last().evaluate(el=>el===document.activeElement),true);
       assert((await page.evaluate(()=>window.scrollY))>0,'Back must restore scrolled match list');
       console.log('PASS layout, match links, away score and back/focus/scroll at '+width+'px');
     }
@@ -222,9 +222,9 @@ const server=http.createServer((req,res)=>{
     // Every result opens the protocol belonging to that result.
     for(let i=0;i<data.res.length;i++){
       const row=data.res[i],d=data.match_details[key(row)];
-      await page.locator('#matches a[data-match]').nth(i).click();
+      await page.locator('#matches .result-link[data-match]').nth(i).click();
       await page.locator('#match.on').waitFor();
-      assert.equal(await page.locator('#match .goal-timeline li').count(),d.goals.length);
+      assert.equal(await page.locator('#match .center-timeline li.is-goal').count(),d.goals.length);
       if(d.source_url)assert.equal(await page.locator('#match .stats-source').getAttribute('href'),d.source_url);
       else assert.equal(await page.locator('#match .stats-source').count(),0);
       await page.goBack();
@@ -238,7 +238,7 @@ const server=http.createServer((req,res)=>{
     await page.route('**/data.json?*',r=>r.fulfill({json:missing}));
     await load(base+'/#match='+encodeURIComponent(firstKey)+'&from=matches');
     assert((await page.locator('#match').innerText()).includes('Протокол матча недоступен'));
-    assert.equal(await page.locator('#match .goal-timeline li').count(),0);
+    assert.equal(await page.locator('#match .center-timeline li.is-goal').count(),0);
     await page.locator('#match-back').click();
     await page.locator('#matches.on').waitFor();
     const legacy=structuredClone(data);delete legacy.match_details;
@@ -284,7 +284,7 @@ const server=http.createServer((req,res)=>{
     assert.equal(await page.locator('#news a').count(),data.news.length);
     await page.emulateMedia({colorScheme:'dark'});
     await section('matches');
-    await page.locator('#matches a[data-match]').first().click();
+    await page.locator('#matches .result-link[data-match]').first().click();
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);
     await page.emulateMedia({colorScheme:'light'});
     const footballer=data.player_stats_2026.players.find(p=>p.name==='Донской Илья');
@@ -434,11 +434,11 @@ const server=http.createServer((req,res)=>{
     await context.setOffline(true);
     await page.locator('#match-back').click();
     await page.locator('#matches.on').waitFor();
-    await page.locator('#matches a[data-match]').first().click();
-    assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
+    await page.locator('#matches .result-link[data-match]').first().click();
+    assert.equal(await page.locator('#match .center-timeline li.is-goal').count(),source.goals.length);
     await page.reload();
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.includes('Нет связи'));
-    assert.equal(await page.locator('#match .goal-timeline li').count(),source.goals.length);
+    assert.equal(await page.locator('#match .center-timeline li.is-goal').count(),source.goals.length);
     assert(await page.locator('header .crest img').evaluate(async img=>{await img.decode();return img.naturalWidth===192}));
     for(const icon of manifest.icons){
       assert(await page.evaluate(async src=>{const response=await fetch(src);return response.ok&&(await response.blob()).type==='image/png'},icon.src),'Icon must be available offline: '+icon.src);
