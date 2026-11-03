@@ -89,18 +89,85 @@ $("nav").addEventListener("click",event=>{
   document.querySelectorAll("nav button").forEach(el=>el.removeAttribute("aria-current"));
   b.classList.add("on");b.setAttribute("aria-current","page");$(b.dataset.t).classList.add("on");window.scrollTo(0,0);
 });
+// Данные федерации обновляются в GitHub каждый час. Открытая вкладка
+// проверяет опубликованный data.json каждые пять минут, а также при
+// возвращении на вкладку и восстановлении подключения к интернету.
+// Перерисовываем карточки только при появлении новой версии данных.
+const DATA_POLL_MS=5*60*1000;
+const DATA_MIN_GAP_MS=15*1000;
+let lastAttemptAt=0;
+let lastDataTimestamp=-Infinity;
+let lastDataLabel="";
+let hasNetworkData=false;
+let loadingData=false;
+
+function dataLabel(timestamp){
+  return "Данные обновлены: "+new Date(timestamp).toLocaleString("ru-RU",{
+    day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"
+  });
+}
+
+async function refreshData(force=false){
+  if(loadingData||(!force&&Date.now()-lastAttemptAt<DATA_MIN_GAP_MS))return;
+  lastAttemptAt=Date.now();
+  loadingData=true;
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),20000);
+  try{
+    // Уникальный параметр запрещает промежуточным кэшам возвращать старую
+    // версию; service worker исключает data.json из своего кэширования.
+    const url=new URL("data.json",document.baseURI);
+    url.searchParams.set("v",String(Date.now()));
+    const response=await fetch(url.href,{
+      cache:"no-store",signal:controller.signal,headers:{Accept:"application/json"}
+    });
+    if(!response.ok)throw Error("HTTP "+response.status);
+    const d=await response.json();
+    if(!Array.isArray(d.table)||d.table.length<5||
+       !d.table.some(row=>Array.isArray(row)&&String(row[0]).includes("Судак"))||
+       !Array.isArray(d.res)||!Array.isArray(d.next)||!Array.isArray(d.news)||
+       !d.squad||typeof d.squad!=="object"||Array.isArray(d.squad)){
+      throw Error("Неожиданный формат данных");
+    }
+    const stamp=Date.parse(d.updated);
+    if(!Number.isFinite(stamp))throw Error("Отсутствует время обновления");
+    // Защита от запаздывающего ответа CDN: не откатываемся к старой версии.
+    if(stamp>=lastDataTimestamp){
+      if(!hasNetworkData||stamp>lastDataTimestamp){
+        TABLE=d.table;RES=d.res;NEXT=d.next;SQUAD=d.squad;
+        NEWS=d.news;COACH=typeof d.coach==="string"?d.coach:COACH;
+        render();
+      }
+      lastDataTimestamp=stamp;
+      lastDataLabel=dataLabel(stamp);
+    }
+    hasNetworkData=true;
+    $("upd").textContent=lastDataLabel;
+  }catch(error){
+    // При отсутствии сети не очищаем уже показанный календарь и результаты.
+    $("upd").textContent=hasNetworkData
+      ?lastDataLabel+" · Нет связи, показаны последние полученные данные"
+      :"Нет свежих данных: показана резервная информация. Проверьте интернет.";
+  }finally{
+    clearTimeout(timeout);
+    loadingData=false;
+  }
+}
+
 render();
-fetch("data.json",{cache:"no-store"}).then(response=>{if(!response.ok)throw Error("HTTP "+response.status);return response.json()}).then(d=>{
-  if(!Array.isArray(d.table)||d.table.length<5||!d.table.some(row=>Array.isArray(row)&&String(row[0]).includes("Судак")))throw Error("Неожиданный формат таблицы");
-  TABLE=d.table; if(Array.isArray(d.res))RES=d.res;if(Array.isArray(d.next))NEXT=d.next;
-  if(d.squad&&typeof d.squad==="object"&&!Array.isArray(d.squad))SQUAD=d.squad;
-  if(typeof d.coach==="string")COACH=d.coach;
-  if(Array.isArray(d.news))NEWS=d.news;
-  render();
-  const when=new Date(d.updated);
-  $("upd").textContent=!isNaN(when)?"Данные обновлены: "+when.toLocaleString("ru-RU",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"}):"Данные получены с сайта федерации";
-}).catch(()=>{$("upd").textContent="Нет свежих данных: показана резервная информация. Проверьте подключение к интернету."});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+refreshData();
+setInterval(()=>{if(!document.hidden)refreshData()},DATA_POLL_MS);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshData()});
+window.addEventListener("focus",()=>refreshData());
+window.addEventListener("online",()=>refreshData(true));
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>{
+    // Проверяем наличие новой версии приложения при открытии и далее раз в час.
+    reg.update().catch(()=>{});
+    setInterval(()=>{if(!document.hidden)reg.update().catch(()=>{})},60*60*1000);
+  }).catch(()=>{});
+}
+
 </script>
 </body>
 </html>
