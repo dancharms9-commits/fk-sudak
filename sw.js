@@ -1,6 +1,6 @@
-// UI v3: обновлённые иконки и оболочка; data.json по-прежнему читается из сети.
-const CACHE="sudak-ui-v3";
-const SHELL=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","./icon-maskable-512.png"];
+// Crest v4: утверждённая эмблема и PWA-иконки; data.json по-прежнему читается из сети.
+const CACHE="sudak-crest-v4";
+const SHELL=["./","./index.html","./manifest.json","./icon-192.png?v=crest-v4","./icon-512.png?v=crest-v4","./icon-maskable-512.png?v=crest-v4"];
 
 self.addEventListener("install",event=>{
   event.waitUntil((async()=>{
