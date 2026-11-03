@@ -32,6 +32,20 @@ h2{font-size:15px;margin:22px 2px 8px;color:var(--mute);font-weight:600}
 table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}th{color:var(--mute);font-weight:500;text-align:right;padding:6px 4px}td{padding:9px 4px;text-align:right;border-top:1px solid var(--line)}th:nth-child(2),td:nth-child(2){text-align:left;width:100%;overflow-wrap:anywhere}tr.me td{background:color-mix(in srgb,var(--sun) 22%,transparent);font-weight:700}
 .g{display:grid;grid-template-columns:1fr auto;gap:0 12px}.pl{display:contents}.pl span{padding:9px 0;border-top:1px solid var(--line)}.pl span:last-child{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
 .news a{display:block;color:inherit;text-decoration:none;padding:11px 0;border-bottom:1px solid var(--line)}.news a:last-child{border:0}.news a:focus-visible{outline:2px solid var(--sea);outline-offset:2px}.news small{display:block;color:var(--mute);margin-top:4px}.news .source{font-size:12px;color:var(--sea)}
+/* Раздел статистики: отдельные карточки, видимые значения и фильтры. */
+.stats-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;margin:10px 2px}
+.stats-head strong{font-size:17px}.stats-source{font-size:12px;color:var(--sea);text-decoration:underline;text-underline-offset:3px}
+.stats-filters{display:flex;gap:7px;overflow-x:auto;padding:4px 1px 10px;scrollbar-width:thin}
+.stats-filters button{font:inherit;font-size:13px;white-space:nowrap;padding:8px 11px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;cursor:pointer}
+.stats-filters button[aria-pressed="true"]{background:var(--sea);color:#fff;border-color:var(--sea);font-weight:700}
+.stats-filters button:focus-visible,.player-link:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.stats-list{display:grid;gap:9px}.stats-player{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.stats-name{font-size:15px;font-weight:700}.stats-role{font-size:12px;color:var(--mute);margin-top:2px}
+.stats-values{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.stats-value{min-width:74px;flex:1;border-radius:9px;background:var(--bg);padding:7px 10px}
+.stats-value b{display:block;font-size:19px;font-variant-numeric:tabular-nums}.stats-value small{color:var(--mute);font-size:11px}
+.stats-minor{font-size:12px;color:var(--mute);margin:9px 0 0}
+.stats-top{font-size:13px;line-height:1.7;margin:6px 0 0;padding-left:22px}
 nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
 nav button{flex:1;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-radius:10px;min-width:0}nav button i{font-style:normal;font-size:20px}nav button.on{color:var(--sea);font-weight:700}nav button:focus-visible{outline:2px solid var(--sea)}
 .note{font-size:12.5px;color:var(--mute);text-align:center;margin:18px 8px 0}.empty{color:var(--mute);font-size:14px}.hint{color:var(--mute);font-size:12px;line-height:1.45;margin:10px 2px}.venue{color:var(--mute)}
@@ -61,6 +75,7 @@ let TABLE=[["СК «Каштан»",16,"90–21",48],["ФК «Судак»",16,"
 let RES=[["25 октября","ФК «Саки»",3,2,"","в гостях"],["10 октября","«СТО-Газель»",4,2,"","дома"],["4 октября","ФК «Фуна»",3,2,"","в гостях"],["26 сентября","АФК",6,1,"","дома"],["12 сентября","ФК «НКСТРОЙ-Керчь»",4,0,"","в гостях"]];
 let NEXT=[["14 ноября","УОР","","в гостях"],["22 ноября","ФК «Сталкер»","","в гостях"],["28 ноября","СК «Каштан»","","дома"]];
 let SQUAD={};let COACH="";let NEWS=[];
+let PLAYER_STATS_2026=null;let PLAYER_ROLE="all";
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const asNumber=value=>Number.isFinite(Number(value))?Number(value):0;
@@ -79,10 +94,60 @@ function render(){
   $("home").innerHTML=nearest+latest+(form.length?`<h2>Форма: последние 5 игр</h2><div class="card"><div class="form">${form.map(f=>`<div class="dot ${f}">${lt[f]}</div>`).join("")}</div></div>`:"")+position;
   $("matches").innerHTML=`<h2>Календарь</h2><div class="card">${NEXT.length?NEXT.map(n=>`<div class="row"><div class="l"><b>${esc(n[1])}</b><small class="venue">${venue(n[2])}</small></div><div style="text-align:right"><b>${esc(n[0])}</b><small>${esc(n[3])}</small></div></div>`).join(""):`<div class="empty">Матчи пока не назначены.</div>`}</div><h2>Результаты</h2><div class="card">${RES.length?RES.map(r=>{const k=kind(r);return `<div class="row"><div style="display:flex;gap:10px;align-items:center;min-width:0;flex:1"><div class="dot ${k}">${lt[k]}</div><div class="l"><b>${esc(r[1])}</b><small>${esc(r[0])} · ${venue(r[4])}</small></div></div><div class="sc">${esc(r[2])}:${esc(r[3])}</div></div>`}).join(""):`<div class="empty">Результаты не опубликованы.</div>`}</div>`;
   $("table").innerHTML=`<h2>Открытый чемпионат РК · сезон 2026</h2><div class="card" style="padding:6px 10px"><table><thead><tr><th>#</th><th>Команда</th><th>И</th><th>Мячи</th><th>О</th></tr></thead><tbody>${TABLE.map((t,i)=>`<tr class="${i===me?"me":""}"><td>${i+1}</td><td>${esc(t[0])}</td><td>${esc(t[1])}</td><td>${esc(t[2])}</td><td>${esc(t[3])}</td></tr>`).join("")}</tbody></table></div><p class="hint">И — игры, О — очки. Источник: Республиканская федерация футбола Крыма.</p>`;
-  $("squad").innerHTML=(COACH?`<div class="card" style="margin-top:14px"><b>Главный тренер</b><div>${esc(COACH)}</div></div>`:"")+Object.entries(SQUAD).map(([role,players])=>`<h2>${esc(role)}</h2><div class="card"><div class="g"><span class="hint">Игрок</span><span class="hint" style="text-align:right">Игр*</span>${players.map(p=>{const [name,games]=String(p).split("|");return `<div class="pl"><span>${esc(name)}</span><span>${esc(games)}</span></div>`}).join("")}</div></div>`).join("")+(Object.keys(SQUAD).length?`<p class="hint">* «Игр» — значение, опубликованное федерацией в карточке команды. Оно не обязательно совпадает с количеством матчей чемпионата 2026.</p>`:`<div class="card empty">Состав будет доступен после загрузки данных.</div>`);
+  renderSquad();
   const published=NEWS.filter(n=>Array.isArray(n)&&n.length>=4&&newsLink(n[3]));
   $("news").innerHTML=`<h2>Новости федерации · 2026</h2><div class="card news">${published.length?published.map(n=>`<a href="${esc(newsLink(n[3]))}" target="_blank" rel="noopener noreferrer"><b>${esc(n[1])}</b><small>${esc(n[0])}${n[2]?" · "+esc(n[2]):""}</small><span class="source">Открыть на сайте федерации ↗</span></a>`).join(""):`<div class="empty">Свежие новости пока не удалось подтвердить. Показываем только публикации текущего года с рабочей ссылкой на источник.</div>`}</div>`;
 }
+// Отдельная статистика конкретного турнира: 2026, не смешиваем с общим числом игр.
+function playerRows(){
+  if(PLAYER_STATS_2026?.season===2026&&Array.isArray(PLAYER_STATS_2026.players)&&
+     PLAYER_STATS_2026.players.length>0){
+    return PLAYER_STATS_2026.players.filter(p=>p&&typeof p.name==="string"&&
+      typeof p.position==="string"&&typeof p.federation_games==="number");
+  }
+  // Совместимость со старым data.json до первого нового запуска Actions.
+  return Object.entries(SQUAD).flatMap(([position,members])=>
+    (Array.isArray(members)?members:[]).map(row=>{
+      const [name,count]=String(row).split("|");
+      return {name,position,federation_games:Number(count)||0,
+        league_games:null,league_goals:null,league_minutes:null,league_penalty_goals:null};
+    }));
+}
+const statValue=value=>Number.isInteger(value)&&value>=0?esc(value):"—";
+function renderSquad(){
+  const players=playerRows();
+  const roles=["Вратари","Защитники","Полузащитники","Нападающие"];
+  const verified=players.filter(p=>Number.isInteger(p.league_goals)&&p.league_goals>=0);
+  const best=[...verified].sort((a,b)=>b.league_goals-a.league_goals||a.name.localeCompare(b.name,"ru")).slice(0,3);
+  const listing=players.filter(p=>PLAYER_ROLE==="all"||p.position===PLAYER_ROLE)
+    .sort((a,b)=>{
+      const ga=Number.isInteger(a.league_goals)?a.league_goals:-1;
+      const gb=Number.isInteger(b.league_goals)?b.league_goals:-1;
+      return gb-ga||a.name.localeCompare(b.name,"ru");
+    });
+  const source="https://rffk-roo.ru/tournaments/4/";
+  const labels=[["all","Все"],...roles.map(role=>[role,role])];
+  const leader=best.length?`<h2>Бомбардиры ФК «Судак» · 2026</h2><div class="card"><ol class="stats-top">${best.map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.league_goals)} гол.</li>`).join("")}</ol></div>`:"";
+  const stale=PLAYER_STATS_2026?.verified===false&&verified.length>0;
+  const statDate=Date.parse(PLAYER_STATS_2026?.stats_as_of||"");
+  const asOf=Number.isFinite(statDate)?" ("+new Date(statDate).toLocaleDateString("ru-RU")+")":"";
+  const caution=verified.length
+    ?(stale?"Статистика чемпионата из последнего подтверждённого обновления"+asOf+": сейчас источник временно недоступен.":"Статистика чемпионата подтверждена турнирной таблицей РФФК"+asOf+".")
+    :"Подтверждённая статистика чемпионата пока недоступна: прочерк означает отсутствие данных, а не ноль.";
+  const head=`<div class="stats-head"><strong>Игроки · сезон 2026</strong><a class="stats-source" href="${source}" target="_blank" rel="noopener noreferrer">Источник: РФФК ↗</a></div>`;
+  const coach=COACH?`<div class="card"><b>Главный тренер</b><div>${esc(COACH)}</div></div>`:"";
+  const filters=`<div class="stats-filters" role="group" aria-label="Фильтр по позиции">${labels.map(([val,label])=>`<button type="button" data-role="${esc(val)}" aria-pressed="${PLAYER_ROLE===val}">${esc(label)}${val==="all"?" ("+players.length+")":""}</button>`).join("")}</div>`;
+  const cards=listing.map(p=>`<article class="stats-player"><div class="stats-name">${esc(p.name)}</div><div class="stats-role">${esc(p.position)}</div><div class="stats-values"><div class="stats-value"><b>${statValue(p.league_goals)}</b><small>Голы · 2026</small></div><div class="stats-value"><b>${statValue(p.league_games)}</b><small>Игры · 2026</small></div><div class="stats-value"><b>${statValue(p.league_minutes)}</b><small>Минуты · 2026</small></div></div><p class="stats-minor">Всего игр в карточке РФФК: ${statValue(p.federation_games)} · не показатель сезона 2026${Number.isInteger(p.league_penalty_goals)?" · из голов с пенальти: "+statValue(p.league_penalty_goals):""}</p></article>`).join("");
+  $("squad").innerHTML=head+coach+leader+`<p class="hint">${esc(caution)}</p>`+filters+
+    `<div class="stats-list">${cards||'<div class="card empty">Игроки не найдены.</div>'}</div>`+
+    `<p class="hint">Голы, игры и минуты — только Открытый чемпионат РК 2026. Прочерк означает, что значение не подтверждено. Общий показатель федерации приводится отдельно для справки.</p>`;
+}
+$("squad").addEventListener("click",event=>{
+  const btn=event.target.closest("button[data-role]");if(!btn)return;
+  if(!["all","Вратари","Защитники","Полузащитники","Нападающие"].includes(btn.dataset.role))return;
+  PLAYER_ROLE=btn.dataset.role;renderSquad();
+});
+
 $("nav").addEventListener("click",event=>{
   const b=event.target.closest("button[data-t]");if(!b)return;
   document.querySelectorAll("nav button,main section").forEach(el=>el.classList.remove("on"));
@@ -136,6 +201,7 @@ async function refreshData(force=false){
       if(!hasNetworkData||stamp>lastDataTimestamp){
         TABLE=d.table;RES=d.res;NEXT=d.next;SQUAD=d.squad;
         NEWS=d.news;COACH=typeof d.coach==="string"?d.coach:COACH;
+        PLAYER_STATS_2026=d.player_stats_2026||null;
         render();
       }
       lastDataTimestamp=stamp;

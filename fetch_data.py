@@ -16,6 +16,8 @@ from bs4 import BeautifulSoup
 BASE = "https://rffk-roo.ru"
 TEAM = 141
 SEASON_YEAR = 2026
+LEAGUE_PATH = "/tournaments/4/"
+LEAGUE_URL = BASE + LEAGUE_PATH
 MONTHS = "января февраля марта апреля мая июня июля августа сентября октября ноября декабря".split()
 GROUPS = {
     "Вратарь": "Вратари",
@@ -257,6 +259,104 @@ def parse_squad(soup):
     return squad, coach
 
 
+
+def parse_league_scorers(soup, roster, played, team_goals):
+    """Only competition 4, season 2026: games/goals/penalties/minutes.
+
+    The federation has a ten-player teaser and a separate complete leaderboard.
+    Read ONLY the complete "Лучшие бомбардиры" section; match an exact club
+    and exact roster name. Do not treat absence from the list as zero goals.
+    All checks are conservative: an ambiguous page yields no data.
+    """
+    page = txt(soup)
+    if not re.search(r"Сезон\s+2026(?:/2026)?(?=\s|$)", page, re.I):
+        return {}
+    if "Лучшие бомбардиры" not in page:
+        return {}
+    section = page.rsplit("Лучшие бомбардиры", 1)[1]
+    if not re.search(r"Голов\s+С\s*пен\s+Игр\s+Минут", section[:250], re.I):
+        return {}
+    # Anchoring on the competition leaderboard, rather than the team card,
+    # prevents the all-competitions appearance count being relabelled as 2026.
+    stats = {}
+    for name in roster:
+        pattern = (r"(?<![А-ЯЁа-яё])" + re.escape(name) +
+                   r"\s+ФК\s*[«\"]?Судак[»\"]?\s+"
+                   r"(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})\s+(\d{1,5})(?!\d)")
+        hits = list(re.finditer(pattern, section, re.I))
+        if len(hits) != 1:
+            continue
+        goals, penalties, games, minutes = map(int, hits[0].groups())
+        if not (0 < goals <= team_goals and 0 <= penalties <= goals
+                and 1 <= games <= played and 0 <= minutes <= games * 120):
+            continue
+        stats[name] = {
+            "games": games, "goals": goals,
+            "penalty_goals": penalties, "minutes": minutes,
+        }
+    if sum(row["goals"] for row in stats.values()) > team_goals:
+        return {}
+    return stats
+
+
+def make_player_stats(squad, league_stats, league_verified, stats_as_of=None):
+    """Additive data structure. The legacy squad stays identical."""
+    roster = []
+    for role, members in squad.items():
+        for member in members:
+            name, total = member.rsplit("|", 1)
+            season = league_stats.get(name, {})
+            roster.append({
+                "name": name,
+                "position": role,
+                "federation_games": int(total),
+                "league_games": season.get("games"),
+                "league_goals": season.get("goals"),
+                "league_penalty_goals": season.get("penalty_goals"),
+                "league_minutes": season.get("minutes"),
+            })
+    return {
+        "season": SEASON_YEAR,
+        "competition": "Открытый чемпионат Республики Крым",
+        "source_url": LEAGUE_URL,
+        "verified": bool(league_verified),
+        "stats_as_of": stats_as_of,
+        "players": roster,
+    }
+
+
+def read_previous_stats(path="data.json"):
+    """Reuse previously confirmed league stats only if the source is down.
+
+    This avoids replacing verified numbers with unlabelled zeros. If reused,
+    the UI displays that the live leaderboard was unavailable this run.
+    """
+    try:
+        with open(path, encoding="utf-8") as src:
+            prev = json.load(src).get("player_stats_2026", {})
+        if (prev.get("season") != SEASON_YEAR or
+                prev.get("source_url") != LEAGUE_URL or
+                not isinstance(prev.get("players"), list)):
+            return {}, None
+        entries = {
+            item["name"]: {
+                "games": item["league_games"],
+                "goals": item["league_goals"],
+                "penalty_goals": item["league_penalty_goals"],
+                "minutes": item["league_minutes"],
+            }
+            for item in prev["players"]
+            if (isinstance(item, dict) and isinstance(item.get("name"), str)
+                and isinstance(item.get("league_games"), int)
+                and isinstance(item.get("league_goals"), int)
+                and isinstance(item.get("league_penalty_goals"), int)
+                and isinstance(item.get("league_minutes"), int))
+        }
+        return entries, prev.get("stats_as_of")
+    except (OSError, TypeError, ValueError, KeyError, AttributeError):
+        return {}, None
+
+
 def safe_news_url(href):
     url = urljoin(BASE, href or "")
     parsed = urlparse(url)
@@ -331,10 +431,36 @@ def main():
         except (ValueError, OSError, TypeError):
             pass
 
+    # Standings and player statistics are two separate sources. A failure of
+    # the optional leaderboard must never stop calendar/news auto-updates.
+    player_names = {item.rsplit("|", 1)[0] for members in squad.values() for item in members}
+    league_stats = {}
+    league_verified = False
+    stats_as_of = None
+    try:
+        league_page = get(LEAGUE_PATH)
+        league_stats = parse_league_scorers(
+            league_page, player_names, played or len(res),
+            int(next(row[2].split("–")[0] for row in table
+                     if norm_team(row[0]) == "фк судак")),
+        )
+        league_verified = bool(league_stats)
+        if league_verified:
+            stats_as_of = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes")
+    except (requests.RequestException, ValueError, StopIteration) as exc:
+        print(f"Статистика чемпионата временно недоступна: {exc}")
+    if not league_verified:
+        league_stats, stats_as_of = read_previous_stats()
+        if league_stats:
+            print("Статистика чемпионата: используем последнее подтверждённое значение")
+    player_stats = make_player_stats(squad, league_stats, league_verified, stats_as_of)
+    print(f"Статистика чемпионата 2026: подтверждено {len(league_stats)} игроков")
+
     data = {
         "updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
         "table": table, "res": res, "next": nxt,
         "squad": squad, "coach": coach, "news": news,
+        "player_stats_2026": player_stats,
     }
     with open("data.json.tmp", "w", encoding="utf-8") as out:
         json.dump(data, out, ensure_ascii=False, indent=1)
