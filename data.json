@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T05:48+00:00",
+ "updated": "2026-11-04T06:56+00:00",
  "table": [
   [
    "СК «Каштан»",
@@ -313,7 +313,7 @@
   "competition": "Открытый чемпионат Республики Крым",
   "source_url": "https://rffk-roo.ru/tournaments/4/",
   "verified": true,
-  "stats_as_of": "2026-11-04T05:48+00:00",
+  "stats_as_of": "2026-11-04T06:56+00:00",
   "fresh_players": 38,
   "available_players": 38,
   "players": [
@@ -1287,7 +1287,7 @@
       {
        "name": "Ибраимов Эльдар",
        "profile_url": "https://rffk-roo.ru/players/769/",
-       "number": 99
+       "number": null
       },
       {
        "name": "Одинцов Евгений",
@@ -1649,7 +1649,7 @@
       {
        "name": "Ибраимов Эльдар",
        "profile_url": "https://rffk-roo.ru/players/769/",
-       "number": null
+       "number": 99
       },
       {
        "name": "Куртиев Арсен",
@@ -1716,7 +1716,7 @@
       {
        "name": "Османов Исмет",
        "profile_url": "https://rffk-roo.ru/players/772/",
-       "number": null
+       "number": 17
       },
       {
        "name": "Сгинухин Александр",
@@ -2161,7 +2161,7 @@
       {
        "name": "Османов Исмет",
        "profile_url": "https://rffk-roo.ru/players/772/",
-       "number": null
+       "number": 17
       },
       {
        "name": "Сгинухин Александр",
@@ -2606,7 +2606,7 @@
       {
        "name": "Абидов Руслан",
        "profile_url": "https://rffk-roo.ru/players/774/",
-       "number": 4
+       "number": null
       },
       {
        "name": "Абильванов Осман",
@@ -3249,7 +3249,7 @@
       {
        "name": "Ибраимов Эльдар",
        "profile_url": "https://rffk-roo.ru/players/769/",
-       "number": null
+       "number": 99
       },
       {
        "name": "Куртиев Арсен",
@@ -3274,7 +3274,7 @@
       {
        "name": "Османов Исмет",
        "profile_url": "https://rffk-roo.ru/players/772/",
-       "number": null
+       "number": 17
       },
       {
        "name": "Семенов Владимир",
@@ -4152,7 +4152,7 @@
       {
        "name": "Абидов Руслан",
        "profile_url": "https://rffk-roo.ru/players/774/",
-       "number": 4
+       "number": null
       },
       {
        "name": "Абильванов Осман",
@@ -4720,13 +4720,13 @@
        "number": null
       },
       {
-       "name": "Мустафаев Фатих",
-       "profile_url": "https://rffk-roo.ru/players/3358/",
+       "name": "Мустафаев Арсен",
+       "profile_url": "https://rffk-roo.ru/players/770/",
        "number": null
       },
       {
-       "name": "Мустафаев Арсен",
-       "profile_url": "https://rffk-roo.ru/players/770/",
+       "name": "Мустафаев Фатих",
+       "profile_url": "https://rffk-roo.ru/players/3358/",
        "number": null
       },
       {
@@ -5028,7 +5028,7 @@
       {
        "name": "Мустафаев Арсен",
        "profile_url": "https://rffk-roo.ru/players/770/",
-       "number": 9
+       "number": null
       },
       {
        "name": "Сгинухин Александр",
@@ -5655,7 +5655,7 @@
       {
        "name": "Ибраимов Эльдар",
        "profile_url": "https://rffk-roo.ru/players/769/",
-       "number": null
+       "number": 99
       },
       {
        "name": "Козиянчук Олег",
@@ -6549,7 +6549,7 @@
       {
        "name": "Абидов Руслан",
        "profile_url": "https://rffk-roo.ru/players/774/",
-       "number": null
+       "number": 4
       },
       {
        "name": "Глушков Никита",
@@ -7080,7 +7080,7 @@
       {
        "name": "Абидов Руслан",
        "profile_url": "https://rffk-roo.ru/players/774/",
-       "number": null
+       "number": 4
       },
       {
        "name": "Козиянчук Олег",
@@ -7381,7 +7381,7 @@
       {
        "name": "Абидов Руслан",
        "profile_url": "https://rffk-roo.ru/players/774/",
-       "number": null
+       "number": 4
       },
       {
        "name": "Бредун Евгений",
@@ -7406,7 +7406,7 @@
       {
        "name": "Ибраимов Эльдар",
        "profile_url": "https://rffk-roo.ru/players/769/",
-       "number": 99
+       "number": null
       },
       {
        "name": "Куртиев Арсен",
@@ -7453,7 +7453,7 @@
       {
        "name": "Мустафаев Арсен",
        "profile_url": "https://rffk-roo.ru/players/770/",
-       "number": null
+       "number": 9
       },
       {
        "name": "Сгинухин Александр",
@@ -7983,13 +7983,13 @@
        "number": null
       },
       {
-       "name": "Стринжа Никита",
-       "profile_url": "https://rffk-roo.ru/players/3424/",
+       "name": "Стринжа Руслан",
+       "profile_url": "https://rffk-roo.ru/players/3410/",
        "number": null
       },
       {
-       "name": "Стринжа Руслан",
-       "profile_url": "https://rffk-roo.ru/players/3410/",
+       "name": "Стринжа Никита",
+       "profile_url": "https://rffk-roo.ru/players/3424/",
        "number": null
       }
      ]
@@ -8056,7 +8056,7 @@
       {
        "name": "Абидов Руслан",
        "profile_url": "https://rffk-roo.ru/players/774/",
-       "number": 4
+       "number": null
       },
       {
        "name": "Козиянчук Олег",
@@ -8401,7 +8401,7 @@
       {
        "name": "Ибраимов Эльдар",
        "profile_url": "https://rffk-roo.ru/players/769/",
-       "number": null
+       "number": 99
       },
       {
        "name": "Майстренко Богдан",
