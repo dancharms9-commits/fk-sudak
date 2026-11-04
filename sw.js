@@ -1,5 +1,5 @@
-// Club-authorized player portraits v12: available even before a profile is visited.
-const CACHE="sudak-player-photos-v12";
+// Championship hub v13; preserve the existing network-first shell and local portraits.
+const CACHE="sudak-championship-v13";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
 const PLAYER_PHOTOS=["./assets/players/vladimir-semenov.webp","./assets/players/andrey-gaydash.webp","./assets/players/anton-monakhov.webp","./assets/players/evgeniy-bredun.webp"];
 

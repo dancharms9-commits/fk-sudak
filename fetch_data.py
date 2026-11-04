@@ -622,7 +622,254 @@ def parse_news(soup, year=SEASON_YEAR, limit=6):
     return [row for _, row in news[:limit]]
 
 
-def main():
+def preserve_player_enrichment(stats, previous, team_page, played, team_goals, leaderboard_current=False):
+    """Keep all 41 profile IDs/photos even for players without season metrics."""
+    from update_player_stats import player_profile_urls, safe_player_url, safe_photo_url, valid_stat_fields
+    old_players = {p["name"]: p for p in previous.get("players", []) if isinstance(p, dict) and p.get("name")}
+    links = player_profile_urls(team_page, {p["name"] for p in stats["players"]})
+    for player in stats["players"]:
+        old = old_players.get(player["name"], {})
+        source = links.get(player["name"]) or safe_player_url(old.get("profile_url", ""))
+        same_person = source and source == old.get("profile_url")
+        current = {k: v for k, v in player.items() if k.startswith("league_")}
+        fresh = leaderboard_current and current.get("league_games") is not None
+        checked = valid_stat_fields(old, played, team_goals) if same_person else None
+        if checked:
+            player.update(checked)
+            if fresh:
+                player.update(current)
+                if current.get("league_games") != checked.get("league_games"):
+                    player.pop("league_starts", None)
+                    player.pop("league_substitutions", None)
+        if source:
+            player["profile_url"] = source
+        if same_person and old.get("photo_source_url") == source and safe_photo_url(old.get("photo_url")):
+            player.update(photo_url=old["photo_url"], photo_source_url=source)
+        player["stats_current"] = fresh
+        player["leaderboard_current"] = fresh
+    return stats
+
+
+def official_season_path(soup):
+    """Pin the requested season even when /tournaments/4/ moves to a new year."""
+    for link in soup.select('a[href*="/tournaments/4/seasons/"]'):
+        url = urlparse(urljoin(BASE, link.get("href", "")))
+        if (url.netloc == "rffk-roo.ru" and re.fullmatch(r"/tournaments/4/seasons/\d+/", url.path)
+                and re.search(r"(?<!\d)2026/2026(?!\d)", txt(link))):
+            return url.path
+    raise ValueError("Не найдена официальная страница сезона 2026")
+
+
+def check_league_season(soup):
+    heading = soup.select_one(".team_top_title .city") or soup.find("h1")
+    if heading is None or not re.search(r"Сезон\s+2026/2026\b", txt(heading)):
+        raise ValueError("Неверный сезон чемпионата")
+
+
+def optional_int(el):
+    value = txt(el) if el else ""
+    return int(value) if value.isdigit() else None
+
+
+def official_logo(el):
+    if el is None:
+        return None
+    url = urljoin(BASE, el.get("src", ""))
+    parsed = urlparse(url)
+    return url if (parsed.scheme == "https" and parsed.netloc == "rffk-roo.ru"
+                   and re.fullmatch(r"/uploads/clubs/(?:small|medium|large)/[\w.-]+", parsed.path)
+                   and not parsed.query and not parsed.fragment) else None
+
+
+def parse_championship_calendar(soup):
+    """Read explicit round/team/result attributes, never news or date heuristics."""
+    check_league_season(soup)
+    calendar = soup.select_one(".champ_data_calendar .tour_calendar")
+    if calendar is None:
+        raise ValueError("Отсутствует полный календарь")
+    teams, rounds, matches = {}, [], {}
+    for group in calendar.select(".list > [data-id]"):
+        round_id = group.get("data-id", "")
+        if not round_id.isdigit() or any(r["id"] == round_id for r in rounds):
+            raise ValueError("Некорректный идентификатор тура")
+        head = group.select_one(".block_title .name")
+        rounds.append({"id": round_id, "name": txt(head) if head else f"Тур {round_id}"})
+        for card in group.select("[data-team1][data-team2]"):
+            ids = [card.get("data-team1"), card.get("data-team2")]
+            if not all(i and i.isdigit() for i in ids) or ids[0] == ids[1]:
+                raise ValueError("Некорректные команды матча")
+            for team_id, selector in zip(ids, (".logo_home", ".logo_guest")):
+                box = card.select_one(selector)
+                link = box.select_one('a[href*="/teams/"]') if box else None
+                if link is None or str(tid(link)) != team_id:
+                    raise ValueError("Идентификатор команды не совпал")
+                team = {"id": team_id, "name": txt(link) or None,
+                        "source_url": f"{BASE}/teams/{team_id}/",
+                        "logo_url": official_logo(box.select_one("img"))}
+                old = teams.get(team_id)
+                if old and old["name"] and team["name"] and old["name"] != team["name"]:
+                    raise ValueError("Противоречивые названия команд")
+                teams[team_id] = {k: v or (old or {}).get(k) for k, v in team.items()}
+            date_box = card.select_one(".score .date")
+            raw = txt(date_box) if date_box else ""
+            hit = DATE.search(raw)
+            date = datetime.datetime.strptime(hit[0], "%d.%m.%Y").date() if hit else None
+            if date and date.year != SEASON_YEAR:
+                raise ValueError("Дата матча вне сезона")
+            clock = re.search(r"\b([01]\d|2[0-3]):[0-5]\d\b", raw)
+            label = DATE.sub("", raw)
+            label = re.sub(r"\b\d{2}:\d{2}\b", "", label).strip(" ,—–-")
+            status = "finished" if card.get("data-end") == "1" else "scheduled"
+            for pattern, code in ((r"тех", "technical"), (r"перен", "postponed"),
+                                  (r"отмен", "cancelled"), (r"приостан|прерван", "suspended")):
+                if re.search(pattern, label, re.I):
+                    status = code
+                    break
+            scores = [optional_int(card.select_one(".score ." + key)) for key in ("first", "second")]
+            # data-end=0 sometimes has placeholders. A lone score is incomplete.
+            if status not in {"finished", "technical"} or None in scores:
+                scores = [None, None]
+            urls = {safe_match_url(a.get("href")) for a in card.select('a[href*="/matches/"]')} - {""}
+            if len(urls) > 1:
+                raise ValueError("Неоднозначный протокол")
+            source_url = next(iter(urls), None)
+            source_id = source_url.rstrip("/").rsplit("/", 1)[-1] if source_url else None
+            # Upcoming/deleted source records have no match URL. Team IDs + round
+            # remain stable through reschedules and are also kept after publication.
+            key = f"4:2026:{round_id}:{ids[0]}:{ids[1]}"
+            venue_box = card.select_one(".dop_info .left")
+            venue = re.sub(r"^Стадион\s*:?\s*", "", txt(venue_box), flags=re.I) if venue_box else ""
+            match = {"id": key, "source_id": source_id, "source_url": source_url,
+                     "round_id": round_id, "home_id": ids[0], "away_id": ids[1],
+                     "date": date.isoformat() if date else None,
+                     "time": clock[0] if clock else None, "venue": clean_venue(venue) or None,
+                     "home_score": scores[0], "away_score": scores[1],
+                     "status": status, "status_label": label or None}
+            if key in matches and matches[key] != match:
+                raise ValueError("Конфликтующие дубликаты матча")
+            matches[key] = match
+    if not rounds or not matches or str(TEAM) not in teams:
+        raise ValueError("Пустой или неполный календарь")
+    # The full calendar omits a protocol URL for some technical matches while
+    # the current-round teaser publishes it. Join by round + exact team IDs,
+    # scores and date; the teaser never creates another match or changes status.
+    by_name = {norm_team(t["name"]): t["id"] for t in teams.values() if t["name"]}
+    for card in soup.select("a.matches_calendar_line[href]"):
+        parent = card.find_parent(class_="up_container")
+        head = parent.select_one('.current_tur[data-cid="4"][data-id]') if parent else None
+        names = [txt(el) for el in card.select(".team_name")]
+        if head is None or len(names) != 2:
+            continue
+        home, away = [by_name.get(norm_team(name)) for name in names]
+        key = f"4:2026:{head['data-id']}:{home}:{away}"
+        match = matches.get(key)
+        url = safe_match_url(card.get("href"))
+        scores = [optional_int(card.select_one(".score ." + k)) for k in ("first", "second")]
+        clock = card.select_one(".date")
+        hit = DATE.search(txt(clock)) if clock else None
+        date = datetime.datetime.strptime(hit[0], "%d.%m.%Y").date().isoformat() if hit else None
+        if (match and not match["source_id"] and url and date == match["date"]
+                and scores == [match["home_score"], match["away_score"]]):
+            match.update(source_url=url, source_id=url.rstrip("/").rsplit("/", 1)[-1])
+    source_ids = [m["source_id"] for m in matches.values() if m["source_id"]]
+    if len(source_ids) != len(set(source_ids)):
+        raise ValueError("Протокол повторяется в разных турах")
+    return {"teams": list(teams.values()), "rounds": rounds, "matches": list(matches.values())}
+
+
+def parse_championship_scorers(soup, teams):
+    check_league_season(soup)
+    section = soup.select_one(".champ_data_top_scorers .tour_table.players")
+    if section is None:
+        raise ValueError("Отсутствует полный список бомбардиров")
+    by_name = {norm_team(t["name"]): t["id"] for t in teams if t.get("name")}
+    players, seen, previous_goals, previous_rank = [], set(), None, 0
+    for row in section.select(".line"):
+        link = row.select_one('.name a[href*="/players/"]')
+        url = urlparse(urljoin(BASE, link.get("href", ""))) if link else None
+        if (url is None or url.netloc != "rffk-roo.ru" or url.scheme != "https"
+                or not re.fullmatch(r"/players/\d+/", url.path) or url.query or url.fragment):
+            raise ValueError("Неверная личность бомбардира")
+        player_id = url.path.split("/")[2]
+        surname, name, team = [row.select_one("." + c) for c in
+                               ("player_lastname", "player_name", "player_position")]
+        numbers = [optional_int(row.select_one(f'[data-col="{i}"]')) for i in (1, 2, 3, 4)]
+        goals, penalties, games, minutes = numbers
+        rank = optional_int(row.select_one(".place"))
+        team_name = txt(team) if team else ""
+        team_id = by_name.get(norm_team(team_name))
+        if (not surname or not name or not txt(surname) or not txt(name) or not team_id
+                or goals is None or games is None or rank is None or rank < 1
+                or (penalties is not None and penalties > goals)
+                or (minutes is not None and minutes > games * 120)
+                or (previous_goals is not None and goals > previous_goals)
+                or rank < previous_rank or (rank == previous_rank and goals != previous_goals)
+                or (player_id, team_id) in seen):
+            raise ValueError("Неполный или противоречивый рейтинг")
+        seen.add((player_id, team_id))
+        previous_goals, previous_rank = goals, rank
+        players.append({"id": player_id, "rank": rank, "name": txt(surname) + " " + txt(name),
+                        "team_id": team_id, "team_name": team_name, "games": games,
+                        "goals": goals, "penalty_goals": penalties, "minutes": minutes,
+                        "source_url": url.geturl()})
+    if not players:
+        raise ValueError("Пустой список бомбардиров")
+    # No pagination or load-more exists in this section (GetGoalers returns only
+    # the ten-player teaser). Never claim that absent players have zero goals.
+    return {"players": players, "coverage": "published_list"}
+
+
+def update_championship(previous=None, loader=None, club_details=None):
+    """Independent last-good snapshots: a failed section cannot erase another."""
+    import copy
+    loader = loader or get
+    hub = copy.deepcopy(previous) if isinstance(previous, dict) and previous.get("season") == 2026 else {}
+    hub.update(season=2026, competition_id="4", source_url=LEAGUE_URL)
+    try:
+        page = loader(LEAGUE_PATH)
+        path = official_season_path(page)
+        page = loader(path)
+    except (requests.RequestException, ValueError, TypeError) as exc:
+        for name in ("calendar", "scorers"):
+            hub.setdefault(name, {})["stale"] = True
+        print(f"Чемпионат: источник недоступен ({type(exc).__name__}); сохранены прежние данные")
+        return hub
+    source = urljoin(BASE, path)
+    for name in ("calendar", "scorers"):
+        try:
+            if name == "calendar":
+                parsed = parse_championship_calendar(page)
+                # Catch truncated responses while allowing empty newly announced rounds.
+                old = hub.get(name, {})
+                old_ids = {r["id"] for r in old.get("rounds", [])}
+                if not old_ids.issubset({r["id"] for r in parsed["rounds"]}):
+                    raise ValueError("Ответ потерял опубликованные туры")
+                if len(parsed["matches"]) < len(old.get("matches", [])):
+                    raise ValueError("Ответ потерял опубликованные матчи")
+            else:
+                parsed = parse_championship_scorers(page, hub.get("calendar", {}).get("teams", []))
+                if len(parsed["players"]) < len(hub.get(name, {}).get("players", [])):
+                    raise ValueError("Ответ потерял часть рейтинга")
+            hub[name] = {**parsed, "source_url": source,
+                         "updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+                         "stale": False}
+        except (ValueError, TypeError, KeyError, AttributeError) as exc:
+            hub.setdefault(name, {})["stale"] = True
+            print(f"Чемпионат, {name}: {exc}; сохранены прежние данные")
+    # Strict source IDs join the two calendars. No opponent/date-only guesswork.
+    details_by_id = {str(d["id"]): (key, d) for key, d in (club_details or {}).items() if d.get("id")}
+    for match in hub.get("calendar", {}).get("matches", []):
+        match.pop("club_match_key", None)
+        entry = details_by_id.get(match.get("source_id"))
+        if entry and str(TEAM) in (match["home_id"], match["away_id"]):
+            key, detail = entry
+            if (detail.get("status") == "available" and detail.get("date") == match["date"]
+                    and [detail.get("home_score"), detail.get("away_score")] == [match["home_score"], match["away_score"]]):
+                match["club_match_key"] = key
+    return hub
+
+
+def update_club_data():
     soup = get(f"/teams/{TEAM}/")
     table = parse_table(soup)
     match_refs = {}
@@ -677,12 +924,28 @@ def main():
         if league_stats:
             print("Статистика чемпионата: используем последнее подтверждённое значение")
     player_stats = make_player_stats(squad, league_stats, league_verified, stats_as_of)
+    try:
+        previous = json.loads(open("data.json", encoding="utf-8").read())
+    except (OSError, ValueError):
+        previous = {}
+    preserve_player_enrichment(player_stats, previous.get("player_stats_2026", {}), soup,
+                               played or len(res), int(next(row[2].split("–")[0]
+                               for row in table if norm_team(row[0]) == "фк судак")),
+                               leaderboard_current=league_verified)
     print(f"Статистика чемпионата 2026: подтверждено {len(league_stats)} игроков")
 
     match_details = load_match_details(res, match_refs)
+    for key, detail in match_details.items():
+        old = previous.get("match_details", {}).get(key, {})
+        if (detail.get("status") != "available" and old.get("status") == "available"
+                and all(detail.get(k) == old.get(k) for k in
+                        ("id", "date", "home", "away", "home_score", "away_score"))):
+            match_details[key] = old
     print(f"Протоколы матчей: {sum(d['status'] == 'available' for d in match_details.values())}/{len(res)}")
 
+    championship = update_championship(previous.get("championship"), club_details=match_details)
     data = {
+        "championship": championship,
         "updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes"),
         "table": table, "res": res, "next": nxt,
         "squad": squad, "coach": coach, "news": news,
@@ -693,6 +956,24 @@ def main():
         json.dump(data, out, ensure_ascii=False, indent=1)
     os.replace("data.json.tmp", "data.json")
     print("Успешно: data.json обновлён")
+
+
+def main():
+    try:
+        update_club_data()
+    except (requests.RequestException, ValueError, TypeError, KeyError, AttributeError, SystemExit) as exc:
+        print(f"Клубный раздел: {exc}; пробуем независимо обновить чемпионат")
+        try:
+            with open("data.json", encoding="utf-8") as src:
+                data = json.load(src)
+        except (OSError, ValueError):
+            raise SystemExit("Нет сохранённых клубных данных") from exc
+        hub = update_championship(data.get("championship"), club_details=data.get("match_details"))
+        data["championship"] = hub
+        data["updated"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+        with open("data.json.tmp", "w", encoding="utf-8") as out:
+            json.dump(data, out, ensure_ascii=False, indent=1)
+        os.replace("data.json.tmp", "data.json")
 
 
 if __name__ == "__main__":

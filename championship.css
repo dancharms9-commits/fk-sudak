@@ -1,0 +1,47 @@
+/* Championship hub: embedded in index.html so the existing offline shell suffices. */
+#table{min-width:0}
+#table .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#table-title{display:flex;align-items:center;gap:10px;font-size:22px;margin:4px 2px 16px}
+.champ-season{font-size:12px;font-weight:600;color:var(--mute);padding:4px 8px;border:1px solid var(--line);border-radius:8px}
+.champ-tabs{display:grid;grid-template-columns:.85fr 1.2fr 1fr;gap:4px;padding:4px;background:var(--line);border-radius:12px;margin-bottom:18px}
+.champ-tabs button,.champ-rounds button{font:inherit;font-size:13px;font-weight:650;min-height:44px;padding:8px 4px;border:0;border-radius:9px;cursor:pointer;color:var(--mute);background:transparent;transition:background .18s,color .18s}
+.champ-tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 4px #00132912}
+.champ-tabs button:focus-visible,.champ-rounds button:focus-visible,#table select:focus-visible,#table input:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.champ-standing{padding:6px 10px}
+#champ-panel{animation:champ-in .18s ease-out}
+@keyframes champ-in{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+.champ-rounds{display:grid;grid-template-columns:minmax(0,1fr) minmax(75px,1fr) minmax(0,1fr);gap:8px;margin-bottom:14px}
+.champ-rounds button{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+.champ-rounds button:disabled{opacity:.4;cursor:default}
+#table select,#table input{display:block;width:100%;min-width:0;min-height:44px;border:1px solid var(--line);border-radius:9px;padding:9px 8px;background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+.champ-filters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-bottom:12px}
+.champ-filters label{min-width:0;font-size:12px;color:var(--mute);display:grid;gap:5px}
+.champ-match{display:block;color:var(--ink);text-decoration:none;padding:0;overflow:hidden}
+.champ-match>summary,.champ-match:is(a){padding:13px 11px;cursor:pointer;list-style:none}
+.champ-match>summary::-webkit-details-marker{display:none}
+.champ-match>summary:focus-visible,.champ-match:is(a):focus-visible{outline:2px solid var(--sea);outline-offset:-3px}
+.champ-pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;margin:12px 0}
+.champ-team{display:flex;align-items:center;gap:7px;min-width:0;font-size:13px;line-height:1.3;overflow-wrap:anywhere}
+.champ-team:last-child{flex-direction:row-reverse;text-align:right}
+.champ-score{font-size:24px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.champ-badge{position:relative;display:grid;place-items:center;width:30px;height:32px;flex:none;font-size:10px;color:var(--mute)}
+.champ-badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--card)}
+.champ-meta{display:block;color:var(--mute);font-size:12px}
+.champ-status{display:flex;justify-content:space-between}
+.champ-club{border-color:var(--sea);background:color-mix(in srgb,var(--sea) 6%,var(--card))}
+.champ-match-info{padding:0 13px 13px;border-top:1px solid var(--line);font-size:14px}
+.champ-match-info p{margin:10px 0}
+.champ-source{display:inline-flex;align-items:center;min-height:44px;color:var(--sea);font-weight:650}
+.champ-scorers{list-style:none;margin:0;padding:0;overflow:hidden}
+.champ-scorer{display:grid;grid-template-columns:22px minmax(0,1fr) 30px 34px;gap:7px;align-items:center;padding:13px 10px;border-bottom:1px solid var(--line)}
+.champ-scorer:last-child{border-bottom:0}
+.champ-rank{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.champ-person{min-width:0;overflow-wrap:anywhere;font-size:14px}
+.champ-person a{color:var(--ink);text-decoration:none;display:inline-block;min-height:44px;align-content:center}
+.champ-person a:hover{text-decoration:underline}
+.champ-person small{display:block;color:var(--mute);font-size:11px;line-height:1.6}
+.champ-total{text-align:center;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.champ-total small{display:block;font-size:10px;font-weight:400;color:var(--mute)}
+.champ-goals{color:var(--sea)}
+@media(max-width:350px){.champ-badge{width:23px;height:26px}.champ-team{font-size:12px;gap:4px}.champ-pair{gap:6px}.champ-scorer{padding-inline:8px;gap:5px}.champ-filters{gap:7px}}
+@media(prefers-reduced-motion:reduce){#champ-panel{animation:none}.champ-tabs button,.champ-rounds button{transition:none}}
