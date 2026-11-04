@@ -1,95 +1,87 @@
-name: Обновление данных
+name: Обновление данных и публикация Pages
+
 on:
-  schedule: [{cron: "0 * * * *"}]
+  schedule:
+    - cron: "0 * * * *"
   workflow_dispatch:
-  pull_request:
-    paths:
-      - "index.html"
-      - "fetch_data.py"
-      - "update_player_stats.py"
-      - "data.json"
-      - "sw.js"
-      - "manifest.json"
-      - "modern-home.css"
-      - "match-center.css"
-      - "championship.css"
-      - "apply_visual_refresh.py"
-      - "fk-sudak-pwa-*.png"
-      - "icon-*.png"
-      - "assets/players/**"
-      - "docs/player-photo-permissions.json"
-      - "tests/**"
-      - ".github/workflows/update.yml"
-permissions: {contents: read}
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
 jobs:
-  check:
-    if: github.event_name == 'pull_request'
+  publish:
+    # Manual runs on feature branches must never publish to production.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 35
+    # Lock the WHOLE read -> parse -> upload -> deploy transaction. Do not
+    # cancel deployments that may already have been accepted by Pages.
+    concurrency:
+      group: football-pages-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Check Pages source without changing settings
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pages_mode="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type')"
+          if [ "$pages_mode" = "workflow" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Select Settings > Pages > Build and deployment > Source > GitHub Actions, then run this workflow on main. Existing site left unchanged."
+          fi
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: {python-version: "3.12"}
-      - run: pip install requests beautifulsoup4
-      - run: python -m unittest discover -s tests -v
-      - uses: actions/setup-node@v4
-        with: {node-version: "22"}
-      - run: npm install --no-save --package-lock=false playwright@1.48.2
-      - run: npx playwright install --with-deps chromium
-      - run: node --test tests/*.test.cjs
-      - run: node tests/browser.cjs
-      - run: node tests/championship.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: championship-screenshots
-      - run: node tests/player-photos.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: player-photo-screenshots
-      - run: node tests/home-dashboard.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: dashboard-screenshots
-      - run: node tests/match-center.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: match-center-screenshots
-      - run: node tests/tab-transitions.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: tab-screenshots
-      - run: node tests/tab-reload.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: reload-frames
-      - run: node tests/launch-splash.browser.cjs
-        env:
-          VISUAL_SCREENSHOT_DIR: launch-screenshots
-      - uses: actions/upload-artifact@v4
-        if: always()
+        if: steps.source.outputs.enabled == 'true'
         with:
-          name: launch-screenshots
-          path: |
-            championship-screenshots/
-            player-photo-screenshots/
-            launch-screenshots/
-            dashboard-screenshots/
-            match-center-screenshots/
-            tab-screenshots/
-            reload-frames/
-          if-no-files-found: ignore
-  update:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions: {contents: write}
-    steps:
-      - uses: actions/checkout@v4
+          # Queued schedules and reruns always build the current source.
+          ref: main
+          persist-credentials: false
       - uses: actions/setup-python@v5
-        with: {python-version: "3.12"}
+        if: steps.source.outputs.enabled == 'true'
+        with:
+          python-version: "3.12"
       - run: pip install requests beautifulsoup4
-      # Протоколы входят в data.json. Недоступность отдельного протокола
-      # не блокирует почасовое обновление остальных разделов.
-      - run: python fetch_data.py
-      # Дополнительная статистика факультативна. Ошибка здесь не должна
-      # блокировать сохранение рабочих календаря, таблицы и новостей.
-      - run: python update_player_stats.py || echo "Статистика игроков временно недоступна"
-      - run: |
-          git config user.name "bot"; git config user.email "bot@users.noreply.github.com"
-          git add data.json
-          if [ -f player_stats_cache_2026.json ]; then git add player_stats_cache_2026.json; fi
-          git diff --cached --quiet || (git commit -m "Обновление данных" && git push)
+        if: steps.source.outputs.enabled == 'true'
+      - uses: actions/configure-pages@v5
+        if: steps.source.outputs.enabled == 'true'
+        id: pages
+        with:
+          enablement: false
+      - name: Restore, refresh and validate football data; stage the site
+        if: steps.source.outputs.enabled == 'true'
+        run: python scripts/build_pages.py --site-url "$PAGES_URL" --output _site
+        env:
+          PAGES_URL: ${{ steps.pages.outputs.base_url }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.source.outputs.enabled == 'true'
+        with:
+          path: _site
+      # Stored before deploy; restoration only accepts successful runs.
+      # This checkpoint also protects against lagging Pages CDN responses.
+      - uses: actions/upload-artifact@v4
+        if: steps.source.outputs.enabled == 'true'
+        with:
+          name: football-state-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            _site/data.json
+            _state/player_stats_cache_2026.json
+          retention-days: 90
+          if-no-files-found: error
+      - name: Publish Pages artifact
+        if: steps.source.outputs.enabled == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
