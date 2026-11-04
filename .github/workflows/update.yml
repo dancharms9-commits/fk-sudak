@@ -15,6 +15,8 @@ on:
       - "apply_visual_refresh.py"
       - "fk-sudak-pwa-*.png"
       - "icon-*.png"
+      - "assets/players/**"
+      - "docs/player-photo-permissions.json"
       - "tests/**"
       - ".github/workflows/update.yml"
 permissions: {contents: read}
@@ -35,6 +37,9 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node --test tests/*.test.cjs
       - run: node tests/browser.cjs
+      - run: node tests/player-photos.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: player-photo-screenshots
       - run: node tests/home-dashboard.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: dashboard-screenshots
@@ -55,6 +60,7 @@ jobs:
         with:
           name: launch-screenshots
           path: |
+            player-photo-screenshots/
             launch-screenshots/
             dashboard-screenshots/
             match-center-screenshots/

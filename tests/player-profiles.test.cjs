@@ -190,3 +190,34 @@ test('legacy offline squad data keeps every profile without borrowing federation
   assert.equal((view.match(/data-stat="league_goals"><b>—<\/b>/g)||[]).length,41);
   assert(!view.includes('<img '));
 });
+
+
+test('club portraits require the exact existing ID and name, survive data refresh and preserve federation photos',()=>{
+  const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
+  const expected={
+    'Семенов Владимир':['1151','vladimir-semenov'],
+    'Гайдаш Андрей':['3359','andrey-gaydash'],
+    'Монахов Антон':['2310','anton-monakhov'],
+    'Бредун Евгений':['684','evgeniy-bredun'],
+  };
+  const before=JSON.stringify(data);
+  for(const [name,[id,file]] of Object.entries(expected)){
+    const p=data.player_stats_2026.players.find(p=>p.name===name);
+    assert.equal(p.profile_url,`https://rffk-roo.ru/players/${id}/`);
+    assert.equal(run(`officialPhoto(${JSON.stringify(p)})`),`assets/players/${file}.webp`);
+    const refreshed={...p,photo_url:'https://evil.example/foreign.jpg',photo_source_url:'wrong'};
+    assert.equal(run(`officialPhoto(${JSON.stringify(refreshed)})`),`assets/players/${file}.webp`);
+    for(const mismatch of [{...p,name:'Другой футболист'},{...p,profile_url:'https://rffk-roo.ru/players/999999/'},{...p,profile_url:null}]){
+      assert.equal(run(`clubPlayerPhoto(${JSON.stringify(mismatch)})`),null);
+    }
+    const raw=fs.readFileSync(path.join(root,`assets/players/${file}.webp`));
+    assert.equal(raw.toString('ascii',0,4),'RIFF');assert.equal(raw.toString('ascii',8,12),'WEBP');
+    assert(raw.length<10000);
+  }
+  for(const name of ['Сгинухин Александр','Симончук Владимир']){
+    const p=data.player_stats_2026.players.find(p=>p.name===name);
+    assert.equal(run(`officialPhoto(${JSON.stringify(p)})`),p.photo_url);
+    assert.equal(run(`clubPlayerPhoto(${JSON.stringify(p)})`),null);
+  }
+  assert.equal(JSON.stringify(data),before);
+});

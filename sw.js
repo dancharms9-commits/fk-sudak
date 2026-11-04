@@ -1,11 +1,12 @@
-// Initial route without a transition v11; offline resources are unchanged.
-const CACHE="sudak-route-v11";
+// Club-authorized player portraits v12: available even before a profile is visited.
+const CACHE="sudak-player-photos-v12";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
+const PLAYER_PHOTOS=["./assets/players/vladimir-semenov.webp","./assets/players/andrey-gaydash.webp","./assets/players/anton-monakhov.webp","./assets/players/evgeniy-bredun.webp"];
 
 self.addEventListener("install",event=>{
   event.waitUntil((async()=>{
     const cache=await caches.open(CACHE);
-    await cache.addAll(SHELL.map(url=>new Request(url,{cache:"reload"})));
+    await cache.addAll([...SHELL,...PLAYER_PHOTOS].map(url=>new Request(url,{cache:"reload"})));
     await self.skipWaiting();
   })());
 });
@@ -27,9 +28,10 @@ self.addEventListener("fetch",event=>{
   // явно сообщает о недоступности свежих данных.
   if(url.pathname.endsWith("/data.json"))return;
   event.respondWith((async()=>{
-    // The approved PNG is immutable within this shell version. Prefer the
-    // precached original so a weak connection cannot delay the launch artwork.
-    if(url.pathname.endsWith("/assets/club-crest-final-original.png")){
+    // Versioned crest and local portraits are precached. Return them immediately
+    // so a weak connection cannot delay artwork or request external photo hosts.
+    if(url.pathname.endsWith("/assets/club-crest-final-original.png")||
+       PLAYER_PHOTOS.some(path=>new URL(path,self.location.href).href===url.href)){
       const cached=await (await caches.open(CACHE)).match(event.request);
       if(cached)return cached;
     }

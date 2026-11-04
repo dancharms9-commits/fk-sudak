@@ -1,13 +1,12 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-11-04T10:44:27+00:00",
+  "checked_at": "2026-11-04T10:56:44+00:00",
   "repository": "dancharms9-commits/fk-sudak",
   "branch": "feat/verified-player-photos",
   "pull_request": 19,
   "application_base_sha": "5d3124c6b5d1bee9e53c3ee93c4180b9b574a748",
   "prior_audit_commit": "f1fc270264fa1fc71529c7d6a62e5e3e8045d81e",
-  "purpose": "Реестр четырёх снимков, ожидающих подтверждения правообладателя и объёма разрешения; приложение его не загружает.",
-  "null_means": "Не установлено, а не отказ в разрешении. Сообщение пользователя о наличии разрешения сохранено.",
+  "purpose": "Четыре локальных портрета, опубликованных с подтверждённого разрешения представителя ФК «Судак».",
   "hash_note": "SHA-256 относится к байтам проверенного ответа, не подтверждает права и не гарантирует неизменность удалённого URL.",
   "records": [
     {
@@ -29,31 +28,38 @@
         "status": "matched_name_birth_date_and_football_profile",
         "birth_date_match": true,
         "existing_card": true,
-        "existing_app_photo": false
+        "existing_app_photo": true
       },
       "rights": {
-        "status": "pending_confirmation",
-        "presumed_rights_holder": null,
-        "rights_holder_assessment": "Не установлен. Площадка публикации не считается правообладателем без подтверждения.",
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
         "basis": {
-          "type": "user_report_only",
-          "statement": "Пользователь сообщил, что использование фотографий разрешено.",
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
           "applies_to_image_url": "https://img.sofascore.com/api/v1/player/2624727/image",
-          "rights_holder_identified": false,
-          "evidence_text_or_url": null
+          "source_sha256": "30768437603a4be67c65dd6c5348f51d756e0799d187190c9bcee1bc316fa7bf"
         },
         "scope": {
-          "publication_in_fk_sudak_pwa": null,
-          "local_storage": null,
-          "webp_conversion": null,
-          "offline_cache": null
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
         },
-        "required_attribution": null
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
       },
       "publication": {
-        "status": "not_added_pending_confirmation",
-        "local_asset": null,
-        "precache_added": false
+        "status": "added",
+        "local_asset": "assets/players/vladimir-semenov.webp",
+        "precache_added": true,
+        "sha256": "24cdfcbee558d9216cb56d3724172ac63b9cc9b61051758df9eaab6a9e149a19",
+        "bytes": 3946,
+        "width": 150,
+        "height": 150,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
       }
     },
     {
@@ -75,31 +81,38 @@
         "status": "matched_name_birth_date_and_football_profile",
         "birth_date_match": true,
         "existing_card": true,
-        "existing_app_photo": false
+        "existing_app_photo": true
       },
       "rights": {
-        "status": "pending_confirmation",
-        "presumed_rights_holder": null,
-        "rights_holder_assessment": "Не установлен. Площадка публикации не считается правообладателем без подтверждения.",
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
         "basis": {
-          "type": "user_report_only",
-          "statement": "Пользователь сообщил, что использование фотографий разрешено.",
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
           "applies_to_image_url": "http://tavriya-history.ru/img_foto/player_716.jpg",
-          "rights_holder_identified": false,
-          "evidence_text_or_url": null
+          "source_sha256": "520cbf39193a760b109f15a456abb5274fb14f6531783cc7f1d5d6f9c038186e"
         },
         "scope": {
-          "publication_in_fk_sudak_pwa": null,
-          "local_storage": null,
-          "webp_conversion": null,
-          "offline_cache": null
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
         },
-        "required_attribution": null
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
       },
       "publication": {
-        "status": "not_added_pending_confirmation",
-        "local_asset": null,
-        "precache_added": false
+        "status": "added",
+        "local_asset": "assets/players/andrey-gaydash.webp",
+        "precache_added": true,
+        "sha256": "09a3284137a2ad0bd7a2549c4d324fe3e7bc6cb7aeaac28d6dd6a9ae37828c46",
+        "bytes": 8122,
+        "width": 215,
+        "height": 286,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
       }
     },
     {
@@ -121,31 +134,38 @@
         "status": "matched_name_birth_date_and_football_profile",
         "birth_date_match": true,
         "existing_card": true,
-        "existing_app_photo": false
+        "existing_app_photo": true
       },
       "rights": {
-        "status": "pending_confirmation",
-        "presumed_rights_holder": null,
-        "rights_holder_assessment": "Не установлен. Площадка публикации не считается правообладателем без подтверждения.",
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
         "basis": {
-          "type": "user_report_only",
-          "statement": "Пользователь сообщил, что использование фотографий разрешено.",
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
           "applies_to_image_url": "http://tavriya-history.ru/img_foto/player_367.jpg",
-          "rights_holder_identified": false,
-          "evidence_text_or_url": null
+          "source_sha256": "59d7a23eccd744ecbed46ec911b930a0f7174a89ca2e3c72645cfb9f25b0d572"
         },
         "scope": {
-          "publication_in_fk_sudak_pwa": null,
-          "local_storage": null,
-          "webp_conversion": null,
-          "offline_cache": null
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
         },
-        "required_attribution": null
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
       },
       "publication": {
-        "status": "not_added_pending_confirmation",
-        "local_asset": null,
-        "precache_added": false
+        "status": "added",
+        "local_asset": "assets/players/anton-monakhov.webp",
+        "precache_added": true,
+        "sha256": "726bd141f9854dc73f6fb1b949da38d2cca71fb4f7014276c8e26501998b4e1b",
+        "bytes": 6440,
+        "width": 200,
+        "height": 232,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
       }
     },
     {
@@ -167,32 +187,41 @@
         "status": "matched_name_birth_date_and_football_profile",
         "birth_date_match": true,
         "existing_card": true,
-        "existing_app_photo": false
+        "existing_app_photo": true
       },
       "rights": {
-        "status": "pending_confirmation",
-        "presumed_rights_holder": null,
-        "rights_holder_assessment": "Не установлен. Площадка публикации не считается правообладателем без подтверждения.",
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
         "basis": {
-          "type": "user_report_only",
-          "statement": "Пользователь сообщил, что использование фотографий разрешено.",
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
           "applies_to_image_url": "https://footballfakts.ru/imageget.php?im=person/88261/5.jpg&size=s",
-          "rights_holder_identified": false,
-          "evidence_text_or_url": null
+          "source_sha256": "2ff448508434b193f64bddee3bf05604b1178c052a39834a68d1b0a65ea791f0"
         },
         "scope": {
-          "publication_in_fk_sudak_pwa": null,
-          "local_storage": null,
-          "webp_conversion": null,
-          "offline_cache": null
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
         },
-        "required_attribution": null
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
       },
       "publication": {
-        "status": "not_added_pending_confirmation",
-        "local_asset": null,
-        "precache_added": false
+        "status": "added",
+        "local_asset": "assets/players/evgeniy-bredun.webp",
+        "precache_added": true,
+        "sha256": "b6f5df6470706c734cc466fc5dd019d44b840793296647ca12d04fe13cb2df1f",
+        "bytes": 7902,
+        "width": 224,
+        "height": 300,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
       }
     }
-  ]
+  ],
+  "authorization_statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
+  "authorization_recorded_at": "2026-11-04T10:56:44+00:00"
 }
