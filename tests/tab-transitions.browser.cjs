@@ -45,7 +45,16 @@ const tabs=['home','matches','table','squad','news'];
     for(const width of [320,390,768,1440])for(const colorScheme of ['light','dark'])for(const reducedMotion of ['no-preference','reduce']){
       await page.setViewportSize({width,height:844});await page.emulateMedia({colorScheme,reducedMotion});
       // Let viewport/media/font changes settle before measuring a transition.
-      await page.evaluate(async()=>{await document.fonts.ready;await new Promise(requestAnimationFrame);await new Promise(requestAnimationFrame)});
+      await page.evaluate(async()=>{
+        await document.fonts.ready;let previous='',stable=0;
+        for(let frame=0;frame<60;frame++){
+          await new Promise(requestAnimationFrame);
+          const signature=[innerWidth,document.documentElement.scrollHeight,document.querySelector('main').getBoundingClientRect().width].join('|');
+          stable=signature===previous?stable+1:0;previous=signature;
+          if(stable>=3)return;
+        }
+        throw Error('Viewport layout did not settle before transition checks');
+      });
       for(const tab of [...tabs,'home']){
         const frames=await page.evaluate(async({tab,reduce})=>{
           const old=document.querySelector('main section.on'),nav=document.querySelector('#nav');

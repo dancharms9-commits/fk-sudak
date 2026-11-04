@@ -20,7 +20,7 @@ const server=http.createServer((req,res)=>{
   fs.readFile(file,(error,body)=>{
     if(error){res.writeHead(404);res.end();return}
     const ext=path.extname(file);
-    res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.json':'application/json','.js':'application/javascript','.png':'image/png'})[ext]||'application/octet-stream');
+    res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.json':'application/json','.js':'application/javascript','.png':'image/png','.webp':'image/webp'})[ext]||'application/octet-stream');
     res.end(body);
   });
 });
@@ -174,7 +174,9 @@ const server=http.createServer((req,res)=>{
       assert.equal(await page.locator('#squad .stats-player [data-stat="league_penalty_goals"]').count(),0);
       for(const photo of grid.photos){
         const p=data.player_stats_2026.players.find(p=>'rffk-'+p.profile_url.match(/\/players\/(\d+)/)[1]===photo.id);
-        assert.equal(photo.src,p.photo_url);assert.equal(p.photo_source_url,p.profile_url);
+        const local=await page.evaluate(player=>clubPlayerPhoto(player),p);
+        assert.equal(photo.src,local?new URL(local.url,base+'/').href:p.photo_url);
+        if(!local)assert.equal(p.photo_source_url,p.profile_url);
       }
       if(reducedMotion==='reduce')assert(grid.animations.every(name=>name==='none'),'Squad respects reduced motion');
       if(process.env.VISUAL_SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.VISUAL_SCREENSHOT_DIR,`squad-${colorScheme}-${reducedMotion}-${width}.png`),fullPage:true});

@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-04T10:56:44+00:00",
+  "repository": "dancharms9-commits/fk-sudak",
+  "branch": "feat/verified-player-photos",
+  "pull_request": 19,
+  "application_base_sha": "5d3124c6b5d1bee9e53c3ee93c4180b9b574a748",
+  "prior_audit_commit": "f1fc270264fa1fc71529c7d6a62e5e3e8045d81e",
+  "purpose": "Четыре локальных портрета, опубликованных с подтверждённого разрешения представителя ФК «Судак».",
+  "hash_note": "SHA-256 относится к байтам проверенного ответа, не подтверждает права и не гарантирует неизменность удалённого URL.",
+  "records": [
+    {
+      "name": "Семенов Владимир",
+      "birth_date": "14.10.1994",
+      "player_id": "rffk-1151",
+      "profile_url": "https://rffk-roo.ru/players/1151/",
+      "source_page_url": "https://www.sofascore.com/football/player/vladimir-semenov/2624727",
+      "image_url": "https://img.sofascore.com/api/v1/player/2624727/image",
+      "http_status": 200,
+      "content_type": "image/png",
+      "bytes": 25041,
+      "sha256": "30768437603a4be67c65dd6c5348f51d756e0799d187190c9bcee1bc316fa7bf",
+      "width": 150,
+      "height": 150,
+      "full_name": "Семенов Владимир Васильевич",
+      "source_publisher": "Sofascore",
+      "identity": {
+        "status": "matched_name_birth_date_and_football_profile",
+        "birth_date_match": true,
+        "existing_card": true,
+        "existing_app_photo": true
+      },
+      "rights": {
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
+        "basis": {
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
+          "applies_to_image_url": "https://img.sofascore.com/api/v1/player/2624727/image",
+          "source_sha256": "30768437603a4be67c65dd6c5348f51d756e0799d187190c9bcee1bc316fa7bf"
+        },
+        "scope": {
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
+        },
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
+      },
+      "publication": {
+        "status": "added",
+        "local_asset": "assets/players/vladimir-semenov.webp",
+        "precache_added": true,
+        "sha256": "24cdfcbee558d9216cb56d3724172ac63b9cc9b61051758df9eaab6a9e149a19",
+        "bytes": 3946,
+        "width": 150,
+        "height": 150,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
+      }
+    },
+    {
+      "name": "Гайдаш Андрей",
+      "birth_date": "16.01.1989",
+      "player_id": "rffk-3359",
+      "profile_url": "https://rffk-roo.ru/players/3359/",
+      "source_page_url": "http://tavriya-history.ru/player_bom3.php?id=716",
+      "image_url": "http://tavriya-history.ru/img_foto/player_716.jpg",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "bytes": 20325,
+      "sha256": "520cbf39193a760b109f15a456abb5274fb14f6531783cc7f1d5d6f9c038186e",
+      "width": 215,
+      "height": 286,
+      "full_name": "Гайдаш Андрей Александрович",
+      "source_publisher": "История Таврии",
+      "identity": {
+        "status": "matched_name_birth_date_and_football_profile",
+        "birth_date_match": true,
+        "existing_card": true,
+        "existing_app_photo": true
+      },
+      "rights": {
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
+        "basis": {
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
+          "applies_to_image_url": "http://tavriya-history.ru/img_foto/player_716.jpg",
+          "source_sha256": "520cbf39193a760b109f15a456abb5274fb14f6531783cc7f1d5d6f9c038186e"
+        },
+        "scope": {
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
+        },
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
+      },
+      "publication": {
+        "status": "added",
+        "local_asset": "assets/players/andrey-gaydash.webp",
+        "precache_added": true,
+        "sha256": "09a3284137a2ad0bd7a2549c4d324fe3e7bc6cb7aeaac28d6dd6a9ae37828c46",
+        "bytes": 8122,
+        "width": 215,
+        "height": 286,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
+      }
+    },
+    {
+      "name": "Монахов Антон",
+      "birth_date": "31.01.1982",
+      "player_id": "rffk-2310",
+      "profile_url": "https://rffk-roo.ru/players/2310/",
+      "source_page_url": "http://tavriya-history.ru/player_bom3.php?id=367&year=2019",
+      "image_url": "http://tavriya-history.ru/img_foto/player_367.jpg",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "bytes": 27758,
+      "sha256": "59d7a23eccd744ecbed46ec911b930a0f7174a89ca2e3c72645cfb9f25b0d572",
+      "width": 200,
+      "height": 232,
+      "full_name": "Монахов Антон Александрович",
+      "source_publisher": "История Таврии",
+      "identity": {
+        "status": "matched_name_birth_date_and_football_profile",
+        "birth_date_match": true,
+        "existing_card": true,
+        "existing_app_photo": true
+      },
+      "rights": {
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
+        "basis": {
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
+          "applies_to_image_url": "http://tavriya-history.ru/img_foto/player_367.jpg",
+          "source_sha256": "59d7a23eccd744ecbed46ec911b930a0f7174a89ca2e3c72645cfb9f25b0d572"
+        },
+        "scope": {
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
+        },
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
+      },
+      "publication": {
+        "status": "added",
+        "local_asset": "assets/players/anton-monakhov.webp",
+        "precache_added": true,
+        "sha256": "726bd141f9854dc73f6fb1b949da38d2cca71fb4f7014276c8e26501998b4e1b",
+        "bytes": 6440,
+        "width": 200,
+        "height": 232,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
+      }
+    },
+    {
+      "name": "Бредун Евгений",
+      "birth_date": "10.09.1982",
+      "player_id": "rffk-684",
+      "profile_url": "https://rffk-roo.ru/players/684/",
+      "source_page_url": "https://footballfakts.ru/person/88261-bredunevgeniydmitrievich",
+      "image_url": "https://footballfakts.ru/imageget.php?im=person/88261/5.jpg&size=s",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "bytes": 8478,
+      "sha256": "2ff448508434b193f64bddee3bf05604b1178c052a39834a68d1b0a65ea791f0",
+      "width": 224,
+      "height": 300,
+      "full_name": "Бредун Евгений Дмитриевич",
+      "source_publisher": "FootballFacts",
+      "identity": {
+        "status": "matched_name_birth_date_and_football_profile",
+        "birth_date_match": true,
+        "existing_card": true,
+        "existing_app_photo": true
+      },
+      "rights": {
+        "status": "authorized_by_club_representative",
+        "authorization_provider": {
+          "role": "представитель клуба",
+          "organization": "ФК «Судак»",
+          "responsible_for_photo_rights": true
+        },
+        "basis": {
+          "type": "explicit_club_representative_confirmation",
+          "statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
+          "applies_to_image_url": "https://footballfakts.ru/imageget.php?im=person/88261/5.jpg&size=s",
+          "source_sha256": "2ff448508434b193f64bddee3bf05604b1178c052a39834a68d1b0a65ea791f0"
+        },
+        "scope": {
+          "publication_in_fk_sudak_pwa": true,
+          "local_storage": true,
+          "webp_conversion": true,
+          "offline_cache": true
+        },
+        "attribution": "В профиле указан источник публикации. Авторство сайта или клуба не приписывается фотографу."
+      },
+      "publication": {
+        "status": "added",
+        "local_asset": "assets/players/evgeniy-bredun.webp",
+        "precache_added": true,
+        "sha256": "b6f5df6470706c734cc466fc5dd019d44b840793296647ca12d04fe13cb2df1f",
+        "bytes": 7902,
+        "width": 224,
+        "height": 300,
+        "encoding": "WebP quality 0.86; original dimensions; no crop or upscaling"
+      }
+    }
+  ],
+  "authorization_statement": "Пользователь является представителем ФК «Судак», отвечает за вопросы использования фотографий и прямо подтвердил наличие всех необходимых разрешений на публикацию указанных изображений.",
+  "authorization_recorded_at": "2026-11-04T10:56:44+00:00"
+}

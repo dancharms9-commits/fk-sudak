@@ -140,6 +140,9 @@ function observeLaunch(){
     await page.evaluate(()=>sessionStorage.clear());await page.reload();await skipped(page);
     // Real cross-document history restoration, with or without BFCache.
     await page.goto(base+'manifest.json');await page.goBack();await skipped(page);
+    // A restored document can still be replacing the saved-data status text.
+    // Finish that refresh before measuring the last card's scroll position.
+    await page.waitForFunction(()=>hasNetworkData&&!loadingData);
     console.log('PASS new navigation after stored session; reload without storage; document Back without replay');
     // Actual SPA navigation, data refresh and focus/visibility never add a new overlay.
     let recreated=0;
@@ -155,7 +158,8 @@ function observeLaunch(){
     await card.click();await page.locator('#player.on').waitFor();
     await page.locator('#player-back').click();await page.locator('#squad.on').waitFor();
     assert.equal(await page.locator('#squad [aria-pressed="true"]').getAttribute('data-role'),'Полузащитники');
-    assert(Math.abs(await page.evaluate(()=>scrollY)-position)<3);
+    const restoredPosition=await page.evaluate(()=>scrollY);
+    assert(Math.abs(restoredPosition-position)<3,`Squad scroll changed: ${position} -> ${restoredPosition}`);
     const hash=await page.evaluate(()=>location.hash);
     await page.evaluate(()=>{document.dispatchEvent(new Event('visibilitychange'));window.dispatchEvent(new Event('focus'));window.dispatchEvent(new Event('online'))});
     await page.waitForFunction(()=>!loadingData);
