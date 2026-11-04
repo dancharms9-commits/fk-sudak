@@ -43,6 +43,12 @@ const server=http.createServer((req,res)=>{
    await page.locator('#launch-splash').waitFor({state:'detached'});
   };
   const decode=async(locator,p)=>{
+   // Older Chromium can reject decode() before a newly visible lazy image
+   // starts its request after a viewport change. Wait for actual pixels first.
+   await page.waitForFunction(src=>{
+    const visible=[...document.images].filter(img=>img.getAttribute('src')===src&&img.getClientRects().length);
+    return visible.length>0&&visible.every(img=>img.complete&&img.naturalWidth>0);
+   },p.publication.local_asset);
    const result=await locator.evaluate(async img=>{await img.decode();const css=getComputedStyle(img);return {width:img.naturalWidth,height:img.naturalHeight,fit:css.objectFit,position:css.objectPosition,complete:img.complete}});
    assert.equal(result.complete,true);assert.equal(result.width,p.width);assert.equal(result.height,p.height);
    assert.equal(result.fit,'contain');assert.equal(result.position,'50% 50%');
