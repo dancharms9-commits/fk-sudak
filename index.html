@@ -536,6 +536,8 @@ function homeLeaderCard(leader){
 }
 let homeOpened=false;
 function homeMotion(element){
+  // Inline boot renders and selects the route in one parser task, without effects.
+  if(document.readyState==='loading')return;
   if(element?.animate&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)element.animate([{opacity:.65},{opacity:1}],{duration:200,easing:'ease-out'});
 }
 function revealHome(){
@@ -847,7 +849,7 @@ function prepareTabTransition(next){
   clearTabTransition();
   const previous=document.querySelector('main section.on');
   const tabs=['home','matches','table','squad','news'];
-  if(!previous||previous===next||!tabs.includes(previous.id)||!tabs.includes(next.id)||
+  if(document.readyState==='loading'||!previous||previous===next||!tabs.includes(previous.id)||!tabs.includes(next.id)||
     $('launch-splash')||!next.animate||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return ()=>{};
   // Cancel section entry effects so they cannot compete with the crossfade.
   for(const element of [previous,next])element.getAnimations().forEach(animation=>animation.cancel());
