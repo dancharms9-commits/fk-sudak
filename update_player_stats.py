@@ -248,7 +248,8 @@ def main():
                 # reject contradicting profile statistics rather than guessing.
                 from_leaderboard = valid_stat_fields(next(
                     (p for p in previous_from_data.get("players", [])
-                     if isinstance(p, dict) and p.get("name") == name), {}),
+                     if isinstance(p, dict) and p.get("name") == name
+                     and p.get("leaderboard_current", True)), {}),
                     played, team_goals)
                 if from_leaderboard and any(
                     stats[k] != from_leaderboard[k]
