@@ -1,5 +1,5 @@
-// Match centre v9: новая оболочка, ресурсы эмблемы и заставки сохранены.
-const CACHE="sudak-match-v9";
+// Launch lifecycle + tab transitions v10; offline resources are unchanged.
+const CACHE="sudak-tabs-v10";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
 
 self.addEventListener("install",event=>{

@@ -106,10 +106,11 @@ const server=http.createServer((req,res)=>{
     }
     assert.deepEqual(await page.locator('#home .home-news .news a').evaluateAll(links=>links.map(a=>a.href)),data.news.slice(0,3).map(n=>n[3]));
     console.log('PASS upcoming/result/profile deep links, home Back with focus/scroll, table/squad/news links');
-    // One first appearance per document; tab changes and unchanged refresh never restart it.
+    // Tab crossfade replaces the initial home effect; unchanged refresh never restarts it.
     await page.emulateMedia({reducedMotion:'no-preference'});
     await page.evaluate(()=>Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{}))));
     await page.locator('#nav [data-t="matches"]').click();await page.locator('#nav [data-t="home"]').click();
+    await page.evaluate(()=>Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{}))));
     assert.equal(await page.evaluate(()=>document.querySelector('#home').getAnimations({subtree:true}).length),0);
     const revision=()=>new Date(Date.parse(data.updated)+60000).toISOString();
     fixture={...structuredClone(data),updated:revision()};
