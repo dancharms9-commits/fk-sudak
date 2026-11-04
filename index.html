@@ -6,6 +6,16 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#001329">
 <style id="launch-canvas">html{background:#001329}</style>
+<script data-launch-policy>
+// A new document navigation is the observable launch boundary, not a storage TTL.
+// Restored PWA tasks may be reported as reload/back_forward: prefer no replay.
+(()=>{
+  const navigation=performance.getEntriesByType?.('navigation')[0];
+  const type=navigation?.type??({0:'navigate',1:'reload',2:'back_forward'})[performance.navigation?.type];
+  document.documentElement.dataset.launch=type==='navigate'?'show':'skip';
+  if(type!=='navigate')document.getElementById('launch-canvas').remove();
+})();
+</script>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=final-crest-v7">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=final-crest-v7">
 <link rel="preload" as="image" href="assets/club-crest-final-original.png" fetchpriority="high">
@@ -21,6 +31,12 @@ header{background:var(--navy);color:var(--onnavy);padding:calc(18px + env(safe-a
 header h1{margin:0;font-size:22px;letter-spacing:.2px}header p{margin:2px 0 0;font-size:13px;opacity:.75}
 main{padding:14px;max-width:640px;margin:0 auto}
 section{display:none}section.on{display:block}
+/* The outgoing section leaves normal flow; the new section owns page height.
+   Keep the original DOM/state and clip the fading layer above the fixed nav. */
+main>section.tab-leaving{display:block;position:fixed;z-index:1;pointer-events:none;
+  left:var(--tab-left);top:var(--tab-top);width:var(--tab-width);
+  clip-path:inset(var(--tab-clip-top) 0 var(--tab-clip-bottom));}
+@media(prefers-reduced-motion:reduce){main>section.tab-leaving{display:none}}
 h2{font-size:15px;margin:22px 2px 8px;color:var(--mute);font-weight:600}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
 .next{background:var(--navy);color:var(--onnavy);border:0}
@@ -363,6 +379,9 @@ main:has(#squad.on){max-width:1200px}
 // One controller per document: hash routes, data refresh and focus never restart it.
 (()=>{
   const splash=document.getElementById('launch-splash');
+  if(document.documentElement.dataset.launch!=='show'){
+    splash.remove();return;
+  }
   const image=splash.querySelector('img');
   const warning=document.getElementById('launch-error');
   const timers=[];
@@ -381,6 +400,7 @@ main:has(#squad.on){max-width:1200px}
     window.removeEventListener('error',onError);
     window.removeEventListener('unhandledrejection',onError);
     window.removeEventListener('sudak:ready',onReady);
+    window.removeEventListener('pagehide',onPageHide);
     if(previousFocus?.isConnected&&!failed)previousFocus.focus({preventScroll:true});
   }
   function start(){
@@ -400,6 +420,9 @@ main:has(#squad.on){max-width:1200px}
     start();
   }
   function onError(){finish(true)}
+  function onPageHide(){finish()}
+  // A BFCache restoration must not resume a partly completed launch overlay.
+  window.addEventListener('pagehide',onPageHide);
   window.addEventListener('sudak:ready',onReady);
   window.addEventListener('error',onError);
   window.addEventListener('unhandledrejection',onError);
@@ -818,8 +841,51 @@ function routeParent(route){
   if(route.origin==="player")return profileHash(route.player,route.playerName,route.role)+(route.profileOrigin==="home"?"&from=home":route.profileOrigin==="match"?"&from=match&back="+encodeURIComponent(route.profileBack):"");
   return "#"+route.origin;
 }
+let tabTransition=null;
+function clearTabTransition(){tabTransition?.();tabTransition=null}
+function prepareTabTransition(next){
+  clearTabTransition();
+  const previous=document.querySelector('main section.on');
+  const tabs=['home','matches','table','squad','news'];
+  if(!previous||previous===next||!tabs.includes(previous.id)||!tabs.includes(next.id)||
+    $('launch-splash')||!next.animate||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return ()=>{};
+  // Cancel section entry effects so they cannot compete with the crossfade.
+  for(const element of [previous,next])element.getAnimations().forEach(animation=>animation.cancel());
+  const rect=previous.getBoundingClientRect();
+  const top=Math.max(0,document.querySelector('main').getBoundingClientRect().top);
+  const bottom=$('nav').getBoundingClientRect().top;
+  const properties={'--tab-left':rect.left+'px','--tab-top':rect.top+'px','--tab-width':rect.width+'px',
+    '--tab-clip-top':Math.max(0,top-rect.top)+'px','--tab-clip-bottom':Math.max(0,rect.bottom-bottom)+'px'};
+  const inert=previous.inert,hidden=previous.getAttribute('aria-hidden');
+  previous.inert=true;previous.setAttribute('aria-hidden','true');
+  Object.entries(properties).forEach(([key,value])=>previous.style.setProperty(key,value));
+  previous.classList.add('tab-leaving');
+  let animations=[],cleared=false;
+  const clear=()=>{
+    if(cleared)return;
+    cleared=true;animations.forEach(animation=>animation.cancel());
+    previous.classList.remove('tab-leaving');
+    Object.keys(properties).forEach(key=>previous.style.removeProperty(key));
+    previous.inert=inert;
+    if(hidden===null)previous.removeAttribute('aria-hidden');else previous.setAttribute('aria-hidden',hidden);
+    if(tabTransition===clear)tabTransition=null;
+  };
+  tabTransition=clear;
+  return ()=>{
+    if(next.id==='home')homeOpened=true;
+    const options={duration:200,easing:'cubic-bezier(.2,.65,.3,1)'};
+    animations=[previous.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-6px)'}],options),
+      next.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],options)];
+    Promise.all(animations.map(animation=>animation.finished)).then(clear,clear);
+  };
+}
+window.addEventListener('pagehide',clearTabTransition);
+window.matchMedia?.('(prefers-reduced-motion: reduce)').addEventListener('change',event=>{
+  if(event.matches)clearTabTransition();
+});
 function applyRoute(restore=false){
   const route=currentRoute();
+  const animateTab=prepareTabTransition($(route.section));
   if(PLAYER_ROLE!==route.role){PLAYER_ROLE=route.role;renderSquad()}
   document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
   const tab=route.section==="player"?(route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?route.origin:route.section;
@@ -833,6 +899,7 @@ function applyRoute(restore=false){
   const title=route.section==="player"?findPlayer(route)?.name:route.section==="match"?"Матч":"";
   document.title=(title?title+" · ":"")+"ФК «Судак»";
   window.scrollTo(0,restore?(history.state?.scrollY||0):0);
+  animateTab();
   if(restore){
     const focus=history.state?.focusPlayer?{selector:"a[data-player]",field:"player",value:history.state.focusPlayer}:
       history.state?.focusMatch?{selector:"a[data-match]",field:"match",value:history.state.focusMatch}:null;
@@ -1031,7 +1098,7 @@ restoreSavedData();
 render();
 applyRoute(true);
 window.dispatchEvent(new Event("sudak:ready"));
-// Появление главной после заставки; сам контроллер и его 3500 мс не меняются.
+// Главная появляется после настоящей заставки; при reload доступна сразу.
 if($('launch-splash')){
   const homeObserver=new MutationObserver(()=>{if(!$('launch-splash')){homeObserver.disconnect();revealHome()}});
   homeObserver.observe(document.body,{childList:true});

@@ -72,6 +72,12 @@ function observeLaunch(){
     assert.equal(await page.locator('#launch-canvas').count(),0,'Restore the normal page canvas after launch');
     return Math.round(times.removed-start);
   };
+  const skipped=async page=>{
+    await page.locator('#launch-splash').waitFor({state:'detached'});
+    assert.equal(await page.evaluate(()=>launchTimes.shown),undefined,'No transient splash on reload/restore');
+    assert.equal(await page.locator('#launch-canvas,header[inert],main[inert],nav[inert]').count(),0);
+    assert.equal(await page.locator('#launch-error').isVisible(),false);
+  };
   try{
     // Cold document launches, both themes and motion settings, all target widths.
     for(const width of [320,390,768,1440])for(const colorScheme of ['light','dark'])for(const reducedMotion of ['no-preference','reduce']){
@@ -118,7 +124,23 @@ function observeLaunch(){
     }
     let page=await setup();
     await page.goto(base);await completed(page);
-    await page.reload();console.log('PASS repeat document launch: '+await completed(page)+' ms');
+    for(const tab of ['home','matches','table','squad','news']){
+      await page.locator(`#nav [data-t="${tab}"]`).click();
+      await page.reload();await skipped(page);
+      assert.equal(await page.evaluate(()=>performance.getEntriesByType('navigation')[0].type),'reload');
+      assert.equal(await page.locator('main section.on').getAttribute('id'),tab);
+      // Android pull-to-refresh uses a document reload as well. Exercise the
+      // browser's reload command separately from the toolbar/Playwright path.
+      await Promise.all([page.waitForEvent('domcontentloaded'),page.evaluate(()=>location.reload())]);await skipped(page);
+    }
+    console.log('PASS both reload paths on every tab: no splash, canvas or blocked UI');
+    // Storage is intentionally irrelevant, including stale restored sessions.
+    await page.evaluate(()=>sessionStorage.setItem('splash-seen','stale-session'));
+    await page.goto(base+'?new-navigation');await completed(page);
+    await page.evaluate(()=>sessionStorage.clear());await page.reload();await skipped(page);
+    // Real cross-document history restoration, with or without BFCache.
+    await page.goto(base+'manifest.json');await page.goBack();await skipped(page);
+    console.log('PASS new navigation after stored session; reload without storage; document Back without replay');
     // Actual SPA navigation, data refresh and focus/visibility never add a new overlay.
     let recreated=0;
     await page.exposeFunction('reportSplash',()=>{recreated++});
@@ -145,10 +167,16 @@ function observeLaunch(){
     assert.equal(recreated,0);assert.equal(await page.locator('#launch-splash').count(),0);
     console.log('PASS tabs, player/back/scroll/filter, protocols, focus and live refresh never replay splash');
     // Short landscape viewport: contain the entire artwork and label, no clipping.
-    await page.setViewportSize({width:768,height:320});await page.reload();
+    page=await setup({viewport:{width:768,height:320}});await page.goto(base);
     await page.locator('#launch-splash.crest-ready').waitFor();
     assert(await page.locator('.launch-crest').evaluate(el=>{const r=el.getBoundingClientRect();return r.top>=24&&r.bottom<=document.querySelector('.launch-name').getBoundingClientRect().top}));
     await completed(page);console.log('PASS short landscape viewport');
+    page=await setup();await page.goto(base);
+    await page.locator('#launch-splash.crest-ready').waitFor();
+    await page.goto(base+'manifest.json');await page.goBack();
+    await page.locator('#launch-splash').waitFor({state:'detached'});
+    assert.equal(await page.locator('main[inert],nav[inert]').count(),0);
+    console.log('PASS history after leaving during launch does not resume the overlay');
     // Slow network does not delay access to fallback UI; retry works without replay.
     page=await setup();
     let pending;
@@ -180,7 +208,7 @@ function observeLaunch(){
       return (await cache.keys()).map(r=>new URL(r.url).pathname);
     },shellCache);
     assert(cached.includes('/fk-sudak/assets/club-crest-final-original.png'));
-    await context.setOffline(true);await page.reload();await completed(page);
+    await context.setOffline(true);await page.reload();await skipped(page);
     const offlineManifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
     assert.equal(offlineManifest.background_color,manifest.background_color);
     assert.equal(offlineManifest.theme_color,manifest.theme_color);
@@ -188,7 +216,7 @@ function observeLaunch(){
     await page.locator('#nav [data-t="squad"]').click();assert.equal(await page.locator('#squad a[data-player]').count(),41);
     await page.locator('#squad a[data-player]').first().click();await page.locator('#player.on').waitFor();
     await page.locator('#player-back').click();await page.locator('#squad.on').waitFor();
-    await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));await page.reload();await completed(page);
+    await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));await page.reload();await skipped(page);
     assert((await page.locator('#upd').innerText()).includes('Нет свежих данных'));
     await context.setOffline(false);
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
@@ -203,10 +231,11 @@ function observeLaunch(){
     const previousIcon=await page.evaluate(async()=>Array.from(new Uint8Array(await (await fetch('icon-192.png?v=crest-v4')).arrayBuffer())));
     assert.deepEqual(Buffer.from(previousIcon),fs.readFileSync(path.join(root,'assets/previous-crest/crest-v4/icon-192.png')));
     servePreviousWorker=false;
-    await page.evaluate(async()=>{const registration=await navigator.serviceWorker.getRegistration();await registration.update()});
-    await page.waitForFunction(async(cacheName)=>{const keys=await caches.keys();return keys.includes(cacheName)&&!keys.includes('sudak-launch-v6')},shellCache);
+    await page.evaluate(async()=>{window.previousController=navigator.serviceWorker.controller;const registration=await navigator.serviceWorker.getRegistration();await registration.update()});
+    await page.waitForFunction(()=>navigator.serviceWorker.controller!==window.previousController&&navigator.serviceWorker.controller?.state==='activated');
+    assert.deepEqual(await page.evaluate(()=>caches.keys()),[shellCache]);
     await page.goto(base);await completed(page);
-    await context.setOffline(true);await page.reload();await completed(page);
+    await context.setOffline(true);await page.reload();await skipped(page);
     const cachedOriginal=await page.evaluate(async()=>Array.from(new Uint8Array(await (await fetch('assets/club-crest-final-original.png')).arrayBuffer())));
     assert.equal(require('node:crypto').createHash('sha256').update(Buffer.from(cachedOriginal)).digest('hex'),approvedSHA);
     for(const filename of ['icon-192.png','icon-512.png','icon-maskable-512.png','favicon.png','apple-touch-icon.png']){
@@ -233,7 +262,7 @@ function observeLaunch(){
     await page.goto(base);await page.locator('#launch-error').waitFor();
     assert.equal(await page.locator('#launch-splash').count(),0);
     assert(await page.evaluate(()=>performance.now()<10000));
-    await page.unroute(base);await page.locator('#launch-retry').click();await completed(page);
+    await page.unroute(base);await Promise.all([page.waitForEvent('domcontentloaded'),page.locator('#launch-retry').click()]);await skipped(page);
     console.log('PASS image failure, bounded 8 s startup watchdog, continue and reload recovery');
     assert.deepEqual(errors,[],'Unexpected JavaScript errors');
     console.log('PASS approved crest hash unchanged; no JavaScript errors in all launch scenarios');

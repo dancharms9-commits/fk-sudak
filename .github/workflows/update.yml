@@ -41,6 +41,9 @@ jobs:
       - run: node tests/match-center.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: match-center-screenshots
+      - run: node tests/tab-transitions.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: tab-screenshots
       - run: node tests/launch-splash.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: launch-screenshots
@@ -52,6 +55,7 @@ jobs:
             launch-screenshots/
             dashboard-screenshots/
             match-center-screenshots/
+            tab-screenshots/
           if-no-files-found: ignore
   update:
     if: github.event_name != 'pull_request'
