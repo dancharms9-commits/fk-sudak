@@ -1,0 +1,84 @@
+name: Проверки приложения
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "index.html"
+      - "fetch_data.py"
+      - "update_player_stats.py"
+      - "data.json"
+      - "sw.js"
+      - "manifest.json"
+      - "modern-home.css"
+      - "match-center.css"
+      - "championship.css"
+      - "apply_visual_refresh.py"
+      - "fk-sudak-pwa-*.png"
+      - "icon-*.png"
+      - "assets/players/**"
+      - "docs/player-photo-permissions.json"
+      - "tests/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+permissions: {contents: read}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install requests beautifulsoup4 pyyaml
+      - run: python -m unittest discover -s tests -v
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-save --package-lock=false playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - run: node --test tests/*.test.cjs
+      - run: node tests/browser.cjs
+      - run: node tests/championship.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: championship-screenshots
+      - run: node tests/player-photos.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: player-photo-screenshots
+      - run: node tests/home-dashboard.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: dashboard-screenshots
+      - run: node tests/match-center.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: match-center-screenshots
+      - run: node tests/tab-transitions.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: tab-screenshots
+      - run: node tests/tab-reload.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: reload-frames
+      - run: node tests/launch-splash.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: launch-screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: launch-screenshots
+          path: |
+            championship-screenshots/
+            player-photo-screenshots/
+            launch-screenshots/
+            dashboard-screenshots/
+            match-center-screenshots/
+            tab-screenshots/
+            reload-frames/
+          if-no-files-found: ignore
+      - name: Package the unchanged site snapshot for review (no deployment)
+        run: |
+          python - <<'PYTHON'
+          from scripts.build_pages import ROOT, decode_json, stage_site
+          stage_site(ROOT, ROOT / "_site", decode_json((ROOT / "data.json").read_bytes()))
+          PYTHON
+      - run: node tests/pages-pwa.browser.cjs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
