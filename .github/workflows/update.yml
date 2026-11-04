@@ -22,7 +22,7 @@ jobs:
   check:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -44,6 +44,9 @@ jobs:
       - run: node tests/tab-transitions.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: tab-screenshots
+      - run: node tests/tab-reload.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: reload-frames
       - run: node tests/launch-splash.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: launch-screenshots
@@ -56,6 +59,7 @@ jobs:
             dashboard-screenshots/
             match-center-screenshots/
             tab-screenshots/
+            reload-frames/
           if-no-files-found: ignore
   update:
     if: github.event_name != 'pull_request'

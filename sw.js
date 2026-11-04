@@ -1,5 +1,5 @@
-// Launch lifecycle + tab transitions v10; offline resources are unchanged.
-const CACHE="sudak-tabs-v10";
+// Initial route without a transition v11; offline resources are unchanged.
+const CACHE="sudak-route-v11";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
 
 self.addEventListener("install",event=>{
