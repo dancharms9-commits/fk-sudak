@@ -218,35 +218,43 @@ nav button:focus-visible{outline:2px solid var(--sea);outline-offset:-2px}
 @media(max-width:360px){header{gap:10px;padding-left:12px;padding-right:100px}header .crest{width:48px;height:48px;flex-basis:48px}header p{font-size:11px}main{padding-inline:10px}#home .home-next{padding:16px}.home-teams{gap:9px}.home-block-head{gap:0 8px}.home-standing-top{gap:12px}nav button{font-size:11px;padding-inline:0}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
-/* The approved home composition and original artwork stay in place. */
+/* Final home: the approved wordmark, a natural photo and the original crest. */
+.home-wordmark{display:none}
 body:has(#home.on) header{
   max-width:1040px;margin-inline:auto;
-  height:clamp(400px,125vw,540px);padding:24px 16px;
+  height:clamp(358px,110vw,540px);padding:24px 16px 14px;
   padding-top:calc(24px + env(safe-area-inset-top,0px));
   display:flex;flex-direction:column;justify-content:flex-end;
   border:0;text-align:center;
-  background:var(--bg);
+  background:var(--bg);isolation:isolate;
 }
+/* Photograph and fade are separate so only the photograph is filtered. */
 body:has(#home.on) header:before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  /* Keep the fade above the tint so its last pixels match the page exactly. */
-  background-image:linear-gradient(180deg,transparent 48%,var(--bg) 94%),
-    linear-gradient(#00132924,#00132924),url("assets/home-fortress.jpg");
-  background-position:center top,center top,70% top;
-  background-size:100% 100%,100% 100%,cover;
+  content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background:url("assets/home-fortress.jpg") 70% top/cover no-repeat;
+  filter:saturate(1.18) contrast(1.10) brightness(1.06);
+}
+body:has(#home.on) header:after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(180deg,transparent 56%,var(--bg) 94%),
+    linear-gradient(#0013290A,#0013290A);
   background-repeat:no-repeat;
 }
 :root[data-theme="light"] body:has(#home.on) header:before{
-  background-image:linear-gradient(180deg,transparent 48%,var(--bg) 94%),
-    linear-gradient(transparent,transparent),url("assets/home-fortress.jpg");
+  filter:saturate(1.12) contrast(1.08);
+}
+:root[data-theme="light"] body:has(#home.on) header:after{
+  background-image:linear-gradient(180deg,transparent 56%,var(--bg) 94%);
 }
 @media(max-width:640px){
   body:has(#home.on) header:before{
-    /* Shift the wider crop right to clear the fixed crest while keeping the
-       summit tower inside the viewport. End the fade before the photo edge. */
-    background-position:center top,center top,30% top;
-    /* The source ratio (1127/1600) keeps the image at least viewport-wide. */
-    background-size:100% 76%,100% 84%,auto max(72%,70.4375vw);
+    /* Preserve the crop approved in PR #25 independently of the title height. */
+    background-position:30% top;
+    background-size:auto max(clamp(288px,90vw,388.8px),70.4375vw);
+  }
+  body:has(#home.on) header:after{
+    /* The fade reaches the page colour before the photograph ends. */
+    background-size:100% clamp(302px,95vw,410px),100% 100%;
   }
 }
 body:has(#home.on) header .crest{
@@ -262,10 +270,24 @@ body:has(#home.on) header .crest{
 body:has(#home.on) header .crest img{opacity:0}
 body:has(#home.on) header .brand{position:relative;width:100%}
 body:has(#home.on) header h1{
-  font-size:clamp(30px,8vw,44px);line-height:1.15;
-  color:var(--ink);text-shadow:0 2px 12px var(--bg);
+  width:clamp(170px,52vw,252px);margin:0 auto;
+  line-height:1;color:#FAF9F6;text-shadow:none;
 }
-body:has(#home.on) header p{color:var(--mute);opacity:1;margin-top:8px}
+/* Keep the heading's real text and accessible name on every screen. */
+body:has(#home.on) header .club-name{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+}
+body:has(#home.on) .home-wordmark{display:block;width:100%;height:auto;overflow:visible}
+#home .home-intro .home-kicker{font-size:clamp(12px,3.6vw,14px)}
+body:has(#home.on) header p{
+  color:var(--mute);opacity:1;margin-top:12px;
+  font-size:clamp(12px,3.8vw,15px);line-height:1.4;
+}
+/* A fine navy edge keeps the white/gold lettering readable on the light fade. */
+:root[data-theme="light"] body:has(#home.on) .home-wordmark path{
+  stroke:#001329;stroke-width:3;stroke-linejoin:round;paint-order:stroke fill;
+}
 /* The shared reduced-motion rule must not animate header geometry between tabs. */
 @media(prefers-reduced-motion:reduce){
   header,header:before,header *{transition:none!important}
@@ -583,7 +605,7 @@ main:has(#squad.on){max-width:1200px}
 })();
 </script>
 
-<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=final-crest-v7" alt="" width="54" height="54"></div><div class="brand"><h1>ФК «Судак»</h1><p>Открытый чемпионат Крыма · 2026</p></div>
+<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=final-crest-v7" alt="" width="54" height="54"></div><div class="brand"><h1><span class="club-name">ФК «Судак»</span><!-- Letter contours from the user-approved mockup; no web font. --><svg class="home-wordmark" viewBox="0 0 425 154" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path class="wordmark-fc" fill="#FFCB05" fill-rule="evenodd" d="M180,6L181,6L181,7L192,7L192,6L193,6L193,7L194,7L194,8L193,8L193,12L194,12L194,13L195,13L195,12L201,12L201,11L203,11L203,12L206,12L207,14L209,14L209,15L211,16L211,18L212,18L212,21L213,21L213,27L212,27L211,32L208,33L207,35L203,35L203,36L193,36L193,42L194,42L194,43L180,43L180,44L179,44L179,39L180,39L179,36L167,36L167,35L163,34L162,31L161,31L161,29L160,29L160,20L161,20L162,16L163,16L165,13L170,12L170,11L179,12L179,11L180,11L180,10L179,10L179,7L180,7ZM217,9L221,9L221,10L223,10L223,9L234,9L234,11L233,11L233,13L232,13L232,22L233,22L233,23L236,21L236,19L237,19L237,18L238,18L238,17L239,17L239,16L240,16L245,10L247,10L247,9L259,9L259,10L254,14L254,16L252,16L252,15L248,15L248,16L247,16L247,17L246,17L246,18L240,23L240,26L246,26L246,27L249,27L249,28L252,28L252,29L253,29L253,30L255,31L255,33L256,33L256,36L257,36L257,39L258,39L259,44L256,44L256,43L242,43L241,37L240,37L239,33L238,33L235,29L232,29L232,41L233,41L233,43L220,43L220,44L219,44L219,12L217,11ZM178,16L175,17L174,20L173,20L173,29L174,29L174,31L176,32L179,32L179,24L180,24L179,20L180,20L180,17ZM194,16L193,16L193,32L198,32L198,31L199,31L199,18L198,18L197,16ZM283,21L289,22L289,23L301,23L301,24L312,24L312,25L326,25L326,26L340,26L340,27L352,27L352,28L367,28L367,29L368,29L368,30L360,30L337,30L337,31L312,31L312,32L291,32L291,33L282,33L282,32L278,29L278,26L279,26L279,24L280,24L281,22L283,22ZM126,22L136,22L136,23L140,26L139,30L138,30L137,32L135,32L135,33L128,33L128,32L104,32L104,31L77,31L77,30L65,30L48,30L48,29L53,29L53,28L64,28L64,27L77,27L77,26L89,26L89,25L116,24L116,23L126,23Z"/><path class="wordmark-name" fill="#FAF9F6" fill-rule="evenodd" d="M147,61L157,61L157,62L156,62L156,64L155,64L154,67L147,67L147,68L145,68L145,69L141,72L140,76L138,77L138,80L137,80L137,82L136,82L136,84L135,84L134,90L133,90L132,96L131,96L131,100L130,100L130,103L129,103L128,111L127,111L126,117L125,117L124,123L123,123L122,129L121,129L121,131L120,131L120,134L119,134L118,138L116,139L116,141L113,142L112,144L108,145L107,147L98,147L98,146L101,144L101,142L102,142L107,136L109,136L109,135L111,134L111,132L112,132L112,130L113,130L113,128L114,128L115,122L116,122L117,119L116,119L116,118L112,118L111,116L107,116L106,118L102,118L96,118L96,119L95,119L95,116L94,116L94,109L93,109L93,104L92,104L91,94L90,94L89,82L88,82L88,74L87,74L88,67L118,67L118,68L117,68L117,72L116,72L116,98L117,98L117,106L118,106L118,109L120,109L120,107L121,107L121,105L122,105L122,102L123,102L123,99L124,99L124,96L125,96L125,93L126,93L126,90L127,90L127,87L128,87L128,84L129,84L129,81L130,81L130,78L131,78L131,76L132,76L134,70L135,70L139,65L141,65L142,63L147,62ZM36,65L50,65L50,66L55,66L55,67L58,67L58,68L63,69L63,73L60,74L60,75L59,75L59,76L58,76L53,82L51,82L51,79L49,78L49,76L48,76L46,73L41,72L41,71L35,73L35,75L34,75L33,78L32,78L32,82L31,82L31,94L32,94L32,98L33,98L33,101L34,101L35,105L36,105L40,110L42,110L42,111L49,111L49,110L51,110L52,108L54,108L55,106L57,106L60,102L62,102L63,105L64,105L64,107L62,108L62,110L61,110L57,115L55,115L55,116L53,116L53,117L50,117L50,118L47,118L47,119L42,119L42,120L29,120L29,119L25,119L25,118L20,117L19,115L17,115L17,114L16,114L16,113L10,108L10,106L9,106L9,104L8,104L8,102L7,102L7,97L6,97L6,91L7,91L7,86L8,86L9,80L11,79L11,77L12,77L17,71L19,71L19,70L21,70L21,69L23,69L23,68L26,68L26,67L36,66ZM400,66L414,66L414,67L413,67L413,68L412,68L412,69L411,69L411,70L410,70L405,76L402,76L402,75L396,75L396,76L392,77L391,79L389,79L389,80L384,84L384,86L381,88L381,91L405,92L406,95L407,95L407,97L408,97L408,100L409,100L409,102L410,102L411,112L412,112L413,119L410,119L410,118L389,118L389,119L388,119L388,118L387,118L387,115L386,115L386,113L385,113L384,107L383,107L382,103L380,102L380,100L379,100L378,98L376,98L375,96L372,96L372,97L372,119L371,119L371,118L350,118L350,119L348,119L348,96L347,96L347,92L348,92L348,73L347,73L347,71L348,71L348,67L375,67L375,69L374,69L374,73L373,73L373,87L374,87L374,86L376,85L376,83L379,81L379,79L380,79L385,73L387,73L389,70L391,70L391,69L393,69L393,68L395,68L395,67L400,67ZM189,67L218,67L218,70L219,70L219,72L220,72L222,78L223,78L223,81L224,81L224,83L225,83L225,86L226,86L226,90L227,90L229,112L236,112L235,118L234,118L234,121L233,121L233,125L232,125L232,131L223,130L223,123L222,123L220,120L218,120L218,119L214,119L214,118L204,118L199,118L199,119L195,119L195,118L190,118L190,119L180,119L180,120L177,120L177,121L174,123L174,130L164,130L164,129L165,129L165,123L164,123L164,119L163,119L163,115L162,115L162,113L163,113L163,112L169,112L169,105L170,105L171,95L172,95L174,92L176,92L178,89L180,89L183,85L185,85L185,84L190,80L192,74L191,74L191,72L188,70ZM279,67L309,67L310,72L311,72L311,74L312,74L312,76L313,76L313,79L314,79L315,84L316,84L316,87L317,87L317,91L318,91L318,95L319,95L319,99L320,99L321,106L322,106L322,111L323,111L323,113L325,114L325,118L324,118L324,119L321,119L321,118L300,118L297,108L297,107L294,107L292,110L290,110L289,112L287,112L287,113L285,113L284,115L280,116L279,118L267,118L267,119L260,119L260,120L257,119L256,109L257,109L257,104L258,104L258,96L259,96L262,92L266,91L267,89L269,89L269,88L271,88L272,86L274,86L275,84L277,84L277,83L281,80L281,78L282,78L282,73L281,73L281,71L279,70ZM288,81L287,81L286,84L284,85L284,88L283,88L283,90L282,90L282,92L281,92L281,95L280,95L280,100L279,100L279,108L284,108L284,107L285,107L288,106L288,105L290,105L290,104L292,104L292,103L295,101L295,100L294,100L293,93L292,93L292,90L291,90L291,87L290,87L290,84L289,84ZM197,82L195,83L195,85L193,86L193,88L192,88L192,90L191,90L190,96L189,96L189,100L188,100L188,106L187,106L187,112L196,112L206,112L206,110L205,110L205,106L204,106L204,102L203,102L203,98L202,98L202,95L201,95L201,91L200,91L199,85L198,85Z"/></svg></h1><p>Открытый чемпионат Крыма · 2026</p></div>
 <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Светлая тема" aria-pressed="false" title="Включить светлую тему">
   <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg>
   <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.6 8.6 0 1 0 11 11Z"/></svg>
