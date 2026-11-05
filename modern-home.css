@@ -124,9 +124,8 @@ body:has(#home.on) header{
   background:var(--bg);
 }
 body:has(#home.on) header:before{
-  content:"";position:absolute;right:0;bottom:76px;
-  width:min(100%,680px);aspect-ratio:545/366;pointer-events:none;
-  background:linear-gradient(90deg,var(--bg),transparent 12%),linear-gradient(180deg,var(--bg),transparent 28%,transparent 72%,var(--bg)),url("assets/home-fortress.jpg") center/cover no-repeat;
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 56%,var(--bg) 94%),url("assets/home-fortress.jpg") center top/cover no-repeat;
 }
 body:has(#home.on) header .crest{
   position:absolute;top:calc(16px + env(safe-area-inset-top,0px));
