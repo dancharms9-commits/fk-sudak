@@ -92,6 +92,23 @@ class VisualRefreshTests(unittest.TestCase):
             self.assertIn('missing bundled asset', result.stderr)
             self.assertEqual({p.name: p.read_bytes() for p in target.iterdir()}, before)
 
+    def test_legacy_manifest_still_gets_complete_icon_purposes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp)
+            self.copy_bundle(target)
+            manifest_path = target / 'manifest.json'
+            manifest = json.loads(manifest_path.read_text())
+            settings = {key: value for key, value in manifest.items() if key != 'icons'}
+            manifest['icons'] = [{'src': 'icon-192.png', 'sizes': '192x192'}]
+            manifest_path.write_text(json.dumps(manifest))
+            result = self.apply(target)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            updated = json.loads(manifest_path.read_text())
+            self.assertEqual({key: value for key, value in updated.items() if key != 'icons'}, settings)
+            self.assertEqual([(icon['sizes'], icon['purpose']) for icon in updated['icons']],
+                             [('192x192', 'any'), ('512x512', 'any'), ('512x512', 'maskable')])
+            self.assertTrue(all(icon['src'].endswith('?v=final-crest-v7') for icon in updated['icons']))
+
     def test_unknown_index_layout_never_partially_changes_the_app(self):
         with tempfile.TemporaryDirectory() as tmp:
             target = Path(tmp)
