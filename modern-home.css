@@ -84,6 +84,46 @@ nav button i{font-size:21px}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#091722;--card:#102534;--ink:#E9F3F9;--mute:#ABC0CD;--line:#284455;--sea:#74C7DC;--navy:#001329}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
+/* Approved home artwork only; shared sections retain their existing appearance. */
+body:has(#home.on){
+  --bg:#001329;--card:#0E1C30;--ink:#FAF9F6;--mute:#B9C5D5;
+  --line:#304057;--sea:#FFD02A;--sun:#FFCB05;
+}
+body:has(#home.on) header{
+  max-width:1040px;margin-inline:auto;
+  height:clamp(400px,125vw,540px);padding:24px 16px;
+  padding-top:calc(24px + env(safe-area-inset-top,0px));
+  display:flex;flex-direction:column;justify-content:flex-end;
+  border:0;text-align:center;
+  background:#001329;
+}
+body:has(#home.on) header:before{
+  content:"";position:absolute;right:0;bottom:76px;
+  width:min(100%,680px);aspect-ratio:545/366;pointer-events:none;
+  background:linear-gradient(90deg,#001329,#00132900 12%),linear-gradient(180deg,#001329,#00132900 28%,#00132900 72%,#001329),url("assets/home-fortress.jpg") center/cover no-repeat;
+}
+body:has(#home.on) header .crest{
+  position:absolute;top:calc(16px + env(safe-area-inset-top,0px));
+  left:clamp(16px,4vw,28px);
+  /* The reference crest is ~58% of the phone width; 58% × 0.7 = 40.6%. */
+  width:clamp(130px,40.6vw,221px);height:auto;aspect-ratio:3/4;
+  flex:none;border:0;border-radius:0;
+  background:transparent url("assets/home-crest-original.png") center/contain no-repeat;
+  /* Clip only the empty navy corners outside the original shield. */
+  clip-path:polygon(50% 1.5%,64% 2.5%,77% 5.5%,90% 9.5%,95.5% 12.5%,97.5% 25%,98.5% 34%,97.5% 45%,94.5% 56%,89.5% 66%,82.5% 75%,72.5% 84%,61.5% 93%,50% 98.5%,38.5% 93%,27.5% 84%,17.5% 75%,10.5% 66%,5.5% 56%,2.5% 45%,1.5% 34%,2.5% 25%,4.5% 12.5%,9.5% 9.5%,22.5% 5.5%,35.5% 2.5%);
+}
+body:has(#home.on) header .crest img{opacity:0}
+body:has(#home.on) header .brand{position:relative;width:100%}
+body:has(#home.on) header h1{
+  font-size:clamp(30px,8vw,44px);line-height:1.15;
+  color:#FAF9F6;text-shadow:0 2px 12px #001329;
+}
+body:has(#home.on) header p{color:#B9C5D5;opacity:1;margin-top:8px}
+/* The shared reduced-motion rule must not animate header geometry between tabs. */
+@media(prefers-reduced-motion:reduce){
+  header,header:before,header *{transition:none!important}
+}
+
 /* Standings table: fixed numeric columns, responsive team name. */
 #table table {
   width: 100%;
