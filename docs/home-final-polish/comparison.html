@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ФК «Судак» — сравнение главной с макетом</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#071727;color:#F3F7FC;font:15px/1.45 system-ui,sans-serif;padding:24px}h1{font-size:22px;margin:0 0 5px}p{color:#BDD0E0;margin:0 0 16px}.controls{display:flex;gap:8px;margin-bottom:18px}button{font:inherit;padding:7px 14px;border:1px solid #526C84;border-radius:8px;background:#15304B;color:#fff;cursor:pointer}button[aria-pressed=true]{background:#FFCB05;color:#001329;border-color:#FFCB05}.columns{display:flex;gap:16px;align-items:flex-start}figure{margin:0;width:390px;flex:none}figcaption{font-weight:650;margin-bottom:10px}.viewport{width:390px;height:869px;overflow:hidden;background:#001329;position:relative}img{display:block;width:390px;height:auto}.reference img{position:absolute;top:calc(-48px * 390 / 821);left:0}small{display:block;margin-top:7px;color:#BDD0E0}
+</style>
+<h1>ФК «Судак» · главная, 390 px</h1>
+<p>До → утверждённый макет → после. Высота окна — 869 px. На макете скрыты только системные полосы Android.</p>
+<div class="controls"><button type="button" data-theme="dark" aria-pressed="true">Тёмная тема</button><button type="button" data-theme="light" aria-pressed="false">Светлая тема</button></div>
+<div class="columns">
+<figure><figcaption>До · main 4dd418c</figcaption><div class="viewport"><img data-stage="before" src="before/390-dark.png" alt="Главная до доработки"></div></figure>
+<figure><figcaption>Утверждённый макет · тёмная тема</figcaption><div class="viewport reference"><img src="approved-reference.png" alt="Утверждённый пользователем макет"></div></figure>
+<figure><figcaption>После · работающая PWA</figcaption><div class="viewport"><img data-stage="after" src="after/390-dark.png" alt="Главная после доработки"></div></figure>
+</div>
+<small>Снимки работающего приложения; фотография, эмблема, меню, переключатель и содержимое карточек сохранены.</small>
+<script>
+const params=new URLSearchParams(location.search);
+function choose(theme){document.querySelectorAll('[data-stage]').forEach(img=>img.src=img.dataset.stage+'/390-'+theme+'.png');document.querySelectorAll('[data-theme]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===theme)));document.documentElement.dataset.ready='pending';Promise.all([...document.images].map(img=>img.decode())).then(()=>document.documentElement.dataset.ready='true')}
+document.querySelectorAll('[data-theme]').forEach(button=>button.addEventListener('click',()=>choose(button.dataset.theme)));
+choose(params.get('theme')==='light'?'light':'dark');
+</script></html>
