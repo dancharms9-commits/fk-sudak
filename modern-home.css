@@ -125,7 +125,23 @@ body:has(#home.on) header{
 }
 body:has(#home.on) header:before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 56%,var(--bg) 94%),url("assets/home-fortress.jpg") center top/cover no-repeat;
+  /* Keep the fade above the tint so its last pixels match the page exactly. */
+  background-image:linear-gradient(180deg,transparent 48%,var(--bg) 94%),
+    linear-gradient(#00132924,#00132924),url("assets/home-fortress.jpg");
+  background-position:center top,center top,70% top;
+  background-size:100% 100%,100% 100%,cover;
+  background-repeat:no-repeat;
+}
+:root[data-theme="light"] body:has(#home.on) header:before{
+  background-image:linear-gradient(180deg,transparent 48%,var(--bg) 94%),
+    linear-gradient(transparent,transparent),url("assets/home-fortress.jpg");
+}
+@media(max-width:640px){
+  body:has(#home.on) header:before{
+    /* A wider crop keeps both the central keep and the summit tower in view.
+       Finish the fade before the photograph ends at 84% of the hero height. */
+    background-size:100% 88%,100% 84%,auto 84%;
+  }
 }
 body:has(#home.on) header .crest{
   position:absolute;top:calc(16px + env(safe-area-inset-top,0px));
