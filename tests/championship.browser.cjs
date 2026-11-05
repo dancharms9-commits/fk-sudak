@@ -37,7 +37,8 @@ const server=http.createServer((req,res)=>{
   const page=await context.newPage();attach(page);
   await page.goto(base+'#table');await ready(page);
   assert.equal(await page.locator('#nav button').count(),5);
-  assert.equal(await page.locator('[data-t="table"]').innerText(),'≡\nЧемпионат');
+  assert.equal(await page.locator('[data-t="table"]').innerText(),'Чемпионат');
+  assert.equal(await page.locator('[data-t="table"] svg').count(),1);
   for(const colorScheme of ['light','dark'])for(const width of [320,390,768,1440]){
    await page.emulateMedia({colorScheme});await page.setViewportSize({width,height:844});
    for(const name of ['standings','calendar','scorers']){await tab(page,name);await layout(page);

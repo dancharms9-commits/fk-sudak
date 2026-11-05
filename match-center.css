@@ -1,25 +1,25 @@
 /* Match centre: scoped to the existing match route; inline in the offline shell. */
 #match #match-title{font-size:22px;letter-spacing:-.4px;margin:18px 0 14px}
 #match .match-back{margin-top:2px}
-#match .center-hero{background:#001329;color:#fff;padding:20px 16px;border-color:#C8A45766;border-radius:16px}
+#match .center-hero{background:var(--card);color:var(--ink);padding:20px 16px;border-color:var(--line);border-radius:16px}
 #match .center-hero-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-#match .center-competition{color:#C7D3DF;font-size:12px;line-height:1.5;flex:1;min-width:130px}
-#match .center-hero .tag{background:#C8A457;color:#001329;font-size:12px;padding:4px 9px;white-space:nowrap}
-#match .center-round{margin:8px 0 0;font-size:12px;color:#C7D3DF}
+#match .center-competition{color:var(--mute);font-size:12px;line-height:1.5;flex:1;min-width:130px}
+#match .center-hero .tag{background:var(--sun);color:#001329;font-size:12px;padding:4px 9px;white-space:nowrap}
+#match .center-round{margin:8px 0 0;font-size:12px;color:var(--mute)}
 #match .board{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:9px;margin:24px 0}
 #match .tm{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:0;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
 #match .tm b{font-weight:700;width:100%}
-#match .tm small{font-size:12px;color:#C7D3DF;margin:0}
+#match .tm small{font-size:12px;color:var(--mute);margin:0}
 #match .center-badge{display:grid;place-items:center;width:48px;height:48px;border-radius:10px;background:#001329;flex:none}
 #match .center-badge img{display:block;width:48px;height:48px;object-fit:contain}
-#match .center-neutral{background:#142B42;border:1px solid #FFFFFF25;color:#C7D3DF;font-size:16px;letter-spacing:1px}
+#match .center-neutral{background:var(--raised);border:1px solid var(--line);color:var(--mute);font-size:16px;letter-spacing:1px}
 #match .center-score{min-width:0;text-align:center;align-self:center}
-#match .center-score-numbers{display:flex;align-items:center;justify-content:center;gap:4px;font-size:28px;color:#E0C186;font-weight:750}
-#match .num{font-size:clamp(34px,8vw,58px);padding:0;min-width:0;background:none;color:#fff;border-radius:0;line-height:1.1;letter-spacing:-1px}
-#match .num.us{color:#E0C186}
-#match .center-score>small{display:block;font-size:11px;color:#C7D3DF;margin-top:8px}
-#match .center-not-started{display:block;max-width:95px;font-size:12px;line-height:1.45;color:#E0C186;font-weight:650}
-#match .match-meta{font-size:13px;color:#C7D3DF;line-height:1.7}
+#match .center-score-numbers{display:flex;align-items:center;justify-content:center;gap:4px;font-size:28px;color:var(--sea);font-weight:750}
+#match .num{font-size:clamp(34px,8vw,58px);padding:0;min-width:0;background:none;color:var(--ink);border-radius:0;line-height:1.1;letter-spacing:-1px}
+#match .num.us{color:var(--sea)}
+#match .center-score>small{display:block;font-size:11px;color:var(--mute);margin-top:8px}
+#match .center-not-started{display:block;max-width:95px;font-size:12px;line-height:1.45;color:var(--sea);font-weight:650}
+#match .match-meta{font-size:13px;color:var(--mute);line-height:1.7}
 #match .center-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding:16px;margin:12px 0 20px}
 #match .center-info>div{min-width:0;overflow-wrap:anywhere}
 #match .center-info>div:nth-child(2){grid-column:1/-1}
@@ -45,7 +45,7 @@
 #match .center-event-clock>span:first-child{font-variant-numeric:tabular-nums;font-size:13px;font-weight:650;position:relative;z-index:1;background:var(--card)}
 #match .is-timed li:not(:last-child) .center-event-clock:after{content:"";position:absolute;width:1px;background:var(--line);top:38px;bottom:-24px;left:50%}
 #match .center-event-icon{font-size:16px;line-height:1.5;color:var(--sea);background:var(--card);position:relative;z-index:1}
-#match .center-event-icon.yellow,#match .center-event-icon.second_yellow{color:#A8780D}
+#match .center-event-icon.yellow,#match .center-event-icon.second_yellow{color:var(--sea)}
 #match .center-event-icon.red{color:var(--loss)}
 #match .center-event-label{font-size:12px;color:var(--mute);display:block;margin-bottom:2px}
 #match .goal-player{font-size:14px;line-height:1.45;min-width:0;overflow-wrap:anywhere}
