@@ -46,11 +46,19 @@ else:
 # Make manifest compatible with normal and adaptive/maskable launcher icons.
 manifest_path=root/'manifest.json'
 manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
-manifest['icons']=[
-    {'src':'icon-192.png?v=final-crest-v7','sizes':'192x192','type':'image/png','purpose':'any'},
-    {'src':'icon-512.png?v=final-crest-v7','sizes':'512x512','type':'image/png','purpose':'any'},
-    {'src':'icon-maskable-512.png?v=final-crest-v7','sizes':'512x512','type':'image/png','purpose':'maskable'},
-]
+# A complete launcher set may intentionally differ from the in-app crest.
+# Preserve that selection when rerunning this older visual migration.
+current_icons=manifest.get('icons')
+expected_icons=[('192x192','any'),('512x512','any'),('512x512','maskable')]
+if not (isinstance(current_icons,list) and len(current_icons)==len(expected_icons) and
+        all(isinstance(icon,dict) and (icon.get('sizes'),icon.get('purpose'))==expected and
+            icon.get('type')=='image/png' and isinstance(icon.get('src'),str) and icon['src']
+            for icon,expected in zip(current_icons,expected_icons))):
+    manifest['icons']=[
+        {'src':'icon-192.png?v=final-crest-v7','sizes':'192x192','type':'image/png','purpose':'any'},
+        {'src':'icon-512.png?v=final-crest-v7','sizes':'512x512','type':'image/png','purpose':'any'},
+        {'src':'icon-maskable-512.png?v=final-crest-v7','sizes':'512x512','type':'image/png','purpose':'maskable'},
+    ]
 manifest.setdefault('description','ФК «Судак» — результаты, календарь, состав и новости')
 
 sw_path=root/'sw.js'

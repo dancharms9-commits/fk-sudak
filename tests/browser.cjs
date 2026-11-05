@@ -430,7 +430,13 @@ const server=http.createServer((req,res)=>{
     assert(!shell.urls.some(url=>url.endsWith('/data.json')),'Federation data must still bypass the SW cache');
     const manifest=await page.evaluate(async()=>await (await fetch('manifest.json')).json());
     assert.deepEqual(manifest.icons.map(i=>i.purpose),['any','any','maskable']);
-    assert(manifest.icons.every(icon=>icon.src.endsWith('?v=final-crest-v7')));
+    assert.deepEqual(manifest,JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8')));
+    // Android fetches the newly named launcher files before installing/updating.
+    // Warm those URLs explicitly, then verify their actual SW fallback offline.
+    for(const icon of manifest.icons){
+      const bytes=await page.evaluate(async src=>Array.from(new Uint8Array(await (await fetch(src)).arrayBuffer())),icon.src);
+      assert.deepEqual(Buffer.from(bytes),fs.readFileSync(path.join(root,icon.src)));
+    }
     assert.equal(await page.locator('link[rel="manifest"]').getAttribute('href'),'manifest.json');
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
     await context.setOffline(true);
@@ -468,4 +474,4 @@ const server=http.createServer((req,res)=>{
     assert.deepEqual(errors,[],'Browser script errors');
     console.log('PASS no browser JavaScript errors');
   }finally{await browser.close()}
-})().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>server.close());
+})().then(()=>require('./pwa-launcher.browser.cjs')()).catch(e=>{console.error(e);process.exitCode=1}).finally(()=>server.close());
