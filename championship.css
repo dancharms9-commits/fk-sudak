@@ -5,7 +5,7 @@
 .champ-season{font-size:12px;font-weight:600;color:var(--mute);padding:4px 8px;border:1px solid var(--line);border-radius:8px}
 .champ-tabs{display:grid;grid-template-columns:.85fr 1.2fr 1fr;gap:4px;padding:4px;background:var(--line);border-radius:12px;margin-bottom:18px}
 .champ-tabs button,.champ-rounds button{font:inherit;font-size:13px;font-weight:650;min-height:44px;padding:8px 4px;border:0;border-radius:9px;cursor:pointer;color:var(--mute);background:transparent;transition:background .18s,color .18s}
-.champ-tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 4px #00132912}
+.champ-tabs button[aria-selected="true"]{background:var(--sun);color:var(--navy);box-shadow:0 1px 4px #00132912}
 .champ-tabs button:focus-visible,.champ-rounds button:focus-visible,#table select:focus-visible,#table input:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .champ-standing{padding:6px 10px}
 #champ-panel{animation:champ-in .18s ease-out}

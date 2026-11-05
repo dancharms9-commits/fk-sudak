@@ -183,4 +183,4 @@ const server=http.createServer((req,res)=>{
     console.log('PASS real SW: offline dashboard/profiles/fixtures, reconnect without reloading or repeating splash');
     assert.deepEqual(errors,[]);console.log('PASS no JavaScript errors');
   }finally{if(context)await context.close();await browser.close();server.close()}
-})().catch(e=>{console.error(e);process.exitCode=1});
+})().then(()=>require('./themes.browser.cjs')()).catch(e=>{console.error(e);process.exitCode=1});
