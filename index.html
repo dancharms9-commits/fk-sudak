@@ -242,9 +242,11 @@ body:has(#home.on) header:before{
 }
 @media(max-width:640px){
   body:has(#home.on) header:before{
-    /* A wider crop keeps both the central keep and the summit tower in view.
-       Finish the fade before the photograph ends at 84% of the hero height. */
-    background-size:100% 88%,100% 84%,auto 84%;
+    /* Shift the wider crop right to clear the fixed crest while keeping the
+       summit tower inside the viewport. End the fade before the photo edge. */
+    background-position:center top,center top,30% top;
+    /* The source ratio (1127/1600) keeps the image at least viewport-wide. */
+    background-size:100% 76%,100% 84%,auto max(72%,70.4375vw);
   }
 }
 body:has(#home.on) header .crest{
