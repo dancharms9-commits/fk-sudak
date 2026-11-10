@@ -38,6 +38,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node --test tests/*.test.cjs
       - run: node tests/browser.cjs
+      - run: node tests/multi-club.browser.cjs
       - run: node tests/championship.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: championship-screenshots

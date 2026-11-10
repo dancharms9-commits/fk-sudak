@@ -952,6 +952,10 @@ def update_club_data():
         "player_stats_2026": player_stats,
         "match_details": match_details,
     }
+    # Keep the optional ID-based extension during direct/manual parser runs too.
+    # The Pages orchestrator refreshes it after both legacy producers succeed.
+    if "platform" in previous:
+        data["platform"] = previous["platform"]
     with open("data.json.tmp", "w", encoding="utf-8") as out:
         json.dump(data, out, ensure_ascii=False, indent=1)
     os.replace("data.json.tmp", "data.json")
