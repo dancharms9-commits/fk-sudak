@@ -1403,7 +1403,7 @@ function platformPlayerHref(id,teamId){
 function platformMembership(id,teamId){
   const r=PLATFORM?.rosters?.['4:22:'+teamId];
   if(!r)return null;
-  const regs=Object.values(PLATFORM.registrations||{}).filter(reg=>reg.playerId===id&&reg.teamId===teamId);
+  const regs=Object.values(PLATFORM.registrations||{}).filter(reg=>reg.playerId===id&&reg.teamId===teamId&&reg.roleKind!=='staff');
   if(!r.playerIds?.includes(id)&&!r.clubPlayerIds?.includes(id)&&!regs.length)return null;
   const entry=r.entriesByPlayerId?.[id],positions=[...new Set(regs.map(reg=>reg.position).filter(Boolean))],numbers=[...new Set(regs.map(reg=>reg.number).filter(n=>Number.isInteger(n)))];
   return {teamId,position:entry?.position||(positions.length===1?positions[0]:null),

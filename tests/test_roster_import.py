@@ -158,6 +158,23 @@ class RosterImportTests(unittest.TestCase):
         self.assertEqual(binding['unresolvedSourceMatchIds'], ['999999'])
         self.assertEqual(result['stats']['117']['goals'], 1)  # published aggregate, not a sum of the four games
 
+    def test_staff_and_undated_affiliations_are_not_season_registrations(self):
+        s = soup('players-1698.html')
+        cols = s.select('.player-data__team:not(.player-data__team_head)')[0].find_all('div', recursive=False)
+        cols[2].string = 'Тренер'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        reg, binding = result['registrations'][0], result['stats']['117']['sourceBinding']
+        self.assertEqual(reg['roleKind'], 'staff')
+        self.assertEqual(importer.registration_evidence(reg, binding, SEED['platform']['matchesById']), [])
+        cols[2].string = 'Полузащитник'
+        cols[3].string = '-'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(importer.registration_evidence(result['registrations'][0], binding, SEED['platform']['matchesById']), [])
+        bad = copy.deepcopy(SEED['platform'])
+        next(r for r in bad['registrations'].values() if r.get('scope') == 'competition_season')['registeredAt'] = None
+        with self.assertRaises(ValueError):
+            schema.validate_platform(bad)
+
     def test_profile_enrichment_survives_the_existing_sudak_projection(self):
         p = copy.deepcopy(SEED['platform'])
         player = p['playersById']['202']

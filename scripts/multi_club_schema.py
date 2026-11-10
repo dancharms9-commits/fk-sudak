@@ -200,12 +200,15 @@ def validate_platform(p, previous=None):
                 if reg[field] is not None:
                     date.fromisoformat(reg[field])
             quality(reg['quality'])
+            if 'roleKind' in reg:
+                require(reg['roleKind'] in {'player', 'staff'}, 'Invalid registration role kind')
             if 'scope' in reg:
                 require(reg['scope'] in {'club', 'competition_season'} and source_id(reg['sourceUrl'], 'players') == reg['playerId'], 'Invalid registration source')
                 number(reg['number'], nullable=True)
                 require(reg['position'] is None or isinstance(reg['position'], str), 'Invalid registration position')
                 require(reg['registeredAt'] is None or reg['releasedAt'] is None or reg['registeredAt'] <= reg['releasedAt'], 'Invalid registration period')
                 if reg['scope'] == 'competition_season':
+                    require(reg['registeredAt'] is not None and reg.get('roleKind') != 'staff', 'Undated or staff affiliation is not a season registration')
                     ids = reg['evidenceSourceMatchIds']
                     known = {m['sourceMatchId']: m for m in p['matchesById'].values() if m['sourceMatchId']}
                     require(isinstance(ids, list) and bool(ids) and len(ids) == len(set(ids)), 'Missing season registration evidence')

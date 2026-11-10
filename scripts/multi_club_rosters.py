@@ -22,6 +22,7 @@ from scripts.multi_club_sources import quality
 from update_player_stats import safe_photo_url
 
 TARGET_IDS = sorted(TEAM_IDS - {'141'}, key=int)
+STAFF_ROLES = frozenset({'Тренер', 'Главный тренер', 'Старший тренер', 'Тренер вратарей', 'Президент', 'Вице-президент', 'Администратор', 'Начальник команды', 'Руководитель'})
 LEAGUE_TITLE = 'Открытый Чемпионат Республики Крым среди мужских любительских команд'
 
 
@@ -93,6 +94,7 @@ def parse_registrations(soup):
             reg = {'teamId': tid, 'registeredAt': start, 'releasedAt': end,
                    'number': optional_int(text(cols[0])),
                    'position': text(cols[2]) if text(cols[2]) not in ('', '-', '—') else None}
+            reg['roleKind'] = 'staff' if reg['position'] in STAFF_ROLES else 'player'
             key = (tid, start)
             if key in blocked:
                 continue
@@ -150,7 +152,7 @@ def parse_profile(soup, pid, expected_names, matches):
                     # disambiguate a one-match group; text labels never do.
                     if any(issue['teamId'] is None or issue['teamId'] in candidates for issue in registration_issues):
                         candidates = set()
-                    candidates = {tid for tid in candidates if any(r['teamId'] == tid and all(
+                    candidates = {tid for tid in candidates if any(r['teamId'] == tid and r['registeredAt'] is not None and r['roleKind'] != 'staff' and all(
                         m['date'] is not None and (r['registeredAt'] is None or r['registeredAt'] <= m['date'])
                         and (r['releasedAt'] is None or m['date'] <= r['releasedAt']) for m in linked) for r in registrations)}
                 if len(candidates) != 1:
@@ -178,6 +180,15 @@ def parse_profile(soup, pid, expected_names, matches):
             stats[tid] = row
     return {'name': name, 'lastName': text(last), 'firstName': text(first).split()[0],
             'photoUrl': photo, 'registrations': registrations, 'registrationIssues': registration_issues, 'stats': stats, 'unresolvedGroups': unresolved}
+
+
+def registration_evidence(reg, binding, matches):
+    # An undated affiliation or a staff job is not a football season registration.
+    if reg['registeredAt'] is None or reg.get('roleKind') == 'staff':
+        return []
+    linked = [m for m in matches.values() if m['sourceMatchId'] in binding['sourceMatchIds']]
+    return [m['sourceMatchId'] for m in linked if m['date'] and reg['registeredAt'] <= m['date']
+            and (reg['releasedAt'] is None or m['date'] <= reg['releasedAt'])]
 
 
 class NetworkLoader:
@@ -307,7 +318,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                 key = f"{pid}:{reg['teamId']}:club:{reg['registeredAt'] or 'unknown'}"
                 record = {'registrationId': key, 'playerId': pid, **reg, 'scope': 'club',
                     'competitionId': None, 'seasonId': None, 'sourceUrl': url,
-                    'quality': quality(url, 'current', 'official_profile_club_registration', when, 'partial', when)}
+                    'quality': quality(url, 'current', 'official_profile_club_affiliation' if reg['roleKind'] == 'staff' else 'official_profile_club_registration', when, 'partial', when)}
                 p['registrations'][key] = record
             for old_row in p['playerSeasonStats'].values():
                 if old_row['playerId'] == pid and old_row['teamId'] != '141' and old_row['teamId'] not in result['stats']:
@@ -324,7 +335,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                     if row[field] is None and old.get(field) is not None:
                         row[field] = old[field]
                         retained.append(field)
-                        availability[field] = {'status': 'stale', 'lastVerifiedAt': old['quality']['lastVerifiedAt']}
+                        availability[field] = {'status': 'stale', 'lastVerifiedAt': old.get('fieldQuality', {}).get(field, {}).get('lastVerifiedAt') or old['quality']['lastVerifiedAt']}
                 row['fieldQuality'] = availability
                 p['playerSeasonStats'][key] = {'playerId': pid, 'teamId': tid, 'competitionId': '4', 'seasonId': '22',
                     'sourceUrl': url, **row, 'quality': quality(url, 'current', 'profile_group_bound_by_match_ids', when, 'partial', when)}
@@ -336,10 +347,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                 for reg in result['registrations']:
                     if reg['teamId'] != tid:
                         continue
-                    linked = [m for m in p['matchesById'].values() if m['sourceMatchId'] in row['sourceBinding']['sourceMatchIds']]
-                    evidence = [m['sourceMatchId'] for m in linked if m['date'] and
-                        (reg['registeredAt'] is None or reg['registeredAt'] <= m['date']) and
-                        (reg['releasedAt'] is None or m['date'] <= reg['releasedAt'])]
+                    evidence = registration_evidence(reg, row['sourceBinding'], p['matchesById'])
                     if not evidence:
                         continue
                     key = f"{pid}:{tid}:4:22:{reg['registeredAt'] or 'unknown'}"
