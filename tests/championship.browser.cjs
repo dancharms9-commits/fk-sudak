@@ -67,7 +67,7 @@ const server=http.createServer((req,res)=>{
   assert(Math.abs(await page.evaluate(()=>scrollY)-scroll)<3);
   await page.locator('#champ-team').selectOption('936');assert.equal(await page.locator('[data-champ-match]').count(),1);
   await page.locator('#champ-status').selectOption('upcoming');assert.equal(await page.locator('[data-champ-match]').count(),0);
-  await page.locator('#champ-round').selectOption('19');assert.equal(await page.locator('[data-champ-match]').count(),1);
+  await page.locator('#champ-round').selectOption('20');assert.equal(await page.locator('[data-champ-match]').count(),1);
   assert(!(await page.locator('#champ-panel').innerText()).includes('0:0'));
   await tab(page,'scorers');assert.equal(await page.locator('[data-scorer]').count(),25);
   await page.locator('#champ-search').fill('семёнов ВЛАД');assert.equal(await page.locator('[data-scorer]').count(),1);

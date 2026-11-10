@@ -1619,7 +1619,12 @@ let CHAMP_STATE={view:CHAMP_VIEWS.includes(savedChampState.view)?savedChampState
 function saveChampState(){try{localStorage.setItem(CHAMP_STATE_KEY,JSON.stringify(CHAMP_STATE))}catch{}}
 const champTeams=()=>CHAMPIONSHIP?.calendar?.teams||[];
 const champRounds=()=>CHAMPIONSHIP?.calendar?.rounds||[];
-const champMatches=()=>CHAMPIONSHIP?.calendar?.matches||[];
+const champMatches=()=>(CHAMPIONSHIP?.calendar?.matches||[]).map(raw=>{
+  const m=PLATFORM?.matchesById?.[raw.id];
+  if(!m||m.competitionId!=='4'||m.seasonId!=='22'||!clubKnown(m.quality))return raw;
+  return {...raw,source_id:m.sourceMatchId,source_url:m.sourceUrl,date:m.date,time:m.time,venue:m.venue,
+    home_score:m.homeScore,away_score:m.awayScore,status:m.status,status_label:m.statusLabel||null};
+});
 const champTeam=id=>champTeams().find(t=>t.id===id);
 const champTeamName=id=>champTeam(id)?.name||'Название не опубликовано';
 const champPlayed=m=>['finished','technical'].includes(m.status);

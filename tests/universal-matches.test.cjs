@@ -61,3 +61,11 @@ test('untrusted protocol identities cannot attach events or create a player memb
  const d=structuredClone(data),p=d.platform.protocolsByMatchId[match.matchId];p.sourceMatchId='999999';
  const {run}=setup(d),model=run(`platformMatchCenter('${key}')`);assert.equal(model.protocol,null);assert.deepEqual(model.lineups,{});assert.deepEqual(model.events.items,[]);
 });
+test('championship cards and filters use the same audited score/status as the match center',()=>{
+ const {run}=setup();for(const id of ['38769','38771','38770']){
+  const m=known.find(m=>m.sourceMatchId===id),raw=run(`champMatches().find(m=>m.id===${JSON.stringify(m.matchId)})`);
+  assert.deepEqual([raw.home_score,raw.away_score],[m.homeScore,m.awayScore]);assert.equal(raw.status,m.status);
+ }
+ assert.equal(run("champMatches().find(m=>m.id==='4:2026:19:934:146').status"),'postponed');
+ assert.equal(data.championship.calendar.matches.find(m=>m.id==='4:2026:19:934:146').status,'scheduled');
+});
