@@ -179,7 +179,6 @@ def validate_platform(p, previous=None):
                 require(pid in roster.get('clubPlayerIds', []) and entry['playerId'] == pid, 'Orphan club entry')
                 require(source_id(entry['sourceUrl'], 'teams') == roster['teamId'], 'Wrong club entry source')
                 number(entry['number'], nullable=True)
-                require(entry['number'] is None or entry['number'] <= 99, 'Invalid roster number')
                 require(entry['position'] is None or isinstance(entry['position'], str), 'Invalid roster position')
                 if entry['registeredAt'] is not None:
                     date.fromisoformat(entry['registeredAt'])
@@ -198,7 +197,6 @@ def validate_platform(p, previous=None):
             if 'scope' in reg:
                 require(reg['scope'] in {'club', 'competition_season'} and source_id(reg['sourceUrl'], 'players') == reg['playerId'], 'Invalid registration source')
                 number(reg['number'], nullable=True)
-                require(reg['number'] is None or reg['number'] <= 99, 'Invalid registration number')
                 require(reg['position'] is None or isinstance(reg['position'], str), 'Invalid registration position')
                 require(reg['registeredAt'] is None or reg['releasedAt'] is None or reg['registeredAt'] <= reg['releasedAt'], 'Invalid registration period')
                 if reg['scope'] == 'competition_season':
@@ -207,6 +205,8 @@ def validate_platform(p, previous=None):
                     require(isinstance(ids, list) and bool(ids) and len(ids) == len(set(ids)), 'Missing season registration evidence')
                     for mid in ids:
                         require(mid in known and reg['teamId'] in {known[mid]['homeTeamId'], known[mid]['awayTeamId']}, 'Wrong registration match evidence')
+                        day = known[mid]['date']
+                        require(day is not None and (reg['registeredAt'] is None or reg['registeredAt'] <= day) and (reg['releasedAt'] is None or day <= reg['releasedAt']), 'Registration evidence outside published period')
         matches = p['matchesById']
         protocol_ids = []
         for key, m in matches.items():

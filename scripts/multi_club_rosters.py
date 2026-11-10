@@ -67,12 +67,47 @@ def parse_club(soup, team):
         require(set(cells) == {'1', '2', '3', '4'}, 'Incomplete club row')
         entries[pid] = {'playerId': pid, 'name': text(last) + ' ' + text(first),
             'lastName': text(last), 'firstName': text(first), 'sourceUrl': url,
-            'number': optional_int(text(row.select_one('.place')), 99),
+            'number': optional_int(text(row.select_one('.place'))),
             'position': cells['2'] if cells['2'] not in ('', '-', '—') else None,
             'registeredAt': iso_date(cells['4']),
             'photoUrl': safe_photo_url(urljoin(BASE, photo['src'])) if photo else None}
     require(1 <= len(entries) <= 150, 'Empty or implausible club list')
     return entries
+
+
+def parse_registrations(soup):
+    """An unrelated bad historical row must not erase valid profile facts."""
+    registrations, issues, blocked = [], [], set()
+    for index, row in enumerate(soup.select('.player-data__teams>.player-data__team:not(.player-data__team_head)')):
+        tid = None
+        try:
+            cols = row.find_all('div', recursive=False)
+            require(len(cols) == 5, 'Changed registration columns')
+            link = cols[1].select_one('a[href]')
+            tid = source_id(urljoin(BASE, link['href']), 'teams') if link else None
+            require(tid is not None, 'Registration without official team ID')
+            if tid not in TEAM_IDS:
+                continue
+            start, end = iso_date(text(cols[3])), iso_date(text(cols[4]))
+            require(start is None or end is None or start <= end, 'Invalid registration interval')
+            reg = {'teamId': tid, 'registeredAt': start, 'releasedAt': end,
+                   'number': optional_int(text(cols[0])),
+                   'position': text(cols[2]) if text(cols[2]) not in ('', '-', '—') else None}
+            key = (tid, start)
+            if key in blocked:
+                continue
+            old = next((r for r in registrations if (r['teamId'], r['registeredAt']) == key), None)
+            if old == reg:
+                continue  # exact duplicate published facts, not a second period
+            if old is not None:
+                registrations.remove(old)
+                blocked.add(key)
+                issues.append({'teamId': tid, 'sourceRow': index+1, 'reason': 'ambiguous_registration_period'})
+            else:
+                registrations.append(reg)
+        except (ValueError, TypeError, AttributeError) as exc:
+            issues.append({'teamId': tid, 'sourceRow': index+1, 'reason': str(exc)[:160]})
+    return registrations, issues
 
 
 def parse_profile(soup, pid, expected_names, matches):
@@ -84,23 +119,7 @@ def parse_profile(soup, pid, expected_names, matches):
     url = f'{BASE}/players/{pid}/'
     image = soup.select('.player-data__image img[src]')
     photo = safe_photo_url(urljoin(BASE, image[0]['src'])) if len(image) == 1 else None
-    registrations = []
-    for row in soup.select('.player-data__teams>.player-data__team:not(.player-data__team_head)'):
-        cols = row.find_all('div', recursive=False)
-        require(len(cols) == 5, 'Changed registration columns')
-        link = cols[1].select_one('a[href]')
-        tid = source_id(urljoin(BASE, link['href']), 'teams') if link else None
-        require(tid is not None, 'Registration without official team ID')
-        if tid not in TEAM_IDS:
-            continue  # other competitions' teams are not championship participants
-        start, end = iso_date(text(cols[3])), iso_date(text(cols[4]))
-        require(start is None or end is None or start <= end, 'Invalid registration interval')
-        reg = {'teamId': tid, 'registeredAt': start, 'releasedAt': end,
-               'number': optional_int(text(cols[0]), 99),
-               'position': text(cols[2]) if text(cols[2]) not in ('', '-', '—') else None}
-        require(not any(r['teamId'] == tid and r['registeredAt'] == start for r in registrations),
-                'Ambiguous registration period')
-        registrations.append(reg)
+    registrations, registration_issues = parse_registrations(soup)
     by_source = {m['sourceMatchId']: m for m in matches.values() if m.get('sourceMatchId')}
     stats, unresolved = {}, []
     container = soup.select_one('.player-stat')
@@ -129,6 +148,8 @@ def parse_profile(soup, pid, expected_names, matches):
                 if len(candidates) > 1:
                     # Dates and explicit /teams/<id>/ registration links may
                     # disambiguate a one-match group; text labels never do.
+                    if any(issue['teamId'] is None or issue['teamId'] in candidates for issue in registration_issues):
+                        candidates = set()
                     candidates = {tid for tid in candidates if any(r['teamId'] == tid and all(
                         m['date'] is not None and (r['registeredAt'] is None or r['registeredAt'] <= m['date'])
                         and (r['releasedAt'] is None or m['date'] <= r['releasedAt']) for m in linked) for r in registrations)}
@@ -156,7 +177,7 @@ def parse_profile(soup, pid, expected_names, matches):
                 'method': 'calendar_match_id_intersection', 'competitionId': '4', 'seasonId': '22'}
             stats[tid] = row
     return {'name': name, 'lastName': text(last), 'firstName': text(first).split()[0],
-            'photoUrl': photo, 'registrations': registrations, 'stats': stats, 'unresolvedGroups': unresolved}
+            'photoUrl': photo, 'registrations': registrations, 'registrationIssues': registration_issues, 'stats': stats, 'unresolvedGroups': unresolved}
 
 
 class NetworkLoader:
@@ -191,7 +212,7 @@ class NetworkLoader:
 
 def fresh(q, now, hours):
     try:
-        return (datetime.fromisoformat(now) - datetime.fromisoformat(q.get('lastVerifiedAt') or '') < timedelta(hours=hours)
+        return (timedelta(0) <= datetime.fromisoformat(now) - datetime.fromisoformat(q.get('lastVerifiedAt') or '') < timedelta(hours=hours)
                 and q.get('status') == 'current')
     except (ValueError, TypeError):
         return False
@@ -247,7 +268,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
             r['clubListQuality'] = quality(url, 'current', 'official_club_list_not_season_roster', when, 'complete', when)
             report['clubs'][tid] = {'status': 'current', 'listed': len(entries)}
     candidates = set(pid for tid in TARGET_IDS for pid in p['rosters'][f'4:22:{tid}'].get('clubPlayerIds', []))
-    candidates = [pid for pid in candidates if force or not fresh(p['playersById'][pid].get('profileQuality', {}), clock(), 24) or p['playersById'][pid].get('unresolvedSeasonGroups')]
+    candidates = [pid for pid in candidates if force or not fresh(p['playersById'][pid].get('profileQuality', {}), clock(), 24) or (p['playersById'][pid].get('unresolvedSeasonGroups') and p['playersById'][pid].get('profileImportVersion') != 2)]
     candidates.sort(key=lambda pid: (p['playersById'][pid].get('profileQuality', {}).get('checkedAt') or '', int(pid)))
     def profile_job(pid):
         if time.monotonic()-start >= max_seconds:
@@ -277,6 +298,11 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                 player.update(photoUrl=result['photoUrl'], photoSourceUrl=url)
             player['profileQuality'] = quality(url, 'current', 'official_profile', when, 'partial', when)
             player['unresolvedSeasonGroups'] = result['unresolvedGroups']
+            player['profileImportVersion'] = 2
+            player['registrationIssues'] = result['registrationIssues']
+            for old_reg in p['registrations'].values():
+                if old_reg['playerId'] == pid and old_reg['teamId'] != '141':
+                    old_reg['quality'].update(status='stale', checkedAt=when, reason='registration_not_verified_in_latest_profile', lastAttemptStatus='not_checked')
             for reg in result['registrations']:
                 key = f"{pid}:{reg['teamId']}:club:{reg['registeredAt'] or 'unknown'}"
                 record = {'registrationId': key, 'playerId': pid, **reg, 'scope': 'club',
@@ -321,7 +347,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                         'scope': 'competition_season', 'competitionId': '4', 'seasonId': '22', 'sourceUrl': url,
                         'evidenceSourceMatchIds': evidence,
                         'quality': quality(url, 'current', 'profile_registration_and_season_match_ids', when, 'partial', when)}
-            report['profiles'][pid] = {'status': 'current', 'boundTeams': list(result['stats']), 'unresolvedGroups': result['unresolvedGroups']}
+            report['profiles'][pid] = {'status': 'current', 'boundTeams': list(result['stats']), 'unresolvedGroups': result['unresolvedGroups'], 'registrationIssues': result['registrationIssues']}
     for tid in TARGET_IDS:
         r = p['rosters'][f'4:22:{tid}']
         historical, unverified = [], []

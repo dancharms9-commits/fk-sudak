@@ -85,7 +85,7 @@ const server=http.createServer((req,res)=>{
   await tab(page,'calendar');await page.locator('#champ-round').selectOption('18');await page.locator('#champ-team').selectOption('all');await page.locator('#champ-status').selectOption('all');
   await page.locator('details[data-champ-match]').first().locator('summary').click();
   await page.evaluate(()=>scrollTo(0,180));const before=await page.evaluate(()=>scrollY);
-  servedData=JSON.parse(JSON.stringify(data));servedData.updated='2026-11-05T21:00:00Z';
+  servedData=JSON.parse(JSON.stringify(data));servedData.updated=new Date(Date.parse(data.updated)+60000).toISOString();
   await page.evaluate(()=>refreshData(true));
   assert.equal(await page.locator('#champ-round').inputValue(),'18');assert.equal(await page.locator('details[data-champ-match][open]').count(),1);
   assert(Math.abs(await page.evaluate(()=>scrollY)-before)<3);

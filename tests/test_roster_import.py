@@ -98,6 +98,70 @@ class RosterImportTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             loader('https://evil.test/teams/936/')
 
+    def test_bad_historical_registration_is_isolated_from_valid_season_statistics(self):
+        s = soup('players-1698.html')
+        row = s.select('.player-data__team:not(.player-data__team_head)')[1]
+        row.select_one('a')['href'] = 'https://rffk-roo.ru/teams/0/'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(set(result['stats']), {'117', '146'})
+        self.assertEqual(len(result['registrationIssues']), 1)
+        self.assertEqual(len(result['registrations']), 2)
+
+    def test_exact_duplicate_is_deduplicated_conflicting_period_is_not_guessed(self):
+        s = soup('players-1698.html')
+        row = s.select('.player-data__team:not(.player-data__team_head)')[0]
+        row.parent.append(copy.deepcopy(row))
+        regs, issues = importer.parse_registrations(s)
+        self.assertEqual(len(regs), 2)
+        self.assertEqual(issues, [])
+        row.parent.select('.player-data__team')[-1].find_all('div', recursive=False)[2].string = 'Защитник'
+        regs, issues = importer.parse_registrations(s)
+        self.assertEqual([r['teamId'] for r in regs], ['146'])
+        self.assertEqual(issues[0]['reason'], 'ambiguous_registration_period')
+
+    def test_missing_cards_are_null_and_published_zeroes_and_numbers_are_preserved(self):
+        s = soup('players-1698.html')
+        s.select('.player-data__team:not(.player-data__team_head)')[0].find_all('div', recursive=False)[0].string = '777'
+        group = s.select_one('.player-stat__stat_h[data-id="117422"]')
+        group.find_all('div', recursive=False)[5].string = '-'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(result['registrations'][0]['number'], 777)
+        self.assertIsNone(result['stats']['117']['yellowCards'])
+        self.assertEqual(result['stats']['117']['redCards'], 0)
+
+    def test_known_match_subset_can_identify_one_club_but_unknown_links_are_not_joined(self):
+        s = soup('players-1698.html')
+        more = s.select_one('.player-stat__more[data-id="117422"]')
+        more.select_one('a')['href'] = '/matches/999999/'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        binding = result['stats']['117']['sourceBinding']
+        self.assertEqual(len(binding['sourceMatchIds']), 4)
+        self.assertEqual(binding['unresolvedSourceMatchIds'], ['999999'])
+        self.assertEqual(result['stats']['117']['goals'], 1)  # published aggregate, not a sum of the four games
+
+    def test_profile_enrichment_survives_the_existing_sudak_projection(self):
+        p = copy.deepcopy(SEED['platform'])
+        player = p['playersById']['202']
+        player.update(firstName='Илья', lastName='Донской', photoUrl='https://rffk-roo.ru/uploads/people/large/DGIaYmPn.jpg', photoSourceUrl=player['sourceUrl'])
+        result = sources.project_snapshot(SEED, p)
+        self.assertEqual(result['playersById']['202']['photoUrl'], player['photoUrl'])
+        self.assertEqual(result['playersById']['202']['firstName'], 'Илья')
+        self.assertEqual(result['playerSeasonStats']['202:141:4:22']['goals'], p['playerSeasonStats']['202:141:4:22']['goals'])
+
+    def test_partial_refresh_keeps_roster_players_and_last_verified_fields(self):
+        p = copy.deepcopy(SEED['platform'])
+        pid = '1698'
+        before = copy.deepcopy(p['playerSeasonStats'][pid+':117:4:22'])
+        p['playersById'][pid]['profileQuality']['status'] = 'stale'
+        def unavailable(url):
+            raise requests.Timeout('fixture')
+        result, _ = importer.sync_platform(p, unavailable, max_profiles=600, checked_at=WHEN)
+        after = result['playerSeasonStats'][pid+':117:4:22']
+        self.assertEqual({k: after[k] for k in schema.STATS}, {k: before[k] for k in schema.STATS})
+        self.assertEqual(after['quality']['lastVerifiedAt'], before['quality']['lastVerifiedAt'])
+        self.assertEqual(after['quality']['status'], 'stale')
+        self.assertEqual(result['rosters']['4:22:117']['playerIds'], p['rosters']['4:22:117']['playerIds'])
+
 
 if __name__ == '__main__':
     unittest.main()

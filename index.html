@@ -836,10 +836,9 @@ function findPlayer(route,players=playerRows()){
   if(route.teamId)return platformProfile(route);
   const exact=players.filter(p=>playerKey(p)===route.player);
   if(exact.length===1)return exact[0];
-  const shared=platformProfile(route);if(shared)return shared;
   // Old/partial statistics may temporarily omit the official profile URL.
   const sameName=players.filter(p=>normalizedName(p.name)===normalizedName(route.playerName));
-  return !exact.length&&sameName.length===1&&!officialPlayerURL(sameName[0].profile_url)?sameName[0]:null;
+  return !exact.length&&sameName.length===1&&!officialPlayerURL(sameName[0].profile_url)?sameName[0]:platformProfile(route);
 }
 // Club representative confirmed publication, local WebP and offline use.
 // Keep portraits independent of the hourly federation/statistics refresh.
@@ -1409,7 +1408,7 @@ function platformMembership(id,teamId){
   const entry=r.entriesByPlayerId?.[id],positions=[...new Set(regs.map(reg=>reg.position).filter(Boolean))],numbers=[...new Set(regs.map(reg=>reg.number).filter(n=>Number.isInteger(n)))];
   return {teamId,position:entry?.position||(positions.length===1?positions[0]:null),
     number:entry?.number??(numbers.length===1?numbers[0]:null),registrations:regs,
-    state:r.playerIds?.includes(id)?'confirmed':r.historicalPlayerIds?.includes(id)?'historical':'unverified'};
+    state:teamId==='141'&&r.quality?.reason==='imported_snapshot'?'legacy':r.playerIds?.includes(id)?'confirmed':r.historicalPlayerIds?.includes(id)?'historical':'unverified'};
 }
 function platformProfile(route){
   const id=/^rffk-([1-9]\d*)$/.exec(route.player||'')?.[1],person=PLATFORM?.playersById?.[id];
@@ -1429,11 +1428,11 @@ function platformProfile(route){
 }
 function platformProfileInfo(p){
   const c=p._platform;if(!c)return '';
-  const labels={confirmed:'Участие в чемпионате 2026 подтверждено.',historical:'Историческая связь с клубом. Участие в чемпионате 2026 не подтверждено.',unverified:'Общий список клуба РФФК. Принадлежность к сезону 2026 пока не подтверждена.'};
+  const labels={legacy:'Сохранённый состав «Судака». Регистрация сезона новым импортёром не проверялась.',confirmed:'Участие в чемпионате 2026 подтверждено.',historical:'Историческая связь с клубом. Участие в чемпионате 2026 не подтверждено.',unverified:'Общий список клуба РФФК. Принадлежность к сезону 2026 пока не подтверждена.'};
   const memberships=CLUB_IDS.map(id=>platformMembership(c.id,id)).filter(Boolean);
   const other=memberships.map(m=>`<a class="club-source" data-platform-player="${esc(c.id+':'+m.teamId)}" href="${esc(platformPlayerHref(c.id,m.teamId))}">${esc(platformTeam(m.teamId).name)}${m.state==='confirmed'?' · 2026':' · сезон не подтверждён'}</a>`).join('');
   const regs=c.membership?.registrations.filter(r=>r.scope==='club')||[];
-  return `<div class="card platform-player-context">${c.team?`<p>Команда: ${clubLink(c.teamId)}</p><p class="hint">${labels[c.membership.state]}</p>`:'<p class="empty">Выберите клубный контекст. Статистика разных команд не суммируется.</p>'}${regs.map(r=>`<p class="hint">Заявлен: ${esc(r.registeredAt||'дата не опубликована')}${r.releasedAt?' · Отзаявлен: '+esc(r.releasedAt):' · Дата отзаявки не опубликована'}</p>`).join('')}${clubQuality(c.person.profileQuality||c.person.quality)}${c.stat?clubQuality(c.stat.quality):'<p class="hint">Подтверждённая индивидуальная статистика этого клуба и сезона пока отсутствует в приложении. Прочерки не означают нулевые показатели.</p>'}${other?'<h3>Клубные связи РФФК</h3><div class="platform-player-clubs">'+other+'</div>':''}</div>`;
+  return `<div class="card platform-player-context">${c.team?`<p>Команда: ${clubLink(c.teamId)}</p><p class="hint">${labels[c.membership.state]}</p>`:'<p class="empty">Выберите клубный контекст. Статистика разных команд не суммируется.</p>'}${regs.map(r=>`<p class="hint">Заявлен: ${esc(r.registeredAt||'дата не опубликована')}${r.releasedAt?' · Отзаявлен: '+esc(r.releasedAt):' · Дата отзаявки не опубликована'}</p>`).join('')}${regs.some(r=>r.quality?.status==='stale')?'<p class="hint">Некоторые даты заявок сохранены из предыдущей проверки и требуют повторного подтверждения.</p>':''}${c.person.registrationIssues?.length?'<p class="hint">Некоторые сведения о заявках РФФК неоднозначны. Они не используются для подтверждения регистрации в сезоне.</p>':''}${clubQuality(c.person.profileQuality||c.person.quality)}${c.stat?clubQuality(c.stat.quality):'<p class="hint">Подтверждённая индивидуальная статистика этого клуба и сезона пока отсутствует в приложении. Прочерки не означают нулевые показатели.</p>'}${other?'<h3>Клубные связи РФФК</h3><div class="platform-player-clubs">'+other+'</div>':''}</div>`;
 }
 function platformRosterHTML(teamId){
   const r=PLATFORM?.rosters?.['4:22:'+teamId];if(!r)return '';
