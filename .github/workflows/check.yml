@@ -47,10 +47,15 @@ jobs:
         run: |
           git show "$BASE_SHA:index.html" > "$RUNNER_TEMP/multi-club-base.html"
           echo "MULTI_CLUB_BASELINE_HTML=$RUNNER_TEMP/multi-club-base.html" >> "$GITHUB_ENV"
+          git show "$BASE_SHA:data.json" > "$RUNNER_TEMP/roster-base-data.json"
+          echo "ROSTER_BASELINE_DATA=$RUNNER_TEMP/roster-base-data.json" >> "$GITHUB_ENV"
       - run: node tests/multi-club.browser.cjs
       - run: node tests/club-pages.browser.cjs
         env:
           CLUB_SCREENSHOT_DIR: club-screenshots
+      - run: node tests/roster-profiles.browser.cjs
+        env:
+          ROSTER_SCREENSHOT_DIR: roster-screenshots
       - run: node tests/championship.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: championship-screenshots
@@ -77,6 +82,7 @@ jobs:
         with:
           name: launch-screenshots
           path: |
+            roster-screenshots/
             club-screenshots/
             championship-screenshots/
             player-photo-screenshots/

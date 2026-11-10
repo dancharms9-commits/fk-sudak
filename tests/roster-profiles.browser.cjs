@@ -85,6 +85,19 @@ const server=http.createServer((req,res)=>{
   assert.equal(await p.locator('#player [data-stat="league_minutes"] b').innerText(),'—');assert.equal(await p.locator('#player [data-stat="league_yellow_cards"] b').innerText(),'0');
   const r=payload.platform.rosters['4:22:936'],unknown=r.unverifiedPlayerIds[0];
   if(unknown){await p.goto(base+`#player=rffk-${unknown}&team=936&competition=4&season=22`);await ready(p);assert((await p.locator('#player').innerText()).includes('не подтверждена'))}
+  payload=structuredClone(data);
+  const hr=payload.platform.rosters['4:22:936'],historicalId=hr.playerIds[0];
+  hr.playerIds=hr.playerIds.filter(id=>id!==historicalId);hr.historicalPlayerIds=[historicalId];
+  hr.unverifiedPlayerIds=hr.unverifiedPlayerIds.filter(id=>id!==historicalId);
+  delete payload.platform.playerSeasonStats[`${historicalId}:936:4:22`];
+  await p.goto(base+`#player=rffk-${historicalId}&team=936&competition=4&season=22`);await ready(p);
+  assert((await p.locator('#player').innerText()).includes('Историческая связь с клубом'));
+  assert.equal(await p.locator('#player [data-stat="league_games"] b').innerText(),'—');
+  payload=structuredClone(data);const er=payload.platform.rosters['4:22:936'];
+  er.playerIds=[];er.clubPlayerIds=[];er.entriesByPlayerId={};er.unverifiedPlayerIds=[];er.historicalPlayerIds=[];
+  er.clubListQuality={...er.clubListQuality,status:'temporarily_unavailable',lastVerifiedAt:null,lastSuccessAt:null};
+  await p.goto(base+'#team=936');await ready(p);assert((await p.locator('#team').innerText()).includes('Сезонный состав пока не подтверждён'));
+  assert.equal(await p.locator('#team .club-roster-player').count(),0);
   payload=data;await c.close();
   assert.equal(requests.filter(url=>/rffk-roo\.ru\/players\//.test(url)).length,0,'Opening profiles must never scrape federation pages');
   const off=await context('allow'),op=await off.newPage();attach(op);

@@ -2206,7 +2206,7 @@
    "stale": false
   }
  },
- "updated": "2026-11-10T08:08:16+00:00",
+ "updated": "2026-11-10T10:54:48+00:00",
  "table": [
   [
    "СК «Каштан»",
@@ -12169,16 +12169,17 @@
     "firstName": "Дмитрий",
     "lastName": "Манонин",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/443/",
-     "checkedAt": "2026-11-10T08:07:38+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": []
    },
    "1970": {
     "playerId": "1970",
@@ -13342,16 +13343,23 @@
     "firstName": "Сергей",
     "lastName": "Винокуров",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/963/",
-     "checkedAt": "2026-11-10T08:07:43+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": null,
+      "sourceRow": 3,
+      "reason": "Registration without official team ID"
+     }
+    ]
    },
    "2256": {
     "playerId": "2256",
@@ -13447,18 +13455,25 @@
     "firstName": "Андрей",
     "lastName": "Кирсанов",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/707/",
-     "checkedAt": "2026-11-10T08:07:40+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "official_profile"
     },
-    "photoUrl": "https://rffk-roo.ru/uploads/people/small/TFz4A52x.jpg",
-    "photoSourceUrl": "https://rffk-roo.ru/teams/930/"
+    "photoUrl": "https://rffk-roo.ru/uploads/people/large/TFz4A52x.jpg",
+    "photoSourceUrl": "https://rffk-roo.ru/players/707/",
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "930",
+      "sourceRow": 7,
+      "reason": "ambiguous_registration_period"
+     }
+    ]
    },
    "3192": {
     "playerId": "3192",
@@ -14336,16 +14351,23 @@
     "firstName": "Алексей",
     "lastName": "Витенко",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3223/",
-     "checkedAt": "2026-11-10T08:07:59+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "757",
+      "sourceRow": 3,
+      "reason": "ambiguous_registration_period"
+     }
+    ]
    },
    "1400": {
     "playerId": "1400",
@@ -15209,18 +15231,25 @@
     "firstName": "Никита",
     "lastName": "Мазуренко",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/2166/",
-     "checkedAt": "2026-11-10T08:07:51+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "official_profile"
     },
-    "photoUrl": "https://rffk-roo.ru/uploads/people/small/pTCshOIV.jpg",
-    "photoSourceUrl": "https://rffk-roo.ru/teams/934/"
+    "photoUrl": "https://rffk-roo.ru/uploads/people/large/pTCshOIV.jpg",
+    "photoSourceUrl": "https://rffk-roo.ru/players/2166/",
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": null,
+      "sourceRow": 1,
+      "reason": "Registration without official team ID"
+     }
+    ]
    },
    "3373": {
     "playerId": "3373",
@@ -15342,16 +15371,23 @@
     "firstName": "Арсен",
     "lastName": "Мамутов",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/1315/",
-     "checkedAt": "2026-11-10T08:07:46+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": null,
+      "sourceRow": 3,
+      "reason": "Registration without official team ID"
+     }
+    ]
    },
    "58": {
     "playerId": "58",
@@ -15581,16 +15617,23 @@
     "firstName": "Анатолий",
     "lastName": "Бровко",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/1928/",
-     "checkedAt": "2026-11-10T08:07:49+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "146",
+      "sourceRow": 3,
+      "reason": "ambiguous_registration_period"
+     }
+    ]
    },
    "449": {
     "playerId": "449",
@@ -15768,18 +15811,25 @@
     "firstName": "Егор",
     "lastName": "Яковенко",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/1280/",
-     "checkedAt": "2026-11-10T08:07:45+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile"
     },
-    "photoUrl": "https://rffk-roo.ru/uploads/people/small/YcNLCIWf.jpg",
-    "photoSourceUrl": "https://rffk-roo.ru/teams/1030/"
+    "photoUrl": "https://rffk-roo.ru/uploads/people/large/YcNLCIWf.jpg",
+    "photoSourceUrl": "https://rffk-roo.ru/players/1280/",
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "146",
+      "sourceRow": 4,
+      "reason": "Invalid registration interval"
+     }
+    ]
    },
    "865": {
     "playerId": "865",
@@ -15929,16 +15979,23 @@
     "firstName": "Сергей",
     "lastName": "Кратынский",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3130/",
-     "checkedAt": "2026-11-10T08:07:59+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "932",
+      "sourceRow": 3,
+      "reason": "ambiguous_registration_period"
+     }
+    ]
    },
    "3129": {
     "playerId": "3129",
@@ -15956,16 +16013,23 @@
     "firstName": "Сергей",
     "lastName": "Дашевский",
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3129/",
-     "checkedAt": "2026-11-10T08:07:58+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "932",
+      "sourceRow": 3,
+      "reason": "ambiguous_registration_period"
+     }
+    ]
    },
    "3134": {
     "playerId": "3134",
@@ -17259,18 +17323,25 @@
      "reason": "official_club_list_identity"
     },
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/2004/",
-     "checkedAt": "2026-11-10T08:07:50+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "official_profile"
     },
-    "photoUrl": "https://rffk-roo.ru/uploads/people/small/sFbBCtgO.jpg",
-    "photoSourceUrl": "https://rffk-roo.ru/teams/117/"
+    "photoUrl": "https://rffk-roo.ru/uploads/people/large/sFbBCtgO.jpg",
+    "photoSourceUrl": "https://rffk-roo.ru/players/2004/",
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": [
+     {
+      "teamId": "117",
+      "sourceRow": 2,
+      "reason": "ambiguous_registration_period"
+     }
+    ]
    },
    "3510": {
     "playerId": "3510",
@@ -18177,9 +18248,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3522/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "official_profile"
     },
     "unresolvedSeasonGroups": [
@@ -18190,7 +18261,9 @@
        "38752"
       ]
      }
-    ]
+    ],
+    "profileImportVersion": 2,
+    "registrationIssues": []
    },
    "478": {
     "playerId": "478",
@@ -19798,16 +19871,17 @@
      "reason": "official_club_list_identity"
     },
     "profileQuality": {
-     "status": "temporarily_unavailable",
-     "coverage": "unknown",
+     "status": "current",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/1277/",
-     "checkedAt": "2026-11-10T08:07:45+00:00",
-     "lastSuccessAt": null,
-     "lastVerifiedAt": null,
-     "reason": "profile_source_unavailable",
-     "lastAttemptStatus": "temporarily_unavailable",
-     "errorCode": "InvalidPlatform"
-    }
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile"
+    },
+    "unresolvedSeasonGroups": [],
+    "profileImportVersion": 2,
+    "registrationIssues": []
    },
    "3379": {
     "playerId": "3379",
@@ -20646,9 +20720,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/561/",
-     "checkedAt": "2026-11-10T08:07:39+00:00",
-     "lastSuccessAt": "2026-11-10T08:07:39+00:00",
-     "lastVerifiedAt": "2026-11-10T08:07:39+00:00",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
      "reason": "official_profile"
     },
     "photoUrl": "https://rffk-roo.ru/uploads/people/large/n43J4NgJ.jpg",
@@ -20661,7 +20735,9 @@
        "38771"
       ]
      }
-    ]
+    ],
+    "profileImportVersion": 2,
+    "registrationIssues": []
    },
    "3121": {
     "playerId": "3121",
@@ -20708,9 +20784,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3543/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "official_profile"
     },
     "unresolvedSeasonGroups": [
@@ -20721,7 +20797,9 @@
        "38771"
       ]
      }
-    ]
+    ],
+    "profileImportVersion": 2,
+    "registrationIssues": []
    },
    "1783": {
     "playerId": "1783",
@@ -20848,9 +20926,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3464/",
-     "checkedAt": "2026-11-10T08:08:11+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:11+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:11+00:00",
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
      "reason": "official_profile"
     },
     "unresolvedSeasonGroups": [
@@ -20861,7 +20939,9 @@
        "38771"
       ]
      }
-    ]
+    ],
+    "profileImportVersion": 2,
+    "registrationIssues": []
    }
   },
   "registrations": {
@@ -21912,9 +21992,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/561/",
-     "checkedAt": "2026-11-10T08:07:39+00:00",
-     "lastSuccessAt": "2026-11-10T08:07:39+00:00",
-     "lastVerifiedAt": "2026-11-10T08:07:39+00:00",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -21934,9 +22014,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/561/",
-     "checkedAt": "2026-11-10T08:07:39+00:00",
-     "lastSuccessAt": "2026-11-10T08:07:39+00:00",
-     "lastVerifiedAt": "2026-11-10T08:07:39+00:00",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -21956,9 +22036,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/561/",
-     "checkedAt": "2026-11-10T08:07:39+00:00",
-     "lastSuccessAt": "2026-11-10T08:07:39+00:00",
-     "lastVerifiedAt": "2026-11-10T08:07:39+00:00",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -21978,9 +22058,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/561/",
-     "checkedAt": "2026-11-10T08:07:39+00:00",
-     "lastSuccessAt": "2026-11-10T08:07:39+00:00",
-     "lastVerifiedAt": "2026-11-10T08:07:39+00:00",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -37775,9 +37855,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3464/",
-     "checkedAt": "2026-11-10T08:08:11+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:11+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:11+00:00",
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -39598,9 +39678,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3522/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -39620,9 +39700,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3522/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -39645,9 +39725,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3522/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "profile_registration_and_season_match_ids"
     }
    },
@@ -40080,9 +40160,9 @@
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3543/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "official_profile_club_registration"
     }
    },
@@ -42416,6 +42496,738 @@
      "lastVerifiedAt": "2026-11-10T08:08:15+00:00",
      "reason": "profile_registration_and_season_match_ids"
     }
+   },
+   "443:146:club:2019-09-11": {
+    "registrationId": "443:146:club:2019-09-11",
+    "playerId": "443",
+    "teamId": "146",
+    "registeredAt": "2019-09-11",
+    "releasedAt": "2020-07-01",
+    "number": 1294,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/443/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/443/",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "443:117:club:2017-08-25": {
+    "registrationId": "443:117:club:2017-08-25",
+    "playerId": "443",
+    "teamId": "117",
+    "registeredAt": "2017-08-25",
+    "releasedAt": "2018-06-11",
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/443/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/443/",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "443:1030:club:2025-03-25": {
+    "registrationId": "443:1030:club:2025-03-25",
+    "playerId": "443",
+    "teamId": "1030",
+    "registeredAt": "2025-03-25",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/443/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/443/",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "443:1030:4:22:2025-03-25": {
+    "registrationId": "443:1030:4:22:2025-03-25",
+    "playerId": "443",
+    "teamId": "1030",
+    "registeredAt": "2025-03-25",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/443/",
+    "evidenceSourceMatchIds": [
+     "38738",
+     "38748",
+     "38760",
+     "38763"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/443/",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "707:930:club:2025-03-23": {
+    "registrationId": "707:930:club:2025-03-23",
+    "playerId": "707",
+    "teamId": "930",
+    "registeredAt": "2025-03-23",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/707/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/707/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "707:930:4:22:2025-03-23": {
+    "registrationId": "707:930:4:22:2025-03-23",
+    "playerId": "707",
+    "teamId": "930",
+    "registeredAt": "2025-03-23",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/707/",
+    "evidenceSourceMatchIds": [
+     "38662",
+     "38675",
+     "38680",
+     "38688",
+     "38701",
+     "38713",
+     "38715",
+     "38724",
+     "38728",
+     "38740",
+     "38753",
+     "38757"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/707/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "963:930:club:2025-03-23": {
+    "registrationId": "963:930:club:2025-03-23",
+    "playerId": "963",
+    "teamId": "930",
+    "registeredAt": "2025-03-23",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/963/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/963/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "963:930:club:2025-03-28": {
+    "registrationId": "963:930:club:2025-03-28",
+    "playerId": "963",
+    "teamId": "930",
+    "registeredAt": "2025-03-28",
+    "releasedAt": "2025-12-15",
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/963/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/963/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "963:930:4:22:2025-03-23": {
+    "registrationId": "963:930:4:22:2025-03-23",
+    "playerId": "963",
+    "teamId": "930",
+    "registeredAt": "2025-03-23",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/963/",
+    "evidenceSourceMatchIds": [
+     "38662",
+     "38691",
+     "38713",
+     "38728",
+     "38740",
+     "38757"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/963/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "1277:934:club:2025-03-27": {
+    "registrationId": "1277:934:club:2025-03-27",
+    "playerId": "1277",
+    "teamId": "934",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1277/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1277/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1277:146:club:2018-03-14": {
+    "registrationId": "1277:146:club:2018-03-14",
+    "playerId": "1277",
+    "teamId": "146",
+    "registeredAt": "2018-03-14",
+    "releasedAt": "2018-06-11",
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1277/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1277/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1277:146:club:2019-09-27": {
+    "registrationId": "1277:146:club:2019-09-27",
+    "playerId": "1277",
+    "teamId": "146",
+    "registeredAt": "2019-09-27",
+    "releasedAt": "2020-07-01",
+    "number": 825,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1277/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1277/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1280:146:club:2018-03-14": {
+    "registrationId": "1280:146:club:2018-03-14",
+    "playerId": "1280",
+    "teamId": "146",
+    "registeredAt": "2018-03-14",
+    "releasedAt": "2018-06-11",
+    "number": null,
+    "position": "Вратарь",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1280/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1280/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1280:1030:club:2025-03-25": {
+    "registrationId": "1280:1030:club:2025-03-25",
+    "playerId": "1280",
+    "teamId": "1030",
+    "registeredAt": "2025-03-25",
+    "releasedAt": null,
+    "number": null,
+    "position": "Вратарь",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1280/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1280/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1280:1030:4:22:2025-03-25": {
+    "registrationId": "1280:1030:4:22:2025-03-25",
+    "playerId": "1280",
+    "teamId": "1030",
+    "registeredAt": "2025-03-25",
+    "releasedAt": null,
+    "number": null,
+    "position": "Вратарь",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/1280/",
+    "evidenceSourceMatchIds": [
+     "38661",
+     "38671",
+     "38683",
+     "38694",
+     "38705",
+     "38711",
+     "38716",
+     "38724",
+     "38727",
+     "38738",
+     "38748",
+     "38763"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1280/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "1315:934:club:2025-03-27": {
+    "registrationId": "1315:934:club:2025-03-27",
+    "playerId": "1315",
+    "teamId": "934",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1315/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1315/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1315:934:club:2025-03-28": {
+    "registrationId": "1315:934:club:2025-03-28",
+    "playerId": "1315",
+    "teamId": "934",
+    "registeredAt": "2025-03-28",
+    "releasedAt": "2025-12-08",
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1315/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1315/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "1315:934:4:22:2025-03-27": {
+    "registrationId": "1315:934:4:22:2025-03-27",
+    "playerId": "1315",
+    "teamId": "934",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/1315/",
+    "evidenceSourceMatchIds": [
+     "38676",
+     "38687",
+     "38719"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1315/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "1928:146:club:2019-09-10": {
+    "registrationId": "1928:146:club:2019-09-10",
+    "playerId": "1928",
+    "teamId": "146",
+    "registeredAt": "2019-09-10",
+    "releasedAt": "2020-07-01",
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/1928/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1928/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "2166:521:club:2020-09-25": {
+    "registrationId": "2166:521:club:2020-09-25",
+    "playerId": "2166",
+    "teamId": "521",
+    "registeredAt": "2020-09-25",
+    "releasedAt": "2022-08-01",
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/2166/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/2166/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "2166:934:club:2025-08-22": {
+    "registrationId": "2166:934:club:2025-08-22",
+    "playerId": "2166",
+    "teamId": "934",
+    "registeredAt": "2025-08-22",
+    "releasedAt": "2025-12-08",
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/2166/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/2166/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "2166:934:club:2025-03-27": {
+    "registrationId": "2166:934:club:2025-03-27",
+    "playerId": "2166",
+    "teamId": "934",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/2166/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/2166/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "2166:934:4:22:2025-03-27": {
+    "registrationId": "2166:934:4:22:2025-03-27",
+    "playerId": "2166",
+    "teamId": "934",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Полузащитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/2166/",
+    "evidenceSourceMatchIds": [
+     "38676",
+     "38687",
+     "38693",
+     "38719",
+     "38746",
+     "38759"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/2166/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "3129:932:club:2026-04-01": {
+    "registrationId": "3129:932:club:2026-04-01",
+    "playerId": "3129",
+    "teamId": "932",
+    "registeredAt": "2026-04-01",
+    "releasedAt": null,
+    "number": null,
+    "position": "Нападающий",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/3129/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3129/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "3129:932:4:22:2026-04-01": {
+    "registrationId": "3129:932:4:22:2026-04-01",
+    "playerId": "3129",
+    "teamId": "932",
+    "registeredAt": "2026-04-01",
+    "releasedAt": null,
+    "number": null,
+    "position": "Нападающий",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/3129/",
+    "evidenceSourceMatchIds": [
+     "38671",
+     "38673",
+     "38686",
+     "38693",
+     "38699",
+     "38704",
+     "38712",
+     "38715",
+     "38725",
+     "38726",
+     "38764"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3129/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "3130:932:club:2026-04-01": {
+    "registrationId": "3130:932:club:2026-04-01",
+    "playerId": "3130",
+    "teamId": "932",
+    "registeredAt": "2026-04-01",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/3130/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3130/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "3130:932:4:22:2026-04-01": {
+    "registrationId": "3130:932:4:22:2026-04-01",
+    "playerId": "3130",
+    "teamId": "932",
+    "registeredAt": "2026-04-01",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/3130/",
+    "evidenceSourceMatchIds": [
+     "38671",
+     "38673",
+     "38686",
+     "38693",
+     "38699",
+     "38704",
+     "38712",
+     "38715",
+     "38725"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3130/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
+   },
+   "3223:757:club:2025-03-27": {
+    "registrationId": "3223:757:club:2025-03-27",
+    "playerId": "3223",
+    "teamId": "757",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "club",
+    "competitionId": null,
+    "seasonId": null,
+    "sourceUrl": "https://rffk-roo.ru/players/3223/",
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3223/",
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
+     "reason": "official_profile_club_registration"
+    }
+   },
+   "3223:757:4:22:2025-03-27": {
+    "registrationId": "3223:757:4:22:2025-03-27",
+    "playerId": "3223",
+    "teamId": "757",
+    "registeredAt": "2025-03-27",
+    "releasedAt": null,
+    "number": null,
+    "position": "Защитник",
+    "scope": "competition_season",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/3223/",
+    "evidenceSourceMatchIds": [
+     "38664",
+     "38667",
+     "38677",
+     "38689",
+     "38691",
+     "38700",
+     "38704",
+     "38717",
+     "38729",
+     "38733",
+     "38742",
+     "38744",
+     "38754"
+    ],
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3223/",
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
+     "reason": "profile_registration_and_season_match_ids"
+    }
    }
   },
   "rosters": {
@@ -42859,15 +43671,17 @@
      "3121",
      "3362",
      "3363",
-     "3366"
+     "3366",
+     "443",
+     "1280"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
-     "sourceUrl": "https://rffk-roo.ru/players/3366/",
-     "checkedAt": "2026-11-10T08:08:03+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:03+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:03+00:00",
+     "sourceUrl": "https://rffk-roo.ru/players/1280/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -43247,11 +44061,9 @@
     "unverifiedPlayerIds": [
      "1808",
      "561",
-     "443",
      "3543",
      "2831",
      "583",
-     "1280",
      "3464"
     ]
    },
@@ -43282,15 +44094,17 @@
      "3151",
      "3286",
      "3407",
-     "3408"
+     "3408",
+     "3129",
+     "3130"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
-     "sourceUrl": "https://rffk-roo.ru/players/3408/",
-     "checkedAt": "2026-11-10T07:55:03+00:00",
-     "lastSuccessAt": "2026-11-10T07:55:03+00:00",
-     "lastVerifiedAt": "2026-11-10T07:55:03+00:00",
+     "sourceUrl": "https://rffk-roo.ru/players/3130/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -43608,10 +44422,8 @@
     },
     "historicalPlayerIds": [],
     "unverifiedPlayerIds": [
-     "3129",
      "3143",
      "3139",
-     "3130",
      "3146",
      "3142",
      "1260"
@@ -44176,15 +44988,17 @@
      "3455",
      "3461",
      "3462",
-     "3537"
+     "3537",
+     "707",
+     "963"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
-     "sourceUrl": "https://rffk-roo.ru/players/3537/",
-     "checkedAt": "2026-11-10T07:55:43+00:00",
-     "lastSuccessAt": "2026-11-10T07:55:43+00:00",
-     "lastVerifiedAt": "2026-11-10T07:55:43+00:00",
+     "sourceUrl": "https://rffk-roo.ru/players/963/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -44652,8 +45466,6 @@
     },
     "historicalPlayerIds": [],
     "unverifiedPlayerIds": [
-     "963",
-     "707",
      "468",
      "3350",
      "1566",
@@ -44695,15 +45507,16 @@
      "3370",
      "3375",
      "3459",
-     "3530"
+     "3530",
+     "1928"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
-     "sourceUrl": "https://rffk-roo.ru/players/3530/",
-     "checkedAt": "2026-11-10T07:55:41+00:00",
-     "lastSuccessAt": "2026-11-10T07:55:41+00:00",
-     "lastVerifiedAt": "2026-11-10T07:55:41+00:00",
+     "sourceUrl": "https://rffk-roo.ru/players/1928/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -45051,7 +45864,6 @@
     },
     "historicalPlayerIds": [],
     "unverifiedPlayerIds": [
-     "1928",
      "3531",
      "3339",
      "3336"
@@ -45104,15 +45916,17 @@
      "3522",
      "3523",
      "3524",
-     "3533"
+     "3533",
+     "1315",
+     "2166"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3522/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -45581,8 +46395,6 @@
     "historicalPlayerIds": [],
     "unverifiedPlayerIds": [
      "1841",
-     "2166",
-     "1315",
      "829",
      "3377",
      "1277",
@@ -45623,15 +46435,16 @@
      "3433",
      "3434",
      "3495",
-     "3525"
+     "3525",
+     "3223"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
-     "sourceUrl": "https://rffk-roo.ru/players/3525/",
-     "checkedAt": "2026-11-10T07:55:40+00:00",
-     "lastSuccessAt": "2026-11-10T07:55:40+00:00",
-     "lastVerifiedAt": "2026-11-10T07:55:40+00:00",
+     "sourceUrl": "https://rffk-roo.ru/players/3223/",
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -45969,7 +46782,6 @@
     },
     "historicalPlayerIds": [],
     "unverifiedPlayerIds": [
-     "3223",
      "3297"
     ]
    },
@@ -46462,15 +47274,16 @@
      "3513",
      "3514",
      "3515",
-     "3528"
+     "3528",
+     "2004"
     ],
     "quality": {
      "status": "current",
      "coverage": "partial",
-     "sourceUrl": "https://rffk-roo.ru/players/3528/",
-     "checkedAt": "2026-11-10T07:55:41+00:00",
-     "lastSuccessAt": "2026-11-10T07:55:41+00:00",
-     "lastVerifiedAt": "2026-11-10T07:55:41+00:00",
+     "sourceUrl": "https://rffk-roo.ru/players/2004/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
      "reason": "verified_season_participation_partial_roster"
     },
     "clubPlayerIds": [
@@ -46770,8 +47583,7 @@
     "unverifiedPlayerIds": [
      "3516",
      "3517",
-     "3507",
-     "2004"
+     "3507"
     ]
    }
   },
@@ -60279,48 +61091,48 @@
     "fieldQuality": {
      "games": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "goals": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "penaltyGoals": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "minutes": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "starts": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "substitutions": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "yellowCards": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "secondYellowCards": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      },
      "redCards": {
       "status": "current",
-      "lastVerifiedAt": "2026-11-10T08:08:16+00:00"
+      "lastVerifiedAt": "2026-11-10T10:54:48+00:00"
      }
     },
     "quality": {
      "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/players/3522/",
-     "checkedAt": "2026-11-10T08:08:16+00:00",
-     "lastSuccessAt": "2026-11-10T08:08:16+00:00",
-     "lastVerifiedAt": "2026-11-10T08:08:16+00:00",
+     "checkedAt": "2026-11-10T10:54:48+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:48+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:48+00:00",
      "reason": "profile_group_bound_by_match_ids"
     }
    },
@@ -66389,6 +67201,893 @@
      "checkedAt": "2026-11-10T08:08:15+00:00",
      "lastSuccessAt": "2026-11-10T08:08:15+00:00",
      "lastVerifiedAt": "2026-11-10T08:08:15+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "443:1030:4:22": {
+    "playerId": "443",
+    "teamId": "1030",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/443/",
+    "games": 5,
+    "goals": 3,
+    "penaltyGoals": 0,
+    "minutes": 405,
+    "starts": 5,
+    "substitutions": 0,
+    "yellowCards": 1,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "1030422",
+     "sourceMatchIds": [
+      "38763",
+      "38760",
+      "38748",
+      "38738"
+     ],
+     "unresolvedSourceMatchIds": [
+      "38771"
+     ],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:41+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/443/",
+     "checkedAt": "2026-11-10T10:54:41+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:41+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:41+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "707:930:4:22": {
+    "playerId": "707",
+    "teamId": "930",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/707/",
+    "games": 12,
+    "goals": 1,
+    "penaltyGoals": 0,
+    "minutes": 462,
+    "starts": 7,
+    "substitutions": 5,
+    "yellowCards": 1,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "930422",
+     "sourceMatchIds": [
+      "38757",
+      "38753",
+      "38740",
+      "38728",
+      "38724",
+      "38715",
+      "38713",
+      "38701",
+      "38688",
+      "38680",
+      "38675",
+      "38662"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/707/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "963:930:4:22": {
+    "playerId": "963",
+    "teamId": "930",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/963/",
+    "games": 6,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 508,
+    "starts": 6,
+    "substitutions": 0,
+    "yellowCards": 4,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "930422",
+     "sourceMatchIds": [
+      "38757",
+      "38740",
+      "38728",
+      "38713",
+      "38691",
+      "38662"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:42+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/963/",
+     "checkedAt": "2026-11-10T10:54:42+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:42+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:42+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "1280:1030:4:22": {
+    "playerId": "1280",
+    "teamId": "1030",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/1280/",
+    "games": 13,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 1170,
+    "starts": 13,
+    "substitutions": 0,
+    "yellowCards": 0,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "1030422",
+     "sourceMatchIds": [
+      "38763",
+      "38748",
+      "38738",
+      "38727",
+      "38724",
+      "38716",
+      "38711",
+      "38705",
+      "38694",
+      "38683",
+      "38671",
+      "38661"
+     ],
+     "unresolvedSourceMatchIds": [
+      "38771"
+     ],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:43+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1280/",
+     "checkedAt": "2026-11-10T10:54:43+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:43+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:43+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "1315:934:4:22": {
+    "playerId": "1315",
+    "teamId": "934",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/1315/",
+    "games": 3,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 3,
+    "starts": 0,
+    "substitutions": 3,
+    "yellowCards": 0,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "934422",
+     "sourceMatchIds": [
+      "38719",
+      "38687",
+      "38676"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1315/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "1928:146:4:22": {
+    "playerId": "1928",
+    "teamId": "146",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/1928/",
+    "games": 12,
+    "goals": 3,
+    "penaltyGoals": 2,
+    "minutes": 233,
+    "starts": 1,
+    "substitutions": 11,
+    "yellowCards": 0,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "146422",
+     "sourceMatchIds": [
+      "38739",
+      "38735",
+      "38728",
+      "38723",
+      "38717",
+      "38710",
+      "38706",
+      "38697",
+      "38683",
+      "38673",
+      "38670",
+      "38662"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:44+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/1928/",
+     "checkedAt": "2026-11-10T10:54:44+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:44+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:44+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "2004:117:4:22": {
+    "playerId": "2004",
+    "teamId": "117",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/2004/",
+    "games": 3,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 111,
+    "starts": 0,
+    "substitutions": 3,
+    "yellowCards": 0,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "117422",
+     "sourceMatchIds": [
+      "38756",
+      "38750",
+      "38744"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/2004/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "2166:934:4:22": {
+    "playerId": "2166",
+    "teamId": "934",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/2166/",
+    "games": 6,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 455,
+    "starts": 5,
+    "substitutions": 1,
+    "yellowCards": 1,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "934422",
+     "sourceMatchIds": [
+      "38759",
+      "38746",
+      "38719",
+      "38693",
+      "38687",
+      "38676"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:45+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/2166/",
+     "checkedAt": "2026-11-10T10:54:45+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:45+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:45+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "3129:932:4:22": {
+    "playerId": "3129",
+    "teamId": "932",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/3129/",
+    "games": 11,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 106,
+    "starts": 0,
+    "substitutions": 11,
+    "yellowCards": 0,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "932422",
+     "sourceMatchIds": [
+      "38764",
+      "38726",
+      "38725",
+      "38715",
+      "38712",
+      "38704",
+      "38699",
+      "38693",
+      "38686",
+      "38673",
+      "38671"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3129/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "3130:932:4:22": {
+    "playerId": "3130",
+    "teamId": "932",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/3130/",
+    "games": 9,
+    "goals": 2,
+    "penaltyGoals": 0,
+    "minutes": 788,
+    "starts": 9,
+    "substitutions": 0,
+    "yellowCards": 1,
+    "secondYellowCards": 0,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "932422",
+     "sourceMatchIds": [
+      "38725",
+      "38715",
+      "38712",
+      "38704",
+      "38699",
+      "38693",
+      "38686",
+      "38673",
+      "38671"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:46+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3130/",
+     "checkedAt": "2026-11-10T10:54:46+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:46+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:46+00:00",
+     "reason": "profile_group_bound_by_match_ids"
+    }
+   },
+   "3223:757:4:22": {
+    "playerId": "3223",
+    "teamId": "757",
+    "competitionId": "4",
+    "seasonId": "22",
+    "sourceUrl": "https://rffk-roo.ru/players/3223/",
+    "games": 13,
+    "goals": 0,
+    "penaltyGoals": 0,
+    "minutes": 318,
+    "starts": 2,
+    "substitutions": 11,
+    "yellowCards": 1,
+    "secondYellowCards": 1,
+    "redCards": 0,
+    "sourceBinding": {
+     "sourceGroupId": "757422",
+     "sourceMatchIds": [
+      "38754",
+      "38744",
+      "38742",
+      "38733",
+      "38729",
+      "38717",
+      "38704",
+      "38700",
+      "38691",
+      "38689",
+      "38677",
+      "38667",
+      "38664"
+     ],
+     "unresolvedSourceMatchIds": [],
+     "method": "calendar_match_id_intersection",
+     "competitionId": "4",
+     "seasonId": "22"
+    },
+    "fieldQuality": {
+     "games": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "goals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "penaltyGoals": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "minutes": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "starts": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "substitutions": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "yellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "secondYellowCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     },
+     "redCards": {
+      "status": "current",
+      "lastVerifiedAt": "2026-11-10T10:54:47+00:00"
+     }
+    },
+    "quality": {
+     "status": "current",
+     "coverage": "partial",
+     "sourceUrl": "https://rffk-roo.ru/players/3223/",
+     "checkedAt": "2026-11-10T10:54:47+00:00",
+     "lastSuccessAt": "2026-11-10T10:54:47+00:00",
+     "lastVerifiedAt": "2026-11-10T10:54:47+00:00",
      "reason": "profile_group_bound_by_match_ids"
     }
    }

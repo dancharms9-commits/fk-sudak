@@ -21,6 +21,25 @@ def soup(file):
 
 
 class RosterImportTests(unittest.TestCase):
+    def test_checked_in_snapshot_has_all_clubs_and_contextual_evidence(self):
+        p = SEED['platform']
+        schema.validate_platform(p)
+        self.assertEqual(set(p['competitionSeasons']['4:22']['participantTeamIds']), schema.TEAM_IDS)
+        self.assertEqual(len(p['playersById']), len(set(p['playersById'])))
+        for tid in importer.TARGET_IDS:
+            roster = p['rosters']['4:22:'+tid]
+            self.assertGreater(len(roster['clubPlayerIds']), 0)
+            for pid in roster['clubPlayerIds']:
+                self.assertEqual(p['playersById'][pid]['profileQuality']['status'], 'current')
+            for pid in roster['playerIds']:
+                row = p['playerSeasonStats'][f'{pid}:{tid}:4:22']
+                self.assertGreater(len(row['sourceBinding']['sourceMatchIds']), 0)
+                self.assertEqual(row['sourceUrl'], p['playersById'][pid]['sourceUrl'])
+        bad = copy.deepcopy(p)
+        bad['rosters']['4:22:936']['unverifiedPlayerIds'].append('999999')
+        with self.assertRaises(ValueError):
+            schema.validate_platform(bad)
+
     def test_official_club_list_is_not_a_season_or_staff_list(self):
         rows = importer.parse_club(soup('teams-936.html'), SEED['platform']['teamsById']['936'])
         self.assertEqual(len(rows), 29)

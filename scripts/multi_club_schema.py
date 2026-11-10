@@ -154,6 +154,11 @@ def validate_platform(p, previous=None):
             quality(player['quality'])
             if 'profileQuality' in player:
                 quality(player['profileQuality'])
+            if 'profileImportVersion' in player:
+                require(type(player['profileImportVersion']) is int and player['profileImportVersion'] == 2, 'Unknown profile import rules')
+            for issue in player.get('registrationIssues', []):
+                require(issue['teamId'] is None or issue['teamId'] in teams, 'Unknown registration issue team')
+                require(type(issue['sourceRow']) is int and issue['sourceRow'] > 0 and isinstance(issue['reason'], str) and bool(issue['reason']), 'Invalid registration issue')
             for field in ('firstName', 'lastName'):
                 if field in player:
                     require(isinstance(player[field], str), 'Invalid player name component')
@@ -175,6 +180,7 @@ def validate_platform(p, previous=None):
                 quality(roster['clubListQuality'])
             require(not (set(roster.get('historicalPlayerIds', [])) & set(roster.get('unverifiedPlayerIds', []))), 'Conflicting roster states')
             require(not (set(roster['playerIds']) & (set(roster.get('historicalPlayerIds', [])) | set(roster.get('unverifiedPlayerIds', [])))), 'Unverified seasonal player')
+            require((set(roster.get('historicalPlayerIds', [])) | set(roster.get('unverifiedPlayerIds', []))) <= set(roster.get('clubPlayerIds', [])), 'Unverified player outside club catalog')
             for pid, entry in roster.get('entriesByPlayerId', {}).items():
                 require(pid in roster.get('clubPlayerIds', []) and entry['playerId'] == pid, 'Orphan club entry')
                 require(source_id(entry['sourceUrl'], 'teams') == roster['teamId'], 'Wrong club entry source')
