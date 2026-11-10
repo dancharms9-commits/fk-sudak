@@ -1,0 +1,125 @@
+{
+  "downloadedAt": "2026-11-10",
+  "logos": [
+    {
+      "teamId": "936",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/JGs7cv0n.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/JGs7cv0n.png",
+      "clubUrl": "https://rffk-roo.ru/teams/936/",
+      "bytes": 69828,
+      "dimensions": [
+        208,
+        250
+      ],
+      "sha256": "fd8d0c93f21f0042c8e40229a0dff68880c919ed83ecca01f8a6f0c2fd0e6d84"
+    },
+    {
+      "teamId": "1030",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/tO46qCym.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/tO46qCym.png",
+      "clubUrl": "https://rffk-roo.ru/teams/1030/",
+      "bytes": 62525,
+      "dimensions": [
+        200,
+        200
+      ],
+      "sha256": "ac4055a6763a26590282da9ba61ce898459f8bf741200369fe230cb33f2cfec5"
+    },
+    {
+      "teamId": "932",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/GT03HExw.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/GT03HExw.png",
+      "clubUrl": "https://rffk-roo.ru/teams/932/",
+      "bytes": 37369,
+      "dimensions": [
+        213,
+        250
+      ],
+      "sha256": "79b1caf1b91abbe00138112976f81a3440cf19fecd45f874ae03b2cc7b478275"
+    },
+    {
+      "teamId": "521",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/wMEHGLAW.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/wMEHGLAW.png",
+      "clubUrl": "https://rffk-roo.ru/teams/521/",
+      "bytes": 30144,
+      "dimensions": [
+        200,
+        200
+      ],
+      "sha256": "71275bea5b0f7a988c5f72ff5fd2053c78360f609ac173738eda9ed54f0acec7"
+    },
+    {
+      "teamId": "930",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/0wasEISv.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/0wasEISv.png",
+      "clubUrl": "https://rffk-roo.ru/teams/930/",
+      "bytes": 76663,
+      "dimensions": [
+        250,
+        250
+      ],
+      "sha256": "9616348a2db09ba5f94699424a20bc5b7ba71e3c78076aaeb94f1d99d5b35b5b"
+    },
+    {
+      "teamId": "146",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/0G9V2YKE.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/0G9V2YKE.png",
+      "clubUrl": "https://rffk-roo.ru/teams/146/",
+      "bytes": 22155,
+      "dimensions": [
+        183,
+        250
+      ],
+      "sha256": "c0aca753f0c46c7fcef3eabc9108cea60547981e753f5e503fc1669dd8a43190"
+    },
+    {
+      "teamId": "934",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/ZP6yNKMk.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/ZP6yNKMk.png",
+      "clubUrl": "https://rffk-roo.ru/teams/934/",
+      "bytes": 51340,
+      "dimensions": [
+        187,
+        250
+      ],
+      "sha256": "a7d9d9b068a5f64acb70531c1f8f09ba57b025d7e0f5309b2ae07cab8d959488"
+    },
+    {
+      "teamId": "757",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/4Q2fW6Qx.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/4Q2fW6Qx.png",
+      "clubUrl": "https://rffk-roo.ru/teams/757/",
+      "bytes": 33723,
+      "dimensions": [
+        195,
+        250
+      ],
+      "sha256": "1c3885cfa22d8d0fa67b5061e1cd3223ab4011e536c3b3aa41a266709059dde4"
+    },
+    {
+      "teamId": "1028",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/aBN26wGY.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/aBN26wGY.png",
+      "clubUrl": "https://rffk-roo.ru/teams/1028/",
+      "bytes": 49241,
+      "dimensions": [
+        250,
+        164
+      ],
+      "sha256": "786cc3ef0886fd87d3644d3ef9d89ef02c5bf74a6403dfc4a3db3555f001e441"
+    },
+    {
+      "teamId": "117",
+      "sourceUrl": "https://rffk-roo.ru/uploads/clubs/medium/ZG8Em4Kb.png",
+      "registryLogoUrl": "https://rffk-roo.ru/uploads/clubs/small/ZG8Em4Kb.png",
+      "clubUrl": "https://rffk-roo.ru/teams/117/",
+      "bytes": 58842,
+      "dimensions": [
+        184,
+        229
+      ],
+      "sha256": "051bd6e762efa5977b6322e0039993725d51573c79ebb61d7d57aed3709dfd36"
+    }
+  ]
+}

@@ -116,7 +116,7 @@ function observeInitialContent(){
     // The synchronous inline script is the only producer of section contents.
     // Empty parser-time sections cannot paint home before that task selects a route.
     const shellSections=[...html.matchAll(/<section id="([^"]+)"[^>]*>([\s\S]*?)<\/section>/g)];
-    assert.equal(shellSections.length,7);
+    assert.deepEqual(shellSections.map(([,id])=>id),['home','matches','table','squad','news','match','player','team']);
     assert(shellSections.every(([,id,content])=>content===''),'Parser shell has no populated default route');
     assert(/restoreSavedData\(\);\s*render\(\);\s*applyRoute\(true\);/.test(html),'Render and route must share a synchronous inline task');
     // All five actual tab clicks/reloads, every requested viewport/theme/motion.
@@ -134,17 +134,18 @@ function observeInitialContent(){
     const player=data.player_stats_2026.players.find(p=>p.profile_url?.endsWith('/202/'));
     assert(player,'Stable real player fixture');
     const deepLinks=[['match',await page.locator('#matches .result-link').first().getAttribute('href')],
-      ['player',await page.locator('#squad a[data-player="rffk-202"]').getAttribute('href')]];
+      ['player',await page.locator('#squad a[data-player="rffk-202"]').getAttribute('href')],['team','#team=936']];
     for(const saved of [false,true])for(const [section,hash] of deepLinks){
       if(!saved)await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));
       await page.goto(base+'?direct='+section+'-'+saved+hash);await ready(page);
       await check(page,section,`direct-${section}-${saved}`,{reload:false});
       if(section==='match')assert.equal(await page.locator('#match .center-timeline li').count(),data.match_details[matchKey].events.length);
-      else assert.equal(await page.locator('#player-title').innerText(),player.name);
+      else if(section==='player')assert.equal(await page.locator('#player-title').innerText(),player.name);
+      else assert.equal(await page.locator('#team-title').innerText(),'СК «Каштан»');
       if(!saved)await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));
       await page.reload();await check(page,section,`reload-${section}-${saved}`);
     }
-    console.log('PASS direct profile/match and reloads, with/without saved data');
+    console.log('PASS direct profile/match/club and reloads, with/without saved data');
     // Warm an actually installed v10 worker, update it, then disable the network.
     page=await setup({serviceWorkers:'allow'});
     previousWorker=true;await page.goto(base+'manifest.json');
@@ -181,7 +182,8 @@ function observeInitialContent(){
       if(section==='match'){
         assert.equal(await page.locator('#match .center-timeline li').count(),data.match_details[matchKey].events.length);
         assert.equal(await page.locator('#match .center-lineup-team').count(),2);
-      }else assert.equal(await page.locator('#player-title').innerText(),player.name);
+      }else if(section==='player')assert.equal(await page.locator('#player-title').innerText(),player.name);
+      else assert.equal(await page.locator('#team-title').innerText(),'СК «Каштан»');
     }
     await context.setOffline(false);
     await page.waitForFunction(()=>document.querySelector('#upd').textContent.startsWith('Данные обновлены'));
