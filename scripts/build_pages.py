@@ -24,7 +24,7 @@ import requests
 # Support both imports in tests and `python scripts/build_pages.py`.
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts import multi_club_sources, multi_club_schema
+from scripts import multi_club_sources, multi_club_schema, multi_club_rosters
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_JSON = 5_000_000
@@ -243,7 +243,7 @@ def write_json(path, data):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=1, allow_nan=False) + "\n", encoding="utf-8")
 
 
-def refresh(baseline, work, runner=subprocess.run, platform_loader=None):
+def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_loader=None):
     """Run existing parsers in isolation; promote only validated snapshots."""
     accepted = copy.deepcopy(baseline)
     for script in ("fetch_data.py", "update_player_stats.py"):
@@ -273,6 +273,11 @@ def refresh(baseline, work, runner=subprocess.run, platform_loader=None):
                 accepted, previous=accepted.get("platform"), loader=platform_loader)
         except (ValueError, TypeError, KeyError) as exc:
             print(f"::warning::platform: {type(exc).__name__}; using last-good extension")
+    if roster_loader is not None:
+        try:
+            accepted['platform'], _ = multi_club_rosters.sync_platform(accepted['platform'], roster_loader)
+        except (ValueError, TypeError, KeyError) as exc:
+            print(f"::warning::club-rosters: {type(exc).__name__}; using last-good extension")
     # Enrichment can change without fetch_data advancing its minute timestamp.
     # Every changed payload needs a newer revision for already-open PWA clients.
     if accepted != baseline:
@@ -312,7 +317,8 @@ def main():
     checkpoint = successful_checkpoint(os.environ["GITHUB_REPOSITORY"], os.environ["GH_TOKEN"])
     baseline = choose_baseline(seed, live, checkpoint)
     with tempfile.TemporaryDirectory(prefix="sudak-pages-") as directory:
-        data = refresh(baseline, Path(directory), platform_loader=multi_club_sources.fetch_season)
+        data = refresh(baseline, Path(directory), platform_loader=multi_club_sources.fetch_season,
+                       roster_loader=multi_club_rosters.NetworkLoader())
     stage_site(ROOT, args.output, data)
     state = ROOT / "_state"
     state.mkdir(exist_ok=True)

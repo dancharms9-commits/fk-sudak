@@ -133,7 +133,7 @@ def project_snapshot(data, previous=None):
             continue  # no synthetic ID from name; old format remains untouched
         require(pid not in player_ids, 'Duplicate Sudak player ID')
         player_ids.append(pid)
-        p['playersById'][pid] = {'playerId': pid, 'name': raw['name'], 'sourceUrl': raw['profile_url'],
+        p['playersById'][pid] = {**p['playersById'].get(pid, {}), 'playerId': pid, 'name': raw['name'], 'sourceUrl': raw['profile_url'],
                                 'quality': quality(raw['profile_url'])}
         p['legacyLinks']['players']['rffk-' + pid] = pid
         old = p['playerSeasonStats'].get(f'{pid}:141:4:22', {})

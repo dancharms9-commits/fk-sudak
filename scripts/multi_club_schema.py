@@ -152,6 +152,14 @@ def validate_platform(p, previous=None):
                     'Player identity mismatch')
             require(isinstance(player['name'], str) and bool(player['name'].strip()), 'Missing player name')
             quality(player['quality'])
+            if 'profileQuality' in player:
+                quality(player['profileQuality'])
+            for field in ('firstName', 'lastName'):
+                if field in player:
+                    require(isinstance(player[field], str), 'Invalid player name component')
+            if player.get('photoUrl') is not None:
+                from update_player_stats import safe_photo_url
+                require(safe_photo_url(player['photoUrl']) is not None and official_url(player['photoSourceUrl']), 'Invalid profile photo')
         require(set(p['rosters']) == {f'4:22:{tid}' for tid in TEAM_IDS}, 'Missing club roster model')
         for key, roster in p['rosters'].items():
             context(roster)
@@ -159,13 +167,46 @@ def validate_platform(p, previous=None):
             require(len(roster['playerIds']) == len(set(roster['playerIds']))
                     and set(roster['playerIds']) <= players.keys(), 'Invalid roster players')
             quality(roster['quality'])
+            for field in ('clubPlayerIds', 'historicalPlayerIds', 'unverifiedPlayerIds'):
+                if field in roster:
+                    ids = roster[field]
+                    require(isinstance(ids, list) and len(ids) == len(set(ids)) and set(ids) <= players.keys(), 'Invalid club list references')
+            if 'clubListQuality' in roster:
+                quality(roster['clubListQuality'])
+            require(not (set(roster.get('historicalPlayerIds', [])) & set(roster.get('unverifiedPlayerIds', []))), 'Conflicting roster states')
+            require(not (set(roster['playerIds']) & (set(roster.get('historicalPlayerIds', [])) | set(roster.get('unverifiedPlayerIds', [])))), 'Unverified seasonal player')
+            for pid, entry in roster.get('entriesByPlayerId', {}).items():
+                require(pid in roster.get('clubPlayerIds', []) and entry['playerId'] == pid, 'Orphan club entry')
+                require(source_id(entry['sourceUrl'], 'teams') == roster['teamId'], 'Wrong club entry source')
+                number(entry['number'], nullable=True)
+                require(entry['number'] is None or entry['number'] <= 99, 'Invalid roster number')
+                require(entry['position'] is None or isinstance(entry['position'], str), 'Invalid roster position')
+                if entry['registeredAt'] is not None:
+                    date.fromisoformat(entry['registeredAt'])
+                stamp(entry['lastSeenAt'])
+                require(type(entry['currentlyListed']) is bool, 'Invalid list presence')
         for key, reg in p['registrations'].items():
-            context(reg)
+            if reg.get('scope') == 'club':
+                require(reg['competitionId'] is None and reg['seasonId'] is None and reg['teamId'] in teams, 'Club registration is not season evidence')
+            else:
+                context(reg)
             require(reg['playerId'] in players and key == reg['registrationId'], 'Invalid registration')
             for field in ('registeredAt', 'releasedAt'):
                 if reg[field] is not None:
                     date.fromisoformat(reg[field])
             quality(reg['quality'])
+            if 'scope' in reg:
+                require(reg['scope'] in {'club', 'competition_season'} and source_id(reg['sourceUrl'], 'players') == reg['playerId'], 'Invalid registration source')
+                number(reg['number'], nullable=True)
+                require(reg['number'] is None or reg['number'] <= 99, 'Invalid registration number')
+                require(reg['position'] is None or isinstance(reg['position'], str), 'Invalid registration position')
+                require(reg['registeredAt'] is None or reg['releasedAt'] is None or reg['registeredAt'] <= reg['releasedAt'], 'Invalid registration period')
+                if reg['scope'] == 'competition_season':
+                    ids = reg['evidenceSourceMatchIds']
+                    known = {m['sourceMatchId']: m for m in p['matchesById'].values() if m['sourceMatchId']}
+                    require(isinstance(ids, list) and bool(ids) and len(ids) == len(set(ids)), 'Missing season registration evidence')
+                    for mid in ids:
+                        require(mid in known and reg['teamId'] in {known[mid]['homeTeamId'], known[mid]['awayTeamId']}, 'Wrong registration match evidence')
         matches = p['matchesById']
         protocol_ids = []
         for key, m in matches.items():
@@ -188,6 +229,13 @@ def validate_platform(p, previous=None):
             if stats['penaltyGoals'] is not None and stats['goals'] is not None:
                 require(stats['penaltyGoals'] <= stats['goals'], 'Invalid penalties')
             quality(stats['quality'])
+            if 'sourceBinding' in stats:
+                binding = stats['sourceBinding']
+                require(binding['method'] == 'calendar_match_id_intersection' and binding['competitionId'] == '4' and binding['seasonId'] == '22', 'Invalid stats binding context')
+                ids = binding['sourceMatchIds']
+                known = {m['sourceMatchId']: m for m in matches.values() if m['sourceMatchId']}
+                require(isinstance(ids, list) and bool(ids) and len(ids) == len(set(ids)), 'Missing statistics match IDs')
+                require(all(mid in known and stats['teamId'] in {known[mid]['homeTeamId'], known[mid]['awayTeamId']} for mid in ids), 'Wrong statistics match binding')
         for key, table in p['standings'].items():
             require(key == SEASON_KEY, 'Wrong standings key')
             context(table)
