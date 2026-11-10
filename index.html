@@ -582,6 +582,82 @@ body:has(#team.on)>header:before,body[data-club-profile="true"]>header:before{co
 .platform-player-clubs{display:flex;flex-wrap:wrap;gap:6px 16px}
 .platform-player-context h3{font-size:14px}
 </style>
+<style data-design-polish>
+/* Stage 6: championship only. Spacing 4/8/12/16; all actions >=44px. */
+#table .champ-tabs{grid-template-columns:.7fr 1.2fr 1.1fr;background:none;border-radius:0;padding:0;gap:0;margin-bottom:12px;border-bottom:1px solid var(--line)}
+#table .champ-tabs button{position:relative;border-radius:0;min-width:0;font-size:13px;overflow-wrap:anywhere;transition:none}
+#table .champ-tabs button[aria-selected="true"]{background:none;color:var(--ink);box-shadow:none}
+#table .champ-tabs button[aria-selected="true"]:after{content:'';position:absolute;left:8px;right:8px;bottom:-1px;height:2px;background:var(--sun)}
+#table .champ-rounds{grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;margin-bottom:8px}
+#table .champ-rounds button{font-size:20px;background:none;border-color:transparent}
+#table .champ-rounds select{text-align:center;font-weight:650}
+#table .champ-calendar-filters{gap:8px;margin-bottom:8px}
+#table .champ-calendar-filters label{display:block}
+#table #champ-match-count{margin:8px 0;font-size:12px}
+#table #champ-panel{animation:none}
+#table .champ-match-list{border-block:1px solid var(--line)}
+#table .champ-match{position:relative;background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;margin:0}
+#table .champ-match:last-child{border-bottom:0}
+#table div.champ-match,#table .champ-match>summary{display:grid;grid-template-columns:50px minmax(0,1fr) max-content;align-items:center;gap:8px;padding:4px 8px}
+#table .champ-date{font-size:12px;line-height:1.4;display:grid;gap:4px;overflow-wrap:anywhere}
+#table .champ-date small{display:block;font-size:inherit}
+#table .champ-teams{display:grid;min-width:0}
+#table .champ-team,#table .champ-team:last-child{flex-direction:row;text-align:left;font-size:14px;line-height:1.3;min-height:44px}
+#table .champ-team .club-link,#table .champ-team:last-child .club-link{flex-direction:row;gap:8px;font-weight:550;min-height:44px;width:100%;min-width:0}
+#table .champ-team .club-link>span:last-child{min-width:0}
+#table .champ-team .champ-badge{width:24px;height:24px}
+#table .champ-result{text-align:center;min-width:64px;display:grid;justify-items:center}
+#table .champ-score{font-size:26px;line-height:1.15;color:var(--ink);font-weight:750;letter-spacing:-.5px}
+#table .champ-open{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;color:inherit;text-decoration:none}
+#table .champ-open:after{content:'';position:absolute;inset:0}
+#table .champ-open:focus-visible{outline:none}
+#table .champ-match:has(.champ-open:focus-visible){outline:2px solid var(--sea);outline-offset:-2px}
+#table .champ-match:has(.champ-open:hover){background:var(--card)}
+#table .champ-status{display:block;max-width:64px;font-size:12px;line-height:1.35;margin-top:4px;overflow-wrap:anywhere}
+#table .champ-match.champ-club{border-color:var(--line);background:none}
+#table .champ-club .champ-teams{border-left:2px solid var(--sun);padding-left:6px}
+@media(max-width:350px){#table .champ-tabs{grid-template-columns:.8fr 1.15fr 1.05fr}#table .champ-tabs button{padding-inline:0}}
+
+/* Stage 6: opt-in universal centers; legacy Sudak markup keeps its styles. */
+#match:has(.match-polish) #match-title{margin:12px 0;font-size:20px}
+#match:has(.match-polish) #match-title:focus{outline:none}
+#match .match-polish{min-width:0}
+#match .match-polish .center-hero{padding:16px 12px;border:0;border-radius:12px;margin-bottom:16px}
+#match .match-polish .center-hero-head{gap:8px;align-items:baseline}
+#match .match-polish .center-competition{font-size:12px;line-height:1.4;min-width:0;flex-basis:100%}
+#match .match-polish .center-status{font-size:13px;line-height:1.4;font-weight:650;color:var(--ink)}
+#match .match-polish .center-round{font-size:12px;margin:4px 0 0}
+#match .match-polish .board{margin:16px 0;gap:8px;align-items:center}
+#match .match-polish .tm{font-size:14px;gap:4px}
+#match .match-polish .tm>.club-link{gap:8px;width:100%;min-width:44px}
+#match .match-polish .center-badge{width:48px;height:48px;background:none;border:0;border-radius:0}
+#match .match-polish .center-badge .champ-badge{width:48px;height:48px;font-size:16px}
+#match .match-polish .center-badge img{width:48px;height:48px;background:var(--card)}
+#match .match-polish .center-score-numbers{gap:4px;color:var(--ink)}
+#match .match-polish .num{font-size:clamp(36px,10vw,56px);color:var(--ink);font-weight:800}
+#match .match-polish .center-score-dash{font-size:40px;line-height:1.2;font-weight:700;color:var(--mute)}
+#match .match-polish .center-score>small{font-size:12px;margin-top:4px}
+#match .match-polish .match-meta{font-size:13px;line-height:1.6;text-align:center;margin:0}
+#match .match-polish .card{border:0;border-radius:0;background:none;padding:0;margin:0}
+#match .match-polish h2{font-size:16px;color:var(--ink);margin:20px 0 8px}
+#match .match-polish h3{font-size:14px;margin:0 0 12px}
+#match .match-polish .center-scorers li{padding:8px 0;min-height:52px}
+#match .match-polish .center-goal-name,#match .match-polish .goal-player{font-size:14px}
+#match .match-polish .center-goal-minute b{font-size:16px}
+#match .match-polish .center-timeline li{padding:8px 0;min-height:60px}
+#match .match-polish .center-player{color:var(--ink);min-width:44px;transition:none}
+#match .match-polish .center-player:active{transform:none}
+#match .match-polish .center-lineup-team{padding-top:12px;border-top:1px solid var(--line)}
+#match .match-polish .center-event-icon{color:var(--mute)}
+#match .match-polish .center-event-icon.yellow,#match .match-polish .center-event-icon.second_yellow{color:var(--sea)}
+#match .match-polish .center-event-icon.red{color:var(--loss)}
+#match .match-polish .center-protocol{min-height:44px;padding:12px 0;margin-top:16px;border-top:1px solid var(--line)}
+#match .match-polish .center-protocol b{font-size:14px}
+#match .match-polish .center-data{margin-top:12px}
+#match .match-polish .center-data summary{color:var(--mute);font-size:13px}
+@media(min-width:768px){#match .match-polish .center-hero{padding:16px 24px}#match .match-polish .center-hero-head{flex-wrap:nowrap}#match .match-polish .center-competition{flex-basis:auto}#match .match-polish .center-status{flex:none}#match .match-polish .board{max-width:640px;margin:16px auto}#match .match-polish .tm{font-size:18px}}
+
+</style>
 </head>
 <body>
 <div id="launch-splash" role="status" aria-label="ФК Судак. Запуск приложения" aria-busy="true" hidden>
@@ -1124,6 +1200,15 @@ function matchLineupsHTML(model){
     return `<div class="card center-lineup-team"><h3>${esc(model.teams[i])}</h3>${model.platformMatch&&groups.starters?.length!==11?`<p class="hint">РФФК публикует строк стартового состава: ${groups.starters?.length||0}. Показаны опубликованные сведения; список не дополняется.</p>`:''}${groups.starters?.length?'<h4>Стартовый состав</h4>'+list(groups.starters,side,'starters'):''}${groups.substitutes?.length?`<details data-center-list="${side}-bench"><summary>Запасные <span>${groups.substitutes.length}</span></summary>${list(groups.substitutes,side,'substitutes')}</details>`:''}</div>`;
   }).join('')}</div></article>`;
 }
+// Presentation only. Legacy Sudak protocols continue through the original markup.
+function polishedMatchHTML(model){
+  const {teams,scores,platformMatch:m}=model;
+  const team=i=>`<div class="tm"><a class="club-link" data-team="${esc(i?m.awayTeamId:m.homeTeamId)}" href="${clubHref(i?m.awayTeamId:m.homeTeamId)}"><span class="center-badge">${clubBadge(i?m.awayTeamId:m.homeTeamId)}</span><b>${esc(teams[i])}</b></a><small>${i?'Гости':'Хозяева'}</small></div>`;
+  const quality=model.protocol?.quality||m.protocolQuality||m.quality;
+  const limited=quality?.coverage==='partial'||quality?.status!=='current';
+  const city=model.city&&!model.venue.toLocaleLowerCase('ru').includes(model.city.toLocaleLowerCase('ru'))?model.city:'';
+  return `<div class="match-polish"><div class="center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="center-status">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num">${scores[0]}</span><span aria-hidden="true">:</span><span class="num">${scores[1]}</span></div><small>Итоговый счёт</small>`:'<span class="center-score-dash" aria-label="Счёт не опубликован">—</span>'}</div>${team(1)}</div><p class="match-meta">${esc(model.date||'Дата не указана')}${model.time?' · '+esc(model.time)+' МСК':''}${model.venue?'<br>'+esc(model.venue):''}${city?'<br>'+esc(city):''}</p></div>${!model.finished?'<p class="hint">Подтверждённый результат и события появятся после публикации РФФК.</p>':''}${limited?(quality?.status==='current'?'<p class="hint">Данные РФФК неполные.</p>':clubQuality(quality)):''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол РФФК</b><small>Откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}${quality?.status==='current'?'<details class="center-data" data-center-list="source"><summary>Данные РФФК</summary>'+clubQuality(quality)+'</details>':''}</div>`;
+}
 function renderMatch(){
   const route=currentRoute();if(route.section!=='match')return;
   const model=matchCenter(route.key),root=$('match');
@@ -1138,13 +1223,15 @@ function renderMatch(){
     const team=(i)=>{const id=i===0?platformMatch?.homeTeamId:platformMatch?.awayTeamId,content=(model.platformMatch?`<span class="center-badge"><img src="${esc(clubLogo(id))}" alt="" width="48" height="48"></span>`:badge(i===0?'home':'away',teams[i]))+`<b>${esc(teams[i])}</b>`;
       return `<div class="tm">${platformTeam(id)?`<a class="club-link" data-team="${esc(id)}" href="${clubHref(id)}">${content}</a>`:content}<small>${i===0?'Хозяева':'Гости'}</small></div>`};
     const fields=[['Дата',model.date+(model.time?' · '+model.time:'')],['Турнир',model.competition],['Тур',model.round],['Стадион',model.venue],['Город',model.city],['Статус',model.status]].filter(([,value])=>value);
-    html+=`<div class="card center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="tag">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num ${home?'us':''}">${scores[0]}</span><span aria-hidden="true">:</span><span class="num ${home?'':'us'}">${scores[1]}</span></div><small>Итоговый счёт</small>`:`<span class="center-not-started">${model.status==='Запланирован'?'Матч не начался':esc(model.status)}</span>`}</div>${team(1)}</div><p class="match-meta">${esc(model.date)}${model.time?' · '+esc(model.time):''}${model.venue?'<br>'+esc(model.venue):''}</p></div><dl class="card center-info">${fields.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${!model.finished?'<p class="hint">'+(model.status==='Запланирован'?'Матч запланирован. Итоговый счёт и протокол появятся после публикации.':'Подтверждённый результат пока не опубликован.')+'</p>':''}${model.platformMatch?clubQuality(model.protocol?.quality||model.platformMatch.protocolQuality||model.platformMatch.quality):''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="card center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол</b><small>Официальный сайт РФФК · откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}`;
+    const polish=model.platformMatch&&(!model.platformMatch.sourceMatchId||!Object.values(MATCH_DETAILS).some(d=>d.status==='available'&&String(d.id)===model.platformMatch.sourceMatchId));
+    html+=polish?polishedMatchHTML(model):`<div class="card center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="tag">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num ${home?'us':''}">${scores[0]}</span><span aria-hidden="true">:</span><span class="num ${home?'':'us'}">${scores[1]}</span></div><small>Итоговый счёт</small>`:`<span class="center-not-started">${model.status==='Запланирован'?'Матч не начался':esc(model.status)}</span>`}</div>${team(1)}</div><p class="match-meta">${esc(model.date)}${model.time?' · '+esc(model.time):''}${model.venue?'<br>'+esc(model.venue):''}</p></div><dl class="card center-info">${fields.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${!model.finished?'<p class="hint">'+(model.status==='Запланирован'?'Матч запланирован. Итоговый счёт и протокол появятся после публикации.':'Подтверждённый результат пока не опубликован.')+'</p>':''}${model.platformMatch?clubQuality(model.protocol?.quality||model.platformMatch.protocolQuality||model.platformMatch.quality):''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="card center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол</b><small>Официальный сайт РФФК · откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}`;
   }
   if(root._centerHTML===html)return;
   const open=[...(root.querySelectorAll?.('details[open]')||[])].map(el=>el.dataset.centerList);
   const focused=root.contains?.(document.activeElement)?document.activeElement?.dataset?.matchPlayer:null;
   const sameMatch=root._centerKey===route.key;
   root.innerHTML=html;root._centerHTML=html;root._centerKey=route.key;
+  for(const img of root.querySelectorAll?.('.match-polish .champ-badge img')||[])img.addEventListener('error',()=>img.remove(),{once:true});
   if(sameMatch){
     for(const el of root.querySelectorAll?.('details')||[])el.open=open.includes(el.dataset.centerList);
     if(focused)[...(root.querySelectorAll?.('a[data-match-player]')||[])].find(a=>a.dataset.matchPlayer===focused)?.focus({preventScroll:true});
@@ -1673,10 +1760,13 @@ function champDate(m){return (m.date?m.date.split('-').reverse().join('.'):'Да
 function champMatchHTML(m){
   const score=Number.isInteger(m.home_score)&&Number.isInteger(m.away_score)?`${m.home_score}:${m.away_score}`:'—';
   const clubKey=championshipClubMatch(m),isClub=[m.home_id,m.away_id].includes('141');
-  const card=`<span class="champ-meta">${esc(champDate(m))}</span><span class="champ-pair"><span class="champ-team">${platformTeam(m.home_id)?clubLink(m.home_id,champTeamName(m.home_id),true):champBadge(m.home_id)+'<b>'+esc(champTeamName(m.home_id))+'</b>'}</span><strong class="champ-score">${score}</strong><span class="champ-team">${platformTeam(m.away_id)?clubLink(m.away_id,champTeamName(m.away_id),true):champBadge(m.away_id)+'<b>'+esc(champTeamName(m.away_id))+'</b>'}</span></span><span class="champ-meta champ-status">${esc(champStatus(m))}<span aria-hidden="true"> ›</span></span>`;
-  if(clubKey)return `<div class="card champ-match champ-club" data-champ-match="${esc(m.id)}">${card}<a class="club-source" data-match="${esc(clubKey)}" href="#match=${encodeURIComponent(clubKey)}&amp;from=table">Центр матча →</a></div>`;
   const confirmed=PLATFORM?.matchesById?.[m.id];
-  if(confirmed)return `<div class="card champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}">${card}<a class="club-source" data-match="${esc(platformMatchKey(confirmed))}" href="#match=${encodeURIComponent(platformMatchKey(confirmed))}&amp;from=table">Центр матча →</a></div>`;
+  const key=clubKey||(confirmed?platformMatchKey(confirmed):null);
+  const date=m.date?m.date.split('-').reverse().slice(0,2).join('.'):'Без даты';
+  const teams=`<span class="champ-teams">${[m.home_id,m.away_id].map(id=>`<span class="champ-team">${platformTeam(id)?clubLink(id,champTeamName(id),true):champBadge(id)+'<b>'+esc(champTeamName(id))+'</b>'}</span>`).join('')}</span>`;
+  const label=`${champTeamName(m.home_id)} — ${champTeamName(m.away_id)}, ${score}, ${champStatus(m)}. Центр матча`;
+  const card=`<span class="champ-date champ-meta" aria-label="${esc(champDate(m))}">${m.date?`<time datetime="${esc(m.date)}">${esc(date)}<small>${esc(m.date.slice(0,4))}</small></time>`:'<span>Дата не указана</span>'}${m.time?`<span>${esc(m.time)}</span>`:''}</span>${teams}<span class="champ-result">${key?`<a class="champ-open" data-match="${esc(key)}" href="#match=${encodeURIComponent(key)}&amp;from=table" aria-label="${esc(label)}"><strong class="champ-score">${score}</strong></a>`:`<strong class="champ-score">${score}</strong>`}<span class="champ-meta champ-status">${esc(champStatus(m))}</span></span>`;
+  if(key)return `<div class="champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}">${card}</div>`;
   const url=protocolLink(m.source_url);
   return `<details class="card champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}"><summary>${card}</summary><div class="champ-match-info"><p>${esc(champTeamName(m.home_id))} — ${esc(champTeamName(m.away_id))}</p><p>${esc(m.venue||'Стадион не указан')}</p><p class="hint">${champPlayed(m)?'Доступные сведения РФФК.':'Результат пока не опубликован.'}</p>${url?`<a class="champ-source" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Протокол РФФК ↗</a>`:'<p class="hint">Ссылка на протокол пока не опубликована.</p>'}</div></details>`;
 }
@@ -1704,7 +1794,7 @@ function renderChampionship(){
     content=`<div class="card champ-standing"><table><thead><tr><th scope="col">#</th><th scope="col">Команда</th><th scope="col">И</th><th scope="col">Мячи</th><th scope="col">О</th></tr></thead><tbody>${clubStandingsHTML()}</tbody></table></div><p class="hint">И — игры, О — очки. Официальная таблица РФФК; мячи указаны как забитые–пропущенные.</p>${PLATFORM?clubQuality(PLATFORM.standings?.['4:22']?.quality):''}`;
   }else if(view==='calendar'){
     const rounds=champRounds(),index=rounds.findIndex(r=>r.id===CHAMP_STATE.round),matches=selectedChampMatches();
-    content=rounds.length?`<div class="champ-rounds"><button type="button" data-champ-step="-1" aria-label="Предыдущий тур" ${index<=0?'disabled':''}>← Назад</button><label class="visually-hidden" for="champ-round">Тур</label><select id="champ-round">${rounds.map(r=>`<option value="${esc(r.id)}" ${r.id===CHAMP_STATE.round?'selected':''}>${esc(r.name)}</option>`).join('')}</select><button type="button" data-champ-step="1" aria-label="Следующий тур" ${index===rounds.length-1?'disabled':''}>Вперёд →</button></div><div class="champ-filters"><label>Команда<select id="champ-team">${champTeamOptions(CHAMP_STATE.team)}</select></label><label>Матчи<select id="champ-status">${[['all','Все матчи'],['played','Сыгранные'],['upcoming','Предстоящие']].map(([v,label])=>`<option value="${v}" ${v===CHAMP_STATE.status?'selected':''}>${label}</option>`).join('')}</select></label></div><p class="hint" id="champ-match-count" aria-live="polite">${esc(rounds[index]?.name)} · Матчей: ${matches.length}</p><div class="champ-match-list">${matches.length?matches.map(champMatchHTML).join(''):'<p class="card empty">Матчей по выбранным фильтрам нет. Можно выбрать другой тур или команду.</p>'}</div>`:'<p class="card empty">Календарь пока не загружен. При подключении данные появятся автоматически.</p>';
+    content=rounds.length?`<div class="champ-rounds"><button type="button" data-champ-step="-1" aria-label="Предыдущий тур" ${index<=0?'disabled':''}>←</button><label class="visually-hidden" for="champ-round">Тур</label><select id="champ-round">${rounds.map(r=>`<option value="${esc(r.id)}" ${r.id===CHAMP_STATE.round?'selected':''}>${esc(r.name)}</option>`).join('')}</select><button type="button" data-champ-step="1" aria-label="Следующий тур" ${index===rounds.length-1?'disabled':''}>→</button></div><div class="champ-filters champ-calendar-filters"><label><span class="visually-hidden">Команда</span><select id="champ-team">${champTeamOptions(CHAMP_STATE.team)}</select></label><label><span class="visually-hidden">Матчи</span><select id="champ-status">${[['all','Все матчи'],['played','Сыгранные'],['upcoming','Предстоящие']].map(([v,label])=>`<option value="${v}" ${v===CHAMP_STATE.status?'selected':''}>${label}</option>`).join('')}</select></label></div><p class="hint" id="champ-match-count" aria-live="polite">Матчей: ${matches.length}</p><div class="champ-match-list">${matches.length?matches.map(champMatchHTML).join(''):'<p class="card empty">Матчей по выбранным фильтрам нет. Можно выбрать другой тур или команду.</p>'}</div>`:'<p class="card empty">Календарь пока не загружен. При подключении данные появятся автоматически.</p>';
     content+=champFreshness(CHAMPIONSHIP?.calendar);
   }else{
     const players=selectedChampScorers(),total=CHAMPIONSHIP?.scorers?.players?.length||0;

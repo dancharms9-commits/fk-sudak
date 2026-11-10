@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ФК «Судак» — сравнение PR №1</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:20px;background:#f0f4f8;color:#102a43;font:16px/1.5 system-ui,sans-serif}h1{font-size:24px;margin:0 0 8px}p{max-width:70ch}form{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}label{display:grid;gap:4px}select{font:inherit;min-height:44px;max-width:100%;padding:8px;border:1px solid #90a4b8;border-radius:4px;background:white;color:inherit}.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}figure{margin:0;min-width:0}figcaption{font-weight:650;margin-bottom:8px}img{display:block;max-width:100%;height:auto;border:1px solid #90a4b8}a{color:#174d7c}@media(max-width:600px){body{padding:12px}.pair{grid-template-columns:1fr}}
+</style>
+<h1>Чемпионат и центры матчей</h1>
+<p>Реальные снимки локального приложения на базе main после PR #33. Высота окна — 844 px. Главная, клуб, состав и профиль служат контролем сохранения дизайна.</p>
+<form>
+<label>Экран<select id="screen"><option value="calendar">Туры и матчи</option><option value="standings">Таблица</option><option value="filters">Фильтры: Судак, сыгранные</option><option value="finished">Каштан — СТО-Газель, 6:3</option><option value="scheduled">УОР — Судак, запланированный</option><option value="home">Главная Судака</option><option value="kashtan">Клуб Каштан</option><option value="roster">Состав Каштана</option><option value="popov">Никита Попов</option></select></label>
+<label>Тема<select id="theme"><option value="dark">Тёмная</option><option value="light">Светлая</option></select></label>
+<label>Ширина<select id="width"><option>390</option><option>320</option><option>768</option><option>1440</option></select></label>
+</form>
+<div class="pair"><figure><figcaption>До</figcaption><a id="before-link"><img id="before" alt="До изменений"></a></figure><figure><figcaption>После</figcaption><a id="after-link"><img id="after" alt="После изменений"></a></figure></div>
+<p><a href="README.md">Отчёт и результаты проверок</a> · <a href="audit.md">Исходный аудит</a></p>
+<script>
+const fields=['screen','theme','width'];function show(){const name=fields.map(id=>document.getElementById(id).value).join('-')+'.png';for(const phase of ['before','after']){document.getElementById(phase).src=phase+'/'+name;document.getElementById(phase+'-link').href=phase+'/'+name}}for(const id of fields)document.getElementById(id).addEventListener('change',show);show();
+</script>
+</html>

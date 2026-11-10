@@ -1,0 +1,103 @@
+{
+  "base": "04a9e4d0d903ad73eff1581eba19c644df6565f9",
+  "environment": "ARM64 Termux, existing native Chromium + Playwright, local HTTP",
+  "python": {
+    "command": "python -m unittest discover -s tests -v",
+    "passed": 136,
+    "failed": 0
+  },
+  "node": {
+    "command": "node --test tests/*.test.cjs",
+    "passed": 97,
+    "failed": 0
+  },
+  "browser": [
+    {
+      "script": "tests/browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/championship.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/club-pages.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/home-dashboard.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/launch-splash.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/match-center.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/multi-club.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/pages-pwa.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/player-photos.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/pwa-launcher.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/roster-profiles.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/tab-reload.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/tab-transitions.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/themes.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/universal-matches.browser.cjs",
+      "status": "passed"
+    },
+    {
+      "script": "tests/design-polish.browser.cjs",
+      "status": "passed",
+      "screenshots": 144
+    },
+    {
+      "script": "tests/design-preservation.browser.cjs",
+      "status": "passed",
+      "comparisons": 160
+    }
+  ],
+  "offline": {
+    "actualServiceWorker": true,
+    "knownMatchRoutesAndScores": 100,
+    "scheduledEventsInvented": false,
+    "stagedReviewSite": "passed",
+    "reconnectAndStaleData": "passed"
+  },
+  "preservation": {
+    "pairs": 160,
+    "homeByteIdenticalPairs": 8,
+    "maxChangedPixels": 26,
+    "maxRoundedEdgePixels": 14,
+    "maxNonEdgeRGBDelta": 2,
+    "protectedFiles": 58,
+    "dataSha256": "51d630f809e337cc89984e69caa22e7ae31f4eea2e6df7aae74b13430389438a"
+  },
+  "remoteCI": "See Checks on the pull request final commit; local results do not substitute remote CI."
+}

@@ -1,0 +1,295 @@
+{
+  "base": "04a9e4d0d903ad73eff1581eba19c644df6565f9",
+  "files": [
+    {
+      "path": ".github/workflows/update.yml",
+      "sha256": "4287bca805ca125c84d06ffbb09f8425f2ad582a4e66e88aa3e9b15846a683e2",
+      "unchanged": true
+    },
+    {
+      "path": "apple-touch-icon.png",
+      "sha256": "3dda1cc2e3328f97ba0bd6316bf21326082e04978fc7fbdf1d403fa2e797f0d3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/club-crest-final-original.png",
+      "sha256": "c8ed5b87dbf6a9c17fcbcc61974a9f4bd06418b3ef60ac8dddb534a6a504513b",
+      "unchanged": true
+    },
+    {
+      "path": "assets/club-crest-original.png",
+      "sha256": "31c854f9497403ceb37824a6115b4496dfd1f9d2984b859bb480f3d7d71bcba2",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/1028.png",
+      "sha256": "786cc3ef0886fd87d3644d3ef9d89ef02c5bf74a6403dfc4a3db3555f001e441",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/1030.png",
+      "sha256": "ac4055a6763a26590282da9ba61ce898459f8bf741200369fe230cb33f2cfec5",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/117.png",
+      "sha256": "051bd6e762efa5977b6322e0039993725d51573c79ebb61d7d57aed3709dfd36",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/146.png",
+      "sha256": "c0aca753f0c46c7fcef3eabc9108cea60547981e753f5e503fc1669dd8a43190",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/521.png",
+      "sha256": "71275bea5b0f7a988c5f72ff5fd2053c78360f609ac173738eda9ed54f0acec7",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/757.png",
+      "sha256": "1c3885cfa22d8d0fa67b5061e1cd3223ab4011e536c3b3aa41a266709059dde4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/930.png",
+      "sha256": "9616348a2db09ba5f94699424a20bc5b7ba71e3c78076aaeb94f1d99d5b35b5b",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/932.png",
+      "sha256": "79b1caf1b91abbe00138112976f81a3440cf19fecd45f874ae03b2cc7b478275",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/934.png",
+      "sha256": "a7d9d9b068a5f64acb70531c1f8f09ba57b025d7e0f5309b2ae07cab8d959488",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/936.png",
+      "sha256": "fd8d0c93f21f0042c8e40229a0dff68880c919ed83ecca01f8a6f0c2fd0e6d84",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/sources.json",
+      "sha256": "67b15f138540dbcfc4b19cba2d27428c1bf7b180fd918ead285d4dbcdc327988",
+      "unchanged": true
+    },
+    {
+      "path": "assets/home-crest-original.png",
+      "sha256": "a423ec7fa499ae42bbf6b85e00213bb5034e871e6ae845256e8774b43104673c",
+      "unchanged": true
+    },
+    {
+      "path": "assets/home-fortress.jpg",
+      "sha256": "e3707c8fdd9eda3d2fb69b499a72e229814f456dc80852703858d2562415babb",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/andrey-gaydash.webp",
+      "sha256": "09a3284137a2ad0bd7a2549c4d324fe3e7bc6cb7aeaac28d6dd6a9ae37828c46",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/anton-monakhov.webp",
+      "sha256": "726bd141f9854dc73f6fb1b949da38d2cca71fb4f7014276c8e26501998b4e1b",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/evgeniy-bredun.webp",
+      "sha256": "b6f5df6470706c734cc466fc5dd019d44b840793296647ca12d04fe13cb2df1f",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/vladimir-semenov.webp",
+      "sha256": "24cdfcbee558d9216cb56d3724172ac63b9cc9b61051758df9eaab6a9e149a19",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/README.md",
+      "sha256": "0a08c916b61b4172939777512440d0580d0c15722199de1eb8c68b294c5c1bc8",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/README.md",
+      "sha256": "c91d602088f0e54485b1036ffb47841aa5cf90077866669cdeb747e930b15608",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/fk-sudak-pwa-192.png",
+      "sha256": "e541caae86499755ef08fd116bdfcd0dcd61d5fc33ebf148e5773943d0354805",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/fk-sudak-pwa-512.png",
+      "sha256": "97fc6509322dbb9e05311a113381907d3d7955ce8669e3c2f73076d4d3c01f78",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/fk-sudak-pwa-maskable-512.png",
+      "sha256": "29a5a2d9b053b65527221cd352e804dd18524371ab029ecda76215daa8ce4afa",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/icon-192.png",
+      "sha256": "e541caae86499755ef08fd116bdfcd0dcd61d5fc33ebf148e5773943d0354805",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/icon-512.png",
+      "sha256": "97fc6509322dbb9e05311a113381907d3d7955ce8669e3c2f73076d4d3c01f78",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/icon-maskable-512.png",
+      "sha256": "29a5a2d9b053b65527221cd352e804dd18524371ab029ecda76215daa8ce4afa",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/fk-sudak-pwa-192.png",
+      "sha256": "abee26cb53fe327526cf6895f20875a12298795ea5f25e0231b98b71d65632c3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/fk-sudak-pwa-512.png",
+      "sha256": "5b68190971476245c05168c64d2e0c6f542593fc450b2f77652aa1ca1c418f38",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/fk-sudak-pwa-maskable-512.png",
+      "sha256": "dc7bbf66d0bfdcf6c89f442b60a6ae4f0c3d7d59cd78944e4ac68c8ba8dcf1f2",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/icon-192.png",
+      "sha256": "abee26cb53fe327526cf6895f20875a12298795ea5f25e0231b98b71d65632c3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/icon-512.png",
+      "sha256": "5b68190971476245c05168c64d2e0c6f542593fc450b2f77652aa1ca1c418f38",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/icon-maskable-512.png",
+      "sha256": "dc7bbf66d0bfdcf6c89f442b60a6ae4f0c3d7d59cd78944e4ac68c8ba8dcf1f2",
+      "unchanged": true
+    },
+    {
+      "path": "assets/pwa-launcher/crest-any-192-9297226bb1a7.png",
+      "sha256": "9297226bb1a730b5ece0d1d832017f96b9439e35414445026b975ec260d1f403",
+      "unchanged": true
+    },
+    {
+      "path": "assets/pwa-launcher/crest-any-512-5aaab8386f21.png",
+      "sha256": "5aaab8386f2130503aa74a48c1d27d4b514b9260ce63b94348aa6652a859bcef",
+      "unchanged": true
+    },
+    {
+      "path": "assets/pwa-launcher/crest-maskable-512-ad8a6296949e.png",
+      "sha256": "ad8a6296949e8ec2c53dc0d3f8bf9c81e71e8e30e1fd2ca0a88a16cb8d6776a8",
+      "unchanged": true
+    },
+    {
+      "path": "data.json",
+      "sha256": "51d630f809e337cc89984e69caa22e7ae31f4eea2e6df7aae74b13430389438a",
+      "unchanged": true
+    },
+    {
+      "path": "favicon.png",
+      "sha256": "57e4b0a6a9926fff51cb0b638440858b76f095995714321a5bf2f14b54ddb028",
+      "unchanged": true
+    },
+    {
+      "path": "fetch_data.py",
+      "sha256": "fb455369eefb1de3fdfbecd2004c9d61292732816000ec572f8e93ce0396b754",
+      "unchanged": true
+    },
+    {
+      "path": "fk-sudak-pwa-192.png",
+      "sha256": "4789f124c3d0fca05aa7187e1f4db7e1f20b08b0f3cd276d19c3958a387a1ac4",
+      "unchanged": true
+    },
+    {
+      "path": "fk-sudak-pwa-512.png",
+      "sha256": "5a23d9c25b5aeb02b8e538c96cb260faa2d23955f18f9027c8ec8b81a1afd2fd",
+      "unchanged": true
+    },
+    {
+      "path": "fk-sudak-pwa-maskable-512.png",
+      "sha256": "ff75faba7bd4256e123dbf2ef7452bef6d10d9dea15b17e8e0aaa833caa28687",
+      "unchanged": true
+    },
+    {
+      "path": "icon-192.png",
+      "sha256": "4789f124c3d0fca05aa7187e1f4db7e1f20b08b0f3cd276d19c3958a387a1ac4",
+      "unchanged": true
+    },
+    {
+      "path": "icon-512.png",
+      "sha256": "5a23d9c25b5aeb02b8e538c96cb260faa2d23955f18f9027c8ec8b81a1afd2fd",
+      "unchanged": true
+    },
+    {
+      "path": "icon-maskable-512.png",
+      "sha256": "ff75faba7bd4256e123dbf2ef7452bef6d10d9dea15b17e8e0aaa833caa28687",
+      "unchanged": true
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "998137075a078aa2e87275f489256fb9c2fa60b754e22ed62fb59e9abe86efd3",
+      "unchanged": true
+    },
+    {
+      "path": "modern-home.css",
+      "sha256": "602cf0e89ccdc8da43e2747312c4aecb705f235b501219ce7e13a699e45d2ed1",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/build_pages.py",
+      "sha256": "28f417b14148de8610ddcecb06c728d5bb9a728440c2fe6cc125d11d030c80d9",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/generate-club-crest.cjs",
+      "sha256": "08711c1c263ab0fd2ed754da8f8da2b16865f857db8383a4ff4b4321cab7f292",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/generate-pwa-launcher-icons.cjs",
+      "sha256": "22f2df703db23a1c9b8ce95aebe1051f9ba205ff7463065b22b4fecac50253eb",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_matches.py",
+      "sha256": "864012f1308c1ea139ccd8cefbfbf296fb002a570218e167ff51993025f24904",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_rosters.py",
+      "sha256": "27bc6c71e7e20805ff81722d9ebf312a89084f87d67ec8ac465d7be5b1c8f49e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_schema.py",
+      "sha256": "489b0267bc6419340d52e18d68a19f91678e7552eaa336cfb1580456c7e88610",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_sources.py",
+      "sha256": "867f74d276c0000b6091d00be011063eda3c9792424d48a5f44ffb756bd75ec3",
+      "unchanged": true
+    },
+    {
+      "path": "sw.js",
+      "sha256": "e2d4da232ce5fa391bfc430d2e77264db51c7832a03a4d2505a7935ef45c2275",
+      "unchanged": true
+    },
+    {
+      "path": "update_player_stats.py",
+      "sha256": "2a98d0c1766fe19e8a2532d5f5a29c24cdcd5c13f0b56c20d10195a1b884c6ae",
+      "unchanged": true
+    }
+  ]
+}

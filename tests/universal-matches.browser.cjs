@@ -33,12 +33,12 @@ const server=http.createServer((req,res)=>{
   }
   console.log('PASS all '+all.length+' known match routes, scores, statuses and scheduled fixtures without invented events');
   const reps=[...new Set(Object.keys(data.platform.teamsById).map(tid=>all.find(m=>prot[m.matchId]&&[m.homeTeamId,m.awayTeamId].includes(tid))||all.find(m=>[m.homeTeamId,m.awayTeamId].includes(tid))))];
-  for(const width of [320,390,768])for(const theme of ['light','dark']){
+  for(const width of [320,390,768,1440])for(const theme of ['light','dark']){
    await p.setViewportSize({width,height:844});await p.evaluate(theme=>{document.documentElement.dataset.theme=theme;localStorage.setItem('sudak-theme',theme)},theme);
    for(const m of reps){await go(p,key(m));await checkLayout(p)}
    if(width===390&&shots){fs.mkdirSync(shots,{recursive:true});await go(p,key(selected));await p.screenshot({path:path.join(shots,'universal-'+theme+'-390.png'),fullPage:true});const future=all.find(m=>m.status==='scheduled');await go(p,key(future));await p.screenshot({path:path.join(shots,'scheduled-'+theme+'-390.png'),fullPage:true});await p.evaluate(()=>{history.replaceState({},'','#match='+encodeURIComponent(matchKey(RES[0])));applyRoute()});await p.screenshot({path:path.join(shots,'sudak-legacy-'+theme+'-390.png'),fullPage:true})}
   }
-  console.log('PASS 11 clubs × 3 mobile/tablet widths × 2 themes; five navigation tabs');
+  console.log('PASS 11 clubs × 4 mobile/tablet/desktop widths × 2 themes; five navigation tabs');
   await p.setViewportSize({width:390,height:844});
   await p.evaluate(tid=>{history.replaceState({},'','#team='+tid);applyRoute()}, selected.homeTeamId==='141'?selected.awayTeamId:selected.homeTeamId);
   const clubHash=await p.evaluate(()=>location.hash),entry=p.locator('#team a[data-club-protocol]').first(),target=await entry.getAttribute('data-match');await entry.click();assert.equal(await p.locator('#match.on').count(),1);await p.reload();await ready(p);await p.locator('#match-back').click();assert.equal(await p.evaluate(()=>location.hash),clubHash);
@@ -75,7 +75,8 @@ const server=http.createServer((req,res)=>{
   await c.close();
   const offline=await context('allow'),o=await offline.newPage();attach(o);await o.goto(base+'#match='+encodeURIComponent(key(selected)));await ready(o);await o.evaluate(()=>navigator.serviceWorker.ready);await o.waitForFunction(()=>!!navigator.serviceWorker.controller);await offline.setOffline(true);
   for(const tid of Object.keys(data.platform.teamsById).filter(id=>id!=='141'))assert.equal(await o.evaluate(async tid=>(await fetch('assets/clubs/'+tid+'.png')).ok,tid),true);
-  await o.reload();await ready(o);assert.equal(await o.locator('#match .center-lineup-team').count(),2);assert.deepEqual(await o.locator('#match .num').allTextContents(),[String(selected.homeScore),String(selected.awayScore)]);await o.locator('#match .center-lineup-list a[data-player]').first().click();assert.equal(await o.locator('#player.on').count(),1);await offline.close();
-  console.log('PASS real SW offline reload with protocol, lineups and player navigation');assert.deepEqual(errors,[]);
+  await o.reload();await ready(o);assert.equal(await o.locator('#match .center-lineup-team').count(),2);assert.deepEqual(await o.locator('#match .num').allTextContents(),[String(selected.homeScore),String(selected.awayScore)]);for(const m of all){await go(o,key(m));assert.deepEqual(await o.locator('#match .num').allTextContents(),['finished','technical'].includes(m.status)?[String(m.homeScore),String(m.awayScore)]:[]);if(m.status==='scheduled')assert.equal(await o.locator('#match .center-timeline li,#match .center-lineup-list li').count(),0)}
+  await go(o,key(selected));await o.locator('#match .center-lineup-list a[data-player]').first().click();assert.equal(await o.locator('#player.on').count(),1);await offline.close();
+  console.log('PASS real SW offline reload, all 100 match routes/scores/statuses, lineups and player navigation');assert.deepEqual(errors,[]);
  }finally{await browser.close();await new Promise(r=>server.close(r))}
 })().catch(e=>{console.error(e);process.exitCode=1});

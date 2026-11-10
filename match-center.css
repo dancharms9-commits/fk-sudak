@@ -70,3 +70,42 @@
 #match .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(min-width:768px){main:has(#match.on){max-width:1040px}#match .center-hero{padding:24px}#match .tm{font-size:21px}#match .center-info{grid-template-columns:repeat(3,minmax(0,1fr))}#match .center-info>div:nth-child(2){grid-column:auto}#match .center-grid:has(.center-lineups){grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}#match .center-goals .center-scorers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}#match .center-not-started{max-width:140px;font-size:16px}#match .center-lineups:only-child .center-lineup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){#match .center-player{transition:none}}
+
+/* Stage 6: opt-in universal centers; legacy Sudak markup keeps its styles. */
+#match:has(.match-polish) #match-title{margin:12px 0;font-size:20px}
+#match:has(.match-polish) #match-title:focus{outline:none}
+#match .match-polish{min-width:0}
+#match .match-polish .center-hero{padding:16px 12px;border:0;border-radius:12px;margin-bottom:16px}
+#match .match-polish .center-hero-head{gap:8px;align-items:baseline}
+#match .match-polish .center-competition{font-size:12px;line-height:1.4;min-width:0;flex-basis:100%}
+#match .match-polish .center-status{font-size:13px;line-height:1.4;font-weight:650;color:var(--ink)}
+#match .match-polish .center-round{font-size:12px;margin:4px 0 0}
+#match .match-polish .board{margin:16px 0;gap:8px;align-items:center}
+#match .match-polish .tm{font-size:14px;gap:4px}
+#match .match-polish .tm>.club-link{gap:8px;width:100%;min-width:44px}
+#match .match-polish .center-badge{width:48px;height:48px;background:none;border:0;border-radius:0}
+#match .match-polish .center-badge .champ-badge{width:48px;height:48px;font-size:16px}
+#match .match-polish .center-badge img{width:48px;height:48px;background:var(--card)}
+#match .match-polish .center-score-numbers{gap:4px;color:var(--ink)}
+#match .match-polish .num{font-size:clamp(36px,10vw,56px);color:var(--ink);font-weight:800}
+#match .match-polish .center-score-dash{font-size:40px;line-height:1.2;font-weight:700;color:var(--mute)}
+#match .match-polish .center-score>small{font-size:12px;margin-top:4px}
+#match .match-polish .match-meta{font-size:13px;line-height:1.6;text-align:center;margin:0}
+#match .match-polish .card{border:0;border-radius:0;background:none;padding:0;margin:0}
+#match .match-polish h2{font-size:16px;color:var(--ink);margin:20px 0 8px}
+#match .match-polish h3{font-size:14px;margin:0 0 12px}
+#match .match-polish .center-scorers li{padding:8px 0;min-height:52px}
+#match .match-polish .center-goal-name,#match .match-polish .goal-player{font-size:14px}
+#match .match-polish .center-goal-minute b{font-size:16px}
+#match .match-polish .center-timeline li{padding:8px 0;min-height:60px}
+#match .match-polish .center-player{color:var(--ink);min-width:44px;transition:none}
+#match .match-polish .center-player:active{transform:none}
+#match .match-polish .center-lineup-team{padding-top:12px;border-top:1px solid var(--line)}
+#match .match-polish .center-event-icon{color:var(--mute)}
+#match .match-polish .center-event-icon.yellow,#match .match-polish .center-event-icon.second_yellow{color:var(--sea)}
+#match .match-polish .center-event-icon.red{color:var(--loss)}
+#match .match-polish .center-protocol{min-height:44px;padding:12px 0;margin-top:16px;border-top:1px solid var(--line)}
+#match .match-polish .center-protocol b{font-size:14px}
+#match .match-polish .center-data{margin-top:12px}
+#match .match-polish .center-data summary{color:var(--mute);font-size:13px}
+@media(min-width:768px){#match .match-polish .center-hero{padding:16px 24px}#match .match-polish .center-hero-head{flex-wrap:nowrap}#match .match-polish .center-competition{flex-basis:auto}#match .match-polish .center-status{flex:none}#match .match-polish .board{max-width:640px;margin:16px auto}#match .match-polish .tm{font-size:18px}}
