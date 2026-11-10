@@ -57,7 +57,7 @@ const server=http.createServer((req,res)=>{
   await page.locator('#champ-round').selectOption('18');assert.equal(await page.locator('[data-champ-match]').count(),5);
   const technical=page.locator('[data-champ-match="4:2026:18:521:757"]');assert((await technical.innerText()).includes('3:0'));assert((await technical.innerText()).includes('Тех. победа'));
   await technical.locator('summary').click();assert((await technical.innerText()).includes('Стадион не указан'));
-  const foreign=page.locator('details[data-champ-match]').filter({hasText:'СТО-Газель'});await foreign.locator('summary').click();assert((await foreign.locator('a').getAttribute('href')).includes('/matches/38763/'));
+  const foreign=page.locator('details[data-champ-match]').filter({hasText:'СТО-Газель'});await foreign.locator('summary').click();assert((await foreign.locator('a.champ-source').getAttribute('href')).includes('/matches/38763/'));
   await page.locator('#champ-team').selectOption('141');assert.equal(await page.locator('[data-champ-match]').count(),1);
   const match=page.locator('#table a[data-match]');await match.scrollIntoViewIfNeeded();const scroll=await page.evaluate(()=>scrollY);
   await match.click();await page.locator('#match.on').waitFor();assert.equal(await page.locator('#match .center-scorers li').count(),5);

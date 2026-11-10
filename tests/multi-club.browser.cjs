@@ -1,4 +1,5 @@
-/* The optional data extension must be invisible to the existing UI. Compare
+/* The club platform must preserve the four existing Sudak tabs. The championship
+ * table intentionally gains ID links and full standings, tested separately. Compare
  * actual PNG pixels for old/new JSON in the same browser, not mock renderers. */
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict');
@@ -49,6 +50,7 @@ const server=http.createServer((req,res)=>{
     res.setHeader('Content-Type','application/json');
     return res.end(JSON.stringify(url.searchParams.get('format')==='legacy'?legacy:extended));
   }
+  if(url.pathname==='/'&&url.searchParams.has('baseline')&&process.env.MULTI_CLUB_BASELINE_HTML){res.setHeader('Content-Type','text/html;charset=utf-8');return res.end(fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML))}
   const file=path.resolve(root,url.pathname==='/'?'index.html':'.'+url.pathname);
   if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end()}
   fs.readFile(file,(err,body)=>{
@@ -66,7 +68,7 @@ const server=http.createServer((req,res)=>{
   try{
     for(const theme of ['light','dark'])for(const width of [320,390,768,1440]){
       const screenshots=[];
-      for(const format of ['legacy','platform']){
+      for(const format of (process.env.MULTI_CLUB_BASELINE_HTML?['main','legacy','platform']:['legacy','platform'])){
         const context=await browser.newContext({serviceWorkers:'block',reducedMotion:'reduce',viewport:{width,height:844}});
         await context.route('https://rffk-roo.ru/**',r=>r.abort());
         await context.route('**/data.json?*',r=>r.fulfill({contentType:'application/json',body:JSON.stringify(format==='legacy'?legacy:extended)}));
@@ -75,13 +77,13 @@ const server=http.createServer((req,res)=>{
           Date.now=()=>Date.parse('2026-11-10T12:00:00Z');
         },theme);
         const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
-        await page.goto('http://127.0.0.1:'+server.address().port+'/');
+        await page.goto('http://127.0.0.1:'+server.address().port+'/'+(format==='main'?'?baseline=1':''));
         await page.waitForFunction(()=>!loadingData&&hasNetworkData);
         const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('sudak-data-v1')));
         assert.deepEqual(stored,format==='legacy'?legacy:extended,'Comparison must actually load each JSON format');
         await page.locator('#launch-splash').waitFor({state:'detached'});
         const shots={};
-        for(const tab of ['home','matches','table','squad','news']){
+        for(const tab of ['home','matches','squad','news']){
           await page.locator(`#nav [data-t="${tab}"]`).click();
           await page.locator(`#${tab}.on`).waitFor();
           await page.evaluate(async()=>{
@@ -95,21 +97,23 @@ const server=http.createServer((req,res)=>{
         screenshots.push(shots);await context.close();
       }
       for(const tab of Object.keys(screenshots[0])){
-        const a=screenshots[0][tab],b=screenshots[1][tab];
-        assert.deepEqual(a.presentation,b.presentation,`${tab} ${theme} ${width}: presentation changed`);
-        const delta=await pixelDifference(comparator,a.png,b.png);
-        // Ignore only very small edge-antialiasing noise between compositor
-        // surfaces. Exact geometry/text/styles above still forbid UI changes.
-        const equal=delta.max<=2&&delta.changed/delta.total<=0.001;
-        if(!equal&&process.env.VISUAL_SCREENSHOT_DIR){
-          fs.mkdirSync(process.env.VISUAL_SCREENSHOT_DIR,{recursive:true});
-          fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,`${tab}-${theme}-${width}-legacy.png`),a.png);
-          fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,`${tab}-${theme}-${width}-platform.png`),b.png);
+        for(const candidate of screenshots.slice(1)){
+          const a=screenshots[0][tab],b=candidate[tab];
+          assert.deepEqual(a.presentation,b.presentation,`${tab} ${theme} ${width}: presentation changed`);
+          const delta=await pixelDifference(comparator,a.png,b.png);
+          // Ignore only very small edge-antialiasing noise between compositor
+          // surfaces. Exact geometry/text/styles above still forbid UI changes.
+          const equal=delta.max<=2&&delta.changed/delta.total<=0.001;
+          if(!equal&&process.env.VISUAL_SCREENSHOT_DIR){
+            fs.mkdirSync(process.env.VISUAL_SCREENSHOT_DIR,{recursive:true});
+            fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,`${tab}-${theme}-${width}-legacy.png`),a.png);
+            fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,`${tab}-${theme}-${width}-platform.png`),b.png);
+          }
+          assert(equal,`${tab} ${theme} ${width}: pixel difference ${JSON.stringify(delta)}`);
         }
-        assert(equal,`${tab} ${theme} ${width}: pixel difference ${JSON.stringify(delta)}`);
       }
-      console.log(`PASS equal presentation and raster (bounded edge antialiasing): 5 tabs, ${theme}, ${width}px`);
+      console.log(`PASS equal presentation and raster (bounded edge antialiasing): 4 Sudak tabs, ${theme}, ${width}px`);
     }
-    assert.deepEqual(errors,[]);console.log('PASS zero JavaScript errors; no UI changes from platform');
+    assert.deepEqual(errors,[]);console.log('PASS zero JavaScript errors; no visual changes in Sudak tabs');
   }finally{await browser.close();server.close()}
 })().catch(err=>{console.error(err);process.exitCode=1;server.close()});
