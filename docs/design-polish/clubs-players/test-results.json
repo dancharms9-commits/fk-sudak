@@ -1,0 +1,96 @@
+{
+  "base": "b9be850dbc718abba4155958a31661ac541a997f",
+  "local": true,
+  "python": {
+    "command": "python -m unittest discover -s tests -v",
+    "passed": 136,
+    "failed": 0
+  },
+  "node": {
+    "command": "node --test tests/*.test.cjs",
+    "passed": 102,
+    "failed": 0
+  },
+  "browser": [
+    {
+      "command": "node tests/browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/championship.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/club-pages.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/clubs-players.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/design-polish.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/design-preservation.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/home-dashboard.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/launch-splash.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/match-center.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/multi-club.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/pages-pwa.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/player-photos.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/pwa-launcher.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/roster-profiles.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/tab-reload.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/tab-transitions.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/themes.browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/universal-matches.browser.cjs",
+      "exitCode": 0
+    }
+  ],
+  "protectedFiles": 260,
+  "preservationPairs": 168,
+  "renderedPlayerContexts": 368,
+  "notes": [
+    "club-pages source selector updated for the main official link; full rerun passed",
+    "latest clubs/player audit includes transfer disclosure history and deduplicated source checks",
+    "staged Pages test rerun on a byte-identical final candidate, no deployment"
+  ]
+}

@@ -15,7 +15,7 @@ const server=http.createServer((req,res)=>{
 });
 const layout=()=>[...document.querySelectorAll('header,header *,nav,nav *,main>section.on,main>section.on *')].map(e=>{
  const r=e.getBoundingClientRect(),s=getComputedStyle(e);
- return {tag:e.tagName,text:e.textContent,src:e.getAttribute('src'),href:e.getAttribute('href'),rect:[r.x,r.y,r.width,r.height],style:[s.color,s.backgroundColor,s.backgroundImage,s.borderColor,s.borderRadius,s.fontFamily,s.fontSize,s.fontWeight,s.boxShadow]};
+ return {tag:e.tagName,id:e.id,className:e.className,text:e.textContent,src:e.getAttribute('src'),href:e.getAttribute('href'),rect:[r.x,r.y,r.width,r.height],style:[s.color,s.backgroundColor,s.backgroundImage,s.borderColor,s.borderRadius,s.fontFamily,s.fontSize,s.fontWeight,s.boxShadow]};
 });
 async function rasterDelta(p,a,b,edges){
  if(a.equals(b))return {changed:0,max:0,total:a.readUInt32BE(16)*a.readUInt32BE(20),edgePixels:0,hardMax:0};
@@ -24,9 +24,9 @@ async function rasterDelta(p,a,b,edges){
   const c=document.createElement('canvas');c.width=pictures[0].width;c.height=pictures[0].height;
   const ctx=c.getContext('2d',{willReadFrequently:true}),rgba=pictures.map(i=>{ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(i,0,0);return ctx.getImageData(0,0,c.width,c.height).data});
   const onEdge=(x,y)=>edges.some(r=>{const qx=Math.abs(x-r.x-r.width/2)-(r.width/2-r.radius),qy=Math.abs(y-r.y-r.height/2)-(r.height/2-r.radius);return Math.abs(Math.hypot(Math.max(qx,0),Math.max(qy,0))+Math.min(Math.max(qx,qy),0)-r.radius)<=1.25});
-  let changed=0,max=0,edgePixels=0,hardMax=0;
-  for(let i=0;i<rgba[0].length;i+=4){let d=0;for(let j=0;j<4;j++)d=Math.max(d,Math.abs(rgba[0][i+j]-rgba[1][i+j]));if(d){changed++;max=Math.max(max,d);if(d>2&&onEdge(i/4%c.width+.5,Math.floor(i/4/c.width)+.5))edgePixels++;else hardMax=Math.max(hardMax,d)}}
-  return {changed,max,total:c.width*c.height,edgePixels,hardMax};
+  let changed=0,max=0,edgePixels=0,hardMax=0;const pixels=[];
+  for(let i=0;i<rgba[0].length;i+=4){let d=0;for(let j=0;j<4;j++)d=Math.max(d,Math.abs(rgba[0][i+j]-rgba[1][i+j]));if(d){const x=i/4%c.width,y=Math.floor(i/4/c.width);pixels.push({x,y,delta:d,before:[...rgba[0].slice(i,i+4)],after:[...rgba[1].slice(i,i+4)]});changed++;max=Math.max(max,d);if(d>2&&onEdge(x+.5,y+.5))edgePixels++;else hardMax=Math.max(hardMax,d)}}
+  return {changed,max,total:c.width*c.height,edgePixels,hardMax,pixels};
  },{urls:[a,b].map(b=>'data:image/png;base64,'+b.toString('base64')),edges});
 }
 async function stableScreenshot(p){
@@ -36,11 +36,14 @@ async function stableScreenshot(p){
 }
 (async()=>{
  await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}/`;
- const browser=await chromium.launch(process.env.CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.CHROMIUM_EXECUTABLE_PATH}:{}),results=[],errors=[];
+ // Full-tile rasterization avoids Chromium's history-dependent antialiasing
+ // of rounded gradient clips. This affects capture conditions only, for both
+ // documents equally; all pixel limits below remain unchanged.
+ const browser=await chromium.launch({...process.env.CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.CHROMIUM_EXECUTABLE_PATH}:{},args:['--disable-partial-raster']}),results=[],errors=[];
  try{
   const comparator=await browser.newPage();
   const old=data.res.map(r=>({name:'legacy-'+data.match_details[[2026,r[0],r[1],r[5]].join('|')].id,hash:'#match='+encodeURIComponent([2026,r[0],r[1],r[5]].join('|'))+'&from=matches'}));
-  const screens=[{name:'home',hash:'#home'},{name:'kashtan',hash:'#team=936'},{name:'roster',hash:'#team=936',roster:true},{name:'popov',hash:'#player=rffk-146&team=936&competition=4&season=22'},...old];
+  const screens=[{name:'home',hash:'#home'},{name:'sudak-player',hash:'#player=rffk-202&from=home'},{name:'calendar',hash:'#table',calendar:true},{name:'universal-center',hash:'#match=rffk-38771&from=table'},{name:'scheduled-center',hash:'#match=4%3A2026%3A20%3A117%3A141&from=table'},...old];
   for(const width of [320,390,768,1440])for(const theme of ['light','dark']){
    const snapshots=[];
    const c=await browser.newContext({serviceWorkers:'block',reducedMotion:'reduce',viewport:{width,height:844},deviceScaleFactor:1});
@@ -52,10 +55,10 @@ async function stableScreenshot(p){
     const frames={};
     for(const screen of screens){
      await p.evaluate(hash=>{history.replaceState({},'',hash);applyRoute();document.activeElement?.blur();scrollTo(0,0)},screen.hash);
-     if(screen.roster)await p.locator('#team .club-roster-player').first().evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-24));
+     if(screen.calendar)await p.evaluate(()=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round='18';CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()});
      await p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.querySelectorAll('header img,main>section.on img')].filter(i=>{const r=i.getBoundingClientRect();return r.width&&r.top<innerHeight}).map(i=>i.decode().catch(()=>{})));await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});
      await p.mouse.move(0,0);frames[screen.name]={layout:await p.evaluate(layout),png:await stableScreenshot(p),edges:await p.locator('#nav button.on').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,radius:parseFloat(getComputedStyle(e).borderRadius)}}))};
-     if(shots&&['home',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
+     if(shots&&['home','calendar','universal-center','scheduled-center','sudak-player',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
     }
     snapshots.push(frames);
    }
@@ -63,14 +66,14 @@ async function stableScreenshot(p){
    for(const screen of screens){
     const a=snapshots[0][screen.name],b=snapshots[1][screen.name];
     assert.deepEqual(a.layout,b.layout,`${screen.name} ${width} ${theme}: geometry/text/styles changed`);
-    const delta=await rasterDelta(comparator,a.png,b.png,a.edges);results.push({screen:screen.name,width,theme,...delta});
-    if(delta.max>2&&shots){fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-before.png`),a.png);fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-after.png`),b.png)}
+    const {pixels=[],...delta}=await rasterDelta(comparator,a.png,b.png,a.edges);results.push({screen:screen.name,width,theme,...delta});
+    if(delta.max>2&&shots){fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-before.png`),a.png);fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-after.png`),b.png);fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-delta.json`),JSON.stringify({browser:browser.version(),platform:process.platform,arch:process.arch,delta,pixels,before:a.layout,after:b.layout},null,2)+'\n')}
     // Native Chromium occasionally quantizes the pre-existing rounded gradient
     // edge differently. Allow only its 1.25px outline, <=100 pixels, <=40 RGB.
     // Every other pixel retains the existing 2-level / 0.1% noise bound.
     assert(delta.hardMax<=2&&delta.max<=40&&delta.edgePixels<=100&&delta.changed/delta.total<=.001,`${screen.name} ${width} ${theme}: raster changed ${JSON.stringify(delta)}`);
    }
-   console.log(`PASS real base/candidate PNGs + full layout: home, Kashtan, roster, Popov, 16 legacy centers; ${width}px ${theme}`);
+   console.log(`PASS real base/candidate PNGs + full layout: home, Sudak player, championship, universal/scheduled centers, 16 legacy centers; ${width}px ${theme}`);
   }
   if(shots)fs.writeFileSync(path.join(shots,'preservation.json'),JSON.stringify(results,null,2)+'\n');assert.deepEqual(errors,[]);
  }finally{await browser.close();await new Promise(r=>server.close(r))}
