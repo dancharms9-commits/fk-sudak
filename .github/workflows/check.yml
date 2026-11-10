@@ -66,6 +66,9 @@ jobs:
         env:
           VISUAL_SCREENSHOT_DIR: dashboard-screenshots
       - run: node tests/match-center.browser.cjs
+      - run: node tests/universal-matches.browser.cjs
+        env:
+          MATCH_SCREENSHOT_DIR: ${{ runner.temp }}/universal-match-screenshots
         env:
           VISUAL_SCREENSHOT_DIR: match-center-screenshots
       - run: node tests/tab-transitions.browser.cjs
@@ -82,6 +85,7 @@ jobs:
         with:
           name: launch-screenshots
           path: |
+            ${{ runner.temp }}/universal-match-screenshots/
             roster-screenshots/
             club-screenshots/
             championship-screenshots/

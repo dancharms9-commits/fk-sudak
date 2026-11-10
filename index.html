@@ -1154,10 +1154,15 @@ function matchParentHash(value){
   const params=new URLSearchParams(value.slice(1));
   return params.get('match')?value:'';
 }
+function profileParentTab(hash){
+  const p=new URLSearchParams(String(hash||'').slice(1));
+  return p.get('from')==='match'?matchParentTab(p.get('back')):p.get('team')||p.get('from')==='table'?'table':p.get('from')==='home'?'home':'squad';
+}
 function matchParentTab(hash,depth=0){
   const params=new URLSearchParams(String(hash||'').slice(1));
   if(['table','team'].includes(params.get('from')))return 'table';
   if(params.get('from')==='home')return 'home';
+  if(params.get('profileRoute')&&depth<8)return profileParentTab(params.get('profileRoute'));
   if(params.get('from')!=='player')return 'matches';
   if(params.get('profileFrom')==='table')return 'table';
   if(params.get('profileFrom')==='home')return 'home';
@@ -1234,7 +1239,7 @@ function applyRoute(restore=false){
   const animateTab=prepareTabTransition($(route.section));
   if(PLAYER_ROLE!==route.role){PLAYER_ROLE=route.role;renderSquad()}
   document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
-  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?(route.origin==="team"?"table":route.origin):route.section;
+  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileRoute?profileParentTab(route.profileRoute):route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?(route.origin==="team"?"table":route.origin):route.section;
   document.querySelectorAll('#nav button').forEach(el=>{
     const active=el.dataset.t===tab;
     el.classList.toggle("on",active);
@@ -1560,8 +1565,7 @@ function clubContext(id,p=PLATFORM,now=Date.now()){
 }
 function clubMatchHTML(m){
   const score=[m.homeScore,m.awayScore].every(n=>Number.isInteger(n)&&n>=0)?`${m.homeScore}:${m.awayScore}`:'—';
-  const url=protocolLink(m.sourceUrl),legacy=Object.entries(PLATFORM?.legacyLinks?.matches||{}).find(([,id])=>id===m.matchId)?.[0];
-  return `<article class="card" data-club-match="${esc(m.matchId)}"><div class="club-match-meta"><span>${esc(champDate({date:m.date,time:m.time}))}</span><span>${esc(champStatus(m))}</span></div><div class="club-match-pair">${clubLink(m.homeTeamId)}<strong class="club-score">${score}</strong>${clubLink(m.awayTeamId)}</div>${m.venue?`<p class="hint">${esc(m.venue)}</p>`:''}<a class="club-source" data-club-protocol data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=team&amp;team=${encodeURIComponent(currentRoute().teamId||m.homeTeamId)}">Центр матча →</a></article>`;
+    return `<article class="card" data-club-match="${esc(m.matchId)}"><div class="club-match-meta"><span>${esc(champDate({date:m.date,time:m.time}))}</span><span>${esc(champStatus(m))}</span></div><div class="club-match-pair">${clubLink(m.homeTeamId)}<strong class="club-score">${score}</strong>${clubLink(m.awayTeamId)}</div>${m.venue?`<p class="hint">${esc(m.venue)}</p>`:''}<a class="club-source" data-club-protocol data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=team&amp;team=${encodeURIComponent(currentRoute().teamId||m.homeTeamId)}">Центр матча →</a></article>`;
 }
 function clubPlayersHTML(players){
   return `<ul class="club-players">${players.map(p=>{const url=clubOfficialURL(p.sourceUrl,'players',p.playerId);return `<li>${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(p.name)} ↗</a>`:esc(p.name)}</li>`}).join('')}</ul>`;

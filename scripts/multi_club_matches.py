@@ -42,7 +42,8 @@ class NetworkLoader:
                     self.requests += 1
                 response = requests.get(url, timeout=min(8, remaining), headers={'User-Agent': 'FKSudakPWA/match-review-v1'})
                 response.raise_for_status()
-                require(response.url.rstrip('/') == url.rstrip('/'), 'Unexpected protocol redirect')
+                require(response.url.rstrip('/') == url.rstrip('/') or
+                        (url == SEASON_URL and response.url == BASE+'/tournaments/4/'), 'Unexpected protocol redirect')
                 return BeautifulSoup(response.text, 'html.parser')
             except requests.RequestException as exc:
                 if attempt or (exc.response is not None and exc.response.status_code not in {429, 500, 502, 503, 504}):
