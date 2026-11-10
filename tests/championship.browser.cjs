@@ -56,7 +56,7 @@ const server=http.createServer((req,res)=>{
   await page.locator('[data-champ-step="1"]').click();assert.equal(await page.locator('#champ-round').inputValue(),'19');
   await page.locator('#champ-round').selectOption('18');assert.equal(await page.locator('[data-champ-match]').count(),5);
   const technical=page.locator('[data-champ-match="4:2026:18:521:757"]');assert((await technical.innerText()).includes('3:0'));assert((await technical.innerText()).includes('Тех. победа'));
-  await technical.locator('a[data-match]').click();await page.locator('#match.on').waitFor();assert((await page.locator('#match').innerText()).includes('Технический результат'));await page.locator('#match-back').click();
+  await technical.locator('a[data-match]').click();await page.locator('#match.on').waitFor();assert.equal(await page.evaluate(()=>matchCenter(currentRoute().key).platformMatch.status),'technical');assert((await page.locator('#match').innerText()).includes('Тех. победа'));await page.locator('#match-back').click();
   const foreign=page.locator('[data-champ-match]').filter({hasText:'СТО-Газель'});await foreign.locator('a[data-match]').click();await page.locator('#match.on').waitFor();assert((await page.locator('#match .center-protocol').getAttribute('href')).includes('/matches/38763/'));await page.locator('#match-back').click();
   await page.locator('#champ-team').selectOption('141');assert.equal(await page.locator('[data-champ-match]').count(),1);
   const match=page.locator('#table a[data-match]');await match.scrollIntoViewIfNeeded();const scroll=await page.evaluate(()=>scrollY);
