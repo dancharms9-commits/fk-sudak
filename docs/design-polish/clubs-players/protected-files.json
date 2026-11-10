@@ -1,0 +1,1305 @@
+{
+  "base": "b9be850dbc718abba4155958a31661ac541a997f",
+  "files": [
+    {
+      "path": ".github/workflows/update.yml",
+      "sha256": "4287bca805ca125c84d06ffbb09f8425f2ad582a4e66e88aa3e9b15846a683e2",
+      "unchanged": true
+    },
+    {
+      "path": "apple-touch-icon.png",
+      "sha256": "3dda1cc2e3328f97ba0bd6316bf21326082e04978fc7fbdf1d403fa2e797f0d3",
+      "unchanged": true
+    },
+    {
+      "path": "apply_visual_refresh.py",
+      "sha256": "a2029b06af13317450b3c5625e9715e151862ce101c91870ee8f9f4bd2cb27ad",
+      "unchanged": true
+    },
+    {
+      "path": "assets/club-crest-final-original.png",
+      "sha256": "c8ed5b87dbf6a9c17fcbcc61974a9f4bd06418b3ef60ac8dddb534a6a504513b",
+      "unchanged": true
+    },
+    {
+      "path": "assets/club-crest-original.png",
+      "sha256": "31c854f9497403ceb37824a6115b4496dfd1f9d2984b859bb480f3d7d71bcba2",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/1028.png",
+      "sha256": "786cc3ef0886fd87d3644d3ef9d89ef02c5bf74a6403dfc4a3db3555f001e441",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/1030.png",
+      "sha256": "ac4055a6763a26590282da9ba61ce898459f8bf741200369fe230cb33f2cfec5",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/117.png",
+      "sha256": "051bd6e762efa5977b6322e0039993725d51573c79ebb61d7d57aed3709dfd36",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/146.png",
+      "sha256": "c0aca753f0c46c7fcef3eabc9108cea60547981e753f5e503fc1669dd8a43190",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/521.png",
+      "sha256": "71275bea5b0f7a988c5f72ff5fd2053c78360f609ac173738eda9ed54f0acec7",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/757.png",
+      "sha256": "1c3885cfa22d8d0fa67b5061e1cd3223ab4011e536c3b3aa41a266709059dde4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/930.png",
+      "sha256": "9616348a2db09ba5f94699424a20bc5b7ba71e3c78076aaeb94f1d99d5b35b5b",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/932.png",
+      "sha256": "79b1caf1b91abbe00138112976f81a3440cf19fecd45f874ae03b2cc7b478275",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/934.png",
+      "sha256": "a7d9d9b068a5f64acb70531c1f8f09ba57b025d7e0f5309b2ae07cab8d959488",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/936.png",
+      "sha256": "fd8d0c93f21f0042c8e40229a0dff68880c919ed83ecca01f8a6f0c2fd0e6d84",
+      "unchanged": true
+    },
+    {
+      "path": "assets/clubs/sources.json",
+      "sha256": "67b15f138540dbcfc4b19cba2d27428c1bf7b180fd918ead285d4dbcdc327988",
+      "unchanged": true
+    },
+    {
+      "path": "assets/home-crest-original.png",
+      "sha256": "a423ec7fa499ae42bbf6b85e00213bb5034e871e6ae845256e8774b43104673c",
+      "unchanged": true
+    },
+    {
+      "path": "assets/home-fortress.jpg",
+      "sha256": "e3707c8fdd9eda3d2fb69b499a72e229814f456dc80852703858d2562415babb",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/andrey-gaydash.webp",
+      "sha256": "09a3284137a2ad0bd7a2549c4d324fe3e7bc6cb7aeaac28d6dd6a9ae37828c46",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/anton-monakhov.webp",
+      "sha256": "726bd141f9854dc73f6fb1b949da38d2cca71fb4f7014276c8e26501998b4e1b",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/evgeniy-bredun.webp",
+      "sha256": "b6f5df6470706c734cc466fc5dd019d44b840793296647ca12d04fe13cb2df1f",
+      "unchanged": true
+    },
+    {
+      "path": "assets/players/vladimir-semenov.webp",
+      "sha256": "24cdfcbee558d9216cb56d3724172ac63b9cc9b61051758df9eaab6a9e149a19",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/README.md",
+      "sha256": "0a08c916b61b4172939777512440d0580d0c15722199de1eb8c68b294c5c1bc8",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/README.md",
+      "sha256": "c91d602088f0e54485b1036ffb47841aa5cf90077866669cdeb747e930b15608",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/fk-sudak-pwa-192.png",
+      "sha256": "e541caae86499755ef08fd116bdfcd0dcd61d5fc33ebf148e5773943d0354805",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/fk-sudak-pwa-512.png",
+      "sha256": "97fc6509322dbb9e05311a113381907d3d7955ce8669e3c2f73076d4d3c01f78",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/fk-sudak-pwa-maskable-512.png",
+      "sha256": "29a5a2d9b053b65527221cd352e804dd18524371ab029ecda76215daa8ce4afa",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/icon-192.png",
+      "sha256": "e541caae86499755ef08fd116bdfcd0dcd61d5fc33ebf148e5773943d0354805",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/icon-512.png",
+      "sha256": "97fc6509322dbb9e05311a113381907d3d7955ce8669e3c2f73076d4d3c01f78",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/crest-v4/icon-maskable-512.png",
+      "sha256": "29a5a2d9b053b65527221cd352e804dd18524371ab029ecda76215daa8ce4afa",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/fk-sudak-pwa-192.png",
+      "sha256": "abee26cb53fe327526cf6895f20875a12298795ea5f25e0231b98b71d65632c3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/fk-sudak-pwa-512.png",
+      "sha256": "5b68190971476245c05168c64d2e0c6f542593fc450b2f77652aa1ca1c418f38",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/fk-sudak-pwa-maskable-512.png",
+      "sha256": "dc7bbf66d0bfdcf6c89f442b60a6ae4f0c3d7d59cd78944e4ac68c8ba8dcf1f2",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/icon-192.png",
+      "sha256": "abee26cb53fe327526cf6895f20875a12298795ea5f25e0231b98b71d65632c3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/icon-512.png",
+      "sha256": "5b68190971476245c05168c64d2e0c6f542593fc450b2f77652aa1ca1c418f38",
+      "unchanged": true
+    },
+    {
+      "path": "assets/previous-crest/icon-maskable-512.png",
+      "sha256": "dc7bbf66d0bfdcf6c89f442b60a6ae4f0c3d7d59cd78944e4ac68c8ba8dcf1f2",
+      "unchanged": true
+    },
+    {
+      "path": "assets/pwa-launcher/crest-any-192-9297226bb1a7.png",
+      "sha256": "9297226bb1a730b5ece0d1d832017f96b9439e35414445026b975ec260d1f403",
+      "unchanged": true
+    },
+    {
+      "path": "assets/pwa-launcher/crest-any-512-5aaab8386f21.png",
+      "sha256": "5aaab8386f2130503aa74a48c1d27d4b514b9260ce63b94348aa6652a859bcef",
+      "unchanged": true
+    },
+    {
+      "path": "assets/pwa-launcher/crest-maskable-512-ad8a6296949e.png",
+      "sha256": "ad8a6296949e8ec2c53dc0d3f8bf9c81e71e8e30e1fd2ca0a88a16cb8d6776a8",
+      "unchanged": true
+    },
+    {
+      "path": "championship.css",
+      "sha256": "412f62c4667c66a24e893a27c6f442360411367de59e26fa2e4f3aaca3e5658e",
+      "unchanged": true
+    },
+    {
+      "path": "data.json",
+      "sha256": "51d630f809e337cc89984e69caa22e7ae31f4eea2e6df7aae74b13430389438a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-dark-1440.png",
+      "sha256": "7d7743ed7dad54e637eafdd525449b6daed60787a430c434eb987f26c018b770",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-dark-320.png",
+      "sha256": "b5eba48c0317c8b4ea6c41cf20dda6b264c582a760809f7e738c9fb3d569a78c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-dark-390.png",
+      "sha256": "df74e35400a09e9cae53c230fe7ce988bf60e340b490a877ff918edd62dad8cd",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-dark-768.png",
+      "sha256": "0193f15f19abae7746c226612db8b3077fa1c8cf63c6612cf3f8c422b6c3805a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-light-1440.png",
+      "sha256": "b301d3f548df30e370e3d41efb8f64a63120972214e4c534018d5724c79f2a00",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-light-320.png",
+      "sha256": "4709ec50285eb743231c7e32ae82380c22cb2fd7063bcf48e0c6e13ea0e79faf",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-light-390.png",
+      "sha256": "60b0fd50635455d63908c78cb8ba42f676234eedf946efb3b2d479f7e2cbf020",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/calendar-light-768.png",
+      "sha256": "6d2ae5804c4794add991c5871906b33a48c08efa6e294904be3c481847dbe4a7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-dark-1440.png",
+      "sha256": "2423adb861bae239ae62dee949c28a60d24938d7f331d8acf907539392df17bd",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-dark-320.png",
+      "sha256": "7b4858c68d5732f85e7edc16e3159773396230b40cef2b7c637c1a94ac1fcb11",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-dark-390.png",
+      "sha256": "8c00e3e13a0379c4cda6dcbad483d24f8c6577f0f5dc717afb9f77539fcb05ad",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-dark-768.png",
+      "sha256": "474434edf49706bdfbe1a6de4f4327798fcb8882f84de69da0c1ca78a7259276",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-light-1440.png",
+      "sha256": "243f42033feb6a3e23a46f3efbeb59f7303a0b9c8e2717070db916f3208e07f8",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-light-320.png",
+      "sha256": "864876d48b8c328d5558a07801fd97b558e0bc566e3631d32d231663ac4ac8f3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-light-390.png",
+      "sha256": "7b7ae1e6c0c2b96dcd691c6f4b8fa159b4c86d806cdd0696470e8d8fece65036",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/filters-light-768.png",
+      "sha256": "0464b0db814066b4288b25b33e61d87f82bf639b8b11b4d1890c2d57663d8778",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-dark-1440.png",
+      "sha256": "e36be950eeccb0623227e8bfdd2f1b226ab0983536b4b84aa69aa547b188ede3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-dark-320.png",
+      "sha256": "357a9406787443cb3d55850ff64895bbc1e3d346a5e65110262086d167d867bf",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-dark-390.png",
+      "sha256": "039a252e08b3be54c6566d6c24e2e6625fb0f5dda1fc75354005aad10e3b9033",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-dark-768.png",
+      "sha256": "43425cba5b06cbd573a82730e6bd855b8573ef07beafb62552ee82447d85adda",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-light-1440.png",
+      "sha256": "5648def44767b3197304bc6b31a55e0b4079023da6f8a6b8b3085d0189b705a1",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-light-320.png",
+      "sha256": "ffeaf1d3963649ac4f7151b63f29c8a68e500ac4fe09943ba728b699a35dccae",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-light-390.png",
+      "sha256": "26c90b472be82c2c249678ffca9adccec6507ac893012e34936b783d0f2a6f97",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/finished-light-768.png",
+      "sha256": "568dc02a3fd5edccc4d943782e8e07b381c6ca3509d96dbea87ef5cee7f5fe15",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-dark-1440.png",
+      "sha256": "a28ff9f12a9ef4b13d4db915d03ad6116d5e3871ec0e26ba1e1524e591c7ac94",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-dark-320.png",
+      "sha256": "16a718259aa48f507eba61e0789c373fd367a8780b72a88914c9c3ea9f99be40",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-dark-390.png",
+      "sha256": "cf7039ae382d76d858f081f54193e25ad231bea8d320697f52891dcd4be277d8",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-dark-768.png",
+      "sha256": "c73349eff7ccedb4ebdea63d4cc5348177974a46a051f9f8ec029aad2d4e197a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-light-1440.png",
+      "sha256": "8af551f0bdb3e61d3d22323fdcaddd723d50af1c058a675cada7c6b99da788bd",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-light-320.png",
+      "sha256": "426a965b87b6cebf7ddd81f7d5511b2ad47a75879f4d89fa1f1e1f4ec4128182",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-light-390.png",
+      "sha256": "3c94d426802238b49dc0be4b753c539f06a0ced13a91f2d3abe44f44fa1bb524",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/home-light-768.png",
+      "sha256": "5c72a8734f9fa67d4770b1aa285995c3109b32987aab82c0817d62b437bd6d0b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-dark-1440.png",
+      "sha256": "d5d2081ab0ae7c44188a5c35f4414aafeb46fda36391ab4d4fc3cf57aaacb4c5",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-dark-320.png",
+      "sha256": "417ba7cc1889355b7972e1f270a154e7e33f2fc6b2ddd32e0f3a15fa0606c0ac",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-dark-390.png",
+      "sha256": "c3567a794f94e26c4aa701067b2c579ec6fa7c24245ebf2804868a01b11ec642",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-dark-768.png",
+      "sha256": "82b7eb5bdacd07d21377bbfd74f97f760d18f59672da7d732ed9d0ac28b475b7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-light-1440.png",
+      "sha256": "8df9a3f7821d94e8d4f9f1a73b4723244805790f2e9a47c6bb541d56e694dcbf",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-light-320.png",
+      "sha256": "7ac46c4c915f960ceeeef366925f51381ff99d424b5a2e6944b557a422dbfc43",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-light-390.png",
+      "sha256": "3539fd67b8648c937fdb903a9b0862f5ac8baaa5b6e6726143dc667fb189e009",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/kashtan-light-768.png",
+      "sha256": "b1cf5611ee6e4bd13efc8ff36e5dcf1b66b94693159b677ffbecacfb4a17ad58",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-dark-1440.png",
+      "sha256": "f25021c315e7c007a37d0fa52e9226802d7dffa731a8a0a14eb436db85d2472c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-dark-320.png",
+      "sha256": "10522adcf5477d3c24aa5d75714e6b159b55e84613b398b68e455fd1ea07adde",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-dark-390.png",
+      "sha256": "527a037e8da71b286ce6f768ccaf1481f235a8ab9ed11d295003f44123eff182",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-dark-768.png",
+      "sha256": "aec626ce4c5d83dd50758e00c7bc443d0f9bf2b650244361af02dc8c10ad10c1",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-light-1440.png",
+      "sha256": "dcf3643f12c18454f2eb182b6eadf7295b2b17544eaa4fdf46f93746ae0dcde9",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-light-320.png",
+      "sha256": "0d66bc78a7a0e52995b9e424f12d8779fce766d9caf8e39d0f79617f3eb86574",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-light-390.png",
+      "sha256": "4da248689dc428a2fdfe80a53c6c1dbc3ced7b6c88acc56b9aa25ea58a96f065",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/popov-light-768.png",
+      "sha256": "6021ac98aa7ad02ad444427d8da6ed26aab9d2cde6c6c30b70cf859b44867bf6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-dark-1440.png",
+      "sha256": "f5539a7d2d57e2f4548e90e5e15b6c5ce647f8336e160714bf1829c34d57a23e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-dark-320.png",
+      "sha256": "34ba03b51a4fa606afc6471663e9908b3b41f7723b043cf1c4fcf8a6e2294e3c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-dark-390.png",
+      "sha256": "f8e039ba8acfba219b9159a20e38e059e73f1e0764e8f0b754c657e2b35a64b3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-dark-768.png",
+      "sha256": "67a2a849c415dae0e38705fe0572c7d0eb0502db3320a579cccfb81c2d2fa771",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-light-1440.png",
+      "sha256": "cf5dba528fa6a01070b6d64837e1661e1c9d11b5be274c956ff2166862da3cf7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-light-320.png",
+      "sha256": "8568f48434343c6ab6becd9b869f40266a528f87723ad2e4c4740c253652ca25",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-light-390.png",
+      "sha256": "bd4cdf3fac0c52e93c98e5a489b9d20653386b3cd448534a6c6734fa75e28294",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/roster-light-768.png",
+      "sha256": "c0325e3d781bda44b55fbaa46855b3b3fac3ff57627503e8925993cb0b898ec5",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-dark-1440.png",
+      "sha256": "304a0010cf721ffc0f8302c126f37a4a612b4009ba5e726b062da3c33393d8b7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-dark-320.png",
+      "sha256": "dcb63068d439fc9ba8deb8551cf8c5b58548d39a6c062a92933d5e007a1d2f43",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-dark-390.png",
+      "sha256": "ec1e6b26e88a3e80579af121d2f730e7675150379182fa7b040ec635e5a28e84",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-dark-768.png",
+      "sha256": "578739b3b99d6751dc060b8394927a615a1c329bde840142d86da0326a208369",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-light-1440.png",
+      "sha256": "f7eedce633bb451b42d2a55a5f4516ce3854984f914d24b4c1e83d87a5078766",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-light-320.png",
+      "sha256": "f576ce5423dbc85404831668f8bea7bb3bdb243c210c1b506f2eaba5dc85dc68",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-light-390.png",
+      "sha256": "3716fd6685cc64abb36787e652598490f8bab55bd1e3ac8c5bc9d3800d0e42af",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/scheduled-light-768.png",
+      "sha256": "05ea8a3ac12c1bed048886d99142a813fbefc87bfb4f30565195d870111025e6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-dark-1440.png",
+      "sha256": "663f898a007d45d255cc729ea7a55e1ed30e40cc410cf2772ae6ecdd563fea4c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-dark-320.png",
+      "sha256": "cd59a9941dca026d2008ccbcad93284451f184b31610ec0eef9d893b3f9820b6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-dark-390.png",
+      "sha256": "f181c04e6f5ebb68619ea56574316c32138462c955ed9c04afb91fd939cab0c7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-dark-768.png",
+      "sha256": "d141a7ebc91aee36bd11bb42145249ae5e712f183d96237a029bf236aedd1656",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-light-1440.png",
+      "sha256": "9ba1bfc880aeaeb8871bafa51251cbe3033a99dbe259b226f406a7bb7ed27987",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-light-320.png",
+      "sha256": "df10202bd4b6d9ed7e2a2aa1bd8be92f7a11b56348419eb1d0f346951eefa66e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-light-390.png",
+      "sha256": "347b33d4669da0cf20e4b76bb7c60f61555409d008f3b5efa65017be7e49bbe6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/after/standings-light-768.png",
+      "sha256": "1ba13e921e34e35122219e5e7b805470fd3dd084db8818a4bbb47e55487148b2",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-dark-1440.png",
+      "sha256": "414796ba0c172cd064a735651c658416bfd22604ffaa7b70f292420a412601fa",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-dark-320.png",
+      "sha256": "a5b8747a9f06ac21f9d24cd143b06074a353dbf76ee9f539d76899d6beff43fb",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-dark-390.png",
+      "sha256": "ecd7f52a08eadf28e05ca60d225114c4e0da25dc30c737694a08c34c664248dc",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-dark-768.png",
+      "sha256": "5f076475094e90f28b872b313842e0ed6c3e2c285e493dd2d7d7c3d670cc082f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-light-1440.png",
+      "sha256": "440e6c322673d61e82d2b73c6489a2d375ef0242dcf45072030b268069127194",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-light-320.png",
+      "sha256": "a1c6de6472b97d31ef1aa7c0de8d45076a4ec6e3ec827a301d556255b20bd406",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-light-390.png",
+      "sha256": "04103bb074ae3a66a2d07b7cdfb116affc4a0410a29be03748bbbbaefb3e4f41",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/calendar-light-768.png",
+      "sha256": "6f32ea17928b13e3cc5f9f1d4d2a5208786856d6676e6bebf804de95e3450507",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-dark-1440.png",
+      "sha256": "4f593476ae8af7b1a8921db8d3529f27abb2e21bc10727981c6a9ebb00c0ccc0",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-dark-320.png",
+      "sha256": "fa665bc37f7041eb124b3c5915ada170343453f6790c069c64ae322a1c5b6f35",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-dark-390.png",
+      "sha256": "ada93d471b18dbbf7e49cb4ea580acd0fe93d5fc87ff9068ecd2b48c80a13772",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-dark-768.png",
+      "sha256": "157a4e018303ad93a80de5de26170b9339332ef0b55ba1b7062f512718372358",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-light-1440.png",
+      "sha256": "40d60581f1e8fc3b70e23833b57f674dcc25ab707e785b342aae6e130eee9640",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-light-320.png",
+      "sha256": "6182743f1b274bfdada0cea5b3262457e486217c5dfc0e0d97109ebab9bd88c6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-light-390.png",
+      "sha256": "82b4bf52a21c73ee00fe95bfabd9abee8d3776dfedcca1abd008c81847cff9be",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/filters-light-768.png",
+      "sha256": "ee3183919fc6ae155c47e3028056990e781ed89b07a18c97260da9255693a345",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-dark-1440.png",
+      "sha256": "56cbb6aae75924ad35c4758338c9d06871a336d0745b8b6d4e55b4213cf6424e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-dark-320.png",
+      "sha256": "f2dfb6188457bc72ebbc0a68b15683573cbdfa645972f55445c6d58c0df31d14",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-dark-390.png",
+      "sha256": "f9bcb3eb3bce4fbccdb5c976f3ee539288ef095011fb605fc3950b585de9cfd7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-dark-768.png",
+      "sha256": "1db5d944ef6bb6374ab4df76385930c1b06810827ae343f01ee17b1d6e7fcec7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-light-1440.png",
+      "sha256": "adf275060636788dd261a6a42bc8ea09a1ab34c50500a13895234853a4e80d4c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-light-320.png",
+      "sha256": "5e0ee1759546592d67dccac8e96e14340a382450c356f32f5decefcee33a9ee2",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-light-390.png",
+      "sha256": "ef69fcb2ac8d6cf759cf5553b09f9e95407f18511e34fbbb765d0785234cf384",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/finished-light-768.png",
+      "sha256": "b32358b649986b7f0c250906c8ca49eb090e27ed370ee4f13cebaa90a9fefa41",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-dark-1440.png",
+      "sha256": "a28ff9f12a9ef4b13d4db915d03ad6116d5e3871ec0e26ba1e1524e591c7ac94",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-dark-320.png",
+      "sha256": "16a718259aa48f507eba61e0789c373fd367a8780b72a88914c9c3ea9f99be40",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-dark-390.png",
+      "sha256": "cf7039ae382d76d858f081f54193e25ad231bea8d320697f52891dcd4be277d8",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-dark-768.png",
+      "sha256": "c73349eff7ccedb4ebdea63d4cc5348177974a46a051f9f8ec029aad2d4e197a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-light-1440.png",
+      "sha256": "8af551f0bdb3e61d3d22323fdcaddd723d50af1c058a675cada7c6b99da788bd",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-light-320.png",
+      "sha256": "426a965b87b6cebf7ddd81f7d5511b2ad47a75879f4d89fa1f1e1f4ec4128182",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-light-390.png",
+      "sha256": "3c94d426802238b49dc0be4b753c539f06a0ced13a91f2d3abe44f44fa1bb524",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/home-light-768.png",
+      "sha256": "5c72a8734f9fa67d4770b1aa285995c3109b32987aab82c0817d62b437bd6d0b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-dark-1440.png",
+      "sha256": "d5d2081ab0ae7c44188a5c35f4414aafeb46fda36391ab4d4fc3cf57aaacb4c5",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-dark-320.png",
+      "sha256": "d9ab3792ea544de472978381c8d9e2b1fbc622221113b3b13a5ef2bc0012c107",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-dark-390.png",
+      "sha256": "0eadd0be27d055e477a505de73cd38989b17d806fbc0f0abdfc5d1e1f458df93",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-dark-768.png",
+      "sha256": "82b7eb5bdacd07d21377bbfd74f97f760d18f59672da7d732ed9d0ac28b475b7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-light-1440.png",
+      "sha256": "8df9a3f7821d94e8d4f9f1a73b4723244805790f2e9a47c6bb541d56e694dcbf",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-light-320.png",
+      "sha256": "7ac46c4c915f960ceeeef366925f51381ff99d424b5a2e6944b557a422dbfc43",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-light-390.png",
+      "sha256": "3539fd67b8648c937fdb903a9b0862f5ac8baaa5b6e6726143dc667fb189e009",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/kashtan-light-768.png",
+      "sha256": "b1cf5611ee6e4bd13efc8ff36e5dcf1b66b94693159b677ffbecacfb4a17ad58",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-dark-1440.png",
+      "sha256": "f25021c315e7c007a37d0fa52e9226802d7dffa731a8a0a14eb436db85d2472c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-dark-320.png",
+      "sha256": "83c723656d04669a5c5aee733fd8d1de9924c77c8bd85abb0b0cce514a4101a9",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-dark-390.png",
+      "sha256": "b3b8b8828a1e8578709e78ef6a0d6e1c8d9ca48be95aca7040c25e7fe7f7ba89",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-dark-768.png",
+      "sha256": "aec626ce4c5d83dd50758e00c7bc443d0f9bf2b650244361af02dc8c10ad10c1",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-light-1440.png",
+      "sha256": "898fd4a8af8d60c23d764091e24fb9b55b756a9a133a6a4a1ef2832ab3bfde47",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-light-320.png",
+      "sha256": "0d66bc78a7a0e52995b9e424f12d8779fce766d9caf8e39d0f79617f3eb86574",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-light-390.png",
+      "sha256": "4da248689dc428a2fdfe80a53c6c1dbc3ced7b6c88acc56b9aa25ea58a96f065",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/popov-light-768.png",
+      "sha256": "6021ac98aa7ad02ad444427d8da6ed26aab9d2cde6c6c30b70cf859b44867bf6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-dark-1440.png",
+      "sha256": "f5539a7d2d57e2f4548e90e5e15b6c5ce647f8336e160714bf1829c34d57a23e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-dark-320.png",
+      "sha256": "152267e5e17d659cea808ba0616fce9581d64d03dd9ca0126ed33b9935b2a8e7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-dark-390.png",
+      "sha256": "8857f5b15ccf1a6c34ed6ccba367b9d718563c838358568df7d5f1834fa5d9c9",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-dark-768.png",
+      "sha256": "67a2a849c415dae0e38705fe0572c7d0eb0502db3320a579cccfb81c2d2fa771",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-light-1440.png",
+      "sha256": "cf5dba528fa6a01070b6d64837e1661e1c9d11b5be274c956ff2166862da3cf7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-light-320.png",
+      "sha256": "8568f48434343c6ab6becd9b869f40266a528f87723ad2e4c4740c253652ca25",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-light-390.png",
+      "sha256": "bd4cdf3fac0c52e93c98e5a489b9d20653386b3cd448534a6c6734fa75e28294",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/roster-light-768.png",
+      "sha256": "c0325e3d781bda44b55fbaa46855b3b3fac3ff57627503e8925993cb0b898ec5",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-dark-1440.png",
+      "sha256": "8bd8cabb6bcf99494241f66d07e0eb9917300f4949a7a1f43ef52a09d8c15223",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-dark-320.png",
+      "sha256": "229b3241b3e6a710c2f830573abf45bcca722abd66c59c2ce93002327a2857c4",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-dark-390.png",
+      "sha256": "d93900f5483ed02dc608ae12310a014780b03f947c99225994852b3540a22d60",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-dark-768.png",
+      "sha256": "62ef82b2d3223e5f3fd91128e2009dc391cc990802181b268d6dc332688c2659",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-light-1440.png",
+      "sha256": "c58ec089cda44f605737900334078d77bf126b8b6803de7b04dd9f7ca8fc4696",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-light-320.png",
+      "sha256": "6b39a948ecee101c82782b437314517604a88579128b4a3ca4f828f7a68cce6a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-light-390.png",
+      "sha256": "cf8eee0cc7a798b8bae3ca22f1df744ed1f43bbaa87bb178d96b8554da8aa351",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/scheduled-light-768.png",
+      "sha256": "60fbe9faeffccead57e18a1f735d150e7e1ab90c2402804fdfabfc6fde293ac1",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-dark-1440.png",
+      "sha256": "08f992caff591b619ca204b3e047bc90b41fbb18e7ac66c9f31a74c610cadce4",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-dark-320.png",
+      "sha256": "b4c10d85d070f3841bbe60eda5a06dc150493254aba17b0c0f30ccd78feee502",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-dark-390.png",
+      "sha256": "2a1534b6dffb9d53ae00d136ea8b6420eebdf5c2a8c020c046804e7f11030ea2",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-dark-768.png",
+      "sha256": "3f710310efe01bbabd52c63bc65c1bee2ef10b72837e464a3c683a48cf894ecb",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-light-1440.png",
+      "sha256": "184d8c0b6f2fec7e67535ec2d2bb632a5ffeff0642bd9b6af33acc3a27755ca3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-light-320.png",
+      "sha256": "ed4cc5f69eeaa33ff0bdc90560221d94ab7d2e30c0bbcd57b049ad02d15751b9",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-light-390.png",
+      "sha256": "7b2ca108f766724ea28b4ae7289a3c3cdc5ef568a21bc8f08ec881b449c12421",
+      "unchanged": true
+    },
+    {
+      "path": "docs/design-polish/before/standings-light-768.png",
+      "sha256": "2af88d8b04d677bb05ee217f2aad13686d546630f87b5e440080b33b39e0d102",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/1440-dark.png",
+      "sha256": "299f87e5bfc21ba12f974a575ad200d737fea6dffd3a7778a66fb9731e738a2f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/1440-light.png",
+      "sha256": "afac31e2dc39ed5f47ff401e6e75e2671777b2b37fd4d7df787297e4b05037d8",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/320-dark.png",
+      "sha256": "2320f73a7dc3f716753354aff842787bfb8c154b1f90a60dc1e2fed65be9088b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/320-light.png",
+      "sha256": "534590b866d6f59dc46288ccb304336def690d18eb1121eb9231471f5837fc0a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/390-dark.png",
+      "sha256": "89a78010b2629a571d4b0ee76c318446e28a4a2c90b2cd4f6f4a60504df5f982",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/390-light.png",
+      "sha256": "bf1cc98b9593fdeeebe273f944bd1dd9c97a6e00dec43baea39613b5ebb983ff",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/768-dark.png",
+      "sha256": "4d99062e01e58a61bf85f2e24a5f4c53ccc2b92b61cb67103f53221ad366bc42",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/after/768-light.png",
+      "sha256": "8b9b730a3507bcb81eaeab4ed4140ddb55e239b038ba90f1255d5e1d25a5574c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/1440-dark.png",
+      "sha256": "a16fa9b78e2988a9364ff7c89158195c0762df0bc4047f92c275e1a94009f3cb",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/1440-light.png",
+      "sha256": "a31f0ea83078708f38cff335ed485bc39844f3ecd8e13b46a8ebdb8405be7bcb",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/320-dark.png",
+      "sha256": "848a887593d582ce8346e68a1bea9ff4a26167e2072270b720b13462fc0521af",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/320-light.png",
+      "sha256": "8fc9cf6412afcd6b8ab42e62f0c98bae0af4c0333e5422b011a337fbb9f1ec44",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/390-dark.png",
+      "sha256": "7bb024cf868c8ed218932451f872c79fd2039495868f5e5f3167c311d596c3e1",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/390-light.png",
+      "sha256": "3ec96b863b5d9f0aa314f9dd7be9c9583c3c40dba99c87b6083e8bd234c372aa",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/768-dark.png",
+      "sha256": "5c9d8514688f402014362bca5452dafd265d98a06fc38450d43167ccdc4e081b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/fortress-photo/before/768-light.png",
+      "sha256": "094d887d7f071309678f5d3c4a67994228bef88b2248b17ce93b988b24f166e3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/1440-dark.png",
+      "sha256": "5964a3eaeaf476239346c989b9d74f7662f6973a7adba3794fde69f9a0df7ea3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/1440-light.png",
+      "sha256": "cbea608e97102277eb72e7ab04d26083bf2f5d7881e67b12fe9df4f47dbb0442",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/320-dark.png",
+      "sha256": "16a718259aa48f507eba61e0789c373fd367a8780b72a88914c9c3ea9f99be40",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/320-light.png",
+      "sha256": "d2eeeee431e89aae662bcc7a80f3595993fdffc96e5fbcc7f07bcfbd045a0121",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/390-dark.png",
+      "sha256": "640ae203e6e7503ab48ea59c3cd12bfed970b356e960206ae03de6c43cf30ecb",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/390-light.png",
+      "sha256": "1dada4190dd498992a7a7d52def4cebd181e68e46f7fb0050c9918c8394f192a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/768-dark.png",
+      "sha256": "2d9695548f83abd3c42edafa58bb5d6dfaa8bd615f1b1e255561dcce37bcf58c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/after/768-light.png",
+      "sha256": "bbcfcccc5235b821760d23ab75921020ae8e531b4885015c872401109fabc423",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/approved-reference.png",
+      "sha256": "31cd2a0de075f2ec247d3e29bcd291e459baa58c81103d439f181ceef4fad108",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/1440-dark.png",
+      "sha256": "299f87e5bfc21ba12f974a575ad200d737fea6dffd3a7778a66fb9731e738a2f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/1440-light.png",
+      "sha256": "1d65901eadecf1dee73cca7e88eebf23d7f28dde845024ffe2f881770d9d2291",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/320-dark.png",
+      "sha256": "2320f73a7dc3f716753354aff842787bfb8c154b1f90a60dc1e2fed65be9088b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/320-light.png",
+      "sha256": "534590b866d6f59dc46288ccb304336def690d18eb1121eb9231471f5837fc0a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/390-dark.png",
+      "sha256": "8c9c96a4dcd6a120c9a02d6258019854f9ec871b83e43e22ffa2a4a0d13e6af3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/390-light.png",
+      "sha256": "3d57397d1b86dc9c613484c080930ce5a9fd9c0ef42bf78ef077e9682c213960",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/768-dark.png",
+      "sha256": "4d99062e01e58a61bf85f2e24a5f4c53ccc2b92b61cb67103f53221ad366bc42",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/before/768-light.png",
+      "sha256": "a287b511825e47e0d0bf64ceb0d13ce4f4209029e4a443cd9fef99ef1e0ce254",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/comparison-dark.png",
+      "sha256": "98f9a42e2d3cb4c17630518b5925f7121dadec0633d1e46fac11db3a96d38a55",
+      "unchanged": true
+    },
+    {
+      "path": "docs/home-final-polish/comparison-light.png",
+      "sha256": "b8697da117c7283049a7835e5e94dd97235dbebb9a16d7162a106b097aaa1ee8",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/match-screenshots/scheduled-dark-390.png",
+      "sha256": "16467a11f296f016812c17a3390789a553139ca2001713ef5ff85739328fa82c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/match-screenshots/scheduled-light-390.png",
+      "sha256": "1da5af0f2fd73de091c639757bc4265b03f0624796c77b0217bfb3c13007544a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/match-screenshots/sudak-legacy-dark-390.png",
+      "sha256": "ba6f463baba1b3e63e4217023a4b3da1b9e9477e76523935081e359fbd877e0b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/match-screenshots/sudak-legacy-light-390.png",
+      "sha256": "bb19731a2841c0c876548c058c6109d6d650d8fdacd27aea30244d450acc9619",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/match-screenshots/universal-dark-390.png",
+      "sha256": "3bacff4dea4caa081cfe82dc9fcc3a228d41ea0a00ffac4744a0a81a81808804",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/match-screenshots/universal-light-390.png",
+      "sha256": "ad373566b2c3b62894daa07b940e44ea8439c56ab277631b77c9f977fd6c1e1f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-club-dark-390.png",
+      "sha256": "e50cf60888c07c81d5995a8b6a420eae37c9b992bca1eb200252ed1e6b096681",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-club-light-390.png",
+      "sha256": "390f57b9e68f6a0abfc3bd9c0891907771a9085077eeb3396ab23b700b0a0a73",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-player-dark-390.png",
+      "sha256": "c322a428d323b813fd9cdd8391b4db74c3b3c6c9b109fa9766a0e1acc643ad65",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-player-light-390.png",
+      "sha256": "b4a8bd139b56c78a1dee370d7d6130599e4f27450cccbec548de7eb42fe00eee",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-player-photo-dark-390.png",
+      "sha256": "ec9881a91541ac4b498424a29b2f671f4ea7527b38da5794a598293ca7f54442",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-player-photo-light-390.png",
+      "sha256": "96c3c46db59914bf5431453024789b5d1a52a0ea5612794b1caa91a2aab8dbb4",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-roster-dark-390.png",
+      "sha256": "e84976700c4296418205390fb64e76ccd3771454a4a8f562b858b00ef70a765f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/roster-screenshots/kashtan-roster-light-390.png",
+      "sha256": "a1c7f0a22d8625771cf905e0224676b7d80c3df0ae5e3d29882679006809dbf3",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/screenshots/kashtan-dark-390.png",
+      "sha256": "e50cf60888c07c81d5995a8b6a420eae37c9b992bca1eb200252ed1e6b096681",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/screenshots/kashtan-light-390.png",
+      "sha256": "c27536d2ba6533d807aa23b5e6102bcb423de8e01794323798444143b58428fa",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/screenshots/sudak-dark-390.png",
+      "sha256": "c543f106378b2b9836a243f08a773ccc77ba6e95d585b77b22b614ef3a76e4f7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/multi-club-platform/screenshots/sudak-light-390.png",
+      "sha256": "90a6b8198ce8faa8ff4a9be7e7b8039d28bd241776787b59b4d004d742fbc6f2",
+      "unchanged": true
+    },
+    {
+      "path": "docs/pwa-launcher-icon/android-preview.png",
+      "sha256": "9d195f0a074e9b0878e211947bed4b518e913871eac6ab0b2ef334fed2094a83",
+      "unchanged": true
+    },
+    {
+      "path": "favicon.png",
+      "sha256": "57e4b0a6a9926fff51cb0b638440858b76f095995714321a5bf2f14b54ddb028",
+      "unchanged": true
+    },
+    {
+      "path": "fetch_data.py",
+      "sha256": "fb455369eefb1de3fdfbecd2004c9d61292732816000ec572f8e93ce0396b754",
+      "unchanged": true
+    },
+    {
+      "path": "fk-sudak-pwa-192.png",
+      "sha256": "4789f124c3d0fca05aa7187e1f4db7e1f20b08b0f3cd276d19c3958a387a1ac4",
+      "unchanged": true
+    },
+    {
+      "path": "fk-sudak-pwa-512.png",
+      "sha256": "5a23d9c25b5aeb02b8e538c96cb260faa2d23955f18f9027c8ec8b81a1afd2fd",
+      "unchanged": true
+    },
+    {
+      "path": "fk-sudak-pwa-maskable-512.png",
+      "sha256": "ff75faba7bd4256e123dbf2ef7452bef6d10d9dea15b17e8e0aaa833caa28687",
+      "unchanged": true
+    },
+    {
+      "path": "icon-192.png",
+      "sha256": "4789f124c3d0fca05aa7187e1f4db7e1f20b08b0f3cd276d19c3958a387a1ac4",
+      "unchanged": true
+    },
+    {
+      "path": "icon-512.png",
+      "sha256": "5a23d9c25b5aeb02b8e538c96cb260faa2d23955f18f9027c8ec8b81a1afd2fd",
+      "unchanged": true
+    },
+    {
+      "path": "icon-maskable-512.png",
+      "sha256": "ff75faba7bd4256e123dbf2ef7452bef6d10d9dea15b17e8e0aaa833caa28687",
+      "unchanged": true
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "998137075a078aa2e87275f489256fb9c2fa60b754e22ed62fb59e9abe86efd3",
+      "unchanged": true
+    },
+    {
+      "path": "match-center.css",
+      "sha256": "620419e77efa5791a01674765ee16c62bb4070321cd66795825e59036bd60f05",
+      "unchanged": true
+    },
+    {
+      "path": "modern-home.css",
+      "sha256": "602cf0e89ccdc8da43e2747312c4aecb705f235b501219ce7e13a699e45d2ed1",
+      "unchanged": true
+    },
+    {
+      "path": "player_stats_cache_2026.json",
+      "sha256": "07bce2e333cf3b2a480c56e9e5336031a1b15804cdae46e830a40a1a77eeca04",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/build_pages.py",
+      "sha256": "28f417b14148de8610ddcecb06c728d5bb9a728440c2fe6cc125d11d030c80d9",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/generate-club-crest.cjs",
+      "sha256": "08711c1c263ab0fd2ed754da8f8da2b16865f857db8383a4ff4b4321cab7f292",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/generate-pwa-launcher-icons.cjs",
+      "sha256": "22f2df703db23a1c9b8ce95aebe1051f9ba205ff7463065b22b4fecac50253eb",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_matches.py",
+      "sha256": "864012f1308c1ea139ccd8cefbfbf296fb002a570218e167ff51993025f24904",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_rosters.py",
+      "sha256": "27bc6c71e7e20805ff81722d9ebf312a89084f87d67ec8ac465d7be5b1c8f49e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_schema.py",
+      "sha256": "489b0267bc6419340d52e18d68a19f91678e7552eaa336cfb1580456c7e88610",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/multi_club_sources.py",
+      "sha256": "867f74d276c0000b6091d00be011063eda3c9792424d48a5f44ffb756bd75ec3",
+      "unchanged": true
+    },
+    {
+      "path": "sw.js",
+      "sha256": "e2d4da232ce5fa391bfc430d2e77264db51c7832a03a4d2505a7935ef45c2275",
+      "unchanged": true
+    },
+    {
+      "path": "update_player_stats.py",
+      "sha256": "2a98d0c1766fe19e8a2532d5f5a29c24cdcd5c13f0b56c20d10195a1b884c6ae",
+      "unchanged": true
+    }
+  ]
+}

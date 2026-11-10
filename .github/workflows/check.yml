@@ -56,6 +56,9 @@ jobs:
       - run: node tests/design-preservation.browser.cjs
         env:
           DESIGN_PRESERVATION_DIR: design-preservation-screenshots
+      - run: node tests/clubs-players.browser.cjs
+        env:
+          CLUBS_SCREENSHOT_DIR: clubs-players-screenshots
       - run: node tests/club-pages.browser.cjs
         env:
           CLUB_SCREENSHOT_DIR: club-screenshots
@@ -86,6 +89,12 @@ jobs:
       - run: node tests/launch-splash.browser.cjs
         env:
           VISUAL_SCREENSHOT_DIR: launch-screenshots
+      - run: node tests/themes.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: theme-screenshots
+      - run: node tests/pwa-launcher.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: pwa-launcher-screenshots
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -93,12 +102,15 @@ jobs:
           path: |
             design-polish-screenshots/
             design-preservation-screenshots/
+            clubs-players-screenshots/
             ${{ runner.temp }}/universal-match-screenshots/
             roster-screenshots/
             club-screenshots/
             championship-screenshots/
             player-photo-screenshots/
             launch-screenshots/
+            theme-screenshots/
+            pwa-launcher-screenshots/
             dashboard-screenshots/
             match-center-screenshots/
             tab-screenshots/

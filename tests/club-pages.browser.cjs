@@ -39,7 +39,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('#nav button').count(),5);
   assert.equal(await page.locator('#nav [data-t="table"]').getAttribute('aria-current'),'page');
   assert.equal(await page.locator('header .brand').isVisible(),false);
-  assert.equal(await page.locator('#team a[href="https://rffk-roo.ru/teams/936/"]').count(),1);
+  assert.equal(await page.locator('#team > a.club-source[href="https://rffk-roo.ru/teams/936/"]').count(),1);
   await page.locator('#team-back').click();await page.locator('#table.on').waitFor();assert(await kashtan.evaluate(el=>el===document.activeElement));
   await page.goForward();await page.locator('#team.on').waitFor();await page.reload();await ready(page);assert.equal(await page.locator('#team-title').innerText(),'СК «Каштан»');
   await page.locator('#team-back').click();await page.locator('#table.on').waitFor();
