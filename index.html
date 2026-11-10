@@ -1405,10 +1405,10 @@ function platformMembership(id,teamId){
   if(!r)return null;
   const regs=Object.values(PLATFORM.registrations||{}).filter(reg=>reg.playerId===id&&reg.teamId===teamId&&reg.roleKind!=='staff');
   if(!r.playerIds?.includes(id)&&!r.clubPlayerIds?.includes(id)&&!regs.length)return null;
-  const entry=r.entriesByPlayerId?.[id],positions=[...new Set(regs.map(reg=>reg.position).filter(Boolean))],numbers=[...new Set(regs.map(reg=>reg.number).filter(n=>Number.isInteger(n)))];
+  const stored=r.entriesByPlayerId?.[id],entry=stored?.currentlyListed===false?null:stored,seasonRegs=regs.filter(reg=>reg.scope==='competition_season'&&reg.competitionId==='4'&&reg.seasonId==='22'),positions=[...new Set(seasonRegs.map(reg=>reg.position).filter(Boolean))],numbers=[...new Set(seasonRegs.map(reg=>reg.number).filter(n=>Number.isInteger(n)))];
   return {teamId,position:entry?.position||(positions.length===1?positions[0]:null),
     number:entry?.number??(numbers.length===1?numbers[0]:null),registrations:regs,
-    state:teamId==='141'&&r.quality?.reason==='imported_snapshot'?'legacy':r.playerIds?.includes(id)?'confirmed':r.historicalPlayerIds?.includes(id)?'historical':'unverified'};
+    state:teamId==='141'&&r.playerIds?.includes(id)&&r.quality?.reason==='imported_snapshot'?'legacy':r.playerIds?.includes(id)?'confirmed':r.historicalPlayerIds?.includes(id)||(regs.some(reg=>reg.scope==='club')&&regs.filter(reg=>reg.scope==='club').every(reg=>reg.releasedAt&&reg.releasedAt<'2026-01-01'))?'historical':'unverified'};
 }
 function platformProfile(route){
   const id=/^rffk-([1-9]\d*)$/.exec(route.player||'')?.[1],person=PLATFORM?.playersById?.[id];
@@ -1428,7 +1428,7 @@ function platformProfile(route){
 }
 function platformProfileInfo(p){
   const c=p._platform;if(!c)return '';
-  const labels={legacy:'Сохранённый состав «Судака». Регистрация сезона новым импортёром не проверялась.',confirmed:'Участие в чемпионате 2026 подтверждено.',historical:'Историческая связь с клубом. Участие в чемпионате 2026 не подтверждено.',unverified:'Общий список клуба РФФК. Принадлежность к сезону 2026 пока не подтверждена.'};
+  const labels={legacy:'Сохранённый состав «Судака». Регистрация сезона новым импортёром не проверялась.',confirmed:'Участие в чемпионате 2026 подтверждено.',historical:'Историческая связь с клубом. Участие в чемпионате 2026 не подтверждено.',unverified:'Клубная связь РФФК. Принадлежность к сезону 2026 пока не подтверждена.'};
   const memberships=CLUB_IDS.map(id=>platformMembership(c.id,id)).filter(Boolean);
   const other=memberships.map(m=>`<a class="club-source" data-platform-player="${esc(c.id+':'+m.teamId)}" href="${esc(platformPlayerHref(c.id,m.teamId))}">${esc(platformTeam(m.teamId).name)}${m.state==='confirmed'?' · 2026':' · сезон не подтверждён'}</a>`).join('');
   const regs=c.membership?.registrations.filter(r=>r.scope==='club')||[];

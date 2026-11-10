@@ -31,6 +31,7 @@ test('legacy Sudak routes retain the original enriched player and goal behavior'
  assert.equal(run('findPlayer(currentRoute()).name'),'Донской Илья');
  assert.equal(run('Boolean(findPlayer(currentRoute())._platform)'),false);
  assert(node('player').innerHTML.includes('Голы в матчах'));assert.equal(run('routeParent(currentRoute())'),'#home');
+ assert.equal(run("platformMembership('676','141').state"),'historical','Past Sudak affiliations are not the preserved 41-player roster');
 });
 test('unknown IDs, unassociated teams and other seasons cannot borrow a known player statistics record',()=>{
  const {run}=setup();
@@ -58,4 +59,17 @@ test('profile HTML escapes names and position and accepts photos only from offic
  d.platform.playersById['1698'].photoUrl='https://evil.test/photo.jpg';
  const {run,node}=setup(d);run("location.hash=platformPlayerHref('1698','117');renderPlayer();true");
  assert(node('player').innerHTML.includes('&lt;img'));assert(!node('player').innerHTML.includes('src="https://evil'));
+});
+
+test('historical jerseys and staff jobs cannot become player metadata for season 2026',()=>{
+ const d=structuredClone(data),r=d.platform.rosters['4:22:117'],id='1698';
+ r.playerIds=r.playerIds.filter(pid=>pid!==id);r.historicalPlayerIds=[id];
+ r.unverifiedPlayerIds=r.unverifiedPlayerIds.filter(pid=>pid!==id);
+ r.entriesByPlayerId[id]={...r.entriesByPlayerId[id],currentlyListed:false,number:7,position:'Нападающий'};
+ d.platform.registrations=Object.fromEntries(Object.entries(d.platform.registrations).filter(([,reg])=>reg.playerId!==id||reg.teamId!=='117'));
+ d.platform.registrations.fixture={playerId:id,teamId:'117',scope:'club',roleKind:'player',number:99,position:'Нападающий',registeredAt:'2018-01-01',releasedAt:'2018-12-31'};
+ d.platform.registrations.staff={playerId:id,teamId:'117',scope:'club',roleKind:'staff',number:1,position:'Тренер',registeredAt:'2026-01-01',releasedAt:null};
+ const {run}=setup(d),m=run("platformMembership('1698','117')");
+ assert.equal(m.state,'historical');assert.equal(m.number,null);assert.equal(m.position,null);
+ assert.equal(m.registrations.some(reg=>reg.roleKind==='staff'),false);
 });

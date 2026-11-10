@@ -105,7 +105,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(await swPage.locator('#champ-round').inputValue(),'18');
   await swPage.reload();await ready(swPage);
   assert.equal(await swPage.locator('#champ-team').inputValue(),'141');
-  await swContext.setOffline(true);await swPage.reload();await ready(swPage);
+  await swContext.setOffline(true);await swPage.reload({waitUntil:'domcontentloaded'});await ready(swPage);
   assert.equal(await swPage.locator('[data-champ-match]').count(),1);
   await swPage.locator('#table a[data-match]').click();await swPage.locator('#match.on').waitFor();assert.equal(await swPage.locator('#match .center-scorers li').count(),5);
   await swPage.locator('#match-back').click();await tab(swPage,'scorers');assert.equal(await swPage.locator('[data-scorer]').count(),25);
