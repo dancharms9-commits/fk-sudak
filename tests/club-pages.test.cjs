@@ -11,6 +11,10 @@ function setup(input=data){
  const run=expression=>JSON.parse(JSON.stringify(vm.runInContext(expression,context)));
  run(`adoptData(${JSON.stringify(input)});true`);return {run,node};
 }
+function missingClubData(){
+ const d=structuredClone(data);d.platform.rosters['4:22:936']={teamId:'936',competitionId:'4',seasonId:'22',playerIds:[],quality:{status:'not_checked',coverage:'unknown'}};
+ d.platform.playerSeasonStats=Object.fromEntries(Object.entries(d.platform.playerSeasonStats).filter(([,s])=>s.teamId!=='936'));return d;
+}
 test('all eleven confirmed string IDs resolve in the pinned season, unknown IDs do not',()=>{
  const {run}=setup();assert.equal(run('CLUB_IDS.length'),11);
  for(const id of data.platform.competitionSeasons['4:22'].participantTeamIds)assert.equal(run(`clubContext('${id}').team.teamId`),id);
@@ -21,7 +25,7 @@ test('Kashtan uses full official standings and only ID-linked season matches',()
  assert.equal(m.team.city,'Каштановое');assert.equal(m.standing.points,51);assert.equal(m.standing.played,17);
  assert.equal(m.results.length,5);assert(m.upcoming.length>0);
  for(const match of [...m.results,...m.upcoming]){assert([match.homeTeamId,match.awayTeamId].includes('936'));assert.equal(match.seasonId,'22')}
- assert.deepEqual(m.players,[]);assert.deepEqual(m.stats,[]);
+ assert.deepEqual(m.players.map(p=>p.playerId).sort(),[...data.platform.rosters['4:22:936'].playerIds].sort());assert(m.stats.every(s=>s.teamId==='936'));
 });
 test('same names, unresolved teams and other seasons cannot create club relationships',()=>{
  const d=structuredClone(data),matches=d.platform.matchesById;
@@ -38,14 +42,14 @@ test('scheduled unknown scores stay unknown and past, cancelled or postponed mat
  assert(!run("clubMatchHTML(PLATFORM.matchesById.future)").includes('0:0'));
 });
 test('empty roster copy describes import state, unavailable and unpublished are distinct',()=>{
- const {run,node}=setup();run("location.hash='#team=936';renderClub();true");const markup=node('team').innerHTML;
+ const {run,node}=setup(missingClubData());run("location.hash='#team=936';renderClub();true");const markup=node('team').innerHTML;
  assert(markup.includes('Загрузка этого раздела ещё не выполнена'));assert(!markup.includes('Источник не публикует'));
  assert(!markup.includes('Донской'));assert(!markup.includes('0 голов'));
  for(const status of ['stale','temporarily_unavailable','not_published','not_checked'])assert(run(`clubQuality({status:'${status}'},true)`).length>30);
  assert(run("clubQuality({status:'temporarily_unavailable'},true)").includes('временно недоступен'));
 });
 test('available roster and statistics require explicit team, season and player IDs; null stays a dash',()=>{
- const d=structuredClone(data),player=d.platform.playersById['202'];
+ const d=missingClubData(),player=d.platform.playersById['202'];
  d.platform.rosters['4:22:936']={...d.platform.rosters['4:22:141'],teamId:'936',playerIds:['202']};
  const s=d.platform.playerSeasonStats['202:141:4:22'];
  d.platform.playerSeasonStats['202:936:4:22']={...s,teamId:'936',games:null,goals:0,minutes:null};

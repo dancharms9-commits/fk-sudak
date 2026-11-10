@@ -64,7 +64,7 @@ class RosterImportTests(unittest.TestCase):
         p = copy.deepcopy(SEED['platform'])
         def unavailable(url):
             raise requests.Timeout('fixture')
-        result, report = importer.sync_platform(p, unavailable, max_profiles=0, checked_at=WHEN)
+        result, report = importer.sync_platform(p, unavailable, max_profiles=0, checked_at=WHEN, force=True)
         self.assertEqual(result['playersById'], p['playersById'])
         self.assertEqual(result['playerSeasonStats'], p['playerSeasonStats'])
         self.assertEqual(result['matchesById'], p['matchesById'])
@@ -73,12 +73,12 @@ class RosterImportTests(unittest.TestCase):
         self.assertTrue(all(r['status'] == 'temporarily_unavailable' for r in report['clubs'].values()))
 
     def test_club_catalog_is_unverified_until_a_profile_supplies_season_evidence(self):
-        p = copy.deepcopy(SEED['platform'])
+        p = sources.project_snapshot({k: v for k, v in SEED.items() if k != 'platform'})
         def loader(url):
             if url == 'https://rffk-roo.ru/teams/936/':
                 return soup('teams-936.html')
             raise requests.Timeout('fixture')
-        result, report = importer.sync_platform(p, loader, max_profiles=0, checked_at=WHEN)
+        result, report = importer.sync_platform(p, loader, max_profiles=0, checked_at=WHEN, force=True)
         r = result['rosters']['4:22:936']
         self.assertEqual(len(r['clubPlayerIds']), 29)
         self.assertEqual(r['playerIds'], [])

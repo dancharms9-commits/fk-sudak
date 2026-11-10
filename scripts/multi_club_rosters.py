@@ -121,10 +121,10 @@ def parse_profile(soup, pid, expected_names, matches):
             reason = None
             if not ids or None in ids or len(ids) != len(set(ids)):
                 reason = 'missing_or_ambiguous_match_links'
-            elif any(i not in by_source for i in ids):
+            elif not any(i in by_source for i in ids):
                 reason = 'calendar_match_not_resolved'
             else:
-                linked = [by_source[i] for i in ids]
+                linked = [by_source[i] for i in ids if i in by_source]
                 candidates = set.intersection(*[{m['homeTeamId'], m['awayTeamId']} for m in linked])
                 if len(candidates) > 1:
                     # Dates and explicit /teams/<id>/ registration links may
@@ -151,7 +151,8 @@ def parse_profile(soup, pid, expected_names, matches):
                 penaltyGoals=int(goals[2]) if goals else None,
                 yellowCards=optional_int(text(values[5])), secondYellowCards=optional_int(text(values[6])),
                 redCards=optional_int(text(values[7])), minutes=optional_int(text(values[8])))
-            row['sourceBinding'] = {'sourceGroupId': token, 'sourceMatchIds': ids,
+            row['sourceBinding'] = {'sourceGroupId': token, 'sourceMatchIds': [i for i in ids if i in by_source],
+                'unresolvedSourceMatchIds': [i for i in ids if i not in by_source],
                 'method': 'calendar_match_id_intersection', 'competitionId': '4', 'seasonId': '22'}
             stats[tid] = row
     return {'name': name, 'lastName': text(last), 'firstName': text(first).split()[0],
@@ -161,12 +162,16 @@ def parse_profile(soup, pid, expected_names, matches):
 class NetworkLoader:
     """At most two workers in sync_platform; one retry, bounded time and URLs."""
     def __init__(self, seconds=120):
-        self.deadline = time.monotonic() + seconds
+        self.seconds = seconds
+        self.deadline = None
         self.requests = 0
         self.lock = threading.Lock()
 
     def __call__(self, url):
         require(source_id(url, 'teams') or source_id(url, 'players'), 'Unsafe roster request')
+        with self.lock:
+            if self.deadline is None:
+                self.deadline = time.monotonic() + self.seconds
         for attempt in range(2):
             remaining = self.deadline - time.monotonic()
             if remaining <= 0:
@@ -212,7 +217,10 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
             jobs.append(tid)
     def club_job(tid):
         try:
-            return tid, parse_club(loader(p['teamsById'][tid]['sourceUrl']), p['teamsById'][tid]), None, clock()
+            entries = parse_club(loader(p['teamsById'][tid]['sourceUrl']), p['teamsById'][tid])
+            previous_count = sum(e.get('currentlyListed', False) for e in p['rosters'][f'4:22:{tid}'].get('entriesByPlayerId', {}).values())
+            require(not previous_count or len(entries)*2 >= previous_count, 'Implausibly truncated club list')
+            return tid, entries, None, clock()
         except (requests.RequestException, ValueError, TypeError, AttributeError, TimeoutError) as exc:
             return tid, None, exc, clock()
     with ThreadPoolExecutor(max_workers=2) as pool:
@@ -220,7 +228,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
             r, url = p['rosters'][f'4:22:{tid}'], p['teamsById'][tid]['sourceUrl']
             if error:
                 r['clubListQuality'] = failed(r.get('clubListQuality'), url, when, 'club_list_source_unavailable', error)
-                report['clubs'][tid] = {'status': 'temporarily_unavailable', 'error': type(error).__name__}
+                report['clubs'][tid] = {'status': 'temporarily_unavailable', 'error': type(error).__name__, 'detail': str(error)[:160]}
                 continue
             r.setdefault('clubPlayerIds', [])
             stored = r.setdefault('entriesByPlayerId', {})
@@ -239,7 +247,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
             r['clubListQuality'] = quality(url, 'current', 'official_club_list_not_season_roster', when, 'complete', when)
             report['clubs'][tid] = {'status': 'current', 'listed': len(entries)}
     candidates = set(pid for tid in TARGET_IDS for pid in p['rosters'][f'4:22:{tid}'].get('clubPlayerIds', []))
-    candidates = [pid for pid in candidates if force or not fresh(p['playersById'][pid].get('profileQuality', {}), clock(), 24)]
+    candidates = [pid for pid in candidates if force or not fresh(p['playersById'][pid].get('profileQuality', {}), clock(), 24) or p['playersById'][pid].get('unresolvedSeasonGroups')]
     candidates.sort(key=lambda pid: (p['playersById'][pid].get('profileQuality', {}).get('checkedAt') or '', int(pid)))
     def profile_job(pid):
         if time.monotonic()-start >= max_seconds:
@@ -262,7 +270,7 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                 for s in p['playerSeasonStats'].values():
                     if s['playerId'] == pid and s['teamId'] != '141':
                         s['quality'] = failed(s['quality'], url, when, 'profile_source_unavailable', error)
-                report['profiles'][pid] = {'status': 'temporarily_unavailable', 'error': type(error).__name__}
+                report['profiles'][pid] = {'status': 'temporarily_unavailable', 'error': type(error).__name__, 'detail': str(error)[:160]}
                 continue
             player.update({k: result[k] for k in ('name', 'firstName', 'lastName')})
             if result['photoUrl']:
@@ -275,16 +283,27 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
                     'competitionId': None, 'seasonId': None, 'sourceUrl': url,
                     'quality': quality(url, 'current', 'official_profile_club_registration', when, 'partial', when)}
                 p['registrations'][key] = record
+            for old_row in p['playerSeasonStats'].values():
+                if old_row['playerId'] == pid and old_row['teamId'] != '141' and old_row['teamId'] not in result['stats']:
+                    old_row['quality'].update(status='stale', checkedAt=when, reason='season_group_not_verified_in_latest_profile', lastAttemptStatus='not_checked')
             for tid, row in result['stats'].items():
                 if tid == '141':
                     continue  # legacy Sudak statistics keep their existing producer
                 key = f'{pid}:{tid}:4:22'
                 old = p['playerSeasonStats'].get(key, {})
+                retained = []
+                availability = {}
                 for field in STATS:
+                    availability[field] = {'status': 'not_published' if row[field] is None else 'current', 'lastVerifiedAt': when if row[field] is not None else None}
                     if row[field] is None and old.get(field) is not None:
                         row[field] = old[field]
+                        retained.append(field)
+                        availability[field] = {'status': 'stale', 'lastVerifiedAt': old['quality']['lastVerifiedAt']}
+                row['fieldQuality'] = availability
                 p['playerSeasonStats'][key] = {'playerId': pid, 'teamId': tid, 'competitionId': '4', 'seasonId': '22',
                     'sourceUrl': url, **row, 'quality': quality(url, 'current', 'profile_group_bound_by_match_ids', when, 'partial', when)}
+                if retained:
+                    p['playerSeasonStats'][key]['quality'].update(status='stale', reason='partial_fields_preserved', lastVerifiedAt=old['quality']['lastVerifiedAt'])
                 r = p['rosters'][f'4:22:{tid}']
                 r['playerIds'] = list(dict.fromkeys(r['playerIds'] + [pid]))
                 r['quality'] = quality(url, 'current', 'verified_season_participation_partial_roster', when, 'partial', when)
@@ -328,7 +347,9 @@ def main():
     args = parser.parse_args()
     require(0 <= args.max_profiles <= 600 and 1 <= args.seconds <= 900, 'Invalid audit budget')
     data = json.loads(args.input.read_text())
-    data['platform'], report = sync_platform(data['platform'], NetworkLoader(args.seconds), args.max_profiles, args.seconds, args.force)
+    loader = NetworkLoader(args.seconds)
+    data['platform'], report = sync_platform(data['platform'], loader, args.max_profiles, args.seconds, args.force)
+    report['httpRequests'] = loader.requests
     report['generatedAt'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
     # Revision only: none of the legacy football facts are rewritten.
     data['updated'] = report['generatedAt']

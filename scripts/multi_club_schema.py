@@ -229,12 +229,22 @@ def validate_platform(p, previous=None):
             if stats['penaltyGoals'] is not None and stats['goals'] is not None:
                 require(stats['penaltyGoals'] <= stats['goals'], 'Invalid penalties')
             quality(stats['quality'])
+            if 'fieldQuality' in stats:
+                require(set(stats['fieldQuality']) == set(STATS), 'Invalid field quality keys')
+                for field, q in stats['fieldQuality'].items():
+                    require(q['status'] in {'current', 'stale', 'not_published'}, 'Invalid field availability')
+                    if q['lastVerifiedAt'] is not None:
+                        stamp(q['lastVerifiedAt'])
+                    require(q['status'] != 'current' or (stats[field] is not None and q['lastVerifiedAt'] is not None), 'Unverified current field')
+                    require(q['status'] != 'not_published' or stats[field] is None, 'Missing field cannot contain a number')
             if 'sourceBinding' in stats:
                 binding = stats['sourceBinding']
                 require(binding['method'] == 'calendar_match_id_intersection' and binding['competitionId'] == '4' and binding['seasonId'] == '22', 'Invalid stats binding context')
                 ids = binding['sourceMatchIds']
                 known = {m['sourceMatchId']: m for m in matches.values() if m['sourceMatchId']}
                 require(isinstance(ids, list) and bool(ids) and len(ids) == len(set(ids)), 'Missing statistics match IDs')
+                unknown = binding.get('unresolvedSourceMatchIds', [])
+                require(isinstance(unknown, list) and len(unknown) == len(set(unknown)) and all(isinstance(mid, str) and mid.isdigit() and int(mid) > 0 for mid in unknown) and not (set(unknown) & set(ids)), 'Invalid unresolved match evidence')
                 require(all(mid in known and stats['teamId'] in {known[mid]['homeTeamId'], known[mid]['awayTeamId']} for mid in ids), 'Wrong statistics match binding')
         for key, table in p['standings'].items():
             require(key == SEASON_KEY, 'Wrong standings key')
