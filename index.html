@@ -1661,7 +1661,7 @@ function champBadge(id){
   return `<span class="champ-badge" aria-hidden="true"><span>${esc(t?.name?.replace(/[«»"']/g,'').split(/\s+/).filter(w=>!['ФК','СК'].includes(w)).slice(0,2).map(w=>w[0]).join('')||'?')}</span>${image?`<img src="${esc(image)}" alt="" width="32" height="32" loading="lazy" referrerpolicy="no-referrer">`:''}</span>`;
 }
 function champStatus(m){
-  return m.status_label||({finished:'Матч завершён',technical:'Технический результат',scheduled:m.date?'Матч запланирован':'Дата уточняется',postponed:'Матч перенесён',cancelled:'Матч отменён',suspended:'Матч приостановлен'})[m.status]||'Статус уточняется';
+  return m.status_label||m.statusLabel||({finished:'Матч завершён',technical:'Технический результат',scheduled:m.date?'Матч запланирован':'Дата уточняется',postponed:'Матч перенесён',cancelled:'Матч отменён',suspended:'Матч приостановлен'})[m.status]||'Статус уточняется';
 }
 function champDate(m){return (m.date?m.date.split('-').reverse().join('.'):'Дата не указана')+(m.time?' · '+m.time:'')}
 function champMatchHTML(m){

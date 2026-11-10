@@ -5,7 +5,10 @@ const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.joi
 const shots=process.env.MATCH_SCREENSHOT_DIR;
 let payload=data;
 const server=http.createServer((req,res)=>{
- const pathname=new URL(req.url,'http://localhost').pathname.replace(/^\/fk-sudak(?=\/)/,'');
+ const original=new URL(req.url,'http://localhost').pathname.replace(/^\/fk-sudak(?=\/)/,'');
+ const before=original.startsWith('/before/'),pathname=before?original.slice(7):original;
+ if(before&&pathname==='/'&&process.env.MATCH_BASELINE_HTML){res.setHeader('Content-Type','text/html;charset=utf-8');return res.end(fs.readFileSync(process.env.MATCH_BASELINE_HTML))}
+ if(before&&pathname==='/data.json'&&process.env.MATCH_BASELINE_DATA){res.setHeader('Content-Type','application/json');return res.end(fs.readFileSync(process.env.MATCH_BASELINE_DATA))}
  if(pathname==='/data.json'){res.setHeader('Content-Type','application/json');return res.end(payload===data?fs.readFileSync(path.join(root,'data.json')):JSON.stringify(payload))}
  const file=path.resolve(root,pathname==='/'?'index.html':'.'+pathname);if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end()}
  fs.readFile(file,(err,body)=>{if(err){res.writeHead(404);return res.end()}res.setHeader('Content-Type',({'.html':'text/html;charset=utf-8','.js':'application/javascript','.json':'application/json','.png':'image/png','.webp':'image/webp'})[path.extname(file)]||'application/octet-stream');res.end(body)});
@@ -54,11 +57,18 @@ const server=http.createServer((req,res)=>{
   for(const unknown of ['rffk-99999999','4:2026:1:0:141']){await go(p,unknown);assert((await p.locator('#match').innerText()).includes('пока недоступны'));assert.equal(await p.locator('#match .num').count(),0)}
   payload=data;
   console.log('PASS partial protocol and unresolved match IDs');
-  const timings=[];await p.evaluate(()=>localStorage.clear());await p.reload();await ready(p);
-  for(let i=0;i<7;i++)timings.push(await p.evaluate(k=>new Promise(resolve=>{const start=performance.now();history.replaceState({},'','#match='+encodeURIComponent(k));applyRoute();requestAnimationFrame(()=>resolve(performance.now()-start))}),key(selected)));
-  const jsonTimes=await p.evaluate(async()=>{const rows=[];for(let i=0;i<5;i++){const start=performance.now(),r=await fetch('data.json?bench='+i,{cache:'no-store'}),body=await r.text(),received=performance.now(),value=JSON.parse(body),parsed=performance.now();rows.push({fetchMs:received-start,parseMs:parsed-received,bytes:new TextEncoder().encode(body).length});}return rows});
-  const devtools=await c.newCDPSession(p);await devtools.send('HeapProfiler.collectGarbage');const memory=await devtools.send('Runtime.getHeapUsage');
-  const metrics={environment:'Local ARM64 Chromium; loopback HTTP, no network throttling; JS heap, not Android process RSS',json:jsonTimes,openMatchMs:timings,memory,storedBytes:await p.evaluate(()=>new Blob([localStorage.getItem('sudak-data-v1')]).size)};
+  const metrics={environment:'Local ARM64 Chromium; loopback HTTP, no network throttling; JS heap, not Android process RSS'};
+  for(const mode of ['before','after']){
+   if(mode==='before'&&(!process.env.MATCH_BASELINE_HTML||!process.env.MATCH_BASELINE_DATA))continue;
+   const bc=await context(),bp=await bc.newPage();attach(bp);
+   await bp.goto(base+(mode==='before'?'before/':''));await ready(bp);
+   const jsonTimes=await bp.evaluate(async()=>{const rows=[];for(let i=0;i<5;i++){const start=performance.now(),r=await fetch('data.json?bench='+i,{cache:'no-store'}),body=await r.text(),received=performance.now();JSON.parse(body);const parsed=performance.now();rows.push({fetchMs:received-start,parseMs:parsed-received,bytes:new TextEncoder().encode(body).length});}return rows});
+   const timings=[];
+   for(let i=0;i<7;i++)timings.push(await bp.evaluate(({key,before})=>new Promise(resolve=>{history.replaceState({},'','#home');applyRoute();const start=performance.now();const target=before?matchKey(RES[0]):key;history.replaceState({},'','#match='+encodeURIComponent(target));applyRoute();requestAnimationFrame(()=>resolve(performance.now()-start))}),{key:key(selected),before:mode==='before'}));
+   const devtools=await bc.newCDPSession(bp);await devtools.send('HeapProfiler.collectGarbage');const memory=await devtools.send('Runtime.getHeapUsage');
+   metrics[mode]={json:jsonTimes,openMatchMs:timings,memory,storedBytes:await bp.evaluate(()=>new Blob([localStorage.getItem('sudak-data-v1')]).size)};
+   await bc.close();
+  }
   if(shots)fs.writeFileSync(path.join(shots,'load-and-memory.json'),JSON.stringify(metrics,null,2)+'\n');console.log('METRICS '+JSON.stringify(metrics));
   assert(requests.every(url=>!/^https:\/\/rffk-roo.ru\/(matches|players|teams)\//.test(url)));
   await c.close();

@@ -136,3 +136,40 @@ class UniversalMatchTests(unittest.TestCase):
         enriched, _ = sync_platform(seed(), lambda url:fixture(), checked_at=NOW)
         enriched['protocolsByMatchId'][KEY]['events'][1]['score'] = [9,0]
         with self.assertRaises(ValueError): validate_platform(enriched)
+
+class MatchCalendarTests(unittest.TestCase):
+    def calendar(self, p):
+        mapping={'source_id':'sourceMatchId','source_url':'sourceUrl','round_id':'roundId','home_id':'homeTeamId','away_id':'awayTeamId','date':'date','time':'time','venue':'venue','home_score':'homeScore','away_score':'awayScore','status':'status'}
+        return {'matches':[{'id':m['matchId'],'status_label':None,**{a:m[b] for a,b in mapping.items()}} for m in p['matchesById'].values()]+[copy.deepcopy(x['record']) for x in p['unresolvedSourceRecords']['matchesById'].values()]}
+    def test_calendar_updates_source_ids_results_and_postponements(self):
+        from scripts.multi_club_matches import apply_calendar
+        p=copy.deepcopy(DATA['platform']);cal=self.calendar(p)
+        planned=next(m for m in cal['matches'] if m['status']=='scheduled' and m['id'] in p['matchesById'])
+        planned.update(source_id='9999999',source_url='https://rffk-roo.ru/matches/9999999/',status='finished',home_score=2,away_score=1)
+        result,conflicts=apply_calendar(p,cal,NOW)
+        self.assertEqual(conflicts,[])
+        self.assertEqual(result['matchesById'][planned['id']]['sourceMatchId'],'9999999')
+        self.assertEqual(result['matchesById'][planned['id']]['homeScore'],2)
+        self.assertEqual(result['matchesById'][planned['id']]['quality']['reason'],'official_season_calendar')
+        self.assertNotIn(planned['id'],result['protocolsByMatchId'])
+    def test_truncated_calendar_cannot_remove_known_matches(self):
+        from scripts.multi_club_matches import apply_calendar
+        p=copy.deepcopy(DATA['platform']);cal=self.calendar(p);cal['matches'].pop(0)
+        with self.assertRaises(ValueError):apply_calendar(p,cal,NOW)
+    def test_conflicting_calendar_correction_retains_verified_protocol(self):
+        from scripts.multi_club_matches import apply_calendar
+        p=copy.deepcopy(DATA['platform']);cal=self.calendar(p)
+        raw=next(m for m in cal['matches'] if m['id']==KEY);raw['home_score']=99
+        result,conflicts=apply_calendar(p,cal,NOW)
+        self.assertEqual(conflicts,[KEY])
+        self.assertEqual(result['protocolsByMatchId'][KEY],p['protocolsByMatchId'][KEY])
+        self.assertEqual(result['matchesById'][KEY]['homeScore'],p['matchesById'][KEY]['homeScore'])
+    def test_independent_calendar_survives_legacy_projection_and_restore(self):
+        from scripts.multi_club_matches import apply_calendar
+        p=copy.deepcopy(DATA['platform']);cal=self.calendar(p)
+        raw=next(m for m in cal['matches'] if m['status']=='scheduled' and m['id'] in p['matchesById']);raw['status']='postponed';raw['date']=None
+        newer,_=apply_calendar(p,cal,NOW)
+        projected=project_snapshot(DATA,newer)
+        self.assertEqual(projected['matchesById'][raw['id']]['status'],'postponed')
+        merged=merge_protocols(p,newer)
+        self.assertEqual(merged['matchesById'][raw['id']]['status'],'postponed')

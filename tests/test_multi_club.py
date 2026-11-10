@@ -113,7 +113,8 @@ class PlatformTests(unittest.TestCase):
         self.assertEqual(PLATFORM['newsById'], {})
 
     def test_protocols_join_by_source_id_and_keep_text_events_unresolved(self):
-        self.assertEqual(len(PLATFORM['protocolsByMatchId']), 16)
+        self.assertTrue(set(PLATFORM['legacyLinks']['matches'].values()) <= PLATFORM['protocolsByMatchId'].keys())
+        self.assertGreaterEqual(len(PLATFORM['protocolsByMatchId']), 79)
         for key, protocol in PLATFORM['protocolsByMatchId'].items():
             self.assertEqual(protocol['sourceMatchId'], PLATFORM['matchesById'][key]['sourceMatchId'])
             self.assertEqual(protocol['homeTeamId'], PLATFORM['matchesById'][key]['homeTeamId'])

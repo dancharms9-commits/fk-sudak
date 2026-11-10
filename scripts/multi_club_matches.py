@@ -102,9 +102,49 @@ def compatible(protocol, match):
                ('sourceMatchId', 'sourceUrl', 'homeTeamId', 'awayTeamId', 'date', 'homeScore', 'awayScore'))
 
 
+def apply_calendar(platform, calendar, checked_at):
+    """Refresh only the platform; preserve legacy root facts and unknown IDs."""
+    p = copy.deepcopy(platform)
+    incoming = {m['id']: m for m in calendar['matches']}
+    require(set(p['matchesById']) <= incoming.keys(), 'Truncated official calendar')
+    require(len(incoming) >= len(p['matchesById']) + len(p['unresolvedSourceRecords']['matchesById']), 'Incomplete official calendar')
+    conflicts = []
+    for raw in calendar['matches']:
+        key = raw['id']
+        if raw['home_id'] not in p['teamsById'] or raw['away_id'] not in p['teamsById']:
+            p['unresolvedSourceRecords']['matchesById'][key] = {'record': copy.deepcopy(raw), 'reason': 'identity_not_confirmed'}
+            continue
+        old = p['matchesById'].get(key, {})
+        m = {'matchId': key, 'competitionId': '4', 'seasonId': '22', 'roundId': raw['round_id'],
+             'homeTeamId': raw['home_id'], 'awayTeamId': raw['away_id'],
+             'sourceMatchId': raw['source_id'] or old.get('sourceMatchId'),
+             'sourceUrl': raw['source_url'] or old.get('sourceUrl'),
+             'date': raw['date'], 'time': raw['time'], 'timeZone': 'Europe/Moscow', 'venue': raw['venue'],
+             'homeScore': raw['home_score'], 'awayScore': raw['away_score'], 'status': raw['status'],
+             'statusLabel': raw['status_label'],
+             'quality': quality(SEASON_URL, status='current', reason='official_season_calendar', verified=checked_at, checked=checked_at)}
+        protocol = p['protocolsByMatchId'].get(key)
+        if protocol and not compatible(protocol, m):
+            # A conflicting correction needs review, not deletion of a protocol.
+            old['quality'] = failed(old['quality'], SEASON_URL, checked_at, 'calendar_protocol_conflict', ValueError())
+            conflicts.append(key)
+            continue
+        if old.get('protocolQuality') and compatible(old, m):
+            m['protocolQuality'] = copy.deepcopy(old['protocolQuality'])
+        p['matchesById'][key] = m
+    validate_platform(p, platform)
+    return p, conflicts
+
+
 def merge_protocols(base, extra):
     """Independent protocol enrichment survives restoration of the legacy root."""
     p = copy.deepcopy(base)
+    for key, m in extra['matchesById'].items():
+        old = p['matchesById'].get(key)
+        if (m['quality'].get('reason') == 'official_season_calendar' and
+                (not old or evidence_rank(m['quality']) > evidence_rank(old['quality'])) and
+                (key not in p['protocolsByMatchId'] or compatible(p['protocolsByMatchId'][key], m))):
+            p['matchesById'][key] = copy.deepcopy(m)
     for key, protocol in extra['protocolsByMatchId'].items():
         if key not in p['matchesById'] or not compatible(protocol, p['matchesById'][key]):
             continue
@@ -197,7 +237,11 @@ def main():
     known = {m['matchId']: m for m in data['platform']['matchesById'].values()}
     differences = [m for m in calendar['matches'] if m['id'] in known and any(
         m[a] != known[m['id']][b] for a, b in [('source_id', 'sourceMatchId'), ('date', 'date'), ('home_score', 'homeScore'), ('away_score', 'awayScore'), ('status', 'status')])]
-    data['platform'], report = sync_platform(data['platform'], loader, args.max_matches, args.seconds, force=True)
+    checked = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    data['platform'], conflicts = apply_calendar(data['platform'], calendar, checked)
+    data['platform'], report = sync_platform(data['platform'], loader, args.max_matches, args.seconds, force=False)
+    report['attempts'] = report.pop('matches')
+    report['calendarConflicts'] = conflicts
     data['updated'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
     report.update(audit_counts(data['platform']))
     report.update(checkedAt=data['updated'], requests=loader.requests, calendarDifferences=differences,

@@ -120,6 +120,9 @@ def project_snapshot(data, previous=None, source_updated_at=None):
             'date': raw['date'], 'time': raw['time'], 'timeZone': 'Europe/Moscow', 'venue': raw['venue'],
             'homeScore': raw['home_score'], 'awayScore': raw['away_score'], 'status': raw['status'],
             'quality': quality(SEASON_URL, verified=calendar.get('updated'))}
+        if (old_match.get('quality', {}).get('reason') == 'official_season_calendar' and
+                (old_match['quality'].get('lastVerifiedAt') or '') > (calendar.get('updated') or '')):
+            p['matchesById'][key] = old_match
         if (old_match.get('protocolQuality') and all(old_match.get(f) == p['matchesById'][key][f] for f in ('sourceMatchId', 'date', 'homeScore', 'awayScore'))):
             p['matchesById'][key]['protocolQuality'] = copy.deepcopy(old_match['protocolQuality'])
     # Preserve per-player identity via profile URL. The legacy producer has
