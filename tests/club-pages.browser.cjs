@@ -66,7 +66,7 @@ const server=http.createServer((req,res)=>{
   const calendarTeam=page.locator('#table a[data-team="936"]').first();await calendarTeam.locator('img').click();await page.locator('#team.on').waitFor();
   await page.locator('#team-back').click();await page.locator('#table.on').waitFor();assert.equal(await page.locator('#champ-round').inputValue(),'18');
   assert.equal(await page.locator('a[data-team="1029"],a[data-team="258"],a[data-team="0"]').count(),0);
-  const centerCard=page.locator('#table div.champ-match').first();await centerCard.locator('.champ-score').scrollIntoViewIfNeeded();const scoreBox=await centerCard.locator('.champ-score').boundingBox();await page.mouse.click(scoreBox.x+scoreBox.width/2,scoreBox.y+scoreBox.height/2);await page.locator('#match.on').waitFor();
+  const centerCard=page.locator('#table div.champ-match.champ-club').first();await centerCard.locator('.champ-score').scrollIntoViewIfNeeded();const scoreBox=await centerCard.locator('.champ-score').boundingBox();await page.mouse.click(scoreBox.x+scoreBox.width/2,scoreBox.y+scoreBox.height/2);await page.locator('#match.on').waitFor();
   const opponent=page.locator('#match .tm a[data-team]:not([data-team="141"])');
   assert.equal(await opponent.count(),1);await opponent.click();await page.locator('#team.on').waitFor();
   await page.locator('#team-back').click();await page.locator('#match.on').waitFor();

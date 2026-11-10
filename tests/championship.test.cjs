@@ -26,7 +26,7 @@ test('round, team and status filters stay independent',()=>{
   assert.equal(run(`selectedChampMatches(undefined,{round:'18',team:'141',status:'played'}).length`),1);
   assert.equal(run(`selectedChampMatches(undefined,{round:'18',team:'936',status:'played'}).length`),1);
   assert.equal(run(`selectedChampMatches(undefined,{round:'18',team:'all',status:'upcoming'}).length`),0);
-  assert.equal(run(`selectedChampMatches(undefined,{round:'19',team:'all',status:'upcoming'}).length`),5);
+  assert.equal(run(`selectedChampMatches(undefined,{round:'19',team:'all',status:'upcoming'}).length`),2);
   assert.equal(run(`selectedChampMatches(undefined,{round:'19',team:'141',status:'all'}).length`),0);
 });
 test('search normalizes case, spaces and ё without changing official order',()=>{

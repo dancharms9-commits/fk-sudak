@@ -1,0 +1,186 @@
+{
+ "workers": 2,
+ "requestLimit": 120,
+ "attempts": {
+  "38769": {
+   "status": "accepted",
+   "events": 27,
+   "coverage": "complete"
+  },
+  "38770": {
+   "status": "unavailable",
+   "error": "Wrong protocol date"
+  },
+  "38771": {
+   "status": "accepted",
+   "events": 27,
+   "coverage": "complete"
+  },
+  "38765": {
+   "status": "unavailable",
+   "error": "Wrong protocol date"
+  }
+ },
+ "calendarConflicts": [],
+ "matches": 100,
+ "officialIds": 83,
+ "protocols": 81,
+ "lineups": 81,
+ "goals": 79,
+ "cards": 76,
+ "substitutions": 80,
+ "unresolvedTeamIds": [
+  "0",
+  "1029",
+  "258"
+ ],
+ "unresolvedMatches": 13,
+ "checkedAt": "2026-11-10T13:22:32+00:00",
+ "requests": 5,
+ "calendarDifferences": [
+  {
+   "id": "4:2026:18:521:757",
+   "source_id": null,
+   "source_url": null,
+   "round_id": "18",
+   "home_id": "521",
+   "away_id": "757",
+   "date": null,
+   "time": null,
+   "venue": null,
+   "home_score": 3,
+   "away_score": 0,
+   "status": "technical",
+   "status_label": "Тех. победа"
+  },
+  {
+   "id": "4:2026:19:757:932",
+   "source_id": "38770",
+   "source_url": "https://rffk-roo.ru/matches/38770/",
+   "round_id": "19",
+   "home_id": "757",
+   "away_id": "932",
+   "date": null,
+   "time": null,
+   "venue": null,
+   "home_score": 0,
+   "away_score": 3,
+   "status": "technical",
+   "status_label": "Тех. победа"
+  },
+  {
+   "id": "4:2026:19:1028:521",
+   "source_id": "38769",
+   "source_url": "https://rffk-roo.ru/matches/38769/",
+   "round_id": "19",
+   "home_id": "1028",
+   "away_id": "521",
+   "date": "2026-11-07",
+   "time": "13:00",
+   "venue": "\"Раздольное\", Раздольное",
+   "home_score": 4,
+   "away_score": 5,
+   "status": "finished",
+   "status_label": null
+  },
+  {
+   "id": "4:2026:19:936:1030",
+   "source_id": "38771",
+   "source_url": "https://rffk-roo.ru/matches/38771/",
+   "round_id": "19",
+   "home_id": "936",
+   "away_id": "1030",
+   "date": "2026-11-07",
+   "time": "14:00",
+   "venue": "\"Гвардеец\", Гвардейское",
+   "home_score": 6,
+   "away_score": 3,
+   "status": "finished",
+   "status_label": null
+  },
+  {
+   "id": "4:2026:19:934:146",
+   "source_id": null,
+   "source_url": null,
+   "round_id": "19",
+   "home_id": "934",
+   "away_id": "146",
+   "date": null,
+   "time": null,
+   "venue": "СК \"Арена-Крым\", Евпатория",
+   "home_score": null,
+   "away_score": null,
+   "status": "postponed",
+   "status_label": "Матч перенесен"
+  }
+ ],
+ "calendarMatches": 113,
+ "calendarSource": "https://rffk-roo.ru/tournaments/4/seasons/22/",
+ "calendarWithoutOfficialId": [
+  "4:2026:1:1029:1028",
+  "4:2026:2:258:936",
+  "4:2026:2:930:1029",
+  "4:2026:3:1030:258",
+  "4:2026:4:0:757",
+  "4:2026:5:146:258",
+  "4:2026:6:258:1028",
+  "4:2026:8:258:930",
+  "4:2026:9:141:258",
+  "4:2026:9:934:0",
+  "4:2026:10:258:521",
+  "4:2026:11:757:0",
+  "4:2026:11:934:258",
+  "4:2026:18:521:757",
+  "4:2026:19:934:146",
+  "4:2026:19:930:117",
+  "4:2026:20:117:141",
+  "4:2026:20:521:930",
+  "4:2026:20:146:936",
+  "4:2026:20:1030:757",
+  "4:2026:20:932:1028",
+  "4:2026:21:521:117",
+  "4:2026:21:930:932",
+  "4:2026:21:1028:1030",
+  "4:2026:21:757:146",
+  "4:2026:21:934:141",
+  "4:2026:22:934:117",
+  "4:2026:22:141:936",
+  "4:2026:22:146:1028",
+  "4:2026:22:1030:930",
+  "4:2026:22:932:521"
+ ],
+ "lineupAnomalies": [
+  {
+   "sourceMatchId": "38719",
+   "issues": [
+    {
+     "side": "away",
+     "starterCount": 10,
+     "reason": "published_starter_count"
+    }
+   ]
+  },
+  {
+   "sourceMatchId": "38675",
+   "issues": [
+    {
+     "side": "home",
+     "starterCount": 12,
+     "reason": "published_starter_count"
+    }
+   ]
+  },
+  {
+   "sourceMatchId": "38763",
+   "issues": [
+    {
+     "side": "away",
+     "starterCount": 9,
+     "reason": "published_starter_count"
+    }
+   ]
+  }
+ ],
+ "partialProtocols": 6,
+ "eventsIncomplete": 3
+}

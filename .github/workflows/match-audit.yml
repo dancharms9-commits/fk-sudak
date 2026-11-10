@@ -1,0 +1,26 @@
+name: Official match data review (no deployment)
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+concurrency:
+  group: official-match-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  collect:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.labels.*.name, 'rffk-match-audit')
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install requests beautifulsoup4
+      - run: python -m scripts.multi_club_matches --output match-review/data.json --report match-review/report.json --max-matches 120 --seconds 600
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: official-match-review
+          path: match-review/
+          if-no-files-found: error

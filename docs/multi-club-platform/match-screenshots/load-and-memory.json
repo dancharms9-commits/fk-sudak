@@ -1,0 +1,95 @@
+{
+  "environment": "Local ARM64 Chromium; loopback HTTP, no network throttling; JS heap, not Android process RSS",
+  "before": {
+    "domContentLoadedMs": 295.59999999403954,
+    "json": [
+      {
+        "fetchMs": 127.09999999403954,
+        "parseMs": 24.100000023841858,
+        "bytes": 2122646
+      },
+      {
+        "fetchMs": 117,
+        "parseMs": 21.900000005960464,
+        "bytes": 2122646
+      },
+      {
+        "fetchMs": 98.40000000596046,
+        "parseMs": 18.099999994039536,
+        "bytes": 2122646
+      },
+      {
+        "fetchMs": 94.30000001192093,
+        "parseMs": 18.69999998807907,
+        "bytes": 2122646
+      },
+      {
+        "fetchMs": 116.89999997615814,
+        "parseMs": 17.900000005960464,
+        "bytes": 2122646
+      }
+    ],
+    "openMatchMs": [
+      162.39999997615814,
+      35.19999998807907,
+      38.099999994039536,
+      39.400000005960464,
+      39.60000002384186,
+      33.099999994039536,
+      32.60000002384186
+    ],
+    "memory": {
+      "usedSize": 4466376,
+      "totalSize": 4857856,
+      "embedderHeapUsedSize": 2921512,
+      "backingStorageSize": 97241
+    },
+    "storedBytes": 1617179
+  },
+  "after": {
+    "domContentLoadedMs": 267.69999998807907,
+    "json": [
+      {
+        "fetchMs": 78.80000001192093,
+        "parseMs": 23.5,
+        "bytes": 2809071
+      },
+      {
+        "fetchMs": 71.2000000178814,
+        "parseMs": 26.69999998807907,
+        "bytes": 2809071
+      },
+      {
+        "fetchMs": 70.30000001192093,
+        "parseMs": 28,
+        "bytes": 2809071
+      },
+      {
+        "fetchMs": 76.80000001192093,
+        "parseMs": 27.30000001192093,
+        "bytes": 2809071
+      },
+      {
+        "fetchMs": 72,
+        "parseMs": 22.80000001192093,
+        "bytes": 2809071
+      }
+    ],
+    "openMatchMs": [
+      135.10000002384186,
+      40.900000005960464,
+      48,
+      41.900000005960464,
+      39.400000005960464,
+      40,
+      39.599999994039536
+    ],
+    "memory": {
+      "usedSize": 4911000,
+      "totalSize": 5644288,
+      "embedderHeapUsedSize": 2855320,
+      "backingStorageSize": 104441
+    },
+    "storedBytes": 2072146
+  }
+}

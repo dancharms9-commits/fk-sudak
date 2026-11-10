@@ -56,8 +56,8 @@ const server=http.createServer((req,res)=>{
   await page.locator('[data-champ-step="1"]').click();assert.equal(await page.locator('#champ-round').inputValue(),'19');
   await page.locator('#champ-round').selectOption('18');assert.equal(await page.locator('[data-champ-match]').count(),5);
   const technical=page.locator('[data-champ-match="4:2026:18:521:757"]');assert((await technical.innerText()).includes('3:0'));assert((await technical.innerText()).includes('Тех. победа'));
-  await technical.locator('summary').click();assert((await technical.innerText()).includes('Стадион не указан'));
-  const foreign=page.locator('details[data-champ-match]').filter({hasText:'СТО-Газель'});await foreign.locator('summary').click();assert((await foreign.locator('a.champ-source').getAttribute('href')).includes('/matches/38763/'));
+  await technical.locator('a[data-match]').click();await page.locator('#match.on').waitFor();assert.equal(await page.evaluate(()=>matchCenter(currentRoute().key).platformMatch.status),'technical');assert((await page.locator('#match').innerText()).includes('Тех. победа'));await page.locator('#match-back').click();
+  const foreign=page.locator('[data-champ-match]').filter({hasText:'СТО-Газель'});await foreign.locator('a[data-match]').click();await page.locator('#match.on').waitFor();assert((await page.locator('#match .center-protocol').getAttribute('href')).includes('/matches/38763/'));await page.locator('#match-back').click();
   await page.locator('#champ-team').selectOption('141');assert.equal(await page.locator('[data-champ-match]').count(),1);
   const match=page.locator('#table a[data-match]');await match.scrollIntoViewIfNeeded();const scroll=await page.evaluate(()=>scrollY);
   await match.click();await page.locator('#match.on').waitFor();assert.equal(await page.locator('#match .center-scorers li').count(),5);
@@ -67,7 +67,7 @@ const server=http.createServer((req,res)=>{
   assert(Math.abs(await page.evaluate(()=>scrollY)-scroll)<3);
   await page.locator('#champ-team').selectOption('936');assert.equal(await page.locator('[data-champ-match]').count(),1);
   await page.locator('#champ-status').selectOption('upcoming');assert.equal(await page.locator('[data-champ-match]').count(),0);
-  await page.locator('#champ-round').selectOption('19');assert.equal(await page.locator('[data-champ-match]').count(),1);
+  await page.locator('#champ-round').selectOption('20');assert.equal(await page.locator('[data-champ-match]').count(),1);
   assert(!(await page.locator('#champ-panel').innerText()).includes('0:0'));
   await tab(page,'scorers');assert.equal(await page.locator('[data-scorer]').count(),25);
   await page.locator('#champ-search').fill('семёнов ВЛАД');assert.equal(await page.locator('[data-scorer]').count(),1);
@@ -83,13 +83,13 @@ const server=http.createServer((req,res)=>{
   await page.reload();await ready(page);assert.equal(await page.locator('#champ-search').inputValue(),'Донской');
   console.log('PASS round controls, independent filters, technical and unknown results, all 25 scorers, exact club routes and nested returns');
   await tab(page,'calendar');await page.locator('#champ-round').selectOption('18');await page.locator('#champ-team').selectOption('all');await page.locator('#champ-status').selectOption('all');
-  await page.locator('details[data-champ-match]').first().locator('summary').click();
+  await page.locator('[data-champ-match] a[data-match]').first().click();await page.locator('#match.on').waitFor();await page.locator('#match-back').click();
   await page.evaluate(()=>scrollTo(0,180));const before=await page.evaluate(()=>scrollY);
   servedData=JSON.parse(JSON.stringify(data));servedData.updated=new Date(Date.parse(data.updated)+60000).toISOString();
   await page.evaluate(()=>refreshData(true));
-  assert.equal(await page.locator('#champ-round').inputValue(),'18');assert.equal(await page.locator('details[data-champ-match][open]').count(),1);
+  assert.equal(await page.locator('#champ-round').inputValue(),'18');assert.equal(await page.locator('#table a[data-match]').count(),5);
   assert(Math.abs(await page.evaluate(()=>scrollY)-before)<3);
-  console.log('PASS incoming data keeps round, filters, expanded match and scroll without reload');
+  console.log('PASS incoming data keeps round, filters, internal match links and scroll without reload');
   await context.close();servedData=data;
   // Actual prior cache is upgraded with the same shared-storage JSON snapshot.
   oldWorker=true;

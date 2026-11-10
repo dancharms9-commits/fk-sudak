@@ -117,6 +117,8 @@ def match_record(key, m, teams):
     else:
         require(source_id(m['sourceUrl'], 'matches') == m['sourceMatchId'], 'Wrong protocol URL')
     quality(m['quality'])
+    if 'protocolQuality' in m:
+        quality(m['protocolQuality'])
 
 
 def validate_platform(p, previous=None):
@@ -281,6 +283,12 @@ def validate_platform(p, previous=None):
                     and protocol['awayTeamId'] == m['awayTeamId'], 'Wrong protocol sides')
             require(all(protocol[field] == m[field] for field in ('date', 'homeScore', 'awayScore')),
                     'Protocol does not match current result')
+            require(m['status'] in {'finished', 'technical'} and m['homeScore'] is not None, 'Unplayed protocol')
+            for field in ('venue', 'city', 'time', 'roundLabel'):
+                if field in protocol:
+                    require(protocol[field] is None or isinstance(protocol[field], str), 'Invalid protocol metadata')
+            if 'goalsComplete' in protocol:
+                require(type(protocol['goalsComplete']) is bool, 'Invalid goals coverage')
             require(type(protocol['eventsComplete']) is bool, 'Invalid events coverage')
             for side, groups in protocol['lineups'].items():
                 require(side in {'home', 'away'} and isinstance(groups, dict), 'Invalid lineup side')
@@ -291,6 +299,9 @@ def validate_platform(p, previous=None):
                                 and source_id(entry['sourceUrl'], 'players') == entry['playerId'], 'Unknown lineup player')
                         number(entry['number'], nullable=True)
                         require(entry['number'] is None or entry['number'] <= 99, 'Invalid shirt number')
+            for issue in protocol.get('lineupIssues', []):
+                require(issue['side'] in {'home', 'away'} and issue['reason'] == 'published_starter_count', 'Invalid lineup issue')
+                require(type(issue['starterCount']) is int and issue['starterCount'] == len(protocol['lineups'][issue['side']].get('starters', [])), 'Wrong published starter count')
             require(isinstance(protocol['events'], list), 'Invalid protocol events')
             for event in protocol['events']:
                 require(event['type'] in EVENT_TYPES, 'Unknown event type')
@@ -302,6 +313,13 @@ def validate_platform(p, previous=None):
                         number(value)
                 require(event['teamId'] in {m['homeTeamId'], m['awayTeamId']}, 'Invalid event team')
                 require(event['playerId'] is None or event['playerId'] in players, 'Invalid event actor')
+            if protocol.get('goalsComplete') is True:
+                running = [0, 0]
+                for event in protocol['events']:
+                    if event['type'] in {'goal', 'penalty', 'own_goal'}:
+                        running[0 if event['teamId'] == m['homeTeamId'] else 1] += 1
+                        require(event['score'] == running, 'Inconsistent running score')
+                require(running == [m['homeScore'], m['awayScore']], 'Inconsistent final score')
             quality(protocol['quality'])
         # Reserved models remain explicitly empty until their own ID-based
         # importer exists; the partial name-labelled leaderboard is NOT stats.
