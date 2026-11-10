@@ -85,7 +85,7 @@ const server=http.createServer((req,res)=>{
   await tab(page,'calendar');await page.locator('#champ-round').selectOption('18');await page.locator('#champ-team').selectOption('all');await page.locator('#champ-status').selectOption('all');
   await page.locator('details[data-champ-match]').first().locator('summary').click();
   await page.evaluate(()=>scrollTo(0,180));const before=await page.evaluate(()=>scrollY);
-  servedData=JSON.parse(JSON.stringify(data));servedData.updated='2026-11-05T21:00:00Z';
+  servedData=JSON.parse(JSON.stringify(data));servedData.updated=new Date(Date.parse(data.updated)+60000).toISOString();
   await page.evaluate(()=>refreshData(true));
   assert.equal(await page.locator('#champ-round').inputValue(),'18');assert.equal(await page.locator('details[data-champ-match][open]').count(),1);
   assert(Math.abs(await page.evaluate(()=>scrollY)-before)<3);
@@ -105,7 +105,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(await swPage.locator('#champ-round').inputValue(),'18');
   await swPage.reload();await ready(swPage);
   assert.equal(await swPage.locator('#champ-team').inputValue(),'141');
-  await swContext.setOffline(true);await swPage.reload();await ready(swPage);
+  await swContext.setOffline(true);await swPage.reload({waitUntil:'domcontentloaded'});await ready(swPage);
   assert.equal(await swPage.locator('[data-champ-match]').count(),1);
   await swPage.locator('#table a[data-match]').click();await swPage.locator('#match.on').waitFor();assert.equal(await swPage.locator('#match .center-scorers li').count(),5);
   await swPage.locator('#match-back').click();await tab(swPage,'scorers');assert.equal(await swPage.locator('[data-scorer]').count(),25);

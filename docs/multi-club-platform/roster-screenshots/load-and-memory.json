@@ -1,0 +1,30 @@
+[
+  {
+    "label": "before",
+    "jsonFileBytes": 653847,
+    "heapUsedBytes": 2909200,
+    "heapTotalBytes": 4071424,
+    "domReadyMs": 562.1999999880791,
+    "resource": [
+      {
+        "durationMs": 63.30000001192093,
+        "bytes": 653847
+      }
+    ],
+    "nodes": 1183
+  },
+  {
+    "label": "after",
+    "jsonFileBytes": 2122646,
+    "heapUsedBytes": 4219236,
+    "heapTotalBytes": 5644288,
+    "domReadyMs": 522.5,
+    "resource": [
+      {
+        "durationMs": 176.69999998807907,
+        "bytes": 2122646
+      }
+    ],
+    "nodes": 1183
+  }
+]

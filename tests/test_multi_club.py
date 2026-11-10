@@ -48,7 +48,10 @@ class PlatformTests(unittest.TestCase):
     def test_every_legacy_root_value_is_unchanged(self):
         hashes = json.loads((FIXTURE.parent / 'legacy-root-sha256.json').read_text())
         self.assertEqual(set(SEED) - {'platform'}, set(hashes))
+        self.assertGreaterEqual(schema.stamp(SEED['updated']), schema.stamp(PLATFORM['sourceUpdatedAt']))
         for key, expected in hashes.items():
+            if key == 'updated':
+                continue  # revision advances; all legacy football facts remain byte-equivalent
             raw = json.dumps(SEED[key], ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()
             self.assertEqual(hashlib.sha256(raw).hexdigest(), expected, key)
 
@@ -80,9 +83,10 @@ class PlatformTests(unittest.TestCase):
 
     def test_nulls_zeroes_and_partial_leaderboard_are_not_club_totals(self):
         players = {schema.source_id(p['profile_url'], 'players'): p for p in SEED['player_stats_2026']['players']}
-        self.assertEqual(len(PLATFORM['playerSeasonStats']), 41)
-        self.assertEqual(sum(p['games'] is not None for p in PLATFORM['playerSeasonStats'].values()), 38)
-        for p in PLATFORM['playerSeasonStats'].values():
+        sudak = {k: v for k, v in PLATFORM['playerSeasonStats'].items() if v['teamId'] == '141'}
+        self.assertEqual(len(sudak), 41)
+        self.assertEqual(sum(p['games'] is not None for p in sudak.values()), 38)
+        for p in sudak.values():
             old = players[p['playerId']]
             self.assertEqual(p['games'], old['league_games'])
             self.assertEqual(p['goals'], old['league_goals'])
@@ -94,16 +98,18 @@ class PlatformTests(unittest.TestCase):
         self.assertFalse(PLATFORM['scorerLeaderboard'])
         # In particular the combined UOR/Saki leaderboard row for 1698 cannot
         # become either club's season total in this foundation.
-        self.assertNotIn('1698:117:4:22', PLATFORM['playerSeasonStats'])
-        self.assertNotIn('1698:146:4:22', PLATFORM['playerSeasonStats'])
+        projected = sources.project_snapshot(legacy())
+        self.assertNotIn('1698:117:4:22', projected['playerSeasonStats'])
+        self.assertNotIn('1698:146:4:22', projected['playerSeasonStats'])
 
     def test_foreign_rosters_are_not_fabricated_from_protocol_lineups(self):
+        projected = sources.project_snapshot(legacy())
         for tid in schema.TEAM_IDS - {'141'}:
-            roster = PLATFORM['rosters'][f'4:22:{tid}']
+            roster = projected['rosters'][f'4:22:{tid}']
             self.assertEqual(roster['playerIds'], [])
             self.assertEqual(roster['quality']['status'], 'not_checked')
             self.assertEqual(roster['quality']['coverage'], 'unknown')
-        self.assertEqual(PLATFORM['registrations'], {})
+        self.assertEqual(projected['registrations'], {})
         self.assertEqual(PLATFORM['newsById'], {})
 
     def test_protocols_join_by_source_id_and_keep_text_events_unresolved(self):
@@ -270,8 +276,8 @@ class StandingsTests(unittest.TestCase):
         p = sources.update_platform(SEED, PLATFORM, loader=soup, checked_at='2026-11-10T09:00:00+00:00')
         self.assertEqual(p['standings']['4:22']['quality']['status'], 'current')
         self.assertEqual(p['standings']['4:22']['quality']['lastVerifiedAt'], '2026-11-10T09:00:00+00:00')
-        self.assertEqual(p['rosters']['4:22:936']['quality']['status'], 'not_checked')
-        self.assertTrue(all(s['quality']['status'] == 'stale' for s in p['playerSeasonStats'].values()))
+        self.assertEqual(p['rosters']['4:22:936'], PLATFORM['rosters']['4:22:936'])
+        self.assertTrue(all(s['quality']['status'] == 'stale' for s in p['playerSeasonStats'].values() if s['teamId'] == '141'))
 
 
 class MigrationTests(unittest.TestCase):
@@ -292,15 +298,15 @@ class MigrationTests(unittest.TestCase):
 
     def test_newer_legacy_publication_carries_seed_extension_during_rollout(self):
         old = legacy()
-        old['updated'] = '2026-11-05T00:00:00+00:00'
+        old['updated'] = (build.timestamp(SEED) + timedelta(seconds=1)).isoformat()
         merged = build.choose_baseline(SEED, old)
         self.assertEqual(merged['updated'], old['updated'])
-        self.assertEqual(merged['platform'], PLATFORM)
+        self.assertEqual(merged['platform'], sources.project_snapshot(merged, PLATFORM, source_updated_at=old['updated']))
         self.assertNotIn('platform', old)
 
     def test_table_only_refresh_with_equal_projection_revision_beats_seed(self):
         live = copy.deepcopy(SEED)
-        live['updated'] = '2026-11-05T00:00:00+00:00'
+        live['updated'] = (build.timestamp(SEED) + timedelta(seconds=1)).isoformat()
         q = live['platform']['standings']['4:22']['quality']
         newer = (schema.stamp(q['lastVerifiedAt']) + timedelta(seconds=30)).isoformat()
         q.update(lastVerifiedAt=newer, lastSuccessAt=newer, checkedAt=newer)
@@ -310,10 +316,10 @@ class MigrationTests(unittest.TestCase):
 
     def test_newer_root_with_older_extension_carries_newest_platform(self):
         checkpoint = copy.deepcopy(SEED)
-        checkpoint['updated'] = '2026-11-05T00:00:00+00:00'
+        checkpoint['updated'] = (build.timestamp(SEED) + timedelta(seconds=1)).isoformat()
         checkpoint['platform']['sourceUpdatedAt'] = checkpoint['updated']
         live = copy.deepcopy(SEED)
-        live['updated'] = '2026-11-06T00:00:00+00:00'
+        live['updated'] = (build.timestamp(SEED) + timedelta(seconds=2)).isoformat()
         merged = build.choose_baseline(SEED, live, checkpoint)
         self.assertEqual(merged['updated'], live['updated'])
         self.assertEqual(merged['platform']['sourceUpdatedAt'], checkpoint['updated'])

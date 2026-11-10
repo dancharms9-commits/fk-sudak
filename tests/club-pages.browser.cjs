@@ -35,8 +35,7 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual(await page.locator('#team .club-metrics dd').allTextContents(),['1','51','17']);
   assert.equal(await page.locator('#team .club-hero img').getAttribute('src'),'assets/clubs/936.png');
   await page.locator('#team .club-hero img').evaluate(img=>img.decode());
-  assert((await page.locator('#team').innerText()).includes('Загрузка этого раздела ещё не выполнена'));
-  assert.equal(await page.locator('#team .club-players').count(),0);
+  assert.equal(await page.locator('#team .club-roster-player').count(),new Set([...data.platform.rosters['4:22:936'].playerIds,...(data.platform.rosters['4:22:936'].clubPlayerIds||[])]).size);
   assert.equal(await page.locator('#nav button').count(),5);
   assert.equal(await page.locator('#nav [data-t="table"]').getAttribute('aria-current'),'page');
   assert.equal(await page.locator('header .brand').isVisible(),false);
@@ -48,7 +47,7 @@ const server=http.createServer((req,res)=>{
   for(const id of data.platform.competitionSeasons['4:22'].participantTeamIds){
    await page.goto(base+'#team='+id);await ready(page);
    if(id==='141'){await page.locator('#home.on').waitFor();assert.equal(await page.locator('#team.on').count(),0)}
-   else {await page.locator('#team.on').waitFor();assert.equal(await page.locator('#team-title').innerText(),data.platform.teamsById[id].name);assert.equal(await page.locator('#team .club-players').count(),0)}
+   else {await page.locator('#team.on').waitFor();assert.equal(await page.locator('#team-title').innerText(),data.platform.teamsById[id].name);assert.equal(await page.locator('#team .club-roster-player').count(),new Set([...data.platform.rosters['4:22:'+id].playerIds,...(data.platform.rosters['4:22:'+id].clubPlayerIds||[])]).size)}
   }
   for(const id of ['1029','258','0','no-such-team']){await page.goto(base+'#team='+id);await ready(page);assert.equal(await page.locator('#team-title').innerText(),'Команда недоступна');assert.equal(await page.locator('#team [data-team]').count(),0)}
   console.log('PASS all 11 direct club routes, Sudak home alias, unknown/unconfirmed IDs are unavailable');

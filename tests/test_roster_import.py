@@ -1,0 +1,301 @@
+import copy
+import tempfile
+import subprocess
+import json
+from pathlib import Path
+import unittest
+from unittest.mock import patch
+
+from bs4 import BeautifulSoup
+import requests
+from scripts import multi_club_rosters as importer
+from scripts import build_pages as build
+from datetime import datetime, timedelta
+from scripts import multi_club_schema as schema
+from scripts import multi_club_sources as sources
+
+ROOT = Path(__file__).resolve().parents[1]
+SEED = json.loads((ROOT/'data.json').read_text())
+FIX = ROOT/'tests/fixtures/rosters'
+WHEN = '2026-11-10T08:00:00+00:00'
+
+
+def soup(file):
+    return BeautifulSoup((FIX/file).read_text(), 'html.parser')
+
+
+class RosterImportTests(unittest.TestCase):
+    def test_checked_in_snapshot_has_all_clubs_and_contextual_evidence(self):
+        p = SEED['platform']
+        schema.validate_platform(p)
+        self.assertEqual(set(p['competitionSeasons']['4:22']['participantTeamIds']), schema.TEAM_IDS)
+        self.assertEqual(len(p['playersById']), len(set(p['playersById'])))
+        for tid in importer.TARGET_IDS:
+            roster = p['rosters']['4:22:'+tid]
+            self.assertGreater(len(roster['clubPlayerIds']), 0)
+            for pid in roster['clubPlayerIds']:
+                self.assertEqual(p['playersById'][pid]['profileQuality']['status'], 'current')
+            for pid in roster['playerIds']:
+                row = p['playerSeasonStats'][f'{pid}:{tid}:4:22']
+                self.assertGreater(len(row['sourceBinding']['sourceMatchIds']), 0)
+                self.assertEqual(row['sourceUrl'], p['playersById'][pid]['sourceUrl'])
+        bad = copy.deepcopy(p)
+        bad['rosters']['4:22:936']['unverifiedPlayerIds'].append('999999')
+        with self.assertRaises(ValueError):
+            schema.validate_platform(bad)
+
+    def test_restore_newer_legacy_platform_retains_seed_rosters_and_latest_sudak(self):
+        live = {k: copy.deepcopy(v) for k, v in SEED.items() if k != 'platform'}
+        live['updated'] = (build.timestamp(SEED)+timedelta(seconds=30)).isoformat()
+        live['coach'] += ' · latest source fixture'
+        live['platform'] = sources.project_snapshot(live)
+        merged = build.choose_baseline(SEED, live)
+        self.assertEqual(merged['coach'], live['coach'])
+        self.assertEqual(merged['platform']['sourceUpdatedAt'], live['updated'])
+        self.assertEqual(merged['platform']['rosters']['4:22:141'], live['platform']['rosters']['4:22:141'])
+        self.assertEqual(merged['platform']['rosters']['4:22:936'], SEED['platform']['rosters']['4:22:936'])
+        self.assertEqual(merged['platform']['registrations'], SEED['platform']['registrations'])
+        self.assertEqual(merged['platform']['playerSeasonStats']['1698:117:4:22'], SEED['platform']['playerSeasonStats']['1698:117:4:22'])
+        build.validate(merged, SEED)
+        build.validate(merged, live)
+
+    def test_restore_merges_profile_freshness_independently_and_preserves_missing_numbers(self):
+        base, extra = copy.deepcopy(SEED['platform']), copy.deepcopy(SEED['platform'])
+        row = base['playerSeasonStats']['1698:117:4:22']
+        when = (datetime.fromisoformat(row['quality']['lastVerifiedAt'])+timedelta(minutes=1)).isoformat()
+        row['quality'].update(lastVerifiedAt=when, checkedAt=when)
+        row.setdefault('fieldQuality', {f: {'status': 'not_published' if row[f] is None else 'current', 'lastVerifiedAt': row['quality']['lastVerifiedAt'] if row[f] is not None else None} for f in schema.STATS})
+        row['minutes'] = None
+        row['fieldQuality']['minutes'] = {'status': 'not_published', 'lastVerifiedAt': None}
+        for pid, container in [('1698', base), ('146', extra)]:
+            q = container['playersById'][pid]['profileQuality']
+            q['checkedAt'] = q['lastVerifiedAt'] = (datetime.fromisoformat(q['lastVerifiedAt'])+timedelta(minutes=2)).isoformat()
+        merged = importer.merge_roster_enrichment(base, extra)
+        restored = merged['playerSeasonStats']['1698:117:4:22']
+        self.assertEqual(restored['minutes'], 337)
+        self.assertEqual(restored['yellowCards'], 0)
+        self.assertEqual(restored['quality']['status'], 'stale')
+        self.assertEqual(restored['fieldQuality']['minutes']['lastVerifiedAt'], extra['playerSeasonStats']['1698:117:4:22']['quality']['lastVerifiedAt'])
+        for pid, container in [('1698', base), ('146', extra)]:
+            self.assertEqual(merged['playersById'][pid]['profileQuality'], container['playersById'][pid]['profileQuality'])
+        schema.validate_platform(merged)
+        # A newer partial row may retain an older whole-row timestamp. Its
+        # individual fresh fields must survive alongside another saved field.
+        a, b = copy.deepcopy(extra), copy.deepcopy(extra)
+        x, y = a['playerSeasonStats']['1698:117:4:22'], b['playerSeasonStats']['1698:117:4:22']
+        for r in (x, y):
+            r['fieldQuality'] = {f: {'status': 'current', 'lastVerifiedAt': r['quality']['lastVerifiedAt']} for f in schema.STATS}
+        t = datetime.fromisoformat(x['quality']['lastVerifiedAt'])
+        x['fieldQuality']['minutes']['lastVerifiedAt'] = (t+timedelta(minutes=3)).isoformat()
+        y['goals'] = 2
+        y['fieldQuality']['goals']['lastVerifiedAt'] = (t+timedelta(minutes=5)).isoformat()
+        y['minutes'] = None
+        y['fieldQuality']['minutes'] = {'status': 'not_published', 'lastVerifiedAt': None}
+        restored = importer.merge_roster_enrichment(a, b)['playerSeasonStats']['1698:117:4:22']
+        self.assertEqual((restored['goals'], restored['minutes']), (2, 337))
+        self.assertEqual(restored['fieldQuality']['minutes']['lastVerifiedAt'], x['fieldQuality']['minutes']['lastVerifiedAt'])
+
+    def test_publication_revision_never_rolls_back_newer_legacy_football(self):
+        seed = copy.deepcopy(SEED)
+        live = copy.deepcopy(SEED)
+        core_time = build.football_revision(seed)+timedelta(hours=1)
+        live['platform']['sourceUpdatedAt'] = core_time.isoformat()
+        live['updated'] = core_time.isoformat()
+        live['coach'] += ' · newer actual football fixture'
+        live['player_stats_2026']['players'][0]['league_minutes'] += 1
+        merged = build.choose_baseline(seed, live)
+        self.assertEqual(merged['coach'], live['coach'])
+        self.assertEqual(merged['player_stats_2026'], live['player_stats_2026'])
+        self.assertEqual(build.timestamp(merged), max(build.timestamp(seed), build.timestamp(live)))
+        self.assertEqual(build.football_revision(merged), core_time)
+        self.assertEqual(merged['platform']['rosters']['4:22:936'], seed['platform']['rosters']['4:22:936'])
+        self.assertEqual(seed, SEED)
+
+    def test_metadata_only_refresh_does_not_advance_legacy_football_revision(self):
+        def runner(command, **kwargs):
+            raise subprocess.CalledProcessError(1, command)
+        def unavailable():
+            raise requests.Timeout('fixture')
+        with tempfile.TemporaryDirectory() as directory:
+            result = build.refresh(SEED, Path(directory), runner=runner, platform_loader=unavailable)
+        self.assertEqual(build.football_revision(result), build.football_revision(SEED))
+        self.assertGreater(build.timestamp(result), build.timestamp(SEED))
+        self.assertEqual(result['res'], SEED['res'])
+
+    def test_fresh_legacy_core_can_follow_a_later_enrichment_publication(self):
+        baseline = copy.deepcopy(SEED)
+        actual = build.football_revision(baseline)+timedelta(minutes=1)
+        def runner(command, cwd, **kwargs):
+            if command[-1].endswith('update_player_stats.py'):
+                raise subprocess.CalledProcessError(1, command)
+            d = json.loads((cwd/'data.json').read_text())
+            d['updated'] = actual.isoformat()
+            d['coach'] += ' · accepted core fixture'
+            build.write_json(cwd/'data.json', d)
+        with tempfile.TemporaryDirectory() as directory:
+            result = build.refresh(baseline, Path(directory), runner=runner)
+        self.assertEqual(result['coach'], baseline['coach']+' · accepted core fixture')
+        self.assertEqual(build.football_revision(result), actual)
+        self.assertGreater(build.timestamp(result), build.timestamp(baseline))
+
+    def test_official_club_list_is_not_a_season_or_staff_list(self):
+        rows = importer.parse_club(soup('teams-936.html'), SEED['platform']['teamsById']['936'])
+        self.assertEqual(len(rows), 29)
+        self.assertNotIn('3285', rows)  # actual coach on same page / CSS class
+        self.assertEqual(rows['1949']['registeredAt'], '2025-03-27')
+        self.assertEqual(rows['1949']['position'], 'Полузащитник')
+        self.assertIsNone(rows['1949']['number'])
+        self.assertIsNone(rows['1949']['photoUrl'])
+
+    def test_transfer_groups_use_match_ids_without_splitting_tokens_or_joining_names(self):
+        p = SEED['platform']
+        s = soup('players-1698.html')
+        # Deliberately destroy the textual team labels and numeric group syntax.
+        for i, group in enumerate(s.select('.player-stat__stat_h[data-id]')):
+            token = group['data-id']
+            group['data-id'] = 'opaque-'+str(i)
+            for node in s.select('.player-stat__more'):
+                if node.get('data-id') == token:
+                    node['data-id'] = group['data-id']
+        for node in s.select('.player-stat__champ-team'):
+            node.string = 'Одинаковое название'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, p['matchesById'])
+        self.assertEqual((result['stats']['117']['games'], result['stats']['117']['goals'], result['stats']['117']['minutes']), (5, 1, 337))
+        self.assertEqual((result['stats']['146']['games'], result['stats']['146']['goals'], result['stats']['146']['minutes']), (5, 6, 445))
+        self.assertEqual(result['stats']['117']['yellowCards'], 0)
+        self.assertEqual(result['registrations'][0]['registeredAt'], '2026-09-04')
+        self.assertEqual(result['registrations'][1]['releasedAt'], '2026-09-01')
+
+    def test_unknown_match_ids_do_not_create_bindings_and_missing_stats_do_not_create_zeroes(self):
+        s = soup('players-1698.html')
+        for index, a in enumerate(s.select('a[href*="/matches/"]')):
+            a['href'] = f'/matches/{999999+index}/'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(result['stats'], {})
+        self.assertEqual(len(result['unresolvedGroups']), 2)
+        self.assertTrue(all(r['reason'] == 'calendar_match_not_resolved' for r in result['unresolvedGroups']))
+        with self.assertRaises(ValueError):
+            importer.parse_profile(s, '1698', {'Другой человек'}, SEED['platform']['matchesById'])
+
+    def test_fetch_failure_preserves_all_previous_football_data(self):
+        p = copy.deepcopy(SEED['platform'])
+        def unavailable(url):
+            raise requests.Timeout('fixture')
+        result, report = importer.sync_platform(p, unavailable, max_profiles=0, checked_at=WHEN, force=True)
+        self.assertEqual(result['playersById'], p['playersById'])
+        self.assertEqual(result['playerSeasonStats'], p['playerSeasonStats'])
+        self.assertEqual(result['matchesById'], p['matchesById'])
+        self.assertEqual(result['rosters']['4:22:141'], p['rosters']['4:22:141'])
+        self.assertEqual(len(report['clubs']), 10)
+        self.assertTrue(all(r['status'] == 'temporarily_unavailable' for r in report['clubs'].values()))
+
+    def test_club_catalog_is_unverified_until_a_profile_supplies_season_evidence(self):
+        p = sources.project_snapshot({k: v for k, v in SEED.items() if k != 'platform'})
+        def loader(url):
+            if url == 'https://rffk-roo.ru/teams/936/':
+                return soup('teams-936.html')
+            raise requests.Timeout('fixture')
+        result, report = importer.sync_platform(p, loader, max_profiles=0, checked_at=WHEN, force=True)
+        r = result['rosters']['4:22:936']
+        self.assertEqual(len(r['clubPlayerIds']), 29)
+        self.assertEqual(r['playerIds'], [])
+        self.assertEqual(len(r['unverifiedPlayerIds']), 29)
+        self.assertEqual(r['clubListQuality']['status'], 'current')
+        self.assertEqual(result['registrations'], p['registrations'])
+        schema.validate_platform(result)
+
+    def test_network_loader_retries_once_and_rejects_unsafe_urls(self):
+        loader = importer.NetworkLoader()
+        response = unittest.mock.Mock(url='https://rffk-roo.ru/teams/936/', text='<html/>')
+        response.raise_for_status.return_value = None
+        with patch('scripts.multi_club_rosters.requests.get', side_effect=[requests.Timeout(), response]) as get, patch('scripts.multi_club_rosters.time.sleep'):
+            loader('https://rffk-roo.ru/teams/936/')
+            self.assertEqual(get.call_count, 2)
+            self.assertLessEqual(get.call_args.kwargs['timeout'], 8)
+        with self.assertRaises(ValueError):
+            loader('https://evil.test/teams/936/')
+
+    def test_bad_historical_registration_is_isolated_from_valid_season_statistics(self):
+        s = soup('players-1698.html')
+        row = s.select('.player-data__team:not(.player-data__team_head)')[1]
+        row.select_one('a')['href'] = 'https://rffk-roo.ru/teams/0/'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(set(result['stats']), {'117', '146'})
+        self.assertEqual(len(result['registrationIssues']), 1)
+        self.assertEqual(len(result['registrations']), 2)
+
+    def test_exact_duplicate_is_deduplicated_conflicting_period_is_not_guessed(self):
+        s = soup('players-1698.html')
+        row = s.select('.player-data__team:not(.player-data__team_head)')[0]
+        row.parent.append(copy.deepcopy(row))
+        regs, issues = importer.parse_registrations(s)
+        self.assertEqual(len(regs), 2)
+        self.assertEqual(issues, [])
+        row.parent.select('.player-data__team')[-1].find_all('div', recursive=False)[2].string = 'Защитник'
+        regs, issues = importer.parse_registrations(s)
+        self.assertEqual([r['teamId'] for r in regs], ['146'])
+        self.assertEqual(issues[0]['reason'], 'ambiguous_registration_period')
+
+    def test_missing_cards_are_null_and_published_zeroes_and_numbers_are_preserved(self):
+        s = soup('players-1698.html')
+        s.select('.player-data__team:not(.player-data__team_head)')[0].find_all('div', recursive=False)[0].string = '777'
+        group = s.select_one('.player-stat__stat_h[data-id="117422"]')
+        group.find_all('div', recursive=False)[5].string = '-'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(result['registrations'][0]['number'], 777)
+        self.assertIsNone(result['stats']['117']['yellowCards'])
+        self.assertEqual(result['stats']['117']['redCards'], 0)
+
+    def test_known_match_subset_can_identify_one_club_but_unknown_links_are_not_joined(self):
+        s = soup('players-1698.html')
+        more = s.select_one('.player-stat__more[data-id="117422"]')
+        more.select_one('a')['href'] = '/matches/999999/'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        binding = result['stats']['117']['sourceBinding']
+        self.assertEqual(len(binding['sourceMatchIds']), 4)
+        self.assertEqual(binding['unresolvedSourceMatchIds'], ['999999'])
+        self.assertEqual(result['stats']['117']['goals'], 1)  # published aggregate, not a sum of the four games
+
+    def test_staff_and_undated_affiliations_are_not_season_registrations(self):
+        s = soup('players-1698.html')
+        cols = s.select('.player-data__team:not(.player-data__team_head)')[0].find_all('div', recursive=False)
+        cols[2].string = 'Тренер'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        reg, binding = result['registrations'][0], result['stats']['117']['sourceBinding']
+        self.assertEqual(reg['roleKind'], 'staff')
+        self.assertEqual(importer.registration_evidence(reg, binding, SEED['platform']['matchesById']), [])
+        cols[2].string = 'Полузащитник'
+        cols[3].string = '-'
+        result = importer.parse_profile(s, '1698', {'Барканов Сергей'}, SEED['platform']['matchesById'])
+        self.assertEqual(importer.registration_evidence(result['registrations'][0], binding, SEED['platform']['matchesById']), [])
+        bad = copy.deepcopy(SEED['platform'])
+        next(r for r in bad['registrations'].values() if r.get('scope') == 'competition_season')['registeredAt'] = None
+        with self.assertRaises(ValueError):
+            schema.validate_platform(bad)
+
+    def test_profile_enrichment_survives_the_existing_sudak_projection(self):
+        p = copy.deepcopy(SEED['platform'])
+        player = p['playersById']['202']
+        player.update(firstName='Илья', lastName='Донской', photoUrl='https://rffk-roo.ru/uploads/people/large/DGIaYmPn.jpg', photoSourceUrl=player['sourceUrl'])
+        result = sources.project_snapshot(SEED, p)
+        self.assertEqual(result['playersById']['202']['photoUrl'], player['photoUrl'])
+        self.assertEqual(result['playersById']['202']['firstName'], 'Илья')
+        self.assertEqual(result['playerSeasonStats']['202:141:4:22']['goals'], p['playerSeasonStats']['202:141:4:22']['goals'])
+
+    def test_partial_refresh_keeps_roster_players_and_last_verified_fields(self):
+        p = copy.deepcopy(SEED['platform'])
+        pid = '1698'
+        before = copy.deepcopy(p['playerSeasonStats'][pid+':117:4:22'])
+        p['playersById'][pid]['profileQuality']['status'] = 'stale'
+        def unavailable(url):
+            raise requests.Timeout('fixture')
+        result, _ = importer.sync_platform(p, unavailable, max_profiles=600, checked_at=WHEN)
+        after = result['playerSeasonStats'][pid+':117:4:22']
+        self.assertEqual({k: after[k] for k in schema.STATS}, {k: before[k] for k in schema.STATS})
+        self.assertEqual(after['quality']['lastVerifiedAt'], before['quality']['lastVerifiedAt'])
+        self.assertEqual(after['quality']['status'], 'stale')
+        self.assertEqual(result['rosters']['4:22:117']['playerIds'], p['rosters']['4:22:117']['playerIds'])
+
+
+if __name__ == '__main__':
+    unittest.main()

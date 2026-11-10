@@ -1,0 +1,409 @@
+{
+  "competitionId": "4",
+  "seasonId": "22",
+  "seasonYear": 2026,
+  "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
+  "dataRevision": "2026-11-10T11:10:50+00:00",
+  "baselineCommit": "ca64a9bb76c6576b2aaa4f29b7a681564b4e8a70",
+  "auditRuns": [
+    42778384573,
+    42780181745,
+    42803072723
+  ],
+  "jsonBytesBefore": 653847,
+  "jsonBytesAfter": 2122646,
+  "jsonSha256": "41191773779f5501af41708ca679ba5438fcfbec57e37de32cfababf195f204e",
+  "uniqueCatalogPlayersTenClubs": 355,
+  "uniqueSeasonPlayersTenClubs": 320,
+  "uniqueRegisteredSeasonPlayersTenClubs": 318,
+  "clubs": [
+    {
+      "teamId": "141",
+      "name": "ФК «Судак»",
+      "sourceUrl": "https://rffk-roo.ru/teams/141/",
+      "clubListPlayers": 41,
+      "confirmedSeasonPlayers": null,
+      "confirmedRegistrationPlayers": null,
+      "playersWithStats": 38,
+      "unverifiedClubPlayers": 0,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "stale",
+        "coverage": "partial",
+        "sourceUrl": "https://rffk-roo.ru/teams/141/",
+        "checkedAt": null,
+        "lastSuccessAt": null,
+        "lastVerifiedAt": null,
+        "reason": "imported_snapshot"
+      }
+    },
+    {
+      "teamId": "936",
+      "name": "СК «Каштан»",
+      "sourceUrl": "https://rffk-roo.ru/teams/936/",
+      "clubListPlayers": 29,
+      "confirmedSeasonPlayers": 26,
+      "confirmedRegistrationPlayers": 26,
+      "playersWithStats": 26,
+      "unverifiedClubPlayers": 3,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/936/",
+        "checkedAt": "2026-11-10T07:53:02+00:00",
+        "lastSuccessAt": "2026-11-10T07:53:02+00:00",
+        "lastVerifiedAt": "2026-11-10T07:53:02+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "1030",
+      "name": "«СТО-Газель»",
+      "sourceUrl": "https://rffk-roo.ru/teams/1030/",
+      "clubListPlayers": 36,
+      "confirmedSeasonPlayers": 30,
+      "confirmedRegistrationPlayers": 30,
+      "playersWithStats": 30,
+      "unverifiedClubPlayers": 6,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/1030/",
+        "checkedAt": "2026-11-10T07:53:03+00:00",
+        "lastSuccessAt": "2026-11-10T07:53:03+00:00",
+        "lastVerifiedAt": "2026-11-10T07:53:03+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "932",
+      "name": "ФК «Фуна»",
+      "sourceUrl": "https://rffk-roo.ru/teams/932/",
+      "clubListPlayers": 30,
+      "confirmedSeasonPlayers": 25,
+      "confirmedRegistrationPlayers": 25,
+      "playersWithStats": 25,
+      "unverifiedClubPlayers": 5,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/932/",
+        "checkedAt": "2026-11-10T07:53:00+00:00",
+        "lastSuccessAt": "2026-11-10T07:53:00+00:00",
+        "lastVerifiedAt": "2026-11-10T07:53:00+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "521",
+      "name": "АФК",
+      "sourceUrl": "https://rffk-roo.ru/teams/521/",
+      "clubListPlayers": 44,
+      "confirmedSeasonPlayers": 43,
+      "confirmedRegistrationPlayers": 43,
+      "playersWithStats": 43,
+      "unverifiedClubPlayers": 2,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/521/",
+        "checkedAt": "2026-11-10T07:52:59+00:00",
+        "lastSuccessAt": "2026-11-10T07:52:59+00:00",
+        "lastVerifiedAt": "2026-11-10T07:52:59+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "930",
+      "name": "ФК «НКСТРОЙ-Керчь»",
+      "sourceUrl": "https://rffk-roo.ru/teams/930/",
+      "clubListPlayers": 45,
+      "confirmedSeasonPlayers": 40,
+      "confirmedRegistrationPlayers": 40,
+      "playersWithStats": 40,
+      "unverifiedClubPlayers": 5,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/930/",
+        "checkedAt": "2026-11-10T07:53:00+00:00",
+        "lastSuccessAt": "2026-11-10T07:53:00+00:00",
+        "lastVerifiedAt": "2026-11-10T07:53:00+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "146",
+      "name": "ФК «Саки»",
+      "sourceUrl": "https://rffk-roo.ru/teams/146/",
+      "clubListPlayers": 33,
+      "confirmedSeasonPlayers": 31,
+      "confirmedRegistrationPlayers": 30,
+      "playersWithStats": 31,
+      "unverifiedClubPlayers": 3,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/146/",
+        "checkedAt": "2026-11-10T07:52:57+00:00",
+        "lastSuccessAt": "2026-11-10T07:52:57+00:00",
+        "lastVerifiedAt": "2026-11-10T07:52:57+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "934",
+      "name": "ФК «Сталкер»",
+      "sourceUrl": "https://rffk-roo.ru/teams/934/",
+      "clubListPlayers": 45,
+      "confirmedSeasonPlayers": 45,
+      "confirmedRegistrationPlayers": 45,
+      "playersWithStats": 45,
+      "unverifiedClubPlayers": 5,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/934/",
+        "checkedAt": "2026-11-10T07:53:02+00:00",
+        "lastSuccessAt": "2026-11-10T07:53:02+00:00",
+        "lastVerifiedAt": "2026-11-10T07:53:02+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "757",
+      "name": "ФК «Турбо»",
+      "sourceUrl": "https://rffk-roo.ru/teams/757/",
+      "clubListPlayers": 32,
+      "confirmedSeasonPlayers": 31,
+      "confirmedRegistrationPlayers": 31,
+      "playersWithStats": 31,
+      "unverifiedClubPlayers": 1,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/757/",
+        "checkedAt": "2026-11-10T07:52:59+00:00",
+        "lastSuccessAt": "2026-11-10T07:52:59+00:00",
+        "lastVerifiedAt": "2026-11-10T07:52:59+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "1028",
+      "name": "«Темп»",
+      "sourceUrl": "https://rffk-roo.ru/teams/1028/",
+      "clubListPlayers": 39,
+      "confirmedSeasonPlayers": 35,
+      "confirmedRegistrationPlayers": 35,
+      "playersWithStats": 35,
+      "unverifiedClubPlayers": 4,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/1028/",
+        "checkedAt": "2026-11-10T07:53:03+00:00",
+        "lastSuccessAt": "2026-11-10T07:53:03+00:00",
+        "lastVerifiedAt": "2026-11-10T07:53:03+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    },
+    {
+      "teamId": "117",
+      "name": "УОР",
+      "sourceUrl": "https://rffk-roo.ru/teams/117/",
+      "clubListPlayers": 28,
+      "confirmedSeasonPlayers": 25,
+      "confirmedRegistrationPlayers": 24,
+      "playersWithStats": 25,
+      "unverifiedClubPlayers": 3,
+      "historicalClubPlayers": 0,
+      "clubListQuality": {
+        "status": "current",
+        "coverage": "complete",
+        "sourceUrl": "https://rffk-roo.ru/teams/117/",
+        "checkedAt": "2026-11-10T07:52:57+00:00",
+        "lastSuccessAt": "2026-11-10T07:52:57+00:00",
+        "lastVerifiedAt": "2026-11-10T07:52:57+00:00",
+        "reason": "official_club_list_not_season_roster"
+      }
+    }
+  ],
+  "unresolvedGroups": [
+    {
+      "playerId": "561",
+      "sourceUrl": "https://rffk-roo.ru/players/561/",
+      "groups": [
+        {
+          "sourceGroupId": "1030422",
+          "reason": "calendar_match_not_resolved",
+          "sourceMatchIds": [
+            "38771"
+          ]
+        }
+      ]
+    },
+    {
+      "playerId": "3464",
+      "sourceUrl": "https://rffk-roo.ru/players/3464/",
+      "groups": [
+        {
+          "sourceGroupId": "1030422",
+          "reason": "calendar_match_not_resolved",
+          "sourceMatchIds": [
+            "38771"
+          ]
+        }
+      ]
+    },
+    {
+      "playerId": "3522",
+      "sourceUrl": "https://rffk-roo.ru/players/3522/",
+      "groups": [
+        {
+          "sourceGroupId": "521422",
+          "reason": "team_binding_ambiguous",
+          "sourceMatchIds": [
+            "38752"
+          ]
+        }
+      ]
+    },
+    {
+      "playerId": "3543",
+      "sourceUrl": "https://rffk-roo.ru/players/3543/",
+      "groups": [
+        {
+          "sourceGroupId": "1030422",
+          "reason": "calendar_match_not_resolved",
+          "sourceMatchIds": [
+            "38771"
+          ]
+        }
+      ]
+    }
+  ],
+  "registrationIssues": [
+    {
+      "playerId": "707",
+      "sourceUrl": "https://rffk-roo.ru/players/707/",
+      "issues": [
+        {
+          "teamId": "930",
+          "sourceRow": 7,
+          "reason": "ambiguous_registration_period"
+        }
+      ]
+    },
+    {
+      "playerId": "963",
+      "sourceUrl": "https://rffk-roo.ru/players/963/",
+      "issues": [
+        {
+          "teamId": null,
+          "sourceRow": 3,
+          "reason": "Registration without official team ID"
+        }
+      ]
+    },
+    {
+      "playerId": "1280",
+      "sourceUrl": "https://rffk-roo.ru/players/1280/",
+      "issues": [
+        {
+          "teamId": "146",
+          "sourceRow": 4,
+          "reason": "Invalid registration interval"
+        }
+      ]
+    },
+    {
+      "playerId": "1315",
+      "sourceUrl": "https://rffk-roo.ru/players/1315/",
+      "issues": [
+        {
+          "teamId": null,
+          "sourceRow": 3,
+          "reason": "Registration without official team ID"
+        }
+      ]
+    },
+    {
+      "playerId": "1928",
+      "sourceUrl": "https://rffk-roo.ru/players/1928/",
+      "issues": [
+        {
+          "teamId": "146",
+          "sourceRow": 3,
+          "reason": "ambiguous_registration_period"
+        }
+      ]
+    },
+    {
+      "playerId": "2004",
+      "sourceUrl": "https://rffk-roo.ru/players/2004/",
+      "issues": [
+        {
+          "teamId": "117",
+          "sourceRow": 2,
+          "reason": "ambiguous_registration_period"
+        }
+      ]
+    },
+    {
+      "playerId": "2166",
+      "sourceUrl": "https://rffk-roo.ru/players/2166/",
+      "issues": [
+        {
+          "teamId": null,
+          "sourceRow": 1,
+          "reason": "Registration without official team ID"
+        }
+      ]
+    },
+    {
+      "playerId": "3129",
+      "sourceUrl": "https://rffk-roo.ru/players/3129/",
+      "issues": [
+        {
+          "teamId": "932",
+          "sourceRow": 3,
+          "reason": "ambiguous_registration_period"
+        }
+      ]
+    },
+    {
+      "playerId": "3130",
+      "sourceUrl": "https://rffk-roo.ru/players/3130/",
+      "issues": [
+        {
+          "teamId": "932",
+          "sourceRow": 3,
+          "reason": "ambiguous_registration_period"
+        }
+      ]
+    },
+    {
+      "playerId": "3223",
+      "sourceUrl": "https://rffk-roo.ru/players/3223/",
+      "issues": [
+        {
+          "teamId": "757",
+          "sourceRow": 3,
+          "reason": "ambiguous_registration_period"
+        }
+      ]
+    }
+  ],
+  "seasonRegistrationRecords": 329,
+  "staffAffiliationRecords": 2
+}

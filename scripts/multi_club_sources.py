@@ -94,12 +94,12 @@ def empty_platform(data):
             'unresolvedSourceRecords': {'teamsById': {}, 'matchesById': {}}}
 
 
-def project_snapshot(data, previous=None):
+def project_snapshot(data, previous=None, source_updated_at=None):
     """Pure legacy projection. Only source IDs establish identity or membership."""
     if previous is not None:
         validate_platform(previous)
     p = copy.deepcopy(previous) if previous is not None else empty_platform(data)
-    p['sourceUpdatedAt'] = data['updated']
+    p['sourceUpdatedAt'] = source_updated_at or data['updated']
     hub = data['championship']
     require(hub['season'] == 2026 and hub['competition_id'] == '4', 'Wrong legacy championship')
     calendar = hub['calendar']
@@ -133,7 +133,7 @@ def project_snapshot(data, previous=None):
             continue  # no synthetic ID from name; old format remains untouched
         require(pid not in player_ids, 'Duplicate Sudak player ID')
         player_ids.append(pid)
-        p['playersById'][pid] = {'playerId': pid, 'name': raw['name'], 'sourceUrl': raw['profile_url'],
+        p['playersById'][pid] = {**p['playersById'].get(pid, {}), 'playerId': pid, 'name': raw['name'], 'sourceUrl': raw['profile_url'],
                                 'quality': quality(raw['profile_url'])}
         p['legacyLinks']['players']['rffk-' + pid] = pid
         old = p['playerSeasonStats'].get(f'{pid}:141:4:22', {})
@@ -198,9 +198,9 @@ def project_snapshot(data, previous=None):
     return p
 
 
-def update_platform(data, previous=None, loader=None, checked_at=None):
+def update_platform(data, previous=None, loader=None, checked_at=None, source_updated_at=None):
     """A standings outage cannot erase the other clubs or legacy Sudak data."""
-    p = project_snapshot(data, previous)
+    p = project_snapshot(data, previous, source_updated_at=source_updated_at)
     if loader is not None:
         now = checked_at or datetime.now(timezone.utc).isoformat(timespec='seconds')
         table = p['standings'][SEASON_KEY]

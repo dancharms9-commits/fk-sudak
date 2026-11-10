@@ -24,7 +24,7 @@ import requests
 # Support both imports in tests and `python scripts/build_pages.py`.
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts import multi_club_sources, multi_club_schema
+from scripts import multi_club_sources, multi_club_schema, multi_club_rosters
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_JSON = 5_000_000
@@ -221,9 +221,17 @@ def successful_checkpoint(repository, token, session=None):
     return None
 
 
+def football_revision(data):
+    # Enrichment advances the publication revision, not the legacy football core.
+    p = data.get('platform')
+    return multi_club_schema.stamp(p['sourceUpdatedAt']) if p else timestamp(data)
+
+
 def choose_baseline(seed, live, checkpoint=None):
     candidates = [validate(d) for d in (seed, live, checkpoint) if d is not None]
-    baseline = copy.deepcopy(max(candidates, key=timestamp))
+    core = max(candidates, key=lambda d: (football_revision(d), timestamp(d)))
+    baseline = copy.deepcopy(core)
+    baseline["updated"] = max(candidates, key=timestamp)["updated"]
     # Old production JSON remains valid during rollout. Carry its newest known
     # optional platform forward rather than discarding it for a newer legacy root.
     platforms = [d for d in candidates if "platform" in d]
@@ -234,6 +242,13 @@ def choose_baseline(seed, live, checkpoint=None):
         newest = max(platforms, key=lambda d: (
             multi_club_schema.stamp(d["platform"]["sourceUpdatedAt"]), timestamp(d)))
         baseline["platform"] = copy.deepcopy(newest["platform"])
+        for candidate in platforms:
+            if candidate is newest:
+                continue
+            baseline["platform"] = multi_club_rosters.merge_roster_enrichment(baseline["platform"], candidate["platform"])
+        if "platform" not in core:
+            baseline["platform"] = multi_club_sources.project_snapshot(
+                baseline, baseline["platform"], source_updated_at=football_revision(core).isoformat())
     for previous in candidates:
         validate(baseline, previous)
     return copy.deepcopy(baseline)
@@ -243,9 +258,10 @@ def write_json(path, data):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=1, allow_nan=False) + "\n", encoding="utf-8")
 
 
-def refresh(baseline, work, runner=subprocess.run, platform_loader=None):
+def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_loader=None):
     """Run existing parsers in isolation; promote only validated snapshots."""
     accepted = copy.deepcopy(baseline)
+    core_revision = football_revision(baseline)
     for script in ("fetch_data.py", "update_player_stats.py"):
         write_json(work / "data.json", accepted)
         # Never let main's old cache override statistics from the previous run.
@@ -260,19 +276,32 @@ def refresh(baseline, work, runner=subprocess.run, platform_loader=None):
                 candidate["platform"] = copy.deepcopy(accepted["platform"])
             # fetch_data uses minute precision; our deployed revision uses
             # seconds. A second manual run in that same minute is still fresh.
+            if candidate == accepted:
+                continue
             old_stamp, new_stamp = timestamp(accepted), timestamp(candidate)
-            if old_stamp.replace(second=0, microsecond=0) <= new_stamp < old_stamp:
+            require(new_stamp >= core_revision.replace(second=0, microsecond=0), "Older legacy football snapshot")
+            next_core_revision = max(core_revision, new_stamp)
+            if new_stamp < old_stamp:
                 candidate["updated"] = accepted["updated"]
+            if "platform" in candidate:
+                candidate["platform"]["sourceUpdatedAt"] = next_core_revision.isoformat()
             validate(candidate, accepted)
             accepted = candidate
+            core_revision = next_core_revision
         except (subprocess.SubprocessError, OSError, ValueError) as exc:
             print(f"::warning::{script}: {type(exc).__name__}; using last-good football data")
     if platform_loader is not None or accepted != baseline or "platform" not in accepted:
         try:
             accepted["platform"] = multi_club_sources.update_platform(
-                accepted, previous=accepted.get("platform"), loader=platform_loader)
+                accepted, previous=accepted.get("platform"), loader=platform_loader,
+                source_updated_at=core_revision.isoformat())
         except (ValueError, TypeError, KeyError) as exc:
             print(f"::warning::platform: {type(exc).__name__}; using last-good extension")
+    if roster_loader is not None:
+        try:
+            accepted['platform'], _ = multi_club_rosters.sync_platform(accepted['platform'], roster_loader)
+        except (ValueError, TypeError, KeyError) as exc:
+            print(f"::warning::club-rosters: {type(exc).__name__}; using last-good extension")
     # Enrichment can change without fetch_data advancing its minute timestamp.
     # Every changed payload needs a newer revision for already-open PWA clients.
     if accepted != baseline:
@@ -312,7 +341,8 @@ def main():
     checkpoint = successful_checkpoint(os.environ["GITHUB_REPOSITORY"], os.environ["GH_TOKEN"])
     baseline = choose_baseline(seed, live, checkpoint)
     with tempfile.TemporaryDirectory(prefix="sudak-pages-") as directory:
-        data = refresh(baseline, Path(directory), platform_loader=multi_club_sources.fetch_season)
+        data = refresh(baseline, Path(directory), platform_loader=multi_club_sources.fetch_season,
+                       roster_loader=multi_club_rosters.NetworkLoader())
     stage_site(ROOT, args.output, data)
     state = ROOT / "_state"
     state.mkdir(exist_ok=True)
