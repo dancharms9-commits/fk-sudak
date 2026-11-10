@@ -1098,6 +1098,7 @@ function matchPersonHTML(name,side,model,entry,sourceURL=''){
 }
 function matchGoalsHTML(model){
   if(!model.finished)return '';
+  if(model.goals===null&&model.platformMatch&&model.events.items.length)return '<div class="card empty center-unavailable" role="status">Протокол содержит неполные сведения о голах. Доступные подтверждённые события и составы показаны ниже.</div>';
   if(model.goals===null)return '<div class="card empty center-unavailable" role="status">Протокол матча недоступен или содержит неполные данные. Авторы голов, минуты и хронология пока не подтверждены.</div>';
   if(!model.goals.length)return '<div class="card empty">В этом матче голов не было.</div>';
   return `<article class="center-goals"><h2>Авторы голов</h2><div class="card"><ul class="center-scorers">${model.goals.map((goal,index)=>{
@@ -1120,7 +1121,7 @@ function matchLineupsHTML(model){
   const list=(entries,side,group)=>`<ul class="center-lineup-list">${entries.map((p,index)=>`<li>${p.number!==null?`<span class="center-shirt">${p.number}</span>`:''}${matchPersonHTML(p.name,side,model,side+'-'+group+'-'+index,p.profile_url)}</li>`).join('')}</ul>`;
   return `<article class="center-lineups"><h2>Составы команд</h2><div class="center-lineup-grid">${['home','away'].map((side,i)=>{
     const groups=model.lineups[side];if(!groups)return '';
-    return `<div class="card center-lineup-team"><h3>${esc(model.teams[i])}</h3>${groups.starters?.length?'<h4>Стартовый состав</h4>'+list(groups.starters,side,'starters'):''}${groups.substitutes?.length?`<details data-center-list="${side}-bench"><summary>Запасные <span>${groups.substitutes.length}</span></summary>${list(groups.substitutes,side,'substitutes')}</details>`:''}</div>`;
+    return `<div class="card center-lineup-team"><h3>${esc(model.teams[i])}</h3>${model.platformMatch&&groups.starters?.length!==11?`<p class="hint">РФФК публикует строк стартового состава: ${groups.starters?.length||0}. Показаны опубликованные сведения; список не дополняется.</p>`:''}${groups.starters?.length?'<h4>Стартовый состав</h4>'+list(groups.starters,side,'starters'):''}${groups.substitutes?.length?`<details data-center-list="${side}-bench"><summary>Запасные <span>${groups.substitutes.length}</span></summary>${list(groups.substitutes,side,'substitutes')}</details>`:''}</div>`;
   }).join('')}</div></article>`;
 }
 function renderMatch(){

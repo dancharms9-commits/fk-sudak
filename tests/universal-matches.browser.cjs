@@ -36,7 +36,7 @@ const server=http.createServer((req,res)=>{
   for(const width of [320,390,768])for(const theme of ['light','dark']){
    await p.setViewportSize({width,height:844});await p.evaluate(theme=>{document.documentElement.dataset.theme=theme;localStorage.setItem('sudak-theme',theme)},theme);
    for(const m of reps){await go(p,key(m));await checkLayout(p)}
-   if(width===390&&shots){fs.mkdirSync(shots,{recursive:true});await go(p,key(selected));await p.screenshot({path:path.join(shots,'universal-'+theme+'-390.png'),fullPage:true});const future=all.find(m=>m.status==='scheduled');await go(p,key(future));await p.screenshot({path:path.join(shots,'scheduled-'+theme+'-390.png'),fullPage:true})}
+   if(width===390&&shots){fs.mkdirSync(shots,{recursive:true});await go(p,key(selected));await p.screenshot({path:path.join(shots,'universal-'+theme+'-390.png'),fullPage:true});const future=all.find(m=>m.status==='scheduled');await go(p,key(future));await p.screenshot({path:path.join(shots,'scheduled-'+theme+'-390.png'),fullPage:true});await p.evaluate(()=>{history.replaceState({},'','#match='+encodeURIComponent(matchKey(RES[0])));applyRoute()});await p.screenshot({path:path.join(shots,'sudak-legacy-'+theme+'-390.png'),fullPage:true})}
   }
   console.log('PASS 11 clubs × 3 mobile/tablet widths × 2 themes; five navigation tabs');
   await p.setViewportSize({width:390,height:844});
@@ -57,6 +57,7 @@ const server=http.createServer((req,res)=>{
   for(const unknown of ['rffk-99999999','4:2026:1:0:141']){await go(p,unknown);assert((await p.locator('#match').innerText()).includes('пока недоступны'));assert.equal(await p.locator('#match .num').count(),0)}
   payload=data;
   console.log('PASS partial protocol and unresolved match IDs');
+  const oldRow=data.res[0],oldId=[2026,oldRow[0],oldRow[1],oldRow[5]].join('|'),perfMatch=all.find(m=>m.sourceMatchId===String(data.match_details[oldId]?.id))||selected;
   const metrics={environment:'Local ARM64 Chromium; loopback HTTP, no network throttling; JS heap, not Android process RSS'};
   for(const mode of ['before','after']){
    if(mode==='before'&&(!process.env.MATCH_BASELINE_HTML||!process.env.MATCH_BASELINE_DATA))continue;
@@ -64,15 +65,17 @@ const server=http.createServer((req,res)=>{
    await bp.goto(base+(mode==='before'?'before/':''));await ready(bp);
    const jsonTimes=await bp.evaluate(async()=>{const rows=[];for(let i=0;i<5;i++){const start=performance.now(),r=await fetch('data.json?bench='+i,{cache:'no-store'}),body=await r.text(),received=performance.now();JSON.parse(body);const parsed=performance.now();rows.push({fetchMs:received-start,parseMs:parsed-received,bytes:new TextEncoder().encode(body).length});}return rows});
    const timings=[];
-   for(let i=0;i<7;i++)timings.push(await bp.evaluate(({key,before})=>new Promise(resolve=>{history.replaceState({},'','#home');applyRoute();const start=performance.now();const target=before?matchKey(RES[0]):key;history.replaceState({},'','#match='+encodeURIComponent(target));applyRoute();requestAnimationFrame(()=>resolve(performance.now()-start))}),{key:key(selected),before:mode==='before'}));
+   for(let i=0;i<7;i++)timings.push(await bp.evaluate(({key,before})=>new Promise(resolve=>{history.replaceState({},'','#home');applyRoute();const start=performance.now();const target=before?matchKey(RES[0]):key;history.replaceState({},'','#match='+encodeURIComponent(target));applyRoute();requestAnimationFrame(()=>resolve(performance.now()-start))}),{key:key(perfMatch),before:mode==='before'}));
    const devtools=await bc.newCDPSession(bp);await devtools.send('HeapProfiler.collectGarbage');const memory=await devtools.send('Runtime.getHeapUsage');
-   metrics[mode]={json:jsonTimes,openMatchMs:timings,memory,storedBytes:await bp.evaluate(()=>new Blob([localStorage.getItem('sudak-data-v1')]).size)};
+   metrics[mode]={domContentLoadedMs:await bp.evaluate(()=>performance.getEntriesByType('navigation')[0].domContentLoadedEventEnd),json:jsonTimes,openMatchMs:timings,memory,storedBytes:await bp.evaluate(()=>new Blob([localStorage.getItem('sudak-data-v1')]).size)};
    await bc.close();
   }
   if(shots)fs.writeFileSync(path.join(shots,'load-and-memory.json'),JSON.stringify(metrics,null,2)+'\n');console.log('METRICS '+JSON.stringify(metrics));
   assert(requests.every(url=>!/^https:\/\/rffk-roo.ru\/(matches|players|teams)\//.test(url)));
   await c.close();
-  const offline=await context('allow'),o=await offline.newPage();attach(o);await o.goto(base+'#match='+encodeURIComponent(key(selected)));await ready(o);await o.evaluate(()=>navigator.serviceWorker.ready);await o.waitForFunction(()=>!!navigator.serviceWorker.controller);await offline.setOffline(true);await o.reload();await ready(o);assert.equal(await o.locator('#match .center-lineup-team').count(),2);assert.deepEqual(await o.locator('#match .num').allTextContents(),[String(selected.homeScore),String(selected.awayScore)]);await o.locator('#match .center-lineup-list a[data-player]').first().click();assert.equal(await o.locator('#player.on').count(),1);await offline.close();
+  const offline=await context('allow'),o=await offline.newPage();attach(o);await o.goto(base+'#match='+encodeURIComponent(key(selected)));await ready(o);await o.evaluate(()=>navigator.serviceWorker.ready);await o.waitForFunction(()=>!!navigator.serviceWorker.controller);await offline.setOffline(true);
+  for(const tid of Object.keys(data.platform.teamsById).filter(id=>id!=='141'))assert.equal(await o.evaluate(async tid=>(await fetch('assets/clubs/'+tid+'.png')).ok,tid),true);
+  await o.reload();await ready(o);assert.equal(await o.locator('#match .center-lineup-team').count(),2);assert.deepEqual(await o.locator('#match .num').allTextContents(),[String(selected.homeScore),String(selected.awayScore)]);await o.locator('#match .center-lineup-list a[data-player]').first().click();assert.equal(await o.locator('#player.on').count(),1);await offline.close();
   console.log('PASS real SW offline reload with protocol, lineups and player navigation');assert.deepEqual(errors,[]);
  }finally{await browser.close();await new Promise(r=>server.close(r))}
 })().catch(e=>{console.error(e);process.exitCode=1});

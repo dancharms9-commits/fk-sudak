@@ -83,13 +83,13 @@ const server=http.createServer((req,res)=>{
   await page.reload();await ready(page);assert.equal(await page.locator('#champ-search').inputValue(),'Донской');
   console.log('PASS round controls, independent filters, technical and unknown results, all 25 scorers, exact club routes and nested returns');
   await tab(page,'calendar');await page.locator('#champ-round').selectOption('18');await page.locator('#champ-team').selectOption('all');await page.locator('#champ-status').selectOption('all');
-  await page.locator('details[data-champ-match]').first().locator('summary').click();
+  await page.locator('[data-champ-match] a[data-match]').first().click();await page.locator('#match.on').waitFor();await page.locator('#match-back').click();
   await page.evaluate(()=>scrollTo(0,180));const before=await page.evaluate(()=>scrollY);
   servedData=JSON.parse(JSON.stringify(data));servedData.updated=new Date(Date.parse(data.updated)+60000).toISOString();
   await page.evaluate(()=>refreshData(true));
-  assert.equal(await page.locator('#champ-round').inputValue(),'18');assert.equal(await page.locator('details[data-champ-match][open]').count(),1);
+  assert.equal(await page.locator('#champ-round').inputValue(),'18');assert.equal(await page.locator('#table a[data-match]').count(),5);
   assert(Math.abs(await page.evaluate(()=>scrollY)-before)<3);
-  console.log('PASS incoming data keeps round, filters, expanded match and scroll without reload');
+  console.log('PASS incoming data keeps round, filters, internal match links and scroll without reload');
   await context.close();servedData=data;
   // Actual prior cache is upgraded with the same shared-storage JSON snapshot.
   oldWorker=true;

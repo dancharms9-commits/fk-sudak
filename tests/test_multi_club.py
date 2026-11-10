@@ -57,6 +57,8 @@ class PlatformTests(unittest.TestCase):
 
     def test_all_matches_are_accounted_for_without_making_unknown_clubs(self):
         raw = {m['id']: m for m in SEED['championship']['calendar']['matches']}
+        audited = json.loads(Path('docs/multi-club-platform/match-audit.json').read_text())
+        verified = {**raw, **{m['id']: m for m in audited['calendarDifferences']}}
         known = PLATFORM['matchesById']
         unknown = PLATFORM['unresolvedSourceRecords']['matchesById']
         self.assertEqual((len(known), len(unknown)), (100, 13))
@@ -64,7 +66,7 @@ class PlatformTests(unittest.TestCase):
         self.assertEqual(known.keys() | unknown.keys(), raw.keys())
         for key, match in known.items():
             self.assertEqual((match['homeTeamId'], match['awayTeamId']), (raw[key]['home_id'], raw[key]['away_id']))
-            self.assertEqual((match['homeScore'], match['awayScore']), (raw[key]['home_score'], raw[key]['away_score']))
+            self.assertEqual((match['homeScore'], match['awayScore']), (verified[key]['home_score'], verified[key]['away_score']))
         self.assertEqual(set(PLATFORM['unresolvedSourceRecords']['teamsById']), {'0', '258', '1029'})
         for key, entry in unknown.items():
             self.assertEqual(entry['record'], raw[key])
@@ -114,7 +116,7 @@ class PlatformTests(unittest.TestCase):
 
     def test_protocols_join_by_source_id_and_keep_text_events_unresolved(self):
         self.assertTrue(set(PLATFORM['legacyLinks']['matches'].values()) <= PLATFORM['protocolsByMatchId'].keys())
-        self.assertGreaterEqual(len(PLATFORM['protocolsByMatchId']), 79)
+        self.assertEqual(len(PLATFORM['protocolsByMatchId']), json.loads(Path('docs/multi-club-platform/match-audit.json').read_text())['protocols'])
         for key, protocol in PLATFORM['protocolsByMatchId'].items():
             self.assertEqual(protocol['sourceMatchId'], PLATFORM['matchesById'][key]['sourceMatchId'])
             self.assertEqual(protocol['homeTeamId'], PLATFORM['matchesById'][key]['homeTeamId'])
@@ -151,6 +153,8 @@ class PlatformTests(unittest.TestCase):
         sid = next(iter(PLATFORM['protocolsByMatchId'].values()))['sourceMatchId']
         match = next(m for m in data['championship']['calendar']['matches'] if m['source_id'] == sid)
         match['home_score'] += 1
+        # A genuinely newer calendar must not silently attach an old protocol.
+        data['championship']['calendar']['updated'] = '2026-11-11T00:00:00+00:00'
         with self.assertRaisesRegex(schema.InvalidPlatform, 'Protocol does not match'):
             sources.project_snapshot(data, PLATFORM)
 

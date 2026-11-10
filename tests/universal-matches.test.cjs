@@ -49,3 +49,15 @@ test('direct links preserve club, player and match parents',()=>{
 test('old Sudak routes and protocol contents still resolve',()=>{
  const {run}=setup();for(const row of data.res){const model=run(`matchCenter(${JSON.stringify([2026,row[0],row[1],row[5]].join('|'))})`);assert(model);assert(!model.platformMatch);assert.deepEqual(model.teams,row[5]==='дома'?['ФК «Судак»',row[1]]:[row[1],'ФК «Судак»']);}
 });
+test('official event categories, credited own goals and substitutions survive the shared adapter',()=>{
+ const {run}=setup(),seen=new Set();
+ for(const p of Object.values(data.platform.protocolsByMatchId)){
+  const m=data.platform.matchesById[p.matchId],model=run(`platformMatchCenter(${JSON.stringify('rffk-'+m.sourceMatchId)})`);
+  for(const e of model.events.items){seen.add(e.type);if(e.type==='own_goal'){assert.equal(run(`eventActorSide(${JSON.stringify(e)})`),e.side==='home'?'away':'home');assert.equal(e.playerId,null)}if(['goal','penalty','own_goal'].includes(e.type))assert(Array.isArray(e.score));}
+ }
+ for(const type of ['goal','penalty','own_goal','yellow','second_yellow','red','substitution_in','substitution_out'])assert(seen.has(type),type);
+});
+test('untrusted protocol identities cannot attach events or create a player membership',()=>{
+ const d=structuredClone(data),p=d.platform.protocolsByMatchId[match.matchId];p.sourceMatchId='999999';
+ const {run}=setup(d),model=run(`platformMatchCenter('${key}')`);assert.equal(model.protocol,null);assert.deepEqual(model.lineups,{});assert.deepEqual(model.events.items,[]);
+});

@@ -173,3 +173,14 @@ class MatchCalendarTests(unittest.TestCase):
         self.assertEqual(projected['matchesById'][raw['id']]['status'],'postponed')
         merged=merge_protocols(p,newer)
         self.assertEqual(merged['matchesById'][raw['id']]['status'],'postponed')
+
+class PublishedLineupQualityTests(unittest.TestCase):
+    def test_unusual_published_starter_count_is_preserved_and_flagged(self):
+        soup=fixture();soup.select_one('.players_list > .team_1 .list .player').decompose()
+        p=DATA['platform'];protocol,_=parse_protocol(soup,p['matchesById'][KEY],p['teamsById'])
+        self.assertEqual(len(protocol['lineups']['home']['starters']),10)
+        self.assertIn({'side':'home','starterCount':10,'reason':'published_starter_count'},protocol['lineupIssues'])
+        self.assertEqual(len(protocol['events']),34)
+    def test_lineup_quality_cannot_publish_a_false_count(self):
+        p=copy.deepcopy(DATA['platform']);p['protocolsByMatchId'][KEY]['lineupIssues']=[{'side':'home','starterCount':99,'reason':'published_starter_count'}]
+        with self.assertRaises(ValueError):validate_platform(p)

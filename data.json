@@ -2206,7 +2206,7 @@
    "stale": false
   }
  },
- "updated": "2026-11-10T13:14:11+00:00",
+ "updated": "2026-11-10T13:22:33+00:00",
  "table": [
   [
    "СК «Каштан»",
@@ -48382,14 +48382,15 @@
     "homeScore": 5,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48417,14 +48418,15 @@
     "homeScore": 1,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48452,14 +48454,15 @@
     "homeScore": 2,
     "awayScore": 7,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48487,14 +48490,15 @@
     "homeScore": 6,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48522,14 +48526,15 @@
     "homeScore": 5,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48557,14 +48562,15 @@
     "homeScore": 2,
     "awayScore": 5,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48592,14 +48598,15 @@
     "homeScore": 1,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48627,14 +48634,15 @@
     "homeScore": 2,
     "awayScore": 5,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48662,18 +48670,19 @@
     "homeScore": 3,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
-     "coverage": "complete",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/matches/38675/",
      "checkedAt": "2026-11-10T13:13:26+00:00",
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
@@ -48697,14 +48706,15 @@
     "homeScore": 3,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48732,14 +48742,15 @@
     "homeScore": 4,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48767,14 +48778,15 @@
     "homeScore": 2,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48802,14 +48814,15 @@
     "homeScore": 4,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48837,14 +48850,15 @@
     "homeScore": 2,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48872,14 +48886,15 @@
     "homeScore": 3,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48907,14 +48922,15 @@
     "homeScore": 1,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48942,14 +48958,15 @@
     "homeScore": 5,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -48977,14 +48994,15 @@
     "homeScore": 6,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49012,14 +49030,15 @@
     "homeScore": 5,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49047,14 +49066,15 @@
     "homeScore": 3,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49082,14 +49102,15 @@
     "homeScore": 3,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49117,14 +49138,15 @@
     "homeScore": 8,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49152,14 +49174,15 @@
     "homeScore": 6,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49187,14 +49210,15 @@
     "homeScore": 2,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49222,14 +49246,15 @@
     "homeScore": 10,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49257,14 +49282,15 @@
     "homeScore": 1,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49292,14 +49318,15 @@
     "homeScore": 3,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49327,14 +49354,15 @@
     "homeScore": 3,
     "awayScore": 7,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49362,14 +49390,15 @@
     "homeScore": 3,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49397,14 +49426,15 @@
     "homeScore": 8,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49432,14 +49462,15 @@
     "homeScore": 0,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49467,14 +49498,15 @@
     "homeScore": 5,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49502,14 +49534,15 @@
     "homeScore": 3,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49537,14 +49570,15 @@
     "homeScore": 10,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49572,14 +49606,15 @@
     "homeScore": 0,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49607,14 +49642,15 @@
     "homeScore": 4,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49642,14 +49678,15 @@
     "homeScore": 3,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49677,14 +49714,15 @@
     "homeScore": 2,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49712,14 +49750,15 @@
     "homeScore": 1,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49747,18 +49786,19 @@
     "homeScore": 3,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
-     "coverage": "complete",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/matches/38719/",
      "checkedAt": "2026-11-10T13:13:26+00:00",
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
@@ -49782,14 +49822,15 @@
     "homeScore": 7,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49817,14 +49858,15 @@
     "homeScore": 0,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49852,14 +49894,15 @@
     "homeScore": 3,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49887,14 +49930,15 @@
     "homeScore": 4,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49922,14 +49966,15 @@
     "homeScore": 1,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49957,14 +50002,15 @@
     "homeScore": 7,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -49992,14 +50038,15 @@
     "homeScore": 15,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50027,14 +50074,15 @@
     "homeScore": 2,
     "awayScore": 5,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50062,14 +50110,15 @@
     "homeScore": 7,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50097,14 +50146,15 @@
     "homeScore": 3,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50132,14 +50182,15 @@
     "homeScore": 2,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50167,14 +50218,15 @@
     "homeScore": 3,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50202,14 +50254,15 @@
     "homeScore": 4,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50237,14 +50290,15 @@
     "homeScore": 5,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50272,14 +50326,15 @@
     "homeScore": 3,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50307,14 +50362,15 @@
     "homeScore": 0,
     "awayScore": 9,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50342,14 +50398,15 @@
     "homeScore": 0,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50377,14 +50434,15 @@
     "homeScore": 2,
     "awayScore": 5,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50412,14 +50470,15 @@
     "homeScore": 5,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50447,14 +50506,15 @@
     "homeScore": 3,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50482,14 +50542,15 @@
     "homeScore": 1,
     "awayScore": 5,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50517,14 +50578,15 @@
     "homeScore": 6,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50552,14 +50614,15 @@
     "homeScore": 0,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50587,14 +50650,15 @@
     "homeScore": 3,
     "awayScore": 4,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50622,14 +50686,15 @@
     "homeScore": 6,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50657,14 +50722,15 @@
     "homeScore": 6,
     "awayScore": 0,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50692,14 +50758,15 @@
     "homeScore": 2,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50727,14 +50794,15 @@
     "homeScore": 2,
     "awayScore": 9,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50762,14 +50830,15 @@
     "homeScore": 4,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50797,14 +50866,15 @@
     "homeScore": 6,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50832,14 +50902,15 @@
     "homeScore": 0,
     "awayScore": 6,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50867,14 +50938,15 @@
     "homeScore": 4,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50902,14 +50974,15 @@
     "homeScore": 4,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50937,14 +51010,15 @@
     "homeScore": 5,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -50972,14 +51046,15 @@
     "homeScore": 6,
     "awayScore": 1,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -51007,20 +51082,21 @@
     "homeScore": 3,
     "awayScore": 0,
     "status": "technical",
+    "statusLabel": "Тех. победа",
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "temporarily_unavailable",
      "coverage": "unknown",
      "sourceUrl": "https://rffk-roo.ru/matches/38765/",
-     "checkedAt": "2026-11-10T13:13:26+00:00",
+     "checkedAt": "2026-11-10T13:22:31+00:00",
      "lastSuccessAt": null,
      "lastVerifiedAt": null,
      "reason": "protocol_source_unavailable",
@@ -51044,18 +51120,19 @@
     "homeScore": 10,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
-     "coverage": "complete",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/matches/38763/",
      "checkedAt": "2026-11-10T13:13:26+00:00",
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
@@ -51079,14 +51156,15 @@
     "homeScore": 2,
     "awayScore": 3,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -51114,14 +51192,15 @@
     "homeScore": 1,
     "awayScore": 5,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -51149,14 +51228,15 @@
     "homeScore": 1,
     "awayScore": 2,
     "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     },
     "protocolQuality": {
      "status": "current",
@@ -51175,23 +51255,33 @@
     "roundId": "19",
     "homeTeamId": "1028",
     "awayTeamId": "521",
-    "sourceMatchId": null,
-    "sourceUrl": null,
+    "sourceMatchId": "38769",
+    "sourceUrl": "https://rffk-roo.ru/matches/38769/",
     "date": "2026-11-07",
-    "time": null,
+    "time": "13:00",
     "timeZone": "Europe/Moscow",
-    "venue": null,
-    "homeScore": null,
-    "awayScore": null,
-    "status": "scheduled",
+    "venue": "\"Раздольное\", Раздольное",
+    "homeScore": 4,
+    "awayScore": 5,
+    "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
+    },
+    "protocolQuality": {
+     "status": "current",
+     "coverage": "complete",
+     "sourceUrl": "https://rffk-roo.ru/matches/38769/",
+     "checkedAt": "2026-11-10T13:22:31+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:31+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:31+00:00",
+     "reason": "official_match_protocol"
     }
    },
    "4:2026:19:757:932": {
@@ -51201,23 +51291,35 @@
     "roundId": "19",
     "homeTeamId": "757",
     "awayTeamId": "932",
-    "sourceMatchId": null,
-    "sourceUrl": null,
-    "date": "2026-11-07",
+    "sourceMatchId": "38770",
+    "sourceUrl": "https://rffk-roo.ru/matches/38770/",
+    "date": null,
     "time": null,
     "timeZone": "Europe/Moscow",
     "venue": null,
-    "homeScore": null,
-    "awayScore": null,
-    "status": "scheduled",
+    "homeScore": 0,
+    "awayScore": 3,
+    "status": "technical",
+    "statusLabel": "Тех. победа",
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
+    },
+    "protocolQuality": {
+     "status": "temporarily_unavailable",
+     "coverage": "unknown",
+     "sourceUrl": "https://rffk-roo.ru/matches/38770/",
+     "checkedAt": "2026-11-10T13:22:31+00:00",
+     "lastSuccessAt": null,
+     "lastVerifiedAt": null,
+     "reason": "protocol_source_unavailable",
+     "lastAttemptStatus": "temporarily_unavailable",
+     "errorCode": "InvalidPlatform"
     }
    },
    "4:2026:19:936:1030": {
@@ -51227,23 +51329,33 @@
     "roundId": "19",
     "homeTeamId": "936",
     "awayTeamId": "1030",
-    "sourceMatchId": null,
-    "sourceUrl": null,
+    "sourceMatchId": "38771",
+    "sourceUrl": "https://rffk-roo.ru/matches/38771/",
     "date": "2026-11-07",
-    "time": null,
+    "time": "14:00",
     "timeZone": "Europe/Moscow",
-    "venue": null,
-    "homeScore": null,
-    "awayScore": null,
-    "status": "scheduled",
+    "venue": "\"Гвардеец\", Гвардейское",
+    "homeScore": 6,
+    "awayScore": 3,
+    "status": "finished",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
+    },
+    "protocolQuality": {
+     "status": "current",
+     "coverage": "complete",
+     "sourceUrl": "https://rffk-roo.ru/matches/38771/",
+     "checkedAt": "2026-11-10T13:22:31+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:31+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:31+00:00",
+     "reason": "official_match_protocol"
     }
    },
    "4:2026:19:934:146": {
@@ -51255,21 +51367,22 @@
     "awayTeamId": "146",
     "sourceMatchId": null,
     "sourceUrl": null,
-    "date": "2026-11-07",
+    "date": null,
     "time": null,
     "timeZone": "Europe/Moscow",
-    "venue": null,
+    "venue": "СК \"Арена-Крым\", Евпатория",
     "homeScore": null,
     "awayScore": null,
-    "status": "scheduled",
+    "status": "postponed",
+    "statusLabel": "Матч перенесен",
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:19:930:117": {
@@ -51282,20 +51395,21 @@
     "sourceMatchId": null,
     "sourceUrl": null,
     "date": "2026-11-11",
-    "time": null,
+    "time": "14:30",
     "timeZone": "Europe/Moscow",
-    "venue": null,
+    "venue": "\"им. 50-летия октября\" (синтетическое поле), Керчь",
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:20:117:141": {
@@ -51314,14 +51428,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:20:521:930": {
@@ -51340,14 +51455,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:20:146:936": {
@@ -51366,14 +51482,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:20:1030:757": {
@@ -51392,14 +51509,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:20:932:1028": {
@@ -51418,14 +51536,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:21:521:117": {
@@ -51444,14 +51563,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:21:930:932": {
@@ -51470,14 +51590,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:21:1028:1030": {
@@ -51496,14 +51617,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:21:757:146": {
@@ -51522,14 +51644,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:21:934:141": {
@@ -51548,14 +51671,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:22:934:117": {
@@ -51574,14 +51698,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:22:141:936": {
@@ -51600,14 +51725,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:22:146:1028": {
@@ -51626,14 +51752,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:22:1030:930": {
@@ -51652,14 +51779,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    },
    "4:2026:22:932:521": {
@@ -51678,14 +51806,15 @@
     "homeScore": null,
     "awayScore": null,
     "status": "scheduled",
+    "statusLabel": null,
     "quality": {
-     "status": "stale",
+     "status": "current",
      "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/tournaments/4/seasons/22/",
-     "checkedAt": null,
-     "lastSuccessAt": "2026-11-04T21:41:28+00:00",
-     "lastVerifiedAt": "2026-11-04T21:41:28+00:00",
-     "reason": "imported_snapshot"
+     "checkedAt": "2026-11-10T13:22:30+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:30+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:30+00:00",
+     "reason": "official_season_calendar"
     }
    }
   },
@@ -70104,7 +70233,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:17:141:1030": {
     "matchId": "4:2026:17:141:1030",
@@ -70551,7 +70681,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:16:932:141": {
     "matchId": "4:2026:16:932:141",
@@ -70905,7 +71036,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:15:141:521": {
     "matchId": "4:2026:15:141:521",
@@ -71507,7 +71639,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:14:930:141": {
     "matchId": "4:2026:14:930:141",
@@ -72125,7 +72258,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:13:141:1028": {
     "matchId": "4:2026:13:141:1028",
@@ -72556,7 +72690,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:12:141:757": {
     "matchId": "4:2026:12:141:757",
@@ -73012,7 +73147,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:11:936:141": {
     "matchId": "4:2026:11:936:141",
@@ -73532,7 +73668,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:10:141:934": {
     "matchId": "4:2026:10:141:934",
@@ -73917,13 +74054,20 @@
     "roundLabel": "10-й тур. Матч №60",
     "quality": {
      "status": "current",
-     "coverage": "complete",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/matches/38719/",
      "checkedAt": "2026-11-10T13:13:26+00:00",
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": [
+     {
+      "side": "away",
+      "starterCount": 10,
+      "reason": "published_starter_count"
+     }
+    ]
    },
    "4:2026:7:141:146": {
     "matchId": "4:2026:7:141:146",
@@ -74529,7 +74673,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:6:1030:141": {
     "matchId": "4:2026:6:1030:141",
@@ -74862,7 +75007,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:5:141:932": {
     "matchId": "4:2026:5:141:932",
@@ -75360,7 +75506,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:4:521:141": {
     "matchId": "4:2026:4:521:141",
@@ -75844,7 +75991,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:3:141:930": {
     "matchId": "4:2026:3:141:930",
@@ -76306,13 +76454,20 @@
     "roundLabel": "3-й тур. Матч №16",
     "quality": {
      "status": "current",
-     "coverage": "complete",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/matches/38675/",
      "checkedAt": "2026-11-10T13:13:26+00:00",
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": [
+     {
+      "side": "home",
+      "starterCount": 12,
+      "reason": "published_starter_count"
+     }
+    ]
    },
    "4:2026:2:1028:141": {
     "matchId": "4:2026:2:1028:141",
@@ -76847,7 +77002,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:1:757:141": {
     "matchId": "4:2026:1:757:141",
@@ -77248,7 +77404,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:1:1030:521": {
     "matchId": "4:2026:1:1030:521",
@@ -77747,7 +77904,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:1:146:930": {
     "matchId": "4:2026:1:146:930",
@@ -78275,7 +78433,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:1:934:936": {
     "matchId": "4:2026:1:934:936",
@@ -78921,7 +79080,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:2:757:934": {
     "matchId": "4:2026:2:757:934",
@@ -79278,7 +79438,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:2:521:146": {
     "matchId": "4:2026:2:521:146",
@@ -79699,7 +79860,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:2:932:1030": {
     "matchId": "4:2026:2:932:1030",
@@ -80134,7 +80296,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:3:146:932": {
     "matchId": "4:2026:3:146:932",
@@ -80424,7 +80587,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:3:934:1028": {
     "matchId": "4:2026:3:934:1028",
@@ -80833,7 +80997,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:3:936:757": {
     "matchId": "4:2026:3:936:757",
@@ -81265,7 +81430,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:4:1028:936": {
     "matchId": "4:2026:4:1028:936",
@@ -81580,7 +81746,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:4:930:934": {
     "matchId": "4:2026:4:930:934",
@@ -82044,7 +82211,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:4:1030:146": {
     "matchId": "4:2026:4:1030:146",
@@ -82364,7 +82532,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:5:934:521": {
     "matchId": "4:2026:5:934:521",
@@ -82895,7 +83064,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:5:936:930": {
     "matchId": "4:2026:5:936:930",
@@ -83401,7 +83571,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:5:757:1028": {
     "matchId": "4:2026:5:757:1028",
@@ -83742,7 +83913,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:6:930:757": {
     "matchId": "4:2026:6:930:757",
@@ -84232,7 +84404,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:6:521:936": {
     "matchId": "4:2026:6:521:936",
@@ -84768,7 +84941,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:6:932:934": {
     "matchId": "4:2026:6:932:934",
@@ -85169,7 +85343,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:7:934:1030": {
     "matchId": "4:2026:7:934:1030",
@@ -85656,7 +85831,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:7:936:932": {
     "matchId": "4:2026:7:936:932",
@@ -85958,7 +86134,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:7:757:521": {
     "matchId": "4:2026:7:757:521",
@@ -86383,7 +86560,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:7:930:1028": {
     "matchId": "4:2026:7:930:1028",
@@ -86741,7 +86919,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:8:521:1028": {
     "matchId": "4:2026:8:521:1028",
@@ -87253,7 +87432,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:8:932:757": {
     "matchId": "4:2026:8:932:757",
@@ -87666,7 +87846,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:8:1030:936": {
     "matchId": "4:2026:8:1030:936",
@@ -88133,7 +88314,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:8:146:934": {
     "matchId": "4:2026:8:146:934",
@@ -88542,7 +88724,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:9:936:146": {
     "matchId": "4:2026:9:936:146",
@@ -89061,7 +89244,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:9:757:1030": {
     "matchId": "4:2026:9:757:1030",
@@ -89440,7 +89624,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:9:932:1028": {
     "matchId": "4:2026:9:932:1028",
@@ -89859,7 +90044,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:9:930:521": {
     "matchId": "4:2026:9:930:521",
@@ -90230,7 +90416,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:10:932:930": {
     "matchId": "4:2026:10:932:930",
@@ -90553,7 +90740,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:10:1030:1028": {
     "matchId": "4:2026:10:1030:1028",
@@ -90868,7 +91056,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:10:146:757": {
     "matchId": "4:2026:10:146:757",
@@ -91165,7 +91354,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:11:1028:146": {
     "matchId": "4:2026:11:1028:146",
@@ -91538,7 +91728,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:11:930:1030": {
     "matchId": "4:2026:11:930:1030",
@@ -91991,7 +92182,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:11:521:932": {
     "matchId": "4:2026:11:521:932",
@@ -92447,7 +92639,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:12:117:932": {
     "matchId": "4:2026:12:117:932",
@@ -92855,7 +93048,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:12:521:1030": {
     "matchId": "4:2026:12:521:1030",
@@ -93311,7 +93505,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:12:930:146": {
     "matchId": "4:2026:12:930:146",
@@ -93800,7 +93995,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:12:936:934": {
     "matchId": "4:2026:12:936:934",
@@ -94330,7 +94526,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:13:936:117": {
     "matchId": "4:2026:13:936:117",
@@ -94853,7 +95050,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:13:934:757": {
     "matchId": "4:2026:13:934:757",
@@ -95246,7 +95444,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:13:146:521": {
     "matchId": "4:2026:13:146:521",
@@ -95695,7 +95894,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:13:1030:932": {
     "matchId": "4:2026:13:1030:932",
@@ -96087,7 +96287,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:14:117:1030": {
     "matchId": "4:2026:14:117:1030",
@@ -96496,7 +96697,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:14:932:146": {
     "matchId": "4:2026:14:932:146",
@@ -96786,7 +96988,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:14:1028:934": {
     "matchId": "4:2026:14:1028:934",
@@ -97141,7 +97344,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:14:757:936": {
     "matchId": "4:2026:14:757:936",
@@ -97617,7 +97821,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:15:757:117": {
     "matchId": "4:2026:15:757:117",
@@ -98036,7 +98241,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:15:936:1028": {
     "matchId": "4:2026:15:936:1028",
@@ -98523,7 +98729,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:15:934:930": {
     "matchId": "4:2026:15:934:930",
@@ -98859,7 +99066,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:15:146:1030": {
     "matchId": "4:2026:15:146:1030",
@@ -99325,7 +99533,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:16:117:146": {
     "matchId": "4:2026:16:117:146",
@@ -99849,7 +100058,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:16:521:934": {
     "matchId": "4:2026:16:521:934",
@@ -100363,7 +100573,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:16:930:936": {
     "matchId": "4:2026:16:930:936",
@@ -100876,7 +101087,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:16:1028:757": {
     "matchId": "4:2026:16:1028:757",
@@ -101270,7 +101482,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:17:1028:117": {
     "matchId": "4:2026:17:1028:117",
@@ -101805,7 +102018,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:17:757:930": {
     "matchId": "4:2026:17:757:930",
@@ -102219,7 +102433,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:17:936:521": {
     "matchId": "4:2026:17:936:521",
@@ -102722,7 +102937,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:17:934:932": {
     "matchId": "4:2026:17:934:932",
@@ -103012,7 +103228,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:18:1030:934": {
     "matchId": "4:2026:18:1030:934",
@@ -103392,13 +103609,20 @@
     "roundLabel": "18-й тур. Матч №104",
     "quality": {
      "status": "current",
-     "coverage": "complete",
+     "coverage": "partial",
      "sourceUrl": "https://rffk-roo.ru/matches/38763/",
      "checkedAt": "2026-11-10T13:13:26+00:00",
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": [
+     {
+      "side": "away",
+      "starterCount": 9,
+      "reason": "published_starter_count"
+     }
+    ]
    },
    "4:2026:18:932:936": {
     "matchId": "4:2026:18:932:936",
@@ -103809,7 +104033,8 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
    },
    "4:2026:18:930:1028": {
     "matchId": "4:2026:18:930:1028",
@@ -104180,7 +104405,948 @@
      "lastSuccessAt": "2026-11-10T13:13:26+00:00",
      "lastVerifiedAt": "2026-11-10T13:13:26+00:00",
      "reason": "official_match_protocol"
-    }
+    },
+    "lineupIssues": []
+   },
+   "4:2026:19:1028:521": {
+    "matchId": "4:2026:19:1028:521",
+    "sourceMatchId": "38769",
+    "sourceUrl": "https://rffk-roo.ru/matches/38769/",
+    "homeTeamId": "1028",
+    "awayTeamId": "521",
+    "date": "2026-11-07",
+    "homeScore": 4,
+    "awayScore": 5,
+    "lineups": {
+     "home": {
+      "starters": [
+       {
+        "playerId": "1868",
+        "sourceUrl": "https://rffk-roo.ru/players/1868/",
+        "number": null
+       },
+       {
+        "playerId": "3242",
+        "sourceUrl": "https://rffk-roo.ru/players/3242/",
+        "number": null
+       },
+       {
+        "playerId": "1305",
+        "sourceUrl": "https://rffk-roo.ru/players/1305/",
+        "number": null
+       },
+       {
+        "playerId": "3243",
+        "sourceUrl": "https://rffk-roo.ru/players/3243/",
+        "number": null
+       },
+       {
+        "playerId": "3419",
+        "sourceUrl": "https://rffk-roo.ru/players/3419/",
+        "number": null
+       },
+       {
+        "playerId": "3409",
+        "sourceUrl": "https://rffk-roo.ru/players/3409/",
+        "number": null
+       },
+       {
+        "playerId": "3416",
+        "sourceUrl": "https://rffk-roo.ru/players/3416/",
+        "number": null
+       },
+       {
+        "playerId": "3241",
+        "sourceUrl": "https://rffk-roo.ru/players/3241/",
+        "number": null
+       },
+       {
+        "playerId": "3421",
+        "sourceUrl": "https://rffk-roo.ru/players/3421/",
+        "number": null
+       },
+       {
+        "playerId": "3420",
+        "sourceUrl": "https://rffk-roo.ru/players/3420/",
+        "number": null
+       },
+       {
+        "playerId": "2910",
+        "sourceUrl": "https://rffk-roo.ru/players/2910/",
+        "number": null
+       }
+      ],
+      "substitutes": [
+       {
+        "playerId": "1860",
+        "sourceUrl": "https://rffk-roo.ru/players/1860/",
+        "number": null
+       },
+       {
+        "playerId": "3414",
+        "sourceUrl": "https://rffk-roo.ru/players/3414/",
+        "number": null
+       },
+       {
+        "playerId": "3410",
+        "sourceUrl": "https://rffk-roo.ru/players/3410/",
+        "number": null
+       },
+       {
+        "playerId": "3429",
+        "sourceUrl": "https://rffk-roo.ru/players/3429/",
+        "number": null
+       },
+       {
+        "playerId": "3412",
+        "sourceUrl": "https://rffk-roo.ru/players/3412/",
+        "number": null
+       }
+      ]
+     },
+     "away": {
+      "starters": [
+       {
+        "playerId": "3384",
+        "sourceUrl": "https://rffk-roo.ru/players/3384/",
+        "number": null
+       },
+       {
+        "playerId": "3380",
+        "sourceUrl": "https://rffk-roo.ru/players/3380/",
+        "number": null
+       },
+       {
+        "playerId": "3374",
+        "sourceUrl": "https://rffk-roo.ru/players/3374/",
+        "number": null
+       },
+       {
+        "playerId": "3389",
+        "sourceUrl": "https://rffk-roo.ru/players/3389/",
+        "number": null
+       },
+       {
+        "playerId": "3480",
+        "sourceUrl": "https://rffk-roo.ru/players/3480/",
+        "number": null
+       },
+       {
+        "playerId": "3483",
+        "sourceUrl": "https://rffk-roo.ru/players/3483/",
+        "number": null
+       },
+       {
+        "playerId": "3398",
+        "sourceUrl": "https://rffk-roo.ru/players/3398/",
+        "number": null
+       },
+       {
+        "playerId": "3486",
+        "sourceUrl": "https://rffk-roo.ru/players/3486/",
+        "number": null
+       },
+       {
+        "playerId": "3487",
+        "sourceUrl": "https://rffk-roo.ru/players/3487/",
+        "number": null
+       },
+       {
+        "playerId": "3493",
+        "sourceUrl": "https://rffk-roo.ru/players/3493/",
+        "number": null
+       },
+       {
+        "playerId": "3406",
+        "sourceUrl": "https://rffk-roo.ru/players/3406/",
+        "number": null
+       }
+      ],
+      "substitutes": [
+       {
+        "playerId": "2066",
+        "sourceUrl": "https://rffk-roo.ru/players/2066/",
+        "number": null
+       },
+       {
+        "playerId": "3479",
+        "sourceUrl": "https://rffk-roo.ru/players/3479/",
+        "number": null
+       },
+       {
+        "playerId": "3460",
+        "sourceUrl": "https://rffk-roo.ru/players/3460/",
+        "number": null
+       },
+       {
+        "playerId": "3488",
+        "sourceUrl": "https://rffk-roo.ru/players/3488/",
+        "number": null
+       },
+       {
+        "playerId": "3391",
+        "sourceUrl": "https://rffk-roo.ru/players/3391/",
+        "number": null
+       },
+       {
+        "playerId": "3490",
+        "sourceUrl": "https://rffk-roo.ru/players/3490/",
+        "number": null
+       },
+       {
+        "playerId": "3484",
+        "sourceUrl": "https://rffk-roo.ru/players/3484/",
+        "number": null
+       },
+       {
+        "playerId": "3399",
+        "sourceUrl": "https://rffk-roo.ru/players/3399/",
+        "number": null
+       },
+       {
+        "playerId": "3485",
+        "sourceUrl": "https://rffk-roo.ru/players/3485/",
+        "number": null
+       },
+       {
+        "playerId": "3492",
+        "sourceUrl": "https://rffk-roo.ru/players/3492/",
+        "number": null
+       }
+      ]
+     }
+    },
+    "eventsComplete": true,
+    "goalsComplete": true,
+    "events": [
+     {
+      "type": "yellow",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Давидюк О.",
+      "minute": "8",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Бусин Д.",
+      "minute": "35",
+      "score": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Алисов Ю.",
+      "minute": "46",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Папук А.",
+      "minute": "46",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Давидюк О.",
+      "minute": "53",
+      "score": [
+       1,
+       1
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Титов К.",
+      "minute": "54",
+      "score": [
+       1,
+       2
+      ]
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Баласанян И.",
+      "minute": "63",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Бусин Д.",
+      "minute": "63",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Федосюк Н.",
+      "minute": "65",
+      "score": [
+       1,
+       3
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Титов К.",
+      "minute": "68",
+      "score": [
+       1,
+       4
+      ]
+     },
+     {
+      "type": "yellow",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Коровка С.",
+      "minute": "69",
+      "score": null
+     },
+     {
+      "type": "penalty",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Давидюк О.",
+      "minute": "70",
+      "score": [
+       2,
+       4
+      ]
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Саруханян М.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Стринжа Р.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Каторгин И.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Борщ Р.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Волобуев Н.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Тарасенко А.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Кудлай Д.",
+      "minute": "75",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Титов К.",
+      "minute": "75",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Чайка Д.",
+      "minute": "82",
+      "score": [
+       2,
+       5
+      ]
+     },
+     {
+      "type": "yellow",
+      "teamId": "521",
+      "playerId": null,
+      "sourceLabel": "Чайка Д.",
+      "minute": "83",
+      "score": null
+     },
+     {
+      "type": "yellow",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Зеленкевич Д.",
+      "minute": "87",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Давидюк О.",
+      "minute": "90",
+      "score": [
+       3,
+       5
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Зеленкевич Д.",
+      "minute": "90",
+      "score": [
+       4,
+       5
+      ]
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Пинчук А.",
+      "minute": "90",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1028",
+      "playerId": null,
+      "sourceLabel": "Рыбачинский С.",
+      "minute": "90",
+      "score": null
+     }
+    ],
+    "venue": "\"Раздольное\", Раздольное",
+    "city": "Раздольное",
+    "time": "13:00",
+    "roundLabel": "19-й тур. Матч №110",
+    "quality": {
+     "status": "current",
+     "coverage": "complete",
+     "sourceUrl": "https://rffk-roo.ru/matches/38769/",
+     "checkedAt": "2026-11-10T13:22:31+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:31+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:31+00:00",
+     "reason": "official_match_protocol"
+    },
+    "lineupIssues": []
+   },
+   "4:2026:19:936:1030": {
+    "matchId": "4:2026:19:936:1030",
+    "sourceMatchId": "38771",
+    "sourceUrl": "https://rffk-roo.ru/matches/38771/",
+    "homeTeamId": "936",
+    "awayTeamId": "1030",
+    "date": "2026-11-07",
+    "homeScore": 6,
+    "awayScore": 3,
+    "lineups": {
+     "home": {
+      "starters": [
+       {
+        "playerId": "1949",
+        "sourceUrl": "https://rffk-roo.ru/players/1949/",
+        "number": null
+       },
+       {
+        "playerId": "22",
+        "sourceUrl": "https://rffk-roo.ru/players/22/",
+        "number": null
+       },
+       {
+        "playerId": "698",
+        "sourceUrl": "https://rffk-roo.ru/players/698/",
+        "number": null
+       },
+       {
+        "playerId": "3273",
+        "sourceUrl": "https://rffk-roo.ru/players/3273/",
+        "number": null
+       },
+       {
+        "playerId": "1246",
+        "sourceUrl": "https://rffk-roo.ru/players/1246/",
+        "number": null
+       },
+       {
+        "playerId": "2355",
+        "sourceUrl": "https://rffk-roo.ru/players/2355/",
+        "number": null
+       },
+       {
+        "playerId": "887",
+        "sourceUrl": "https://rffk-roo.ru/players/887/",
+        "number": null
+       },
+       {
+        "playerId": "2005",
+        "sourceUrl": "https://rffk-roo.ru/players/2005/",
+        "number": null
+       },
+       {
+        "playerId": "1202",
+        "sourceUrl": "https://rffk-roo.ru/players/1202/",
+        "number": null
+       },
+       {
+        "playerId": "2283",
+        "sourceUrl": "https://rffk-roo.ru/players/2283/",
+        "number": null
+       },
+       {
+        "playerId": "902",
+        "sourceUrl": "https://rffk-roo.ru/players/902/",
+        "number": null
+       }
+      ],
+      "substitutes": [
+       {
+        "playerId": "3276",
+        "sourceUrl": "https://rffk-roo.ru/players/3276/",
+        "number": null
+       },
+       {
+        "playerId": "3271",
+        "sourceUrl": "https://rffk-roo.ru/players/3271/",
+        "number": null
+       },
+       {
+        "playerId": "2258",
+        "sourceUrl": "https://rffk-roo.ru/players/2258/",
+        "number": null
+       },
+       {
+        "playerId": "1824",
+        "sourceUrl": "https://rffk-roo.ru/players/1824/",
+        "number": null
+       },
+       {
+        "playerId": "2284",
+        "sourceUrl": "https://rffk-roo.ru/players/2284/",
+        "number": null
+       },
+       {
+        "playerId": "2335",
+        "sourceUrl": "https://rffk-roo.ru/players/2335/",
+        "number": null
+       },
+       {
+        "playerId": "558",
+        "sourceUrl": "https://rffk-roo.ru/players/558/",
+        "number": null
+       }
+      ]
+     },
+     "away": {
+      "starters": [
+       {
+        "playerId": "3362",
+        "sourceUrl": "https://rffk-roo.ru/players/3362/",
+        "number": null
+       },
+       {
+        "playerId": "2453",
+        "sourceUrl": "https://rffk-roo.ru/players/2453/",
+        "number": null
+       },
+       {
+        "playerId": "865",
+        "sourceUrl": "https://rffk-roo.ru/players/865/",
+        "number": null
+       },
+       {
+        "playerId": "2226",
+        "sourceUrl": "https://rffk-roo.ru/players/2226/",
+        "number": null
+       },
+       {
+        "playerId": "561",
+        "sourceUrl": "https://rffk-roo.ru/players/561/",
+        "number": null
+       },
+       {
+        "playerId": "443",
+        "sourceUrl": "https://rffk-roo.ru/players/443/",
+        "number": null
+       },
+       {
+        "playerId": "1970",
+        "sourceUrl": "https://rffk-roo.ru/players/1970/",
+        "number": null
+       },
+       {
+        "playerId": "3363",
+        "sourceUrl": "https://rffk-roo.ru/players/3363/",
+        "number": null
+       },
+       {
+        "playerId": "2880",
+        "sourceUrl": "https://rffk-roo.ru/players/2880/",
+        "number": null
+       },
+       {
+        "playerId": "2259",
+        "sourceUrl": "https://rffk-roo.ru/players/2259/",
+        "number": null
+       },
+       {
+        "playerId": "1280",
+        "sourceUrl": "https://rffk-roo.ru/players/1280/",
+        "number": null
+       }
+      ],
+      "substitutes": [
+       {
+        "playerId": "2281",
+        "sourceUrl": "https://rffk-roo.ru/players/2281/",
+        "number": null
+       },
+       {
+        "playerId": "1523",
+        "sourceUrl": "https://rffk-roo.ru/players/1523/",
+        "number": null
+       },
+       {
+        "playerId": "3366",
+        "sourceUrl": "https://rffk-roo.ru/players/3366/",
+        "number": null
+       },
+       {
+        "playerId": "3121",
+        "sourceUrl": "https://rffk-roo.ru/players/3121/",
+        "number": null
+       },
+       {
+        "playerId": "3543",
+        "sourceUrl": "https://rffk-roo.ru/players/3543/",
+        "number": null
+       },
+       {
+        "playerId": "2194",
+        "sourceUrl": "https://rffk-roo.ru/players/2194/",
+        "number": null
+       },
+       {
+        "playerId": "2174",
+        "sourceUrl": "https://rffk-roo.ru/players/2174/",
+        "number": null
+       },
+       {
+        "playerId": "3464",
+        "sourceUrl": "https://rffk-roo.ru/players/3464/",
+        "number": null
+       }
+      ]
+     }
+    },
+    "eventsComplete": true,
+    "goalsComplete": true,
+    "events": [
+     {
+      "type": "goal",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Шевчук А.",
+      "minute": "8",
+      "score": [
+       1,
+       0
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Голенков А.",
+      "minute": "18",
+      "score": [
+       2,
+       0
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Суинов Е.",
+      "minute": "29",
+      "score": [
+       2,
+       1
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Шендрик А.",
+      "minute": "35",
+      "score": [
+       3,
+       1
+      ]
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Мемешев Р.",
+      "minute": "46",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Калиниченко С.",
+      "minute": "46",
+      "score": null
+     },
+     {
+      "type": "yellow",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Юдин Я.",
+      "minute": "54",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Мемешев Р.",
+      "minute": "62",
+      "score": [
+       3,
+       2
+      ]
+     },
+     {
+      "type": "yellow",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Кулев В.",
+      "minute": "64",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Джемилев А.",
+      "minute": "66",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Хромов М.",
+      "minute": "66",
+      "score": null
+     },
+     {
+      "type": "missed_penalty",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Автаев В.",
+      "minute": "69",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Литвинов Д.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Онянов Р.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Берегуля М.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Михалищев Н.",
+      "minute": "71",
+      "score": null
+     },
+     {
+      "type": "yellow",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Берегуля М.",
+      "minute": "76",
+      "score": null
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Юдин Я.",
+      "minute": "78",
+      "score": null
+     },
+     {
+      "type": "yellow",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Автаев В.",
+      "minute": "78",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Жабокрицкий А.",
+      "minute": "78",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Голенков А.",
+      "minute": "79",
+      "score": [
+       4,
+       2
+      ]
+     },
+     {
+      "type": "penalty",
+      "teamId": "1030",
+      "playerId": null,
+      "sourceLabel": "Мемешев Р.",
+      "minute": "84",
+      "score": [
+       4,
+       3
+      ]
+     },
+     {
+      "type": "substitution_out",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Александров А.",
+      "minute": "88",
+      "score": null
+     },
+     {
+      "type": "substitution_in",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Эминов Р.",
+      "minute": "88",
+      "score": null
+     },
+     {
+      "type": "yellow",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Шевчук А.",
+      "minute": "89",
+      "score": null
+     },
+     {
+      "type": "goal",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Эминов Р.",
+      "minute": "90",
+      "score": [
+       5,
+       3
+      ]
+     },
+     {
+      "type": "goal",
+      "teamId": "936",
+      "playerId": null,
+      "sourceLabel": "Шевчук А.",
+      "minute": "93",
+      "score": [
+       6,
+       3
+      ]
+     }
+    ],
+    "venue": "\"Гвардеец\", Гвардейское",
+    "city": "Гвардейское",
+    "time": "14:00",
+    "roundLabel": "19-й тур. Матч №112",
+    "quality": {
+     "status": "current",
+     "coverage": "complete",
+     "sourceUrl": "https://rffk-roo.ru/matches/38771/",
+     "checkedAt": "2026-11-10T13:22:31+00:00",
+     "lastSuccessAt": "2026-11-10T13:22:31+00:00",
+     "lastVerifiedAt": "2026-11-10T13:22:31+00:00",
+     "reason": "official_match_protocol"
+    },
+    "lineupIssues": []
    }
   },
   "scorerLeaderboard": {},

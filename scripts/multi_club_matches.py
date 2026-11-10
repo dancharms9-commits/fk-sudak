@@ -89,7 +89,9 @@ def parse_protocol(soup, match, teams):
     venue = re.sub(r'^Стадион\s*:?\s*', '', place, flags=re.I) or None
     clock = re.search(r'\b(?:[01]\d|2[0-3]):[0-5]\d\b', date)
     protocol = {field: match[field] for field in ('matchId', 'sourceMatchId', 'sourceUrl', 'homeTeamId', 'awayTeamId', 'date', 'homeScore', 'awayScore')}
-    protocol.update(lineups=sheets, eventsComplete=complete, goalsComplete=full is not None,
+    issues = [{'side': side, 'starterCount': len(groups.get('starters', [])), 'reason': 'published_starter_count'}
+              for side, groups in sheets.items() if len(groups.get('starters', [])) != 11]
+    protocol.update(lineupIssues=issues, lineups=sheets, eventsComplete=complete, goalsComplete=full is not None,
                     events=[{'type': e['type'], 'teamId': match[e['side']+'TeamId'], 'playerId': None,
                              'sourceLabel': e['player'], 'minute': e['minute'], 'score': e.get('score')} for e in events],
                     venue=venue, city=venue.rsplit(',', 1)[1].strip() if venue and ',' in venue else None,
@@ -199,7 +201,7 @@ def sync_platform(platform, loader, max_matches=8, max_seconds=90, force=False, 
                     report['matches'][m['sourceMatchId']] = {'status': 'preserved' if old else 'unavailable', 'error': str(error)}
                     continue
                 q = quality(m['sourceUrl'], status='current', reason='official_match_protocol', verified=now, checked=now,
-                            coverage='complete' if protocol['eventsComplete'] and len(protocol['lineups']) == 2 else 'partial')
+                            coverage='complete' if protocol['eventsComplete'] and len(protocol['lineups']) == 2 and not protocol.get('lineupIssues') else 'partial')
                 protocol['quality'], m['protocolQuality'] = q, copy.deepcopy(q)
                 p['protocolsByMatchId'][key] = protocol
                 for pid, person in people.items():
@@ -218,7 +220,10 @@ def audit_counts(p):
             'goals': count({'goal', 'penalty', 'own_goal'}), 'cards': count({'yellow', 'second_yellow', 'red'}),
             'substitutions': count({'substitution', 'substitution_in', 'substitution_out'}),
             'unresolvedTeamIds': sorted(p['unresolvedSourceRecords']['teamsById']),
-            'unresolvedMatches': len(p['unresolvedSourceRecords']['matchesById'])}
+            'unresolvedMatches': len(p['unresolvedSourceRecords']['matchesById']),
+            'partialProtocols': sum(x['quality']['coverage'] == 'partial' for x in protocols),
+            'eventsIncomplete': sum(not x['eventsComplete'] for x in protocols),
+            'lineupAnomalies': [{'sourceMatchId': x['sourceMatchId'], 'issues': x['lineupIssues']} for x in protocols if x.get('lineupIssues')]}
 
 
 def main():

@@ -299,6 +299,9 @@ def validate_platform(p, previous=None):
                                 and source_id(entry['sourceUrl'], 'players') == entry['playerId'], 'Unknown lineup player')
                         number(entry['number'], nullable=True)
                         require(entry['number'] is None or entry['number'] <= 99, 'Invalid shirt number')
+            for issue in protocol.get('lineupIssues', []):
+                require(issue['side'] in {'home', 'away'} and issue['reason'] == 'published_starter_count', 'Invalid lineup issue')
+                require(type(issue['starterCount']) is int and issue['starterCount'] == len(protocol['lineups'][issue['side']].get('starters', [])), 'Wrong published starter count')
             require(isinstance(protocol['events'], list), 'Invalid protocol events')
             for event in protocol['events']:
                 require(event['type'] in EVENT_TYPES, 'Unknown event type')
