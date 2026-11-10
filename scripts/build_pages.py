@@ -234,6 +234,10 @@ def choose_baseline(seed, live, checkpoint=None):
         newest = max(platforms, key=lambda d: (
             multi_club_schema.stamp(d["platform"]["sourceUpdatedAt"]), timestamp(d)))
         baseline["platform"] = copy.deepcopy(newest["platform"])
+        for candidate in platforms:
+            if candidate is newest:
+                continue
+            baseline["platform"] = multi_club_rosters.merge_roster_enrichment(baseline["platform"], candidate["platform"])
     for previous in candidates:
         validate(baseline, previous)
     return copy.deepcopy(baseline)

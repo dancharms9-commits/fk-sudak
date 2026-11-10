@@ -84,7 +84,9 @@ const server=http.createServer((req,res)=>{
   // Synthetic missing field/history fixtures never enter the published JSON.
   payload=structuredClone(data);payload.updated=new Date(Date.parse(data.updated)+1000).toISOString();
   payload.platform.playerSeasonStats['1698:117:4:22'].minutes=null;
-  payload.platform.playerSeasonStats['1698:117:4:22'].fieldQuality.minutes={status:'not_published',lastVerifiedAt:null};
+  const fixtureStat=payload.platform.playerSeasonStats['1698:117:4:22'];
+  fixtureStat.fieldQuality ||= Object.fromEntries(['games','goals','penaltyGoals','minutes','starts','substitutions','yellowCards','secondYellowCards','redCards'].map(f=>[f,{status:fixtureStat[f]===null?'not_published':'current',lastVerifiedAt:fixtureStat[f]===null?null:fixtureStat.quality.lastVerifiedAt}]));
+  fixtureStat.fieldQuality.minutes={status:'not_published',lastVerifiedAt:null};
   await p.reload();await ready(p);await p.evaluate(()=>{location.hash='#player=rffk-1698&team=117&competition=4&season=22'});await p.locator('#player.on').waitFor();
   assert.equal(await p.locator('#player [data-stat="league_minutes"] b').innerText(),'—');assert.equal(await p.locator('#player [data-stat="league_yellow_cards"] b').innerText(),'0');
   const r=payload.platform.rosters['4:22:936'],unknown=r.unverifiedPlayerIds[0];

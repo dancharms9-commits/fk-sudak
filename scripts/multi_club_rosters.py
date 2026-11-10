@@ -370,6 +370,91 @@ def sync_platform(platform, loader, max_profiles=24, max_seconds=120, force=Fals
     return p, report
 
 
+def evidence_rank(q):
+    earliest = datetime.min.replace(tzinfo=timezone.utc)
+    return tuple(datetime.fromisoformat(q[field]) if q.get(field) else earliest
+                 for field in ('lastVerifiedAt', 'checkedAt'))
+
+
+def merge_roster_enrichment(base, extra):
+    """Carry independent roster facts across a newer legacy publication.
+
+    sourceUpdatedAt ranks legacy projections, not individual profile freshness.
+    Never replace the latest Sudak producer with an older seed snapshot.
+    """
+    validate_platform(base)
+    validate_platform(extra)
+    p = copy.deepcopy(base)
+    def newer(a, b):
+        return copy.deepcopy(b if evidence_rank(b.get('quality', {})) > evidence_rank(a.get('quality', {})) else a)
+    for pid, person in extra['playersById'].items():
+        if pid not in p['playersById']:
+            p['playersById'][pid] = copy.deepcopy(person)
+            continue
+        old = p['playersById'][pid]
+        merged = {**copy.deepcopy(person), **old}
+        if evidence_rank(person['quality']) > evidence_rank(old['quality']):
+            merged.update({k: copy.deepcopy(person[k]) for k in ('name', 'quality', 'firstName', 'lastName') if k in person})
+        if evidence_rank(person.get('profileQuality', {})) > evidence_rank(old.get('profileQuality', {})):
+            merged.update({k: copy.deepcopy(person[k]) for k in ('firstName', 'lastName', 'profileQuality', 'photoUrl', 'photoSourceUrl', 'registrationIssues', 'unresolvedSeasonGroups', 'profileImportVersion') if person.get(k) is not None})
+        p['playersById'][pid] = merged
+    for key, reg in extra['registrations'].items():
+        p['registrations'][key] = newer(p['registrations'][key], reg) if key in p['registrations'] else copy.deepcopy(reg)
+    for key, stat in extra['playerSeasonStats'].items():
+        if stat['teamId'] == '141':
+            continue
+        if key not in p['playerSeasonStats']:
+            p['playerSeasonStats'][key] = copy.deepcopy(stat)
+            continue
+        old = p['playerSeasonStats'][key]
+        def field_time(row, field):
+            stamp = row.get('fieldQuality', {}).get(field, {}).get('lastVerifiedAt') or row['quality']['lastVerifiedAt']
+            return datetime.fromisoformat(stamp) if stamp else datetime.min.replace(tzinfo=timezone.utc)
+        def stat_rank(row):
+            return max([evidence_rank(row['quality'])[0]]+[field_time(row, f) for f in STATS if row[f] is not None]), evidence_rank(row['quality'])
+        chosen = copy.deepcopy(stat if stat_rank(stat) > stat_rank(old) else old)
+        retained = []
+        for field in STATS:
+            other = stat if field_time(stat, field) > field_time(old, field) else old
+            if other[field] is None:
+                other = old if old[field] is not None else stat
+            if other[field] is not None and (chosen[field] is None or field_time(other, field) > field_time(chosen, field)):
+                chosen[field] = other[field]
+                chosen.setdefault('fieldQuality', {f: {'status': 'not_published' if chosen[f] is None else 'stale', 'lastVerifiedAt': chosen['quality']['lastVerifiedAt'] if chosen[f] is not None else None} for f in STATS})
+                verified = other.get('fieldQuality', {}).get(field, {}).get('lastVerifiedAt') or other['quality']['lastVerifiedAt']
+                chosen['fieldQuality'][field] = {'status': 'stale', 'lastVerifiedAt': verified}
+                retained.append(verified)
+        if retained:
+            chosen['quality'].update(status='stale', reason='fields_preserved_during_restore', lastVerifiedAt=min(t for t in retained if t) if any(retained) else None)
+        p['playerSeasonStats'][key] = chosen
+    for tid in TARGET_IDS:
+        key = '4:22:'+tid
+        a, b = p['rosters'][key], extra['rosters'][key]
+        a['playerIds'] = list(dict.fromkeys(a['playerIds']+b['playerIds']))
+        a['quality'] = newer({'quality': a['quality']}, {'quality': b['quality']})['quality']
+        if 'clubPlayerIds' not in a and 'clubPlayerIds' not in b:
+            continue
+        a['clubPlayerIds'] = list(dict.fromkeys(a.get('clubPlayerIds', [])+b.get('clubPlayerIds', [])))
+        if evidence_rank(b.get('clubListQuality', {})) > evidence_rank(a.get('clubListQuality', {})):
+            a['clubListQuality'] = copy.deepcopy(b['clubListQuality'])
+        for pid, entry in b.get('entriesByPlayerId', {}).items():
+            stored = a.setdefault('entriesByPlayerId', {})
+            if pid not in stored or datetime.fromisoformat(entry['lastSeenAt']) > datetime.fromisoformat(stored[pid]['lastSeenAt']):
+                stored[pid] = copy.deepcopy(entry)
+        a['historicalPlayerIds'], a['unverifiedPlayerIds'] = [], []
+        for pid in a['clubPlayerIds']:
+            if pid in a['playerIds']:
+                continue
+            regs = [r for r in p['registrations'].values() if r['playerId'] == pid and r['teamId'] == tid and r.get('scope') == 'club' and r.get('roleKind') != 'staff']
+            field = 'historicalPlayerIds' if regs and all(r['releasedAt'] and r['releasedAt'] < '2026-01-01' for r in regs) else 'unverifiedPlayerIds'
+            a[field].append(pid)
+    # An independent standings refresh must also survive legacy-root restoration.
+    for key, table in extra['standings'].items():
+        p['standings'][key] = newer(p['standings'][key], table)
+    validate_platform(p)
+    return p
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--input', type=Path, default=Path('data.json'))
