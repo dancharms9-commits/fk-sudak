@@ -301,7 +301,7 @@ class MigrationTests(unittest.TestCase):
         old['updated'] = (build.timestamp(SEED) + timedelta(seconds=1)).isoformat()
         merged = build.choose_baseline(SEED, old)
         self.assertEqual(merged['updated'], old['updated'])
-        self.assertEqual(merged['platform'], PLATFORM)
+        self.assertEqual(merged['platform'], sources.project_snapshot(merged, PLATFORM, source_updated_at=old['updated']))
         self.assertNotIn('platform', old)
 
     def test_table_only_refresh_with_equal_projection_revision_beats_seed(self):

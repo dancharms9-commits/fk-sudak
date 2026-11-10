@@ -1,4 +1,6 @@
 import copy
+import tempfile
+import subprocess
 import json
 from pathlib import Path
 import unittest
@@ -92,6 +94,49 @@ class RosterImportTests(unittest.TestCase):
         restored = importer.merge_roster_enrichment(a, b)['playerSeasonStats']['1698:117:4:22']
         self.assertEqual((restored['goals'], restored['minutes']), (2, 337))
         self.assertEqual(restored['fieldQuality']['minutes']['lastVerifiedAt'], x['fieldQuality']['minutes']['lastVerifiedAt'])
+
+    def test_publication_revision_never_rolls_back_newer_legacy_football(self):
+        seed = copy.deepcopy(SEED)
+        live = copy.deepcopy(SEED)
+        core_time = build.football_revision(seed)+timedelta(hours=1)
+        live['platform']['sourceUpdatedAt'] = core_time.isoformat()
+        live['updated'] = core_time.isoformat()
+        live['coach'] += ' · newer actual football fixture'
+        live['player_stats_2026']['players'][0]['league_minutes'] += 1
+        merged = build.choose_baseline(seed, live)
+        self.assertEqual(merged['coach'], live['coach'])
+        self.assertEqual(merged['player_stats_2026'], live['player_stats_2026'])
+        self.assertEqual(build.timestamp(merged), max(build.timestamp(seed), build.timestamp(live)))
+        self.assertEqual(build.football_revision(merged), core_time)
+        self.assertEqual(merged['platform']['rosters']['4:22:936'], seed['platform']['rosters']['4:22:936'])
+        self.assertEqual(seed, SEED)
+
+    def test_metadata_only_refresh_does_not_advance_legacy_football_revision(self):
+        def runner(command, **kwargs):
+            raise subprocess.CalledProcessError(1, command)
+        def unavailable():
+            raise requests.Timeout('fixture')
+        with tempfile.TemporaryDirectory() as directory:
+            result = build.refresh(SEED, Path(directory), runner=runner, platform_loader=unavailable)
+        self.assertEqual(build.football_revision(result), build.football_revision(SEED))
+        self.assertGreater(build.timestamp(result), build.timestamp(SEED))
+        self.assertEqual(result['res'], SEED['res'])
+
+    def test_fresh_legacy_core_can_follow_a_later_enrichment_publication(self):
+        baseline = copy.deepcopy(SEED)
+        actual = build.football_revision(baseline)+timedelta(minutes=1)
+        def runner(command, cwd, **kwargs):
+            if command[-1].endswith('update_player_stats.py'):
+                raise subprocess.CalledProcessError(1, command)
+            d = json.loads((cwd/'data.json').read_text())
+            d['updated'] = actual.isoformat()
+            d['coach'] += ' · accepted core fixture'
+            build.write_json(cwd/'data.json', d)
+        with tempfile.TemporaryDirectory() as directory:
+            result = build.refresh(baseline, Path(directory), runner=runner)
+        self.assertEqual(result['coach'], baseline['coach']+' · accepted core fixture')
+        self.assertEqual(build.football_revision(result), actual)
+        self.assertGreater(build.timestamp(result), build.timestamp(baseline))
 
     def test_official_club_list_is_not_a_season_or_staff_list(self):
         rows = importer.parse_club(soup('teams-936.html'), SEED['platform']['teamsById']['936'])
