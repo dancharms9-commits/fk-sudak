@@ -953,6 +953,7 @@ function renderPlayer(){
     `<p class="empty">${total===0&&!uncertain?"По статистике РФФК голов в чемпионате 2026 нет.":"Подтверждённые голы в доступных протоколах не найдены. Это не означает, что футболист не забивал."}</p>`;
   const stale=p.stats_current===false||PLAYER_STATS_2026?.verified===false;
   $("player").innerHTML=back+`<div class="card player-hero">${avatar}<div><h2 id="player-title" tabindex="-1">${esc(p.name)}</h2><p class="stats-role">${esc(p.position)}</p>${p._platform&&Number.isInteger(p.number)?`<span class="tag">№ ${p.number}</span> `:''}<span class="tag">Сезон 2026</span></div></div><h2>Открытый чемпионат Республики Крым · 2026</h2><div class="card"><div class="profile-values">${stats}</div><p class="hint">${stale?"Последние подтверждённые значения РФФК. ":""}Прочерк означает отсутствие подтверждённых данных. Голы с пенальти входят в общее число голов.</p></div>${p._platform?platformProfileInfo(p):`<p class="hint">Всего игр в карточке РФФК: ${statValue(p.federation_games)} · общий показатель федерации, не показатель сезона 2026.</p>`}${source?`<p class="hint"><a class="stats-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Карточка футболиста на сайте РФФК ↗</a>${photo?" · "+playerPhotoCredit(p):""}</p>`:""}${p._platform?'':`<h2>Голы в матчах</h2><p class="hint" id="goal-coverage">${esc(coverage)}</p><div class="card player-goals">${list}</div><p class="hint">Итоговый счёт в списке: хозяева — гости. Автоголы не включены в личные голы футболиста.</p>`}`;
+  $("player").innerHTML+=playerMatchesHTML(p);
   const image=$("player").querySelector('.player-avatar img');
   if(image)image.addEventListener("error",()=>image.remove(),{once:true});
 }
@@ -999,7 +1000,7 @@ function matchCenter(key,results=RES,upcoming=NEXT,details=MATCH_DETAILS){
   const result=results.find(r=>Array.isArray(r)&&matchKey(r)===key);
   const planned=upcoming.find(n=>Array.isArray(n)&&matchKey(upcomingMatchRow(n))===key);
   const row=result||(planned?upcomingMatchRow(planned):null);
-  if(!row)return null;
+  if(!row)return platformMatchCenter(key);
   const home=row[5]==='дома',finished=!!result&&[row[2],row[3]].every(n=>Number.isInteger(n)&&n>=0);
   const scores=finished?(home?[row[2],row[3]]:[row[3],row[2]]):null;
   const detail=verifiedMatchDetail(row,details[key]);
@@ -1022,6 +1023,47 @@ function matchCenter(key,results=RES,upcoming=NEXT,details=MATCH_DETAILS){
     venue:typeof detail?.venue==='string'&&detail.venue?detail.venue:typeof row[4]==='string'?row[4]:'',
     competition:typeof detail?.competition==='string'&&detail.competition?detail.competition:'Открытый чемпионат Республики Крым',round:typeof detail?.round==='string'?detail.round:'',source:protocolLink(detail?.source_url)};
 }
+// Platform and legacy records adapt to the same match renderer.
+function platformMatchKey(m){return m.sourceMatchId?'rffk-'+m.sourceMatchId:m.matchId}
+function platformMatchCenter(key){
+  const m=PLATFORM?.matchesById?.[key]||Object.values(PLATFORM?.matchesById||{}).find(m=>platformMatchKey(m)===key);
+  if(!m||m.competitionId!=='4'||m.seasonId!=='22'||!platformTeam(m.homeTeamId)||!platformTeam(m.awayTeamId)||m.homeTeamId===m.awayTeamId)return null;
+  if(m.sourceMatchId&&clubOfficialURL(m.sourceUrl,'matches',m.sourceMatchId)==='')return null;
+  const scores=['finished','technical'].includes(m.status)&&[m.homeScore,m.awayScore].every(v=>Number.isInteger(v)&&v>=0)?[m.homeScore,m.awayScore]:null;
+  const raw=PLATFORM.protocolsByMatchId?.[m.matchId];
+  const protocol=scores&&raw&&['sourceMatchId','sourceUrl','homeTeamId','awayTeamId','date','homeScore','awayScore'].every(f=>raw[f]===m[f])?raw:null;
+  const lineups={};
+  for(const side of ['home','away'])for(const group of ['starters','substitutes']){
+    const entries=protocol?.lineups?.[side]?.[group];if(!Array.isArray(entries))continue;
+    const valid=entries.filter(e=>PLATFORM.playersById?.[e.playerId]&&clubOfficialURL(e.sourceUrl,'players',e.playerId));
+    if(valid.length)(lineups[side]||={})[group]=valid.map(e=>({name:PLATFORM.playersById[e.playerId].name,profile_url:e.sourceUrl,number:e.number}));
+  }
+  const items=(protocol?.events||[]).filter(e=>Object.hasOwn(MATCH_EVENT_LABELS,e.type)&&[m.homeTeamId,m.awayTeamId].includes(e.teamId)&&matchMinute(e.minute))
+    .map(e=>({type:e.type,side:e.teamId===m.homeTeamId?'home':'away',player:e.sourceLabel,playerId:e.playerId,minute:matchMinute(e.minute),score:e.score}));
+  const scoring=items.filter(e=>MATCH_GOAL_TYPES.includes(e.type)&&Array.isArray(e.score)&&e.score.length===2&&e.score.every(v=>Number.isInteger(v)&&v>=0));
+  const checked=confirmedMatchGoals({status:'available',goals:scoring},scores||[]);
+  const goals=protocol?(checked||(scoring.length?scoring:null)):null;
+  return {key,platformMatch:m,protocol,home:m.homeTeamId==='141',scores,finished:!!scores,
+    teams:[platformTeam(m.homeTeamId).name,platformTeam(m.awayTeamId).name],clubSide:m.homeTeamId==='141'?'home':m.awayTeamId==='141'?'away':null,
+    goals,events:{items:items.filter(e=>!MATCH_GOAL_TYPES.includes(e.type)||scoring.includes(e)),complete:protocol?.eventsComplete===true},lineups,
+    status:champStatus(m),date:m.date?m.date.split('-').reverse().join('.'):'',time:protocol?.time||m.time||'',
+    venue:protocol?.venue||m.venue||'',city:protocol?.city||'',round:protocol?.roundLabel||m.roundId+'-й тур',
+    competition:'Открытый чемпионат Республики Крым · 2026',source:protocolLink(m.sourceUrl)};
+}
+function confirmedPlayerMatches(id){
+  if(!id||!PLATFORM)return [];
+  return Object.values(PLATFORM.protocolsByMatchId||{}).filter(p=>{
+    const m=PLATFORM.matchesById[p.matchId];
+    return m&&['finished','technical'].includes(m.status)&&['sourceMatchId','sourceUrl','date','homeScore','awayScore'].every(f=>p[f]===m[f])&&
+      Object.values(p.lineups||{}).some(groups=>Object.values(groups).some(entries=>entries.some(e=>e.playerId===id&&clubOfficialURL(e.sourceUrl,'players',id))));
+  }).map(p=>PLATFORM.matchesById[p.matchId]).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+}
+function playerMatchesHTML(p){
+  const id=officialPlayerURL(p.profile_url)?.split('/')[4],matches=confirmedPlayerMatches(id);
+  if(!matches.length)return '';
+  const parent=location.hash.startsWith('#player=')?location.hash:'';
+  return '<h2>Подтверждённые матчи</h2><p class="hint">Участие подтверждено официальным составом конкретной игры. Список может быть неполным.</p><div class="card">'+matches.map(m=>`<a class="row match-link" data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=player&amp;player=${encodeURIComponent(playerKey(p))}&amp;profileRoute=${encodeURIComponent(parent)}"><div class="l"><b>${esc(platformTeam(m.homeTeamId).name)} — ${esc(platformTeam(m.awayTeamId).name)}</b><small>${esc(m.date||'Дата не указана')}</small></div><span class="sc">${m.homeScore}:${m.awayScore}</span></a>`).join('')+'</div>';
+}
 function matchPlayer(name,side,model,players=playerRows(),sourceURL=''){
   if(side!==model.clubSide||!name)return null;
   const groups=model.lineups[side];
@@ -1042,6 +1084,13 @@ function matchPlayer(name,side,model,players=playerRows(),sourceURL=''){
 }
 const eventActorSide=e=>e.type==='own_goal'?(e.side==='home'?'away':'home'):e.side;
 function matchPersonHTML(name,side,model,entry,sourceURL=''){
+  if(model.platformMatch){
+    const pid=officialPlayerURL(sourceURL)?.split('/')[4],person=PLATFORM?.playersById?.[pid];
+    if(!person)return `<span>${esc(name||'Футболист не указан')}</span>`;
+    const tid=model.platformMatch[side+'TeamId'],context=platformMembership(pid,tid)?tid:null;
+    const href=platformPlayerHref(pid,context)+'&from=match&back='+encodeURIComponent(location.hash);
+    return `<a class="player-link center-player" data-player="rffk-${esc(pid)}" data-match-player="${esc(entry)}" href="${esc(href)}">${esc(name)}<span class="sr-only"> — профиль футболиста</span></a>`;
+  }
   const person=matchPlayer(name,side,model,playerRows(),sourceURL);
   if(!person)return `<span>${esc(name||'Футболист не указан')}</span>`;
   const parent=location.hash.startsWith('#match=')?location.hash:matchHref(model.row);
@@ -1053,7 +1102,7 @@ function matchGoalsHTML(model){
   if(!model.goals.length)return '<div class="card empty">В этом матче голов не было.</div>';
   return `<article class="center-goals"><h2>Авторы голов</h2><div class="card"><ul class="center-scorers">${model.goals.map((goal,index)=>{
     const actor=eventActorSide(goal),team=model.teams[actor==='home'?0:1];
-    return `<li><div class="center-goal-name">${matchPersonHTML(goal.player,actor,model,'scorer-'+index)}<small>${esc(team)}${goal.type==='own_goal'?' · В пользу '+esc(model.teams[goal.side==='home'?0:1]):''}</small></div><div class="center-goal-minute">${goal.minute?`<b>${esc(goal.minute)}′</b>`:''}<small>${MATCH_EVENT_LABELS[goal.type]}</small></div></li>`;
+    return `<li><div class="center-goal-name">${matchPersonHTML(goal.player,actor,model,'scorer-'+index,goal.playerId?PLATFORM?.playersById?.[goal.playerId]?.sourceUrl:'')}<small>${esc(team)}${goal.type==='own_goal'?' · В пользу '+esc(model.teams[goal.side==='home'?0:1]):''}</small></div><div class="center-goal-minute">${goal.minute?`<b>${esc(goal.minute)}′</b>`:''}<small>${MATCH_EVENT_LABELS[goal.type]}</small></div></li>`;
   }).join('')}</ul></div></article>`;
 }
 function matchEventsHTML(model){
@@ -1063,7 +1112,7 @@ function matchEventsHTML(model){
   const symbol=e=>({goal:'●',penalty:'●',own_goal:'●',missed_penalty:'×',yellow:'▰',second_yellow:'▰',red:'▰',substitution:'↔',substitution_in:'↗',substitution_out:'↙'})[e.type];
   return `<article class="center-events"><h2>${timed?'Хронология матча':'Подтверждённые события'}</h2><p class="hint">${goalsOnly?'Доступны только события голов. ':model.events.complete?'События из официального протокола. ':'Показаны доступные подтверждённые события. '}${timed?'':'Минуты части событий не указаны; сохранён порядок источника.'}</p><div class="card"><ol class="center-timeline ${timed?'is-timed':''}">${items.map((e,index)=>{
     const actor=eventActorSide(e),team=model.teams[actor==='home'?0:1];
-    return `<li class="${MATCH_GOAL_TYPES.includes(e.type)?'is-goal':''}" data-event="${esc(e.type)}"><div class="center-event-clock">${e.minute?`<span>${esc(e.minute)}′</span>`:''}<span class="center-event-icon ${esc(e.type)}" aria-hidden="true">${symbol(e)}</span></div><div class="goal-player"><span class="center-event-label">${MATCH_EVENT_LABELS[e.type]}</span>${matchPersonHTML(e.player,actor,model,'event-'+index)}<small>${esc(team)}${e.type==='own_goal'?' · В пользу '+esc(model.teams[e.side==='home'?0:1]):''}</small></div>${MATCH_GOAL_TYPES.includes(e.type)?`<b class="sc">${esc(e.score[0])}:${esc(e.score[1])}</b>`:''}</li>`;
+    return `<li class="${MATCH_GOAL_TYPES.includes(e.type)?'is-goal':''}" data-event="${esc(e.type)}"><div class="center-event-clock">${e.minute?`<span>${esc(e.minute)}′</span>`:''}<span class="center-event-icon ${esc(e.type)}" aria-hidden="true">${symbol(e)}</span></div><div class="goal-player"><span class="center-event-label">${MATCH_EVENT_LABELS[e.type]}</span>${matchPersonHTML(e.player,actor,model,'event-'+index,e.playerId?PLATFORM?.playersById?.[e.playerId]?.sourceUrl:'')}<small>${esc(team)}${e.type==='own_goal'?' · В пользу '+esc(model.teams[e.side==='home'?0:1]):''}</small></div>${MATCH_GOAL_TYPES.includes(e.type)?`<b class="sc">${esc(e.score[0])}:${esc(e.score[1])}</b>`:''}</li>`;
   }).join('')}</ol></div></article>`;
 }
 function matchLineupsHTML(model){
@@ -1077,18 +1126,18 @@ function matchLineupsHTML(model){
 function renderMatch(){
   const route=currentRoute();if(route.section!=='match')return;
   const model=matchCenter(route.key),root=$('match');
-  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==='table'?'К чемпионату':route.origin==='player'?'К футболисту':route.origin==='home'?'На главную':'К матчам'}</button>`;
+  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==='team'?'К команде':route.origin==='table'?'К чемпионату':route.origin==='player'?'К футболисту':route.origin==='home'?'На главную':'К матчам'}</button>`;
   let html=back+'<h2 tabindex="-1" id="match-title">Центр матча</h2>';
   if(!model)html+='<div class="card empty">Сведения об этом матче пока недоступны. Проверьте подключение или выберите матч в разделе «Матчи».</div>';
   else{
     const {teams,home,scores}=model;
     const badge=(side,name)=>side===model.clubSide?'<span class="center-badge"><img src="icon-192.png?v=final-crest-v7" alt="" width="48" height="48"></span>':'<span class="center-badge center-neutral" aria-hidden="true">'+esc(name.replace(/[«»"']/g,'').split(/\s+/).filter(n=>!['ФК','СК','АФК'].includes(n)).slice(0,2).map(n=>n[0]).join('')||'—')+'</span>';
     const linkedMatch=PLATFORM?.matchesById?.[PLATFORM?.legacyLinks?.matches?.[route.key]];
-    const platformMatch=linkedMatch&&model.detail&&linkedMatch.sourceMatchId===String(model.detail.id)&&linkedMatch.date===model.detail.date&&linkedMatch.homeScore===model.detail.home_score&&linkedMatch.awayScore===model.detail.away_score?linkedMatch:null;
-    const team=(i)=>{const id=i===0?platformMatch?.homeTeamId:platformMatch?.awayTeamId,content=badge(i===0?'home':'away',teams[i])+`<b>${esc(teams[i])}</b>`;
+    const platformMatch=model.platformMatch||(linkedMatch&&model.detail&&linkedMatch.sourceMatchId===String(model.detail.id)&&linkedMatch.date===model.detail.date&&linkedMatch.homeScore===model.detail.home_score&&linkedMatch.awayScore===model.detail.away_score?linkedMatch:null);
+    const team=(i)=>{const id=i===0?platformMatch?.homeTeamId:platformMatch?.awayTeamId,content=(model.platformMatch?`<span class="center-badge"><img src="${esc(clubLogo(id))}" alt="" width="48" height="48"></span>`:badge(i===0?'home':'away',teams[i]))+`<b>${esc(teams[i])}</b>`;
       return `<div class="tm">${platformTeam(id)?`<a class="club-link" data-team="${esc(id)}" href="${clubHref(id)}">${content}</a>`:content}<small>${i===0?'Хозяева':'Гости'}</small></div>`};
-    const fields=[['Дата',model.date+(model.time?' · '+model.time:'')],['Турнир',model.competition],['Тур',model.round],['Стадион',model.venue],['Статус',model.status]].filter(([,value])=>value);
-    html+=`<div class="card center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="tag">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num ${home?'us':''}">${scores[0]}</span><span aria-hidden="true">:</span><span class="num ${home?'':'us'}">${scores[1]}</span></div><small>Итоговый счёт</small>`:`<span class="center-not-started">${model.status==='Запланирован'?'Матч не начался':esc(model.status)}</span>`}</div>${team(1)}</div><p class="match-meta">${esc(model.date)}${model.time?' · '+esc(model.time):''}${model.venue?'<br>'+esc(model.venue):''}</p></div><dl class="card center-info">${fields.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${!model.finished?'<p class="hint">'+(model.status==='Запланирован'?'Матч запланирован. Итоговый счёт и протокол появятся после публикации.':'Подтверждённый результат пока не опубликован.')+'</p>':''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="card center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол</b><small>Официальный сайт РФФК · откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}`;
+    const fields=[['Дата',model.date+(model.time?' · '+model.time:'')],['Турнир',model.competition],['Тур',model.round],['Стадион',model.venue],['Город',model.city],['Статус',model.status]].filter(([,value])=>value);
+    html+=`<div class="card center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="tag">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num ${home?'us':''}">${scores[0]}</span><span aria-hidden="true">:</span><span class="num ${home?'':'us'}">${scores[1]}</span></div><small>Итоговый счёт</small>`:`<span class="center-not-started">${model.status==='Запланирован'?'Матч не начался':esc(model.status)}</span>`}</div>${team(1)}</div><p class="match-meta">${esc(model.date)}${model.time?' · '+esc(model.time):''}${model.venue?'<br>'+esc(model.venue):''}</p></div><dl class="card center-info">${fields.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${!model.finished?'<p class="hint">'+(model.status==='Запланирован'?'Матч запланирован. Итоговый счёт и протокол появятся после публикации.':'Подтверждённый результат пока не опубликован.')+'</p>':''}${model.platformMatch?clubQuality(model.protocol?.quality||model.platformMatch.protocolQuality||model.platformMatch.quality):''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="card center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол</b><small>Официальный сайт РФФК · откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}`;
   }
   if(root._centerHTML===html)return;
   const open=[...(root.querySelectorAll?.('details[open]')||[])].map(el=>el.dataset.centerList);
@@ -1107,7 +1156,7 @@ function matchParentHash(value){
 }
 function matchParentTab(hash,depth=0){
   const params=new URLSearchParams(String(hash||'').slice(1));
-  if(params.get('from')==='table')return 'table';
+  if(['table','team'].includes(params.get('from')))return 'table';
   if(params.get('from')==='home')return 'home';
   if(params.get('from')!=='player')return 'matches';
   if(params.get('profileFrom')==='table')return 'table';
@@ -1121,15 +1170,17 @@ function currentRoute(){
     (PLAYER_ROLES.includes(history.state?.playerRole)?history.state.playerRole:PLAYER_ROLE);
   const player=params.get("player"),playerName=params.get("name")||"";
   if(hash.startsWith("team="))return params.get("team")==="141"?{section:"home",role}:{section:"team",teamId:params.get("team"),role};
-  if(hash.startsWith("player="))return {section:"player",player,playerName,role,teamId:params.get("team"),competitionId:params.get("competition"),seasonId:params.get("season"),origin:params.get("team")?"team":params.get("from")==="table"?"table":params.get("from")==="home"?"home":params.get("from")==="match"?"match":"squad",matchParent:matchParentHash(params.get("back"))};
+  if(hash.startsWith("player="))return {section:"player",player,playerName,role,teamId:params.get("team"),competitionId:params.get("competition"),seasonId:params.get("season"),origin:params.get("from")==="match"?"match":params.get("team")?"team":params.get("from")==="table"?"table":params.get("from")==="home"?"home":params.get("from")==="match"?"match":"squad",matchParent:matchParentHash(params.get("back"))};
   if(hash.startsWith("match=")){
     const from=params.get("from");
-    return {section:"match",key:params.get("match"),origin:from==="table"?"table":from==="player"&&player?"player":from==="home"?"home":"matches",player,playerName,role,profileOrigin:params.get("profileFrom"),profileBack:matchParentHash(params.get("profileBack"))};
+    return {section:"match",key:params.get("match"),origin:from==="team"?"team":from==="table"?"table":from==="player"&&player?"player":from==="home"?"home":"matches",player,playerName,role,teamId:params.get("team"),profileRoute:params.get("profileRoute")?.startsWith("#player=")?params.get("profileRoute"):null,profileOrigin:params.get("profileFrom"),profileBack:matchParentHash(params.get("profileBack"))};
   }
   const section=hash.split("&")[0];
   return {section:["home","matches","table","squad","news"].includes(section)?section:"home",role};
 }
 function routeParent(route){
+  if(route.section==="match"&&route.origin==="team")return platformTeam(route.teamId)?clubHref(route.teamId):"#table";
+  if(route.section==="match"&&route.origin==="player"&&route.profileRoute)return route.profileRoute;
   if(route.section==="player"&&route.origin==="team")return platformTeam(route.teamId)?clubHref(route.teamId):"#table";
   if(route.section==="player")return route.origin==="table"?"#table":route.origin==="match"?(route.matchParent||"#matches"):route.origin==="home"?"#home":"#squad&role="+encodeURIComponent(route.role);
   if(route.origin==="player")return profileHash(route.player,route.playerName,route.role)+(route.profileOrigin==="table"?"&from=table":route.profileOrigin==="home"?"&from=home":route.profileOrigin==="match"?"&from=match&back="+encodeURIComponent(route.profileBack):"");
@@ -1183,7 +1234,7 @@ function applyRoute(restore=false){
   const animateTab=prepareTabTransition($(route.section));
   if(PLAYER_ROLE!==route.role){PLAYER_ROLE=route.role;renderSquad()}
   document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
-  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?route.origin:route.section;
+  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?(route.origin==="team"?"table":route.origin):route.section;
   document.querySelectorAll('#nav button').forEach(el=>{
     const active=el.dataset.t===tab;
     el.classList.toggle("on",active);
@@ -1510,7 +1561,7 @@ function clubContext(id,p=PLATFORM,now=Date.now()){
 function clubMatchHTML(m){
   const score=[m.homeScore,m.awayScore].every(n=>Number.isInteger(n)&&n>=0)?`${m.homeScore}:${m.awayScore}`:'—';
   const url=protocolLink(m.sourceUrl),legacy=Object.entries(PLATFORM?.legacyLinks?.matches||{}).find(([,id])=>id===m.matchId)?.[0];
-  return `<article class="card" data-club-match="${esc(m.matchId)}"><div class="club-match-meta"><span>${esc(champDate({date:m.date,time:m.time}))}</span><span>${esc(champStatus(m))}</span></div><div class="club-match-pair">${clubLink(m.homeTeamId)}<strong class="club-score">${score}</strong>${clubLink(m.awayTeamId)}</div>${m.venue?`<p class="hint">${esc(m.venue)}</p>`:''}${legacy?`<a class="club-source" data-club-protocol href="#match=${encodeURIComponent(legacy)}&amp;from=table">Центр матча →</a>`:url?`<a class="club-source" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Протокол РФФК ↗</a>`:''}</article>`;
+  return `<article class="card" data-club-match="${esc(m.matchId)}"><div class="club-match-meta"><span>${esc(champDate({date:m.date,time:m.time}))}</span><span>${esc(champStatus(m))}</span></div><div class="club-match-pair">${clubLink(m.homeTeamId)}<strong class="club-score">${score}</strong>${clubLink(m.awayTeamId)}</div>${m.venue?`<p class="hint">${esc(m.venue)}</p>`:''}<a class="club-source" data-club-protocol data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=team&amp;team=${encodeURIComponent(currentRoute().teamId||m.homeTeamId)}">Центр матча →</a></article>`;
 }
 function clubPlayersHTML(players){
   return `<ul class="club-players">${players.map(p=>{const url=clubOfficialURL(p.sourceUrl,'players',p.playerId);return `<li>${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(p.name)} ↗</a>`:esc(p.name)}</li>`}).join('')}</ul>`;
@@ -1543,7 +1594,7 @@ $('team').addEventListener('click',event=>{
     if(history.state?.teamEntry)history.back();else{history.replaceState({},'','#table');applyRoute()}
   }
   const link=event.target.closest('a[data-club-protocol]');if(!link||!plainClick(event))return;
-  event.preventDefault();rememberPosition();history.pushState({matchEntry:true,parent:location.hash},'',link.getAttribute('href'));applyRoute();
+  event.preventDefault();rememberPosition(link.dataset.match);history.pushState({matchEntry:true,parent:location.hash},'',link.getAttribute('href'));applyRoute();
 });
 
 // Championship uses the same data.json snapshot and existing club routes.
@@ -1614,6 +1665,8 @@ function champMatchHTML(m){
   const clubKey=championshipClubMatch(m),isClub=[m.home_id,m.away_id].includes('141');
   const card=`<span class="champ-meta">${esc(champDate(m))}</span><span class="champ-pair"><span class="champ-team">${platformTeam(m.home_id)?clubLink(m.home_id,champTeamName(m.home_id),true):champBadge(m.home_id)+'<b>'+esc(champTeamName(m.home_id))+'</b>'}</span><strong class="champ-score">${score}</strong><span class="champ-team">${platformTeam(m.away_id)?clubLink(m.away_id,champTeamName(m.away_id),true):champBadge(m.away_id)+'<b>'+esc(champTeamName(m.away_id))+'</b>'}</span></span><span class="champ-meta champ-status">${esc(champStatus(m))}<span aria-hidden="true"> ›</span></span>`;
   if(clubKey)return `<div class="card champ-match champ-club" data-champ-match="${esc(m.id)}">${card}<a class="club-source" data-match="${esc(clubKey)}" href="#match=${encodeURIComponent(clubKey)}&amp;from=table">Центр матча →</a></div>`;
+  const confirmed=PLATFORM?.matchesById?.[m.id];
+  if(confirmed)return `<div class="card champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}">${card}<a class="club-source" data-match="${esc(platformMatchKey(confirmed))}" href="#match=${encodeURIComponent(platformMatchKey(confirmed))}&amp;from=table">Центр матча →</a></div>`;
   const url=protocolLink(m.source_url);
   return `<details class="card champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}"><summary>${card}</summary><div class="champ-match-info"><p>${esc(champTeamName(m.home_id))} — ${esc(champTeamName(m.away_id))}</p><p>${esc(m.venue||'Стадион не указан')}</p><p class="hint">${champPlayed(m)?'Доступные сведения РФФК.':'Результат пока не опубликован.'}</p>${url?`<a class="champ-source" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Протокол РФФК ↗</a>`:'<p class="hint">Ссылка на протокол пока не опубликована.</p>'}</div></details>`;
 }

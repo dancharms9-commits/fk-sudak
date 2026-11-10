@@ -112,6 +112,7 @@ def project_snapshot(data, previous=None, source_updated_at=None):
         if raw['home_id'] not in TEAM_IDS or raw['away_id'] not in TEAM_IDS:
             unresolved['matchesById'][key] = {'record': copy.deepcopy(raw), 'reason': 'identity_not_confirmed'}
             continue
+        old_match = p['matchesById'].get(key, {})
         p['matchesById'][key] = {
             'matchId': key, 'competitionId': '4', 'seasonId': '22', 'roundId': raw['round_id'],
             'homeTeamId': raw['home_id'], 'awayTeamId': raw['away_id'],
@@ -119,6 +120,8 @@ def project_snapshot(data, previous=None, source_updated_at=None):
             'date': raw['date'], 'time': raw['time'], 'timeZone': 'Europe/Moscow', 'venue': raw['venue'],
             'homeScore': raw['home_score'], 'awayScore': raw['away_score'], 'status': raw['status'],
             'quality': quality(SEASON_URL, verified=calendar.get('updated'))}
+        if (old_match.get('protocolQuality') and all(old_match.get(f) == p['matchesById'][key][f] for f in ('sourceMatchId', 'date', 'homeScore', 'awayScore'))):
+            p['matchesById'][key]['protocolQuality'] = copy.deepcopy(old_match['protocolQuality'])
     # Preserve per-player identity via profile URL. The legacy producer has
     # already verified the Sudak/2026 context; do not rejoin SQUAD by names.
     stats = data['player_stats_2026']
@@ -187,12 +190,17 @@ def project_snapshot(data, previous=None, source_updated_at=None):
             events.append({'type': raw_event['type'], 'teamId': m[side + 'TeamId'],
                 'playerId': None, 'sourceLabel': raw_event['player'], 'minute': raw_event['minute'],
                 'score': copy.deepcopy(raw_event.get('score'))})
-        p['protocolsByMatchId'][m['matchId']] = {'matchId': m['matchId'],
+        old_protocol = p['protocolsByMatchId'].get(m['matchId'])
+        projected_protocol = {'matchId': m['matchId'],
             'sourceMatchId': m['sourceMatchId'], 'sourceUrl': m['sourceUrl'],
             'homeTeamId': m['homeTeamId'], 'awayTeamId': m['awayTeamId'],
             'date': m['date'], 'homeScore': m['homeScore'], 'awayScore': m['awayScore'],
             'eventsComplete': raw.get('events_complete', False), 'lineups': lineups, 'events': events,
             'quality': quality(m['sourceUrl'])}
+        if old_protocol and old_protocol['quality'].get('checkedAt') and all(old_protocol.get(f) == m[f] for f in ('sourceMatchId', 'date', 'homeScore', 'awayScore')):
+            p['protocolsByMatchId'][m['matchId']] = old_protocol
+        else:
+            p['protocolsByMatchId'][m['matchId']] = projected_protocol
         p['legacyLinks']['matches'][legacy_key] = m['matchId']
     validate_platform(p, previous)
     return p
