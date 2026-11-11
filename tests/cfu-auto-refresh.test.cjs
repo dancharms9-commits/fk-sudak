@@ -77,6 +77,14 @@ test('source conflicts and pending confirmation remain visible without invented 
   assert.match(ui.run('cfuStatusNote()'),/Ожидается официальное подтверждение/);
 });
 
+test('a snapshot captured during the matchday becomes stale after the next morning',()=>{
+  const ui=setup(),value=bundle();
+  value.calendar.sourceMetadata.retrievedAt='2026-11-11T12:00:00Z';
+  value.sync.lastSuccessAt='2026-11-11T12:00:00Z';
+  ui.run(`adoptCfuBundle(${JSON.stringify(value)});Date.now=()=>Date.parse('2026-11-12T09:01:00+03:00')`);
+  assert.match(ui.run('cfuStatusNote()'),/могли устареть/);
+});
+
 test('service worker always passes dynamic results to the network including versioned URLs',()=>{
   const listeners={};
   const context=vm.createContext({URL,self:{location:{origin:'https://example.test'},addEventListener:(name,fn)=>{listeners[name]=fn}}});

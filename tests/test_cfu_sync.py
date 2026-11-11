@@ -166,10 +166,17 @@ class ReconciliationTests(unittest.TestCase):
     def test_labelled_finished_zero_zero_is_preserved_as_final(self):
         client = OfficialFixtureClient()
         client.score(18767, 0, 0)
+        url = f'{sync.BASE}/matches/premier-leagueCFU/match_18767/'
+        page = BeautifulSoup(client.pages[url], 'html.parser')
+        for events in page.select('.eventEntries1, .eventEntries2'):
+            events.clear()
+        client.pages[url] = str(page)
         value = sync.refresh(baseline(), NOW, client, ROSTERS)
         match = value['calendar']['matchesById']['cfu:match:18767']
         self.assertEqual((match['homeScore'], match['awayScore'], match['status']), (0, 0, 'finished'))
         self.assertNotIn(match['matchId'], value['sync']['pending'])
+        self.assertEqual(value['details']['matchesById'][match['matchId']]['goals'], [])
+        self.assertTrue(value['details']['matchesById'][match['matchId']]['goalsComplete'])
         self.assertEqual(sync.choose_state(value, value), value)
 
     def test_missing_new_protocol_leaves_result_provisional(self):

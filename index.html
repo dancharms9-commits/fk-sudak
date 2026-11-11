@@ -2703,7 +2703,10 @@ function cfuStatusNote(){
   if(CFU_BUNDLE?.sync?.error)message='Проверка источника КФС не удалась или обнаружен конфликт. Показан последний проверенный снимок.';
   else if(CFU_BUNDLE?.sync?.pending?.length)message='Ожидается официальное подтверждение части результатов или обновление таблицы КФС.';
   else if(CFU_SAVED&&CFU_LOADING)message='Показан сохранённый проверенный снимок. Проверяем обновление…';
-  const stale=Number.isFinite(stamp)&&Object.values(CFU_PREMIER?.matchesById||{}).some(m=>m.date&&Date.parse(m.date+'T23:59:59+03:00')<Date.now()-12*60*60*1000&&Date.parse(m.date+'T00:00:00+03:00')>stamp);
+  const stale=Number.isFinite(stamp)&&Object.values(CFU_PREMIER?.matchesById||{}).some(m=>{
+    const evening=m.date?Date.parse(m.date+'T20:00:00+03:00'):NaN;
+    return evening>stamp&&Date.now()>evening+13*60*60*1000;
+  });
   if(stale&&!message)message='Сведения КФС могли устареть: после игрового дня ещё нет успешной проверки.';
   return (label?`<p class="hint cfu-note">Данные КФС проверены: ${esc(label)} (МСК)</p>`:'')+(message?`<p class="hint cfu-note cfu-warning" role="status">${esc(message)}</p>`:'');
 }
@@ -2884,8 +2887,8 @@ function renderCfuMatch(route){
     }
     html+='</div>';
   }
+  html+=cfuStatusNote();
   if(root.innerHTML!==html)root.innerHTML=html;
-  root.innerHTML+=cfuStatusNote();
   document.title=(match?cfuTeam(match.homeTeamId)?.name+' — '+cfuTeam(match.awayTeamId)?.name:'Матч')+' · ФК «Судак»';
 }
 function renderChampionship(){
