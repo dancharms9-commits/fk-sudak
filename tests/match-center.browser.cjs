@@ -1,4 +1,5 @@
 /* Real protocol data + independent edge fixtures; actual SW upgrade and offline reload. */
+const {currentWorker,disconnectServer}=require('./pwa-offline.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
@@ -117,20 +118,18 @@ const server=http.createServer((req,res)=>{
     const offline=await context.newPage();offline.on('pageerror',e=>errors.push(e.message));
     diagnostic=await require('./sw-diagnostics.cjs')(context,offline,process.env.VISUAL_SCREENSHOT_DIR);
     oldWorker=true;await offline.goto(base+'manifest.json');await offline.evaluate(async()=>{await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready});await offline.waitForFunction(()=>!!navigator.serviceWorker.controller);
-    oldWorker=false;await offline.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();await r.update()});
-    await diagnostic.snapshot('update-returned');
-    await offline.waitForFunction(async name=>{const keys=await caches.keys();return keys.includes(name)&&!keys.includes('sudak-home-v8')},shellCache);
-    await diagnostic.snapshot('cache-wait-returned');
+    oldWorker=false;await currentWorker(offline,shellCache);
+    await diagnostic.snapshot('current-worker-ready');
     await offline.goto(base+hash,{waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});await offline.waitForFunction(()=>!!localStorage.getItem('sudak-data-v1'));
-    await diagnostic.snapshot('before-offline');await context.setOffline(true);await diagnostic.snapshot('offline-set');
-    try{await offline.reload({waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'})}catch(error){await diagnostic.finish(error);diagnostic=null;throw error}
+    await diagnostic.snapshot('before-offline');await context.setOffline(true);const reconnect=await disconnectServer(server);await diagnostic.snapshot('offline-set');
+    try{const response=await offline.reload({waitUntil:'domcontentloaded'});assert(response.fromServiceWorker());await offline.locator('#launch-splash').waitFor({state:'detached'})}catch(error){await diagnostic.finish(error);diagnostic=null;throw error}
     await diagnostic.snapshot('offline-reload-completed');
     assert((await offline.locator('#upd').innerText()).includes('Нет связи'));assert.equal(await offline.locator('.center-timeline li').count(),detail.events.length);
     assert.equal(await offline.locator('.center-lineup-team').count(),2);await offline.locator('#match .center-scorers a[data-player="rffk-202"]').first().click();await offline.locator('#player.on').waitFor();await offline.locator('#player-back').click();await offline.locator('#match.on').waitFor();
     await offline.evaluate(()=>localStorage.clear());await offline.reload({waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});assert((await offline.locator('#match').innerText()).includes('Протокол матча недоступен'));
-    await context.setOffline(false);await offline.waitForFunction(()=>document.querySelector('.center-timeline li'));
+    await reconnect();await context.setOffline(false);await offline.waitForFunction(()=>document.querySelector('.center-timeline li'));
     assert.equal(await offline.locator('#launch-splash').count(),0);assert.equal(await offline.locator('.center-protocol').getAttribute('href'),detail.source_url);
-    console.log('PASS actual SW v8→v9, saved match/lineups/events/profiles offline, clear missing-cache state and reconnect');
+    console.log('PASS actual SW v8→'+shellCache+', saved match/lineups/events/profiles offline, clear missing-cache state and reconnect');
     await diagnostic.finish();diagnostic=null;
     assert.deepEqual(errors,[]);console.log('PASS no JavaScript errors');
   }finally{if(context)await context.close();await browser.close();server.close()}
