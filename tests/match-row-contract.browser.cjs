@@ -24,6 +24,20 @@ const status=m=>m.status_label||({finished:'Матч завершён',technical
 const shortStatus={'Матч завершён':'Завершён','Завершён':'Завершён','Матч запланирован':'По плану','Запланирован':'По плану','Матч перенесён':'Перенос','Матч перенесен':'Перенос','Перенесён':'Перенос','Перенесен':'Перенос','Матч отменён':'Отмена','Отменён':'Отмена','Технический результат':'Тех. итог','Тех. победа':'Тех. победа'};
 async function settle(p){await p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.querySelectorAll('#table.on .champ-match img,#team.on .club-fixture img')].map(i=>i.decode().catch(()=>{})));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});}
 async function scaleText(p){await p.evaluate(()=>{const es=[...document.querySelectorAll('body,header,header *,#nav,#nav *,main>section.on,main>section.on *')].filter(e=>!(e instanceof SVGElement)&&!e.closest('.club-name'));const sizes=es.map(e=>parseFloat(getComputedStyle(e).fontSize));es.forEach((e,i)=>e.style.fontSize=sizes[i]*1.5+'px')});}
+async function captureCalendarList(p){
+ // Locator screenshots scroll the element into view on their own. If the list
+ // is below the viewport, that implicit scroll can capture the bottom border
+ // before its new raster is ready. Scroll explicitly, align the lower edge and
+ // wait for two frames so reference and candidate share a settled capture.
+ const target=await p.evaluate(()=>{
+  const list=document.querySelector('#table .champ-match-list');
+  const rect=list.getBoundingClientRect();
+  return Math.max(0,Math.ceil(rect.bottom+scrollY-innerHeight+4));
+ });
+ await p.evaluate(y=>scrollTo(0,y),target);
+ await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ return p.locator('#table .champ-match-list').screenshot({animations:'disabled'});
+}
 async function isolateCompetitionSwitch(p,mode){
  if(mode!=='candidate')return;
  // The candidate adds exactly one switch container above the RFK calendar.
@@ -78,12 +92,12 @@ const inspectClub=()=>{
     // Isolate the list screenshot from the fixed bottom navigation. Navigation
     // itself remains fully compared to main in design-preservation.
     await p.addStyleTag({content:'#nav{visibility:hidden!important}'});
-    const png=await p.locator('#table .champ-match-list').screenshot({animations:'disabled'});shots.push(png);
+    const png=await captureCalendarList(p);shots.push(png);
     fs.writeFileSync(path.join(out,`${mode}-${theme}-${width}-${factor}.png`),png);
     for(const round of ['2','19']){
      await p.goto(base+(mode==='reference'?'?reference=1&':'?')+'visual-round='+round+'#table');await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.locator('#launch-splash').waitFor({state:'detached'});
      await p.evaluate(round=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round=round;CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()},round);await isolateCompetitionSwitch(p,mode);if(factor===1.5)await scaleText(p);await settle(p);await p.addStyleTag({content:'#nav{visibility:hidden!important}'});
-     const roundPng=await p.locator('#table .champ-match-list').screenshot({animations:'disabled'});roundShots[round].push(roundPng);fs.writeFileSync(path.join(out,`round-${round}-${mode}-${theme}-${width}-${factor}.png`),roundPng);
+     const roundPng=await captureCalendarList(p);roundShots[round].push(roundPng);fs.writeFileSync(path.join(out,`round-${round}-${mode}-${theme}-${width}-${factor}.png`),roundPng);
     }
     await p.goto(base+(mode==='reference'?'?reference=1&club=1':'?club=1')+'#team=936');await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.locator('#launch-splash').waitFor({state:'detached'});
     if(factor===1.5)await scaleText(p);await settle(p);await p.addStyleTag({content:'#nav{visibility:hidden!important}'});
