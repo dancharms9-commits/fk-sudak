@@ -1,0 +1,197 @@
+{
+  "base": "4b7812a55dc21518e84c3f08026e9aa3517cf8d4",
+  "generatedAt": "2026-11-11T05:58:41.684Z",
+  "platform": "win32",
+  "node": "v22.17.0",
+  "chromium": "130.0.6723.31",
+  "playwright": "1.48.2",
+  "python": {
+    "tests": 136,
+    "passed": 136,
+    "seconds": 288.009
+  },
+  "nodeTests": {
+    "tests": 104,
+    "passed": 104,
+    "failed": 0
+  },
+  "existingBrowsers": [
+    {
+      "file": "championship.browser.cjs",
+      "code": 0,
+      "seconds": 37
+    },
+    {
+      "file": "club-pages.browser.cjs",
+      "code": 0,
+      "seconds": 84
+    },
+    {
+      "file": "clubs-players.browser.cjs",
+      "code": 0,
+      "seconds": 154
+    },
+    {
+      "file": "design-polish.browser.cjs",
+      "code": 0,
+      "seconds": 81
+    },
+    {
+      "file": "browser.cjs",
+      "code": 0,
+      "seconds": 367
+    },
+    {
+      "file": "home-dashboard.browser.cjs",
+      "code": 0,
+      "seconds": 133
+    },
+    {
+      "file": "launch-splash.browser.cjs",
+      "code": 0,
+      "seconds": 189
+    },
+    {
+      "file": "design-preservation.browser.cjs",
+      "code": 0,
+      "seconds": 346
+    },
+    {
+      "file": "match-center.browser.cjs",
+      "code": 0,
+      "seconds": 70
+    },
+    {
+      "file": "pages-pwa.browser.cjs",
+      "code": 0,
+      "seconds": 11
+    },
+    {
+      "file": "multi-club.browser.cjs",
+      "code": 0,
+      "seconds": 192
+    },
+    {
+      "file": "pwa-launcher.browser.cjs",
+      "code": 0,
+      "seconds": 31
+    },
+    {
+      "file": "player-photos.browser.cjs",
+      "code": 0,
+      "seconds": 157
+    },
+    {
+      "file": "roster-profiles.browser.cjs",
+      "code": 0,
+      "seconds": 114
+    },
+    {
+      "file": "tab-transitions.browser.cjs",
+      "code": 0,
+      "seconds": 80
+    },
+    {
+      "file": "tab-reload.browser.cjs",
+      "code": 0,
+      "seconds": 283
+    },
+    {
+      "file": "themes.browser.cjs",
+      "code": 0,
+      "seconds": 94
+    },
+    {
+      "file": "universal-matches.browser.cjs",
+      "code": 0,
+      "seconds": 65
+    }
+  ],
+  "finalAffectedReruns": [
+    {
+      "file": "championship.browser.cjs",
+      "code": 0,
+      "seconds": 48
+    },
+    {
+      "file": "design-polish.browser.cjs",
+      "code": 0,
+      "seconds": 74
+    },
+    {
+      "file": "browser.cjs",
+      "code": 0,
+      "seconds": 354
+    },
+    {
+      "file": "design-preservation.browser.cjs",
+      "code": 0,
+      "seconds": 309
+    },
+    {
+      "file": "pages-pwa.browser.cjs",
+      "code": 0,
+      "seconds": 9
+    },
+    {
+      "file": "multi-club.browser.cjs",
+      "code": 0,
+      "seconds": 166
+    }
+  ],
+  "addedBrowsers": [
+    {
+      "file": "typography-refresh.browser.cjs",
+      "status": "passed",
+      "phases": [
+        "A",
+        "B",
+        "C"
+      ],
+      "screensPerPhase": 48
+    },
+    {
+      "file": "typography-accessibility.browser.cjs",
+      "status": "passed",
+      "cases": 112,
+      "issues": 0,
+      "description": "88 core cases plus 24 additional matches/scorers/legacy-profile cases"
+    },
+    {
+      "file": "typography-offline.browser.cjs",
+      "status": "passed",
+      "description": "Actual v14→v15 upgrade, three weights precached, new offline documents with HTTP cache disabled, five direct routes in both themes, recovery and real system fallback"
+    }
+  ],
+  "preservation": {
+    "pairs": 168,
+    "changedPixels": 0,
+    "maxChannelDelta": 0,
+    "thresholdsUnchanged": true,
+    "baselineMigration": "Frozen typography CSS applied to base HTML; all existing layout and raster assertions retained"
+  },
+  "accessibility": {
+    "cases": 112,
+    "issues": 0,
+    "errors": 0
+  },
+  "protectedFiles": 57,
+  "screenshots": {
+    "A": 48,
+    "B": 48,
+    "C": 48,
+    "text150": 48,
+    "offline": 10,
+    "total": 202
+  },
+  "resources": {
+    "applicationWoff2Bytes": 193092,
+    "trialOnlyWoff2Bytes": 21128,
+    "trialExcludedFromPagesArtifact": true
+  },
+  "stagedPagesArtifact": {
+    "built": true,
+    "deployed": false
+  },
+  "ci": "Local results; PR GitHub Actions run separately"
+}

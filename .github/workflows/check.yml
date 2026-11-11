@@ -13,6 +13,8 @@ on:
       - "modern-home.css"
       - "match-center.css"
       - "championship.css"
+      - "typography.css"
+      - "assets/fonts/**"
       - "apply_visual_refresh.py"
       - "fk-sudak-pwa-*.png"
       - "icon-*.png"
@@ -24,6 +26,57 @@ on:
       - ".github/workflows/**"
 permissions: {contents: read}
 jobs:
+  typography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-save --package-lock=false playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - name: Prepare typography comparison base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
+        run: |
+          git show "$BASE_SHA:index.html" > "$RUNNER_TEMP/typography-base.html"
+          echo "MULTI_CLUB_BASELINE_HTML=$RUNNER_TEMP/typography-base.html" >> "$GITHUB_ENV"
+      - run: node tests/typography-refresh.browser.cjs
+        env:
+          TYPOGRAPHY_DIR: typography-screenshots
+      - run: node tests/typography-accessibility.browser.cjs
+        env:
+          TYPOGRAPHY_DIR: typography-screenshots
+      - run: node tests/typography-offline.browser.cjs
+        env:
+          TYPOGRAPHY_DIR: typography-screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: typography-screenshots
+          path: typography-screenshots/
+  offline-diagnostics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-save --package-lock=false playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/sw-offline.browser.cjs
+        env:
+          SW_OFFLINE_BASELINE: "1"
+          SW_DIAGNOSTIC_DIR: offline-diagnostics/baseline
+      - run: node tests/sw-offline.browser.cjs
+        env:
+          SW_DIAGNOSTIC_DIR: offline-diagnostics/fixed
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-diagnostics
+          path: offline-diagnostics/
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 25

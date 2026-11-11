@@ -1,0 +1,144 @@
+{
+  "upgrade": "v14 → v15",
+  "httpCacheDisabled": true,
+  "unvisitedRoutes": true,
+  "cachedFonts": [
+    "/fk-sudak/assets/fonts/ibm-plex-sans/IBMPlexSans-Regular.woff2",
+    "/fk-sudak/assets/fonts/ibm-plex-sans/IBMPlexSans-SemiBold.woff2",
+    "/fk-sudak/assets/fonts/ibm-plex-sans/IBMPlexSans-Bold.woff2"
+  ],
+  "results": [
+    {
+      "name": "home",
+      "theme": "dark",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 13
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 16
+        }
+      ]
+    },
+    {
+      "name": "kashtan",
+      "theme": "dark",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    },
+    {
+      "name": "popov",
+      "theme": "dark",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 12
+        }
+      ]
+    },
+    {
+      "name": "match",
+      "theme": "dark",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    },
+    {
+      "name": "home",
+      "theme": "light",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 13
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 16
+        }
+      ]
+    },
+    {
+      "name": "kashtan",
+      "theme": "light",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    },
+    {
+      "name": "popov",
+      "theme": "light",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 12
+        }
+      ]
+    },
+    {
+      "name": "match",
+      "theme": "light",
+      "fonts": [
+        {
+          "familyName": "IBM Plex Sans SmBld",
+          "postScriptName": "IBMPlexSans-SmBld",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    },
+    {
+      "name": "fallback",
+      "fonts": [
+        {
+          "familyName": "Segoe UI Semibold",
+          "postScriptName": "SegoeUI-Semibold",
+          "isCustomFont": false,
+          "glyphCount": 18
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

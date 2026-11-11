@@ -1,0 +1,292 @@
+{
+  "base": "4b7812a55dc21518e84c3f08026e9aa3517cf8d4",
+  "comparison": "main git cat-file --filters (Windows checkout line endings)",
+  "htmlOnlyAddsTypography": true,
+  "files": [
+    {
+      "file": ".github/workflows/update.yml",
+      "bytes": 3237,
+      "sha256": "f788cb38a7ada28faa9b65b45e172087009db9cbc0aa64f9ce6ccccb84456f2a"
+    },
+    {
+      "file": "apple-touch-icon.png",
+      "bytes": 42939,
+      "sha256": "3dda1cc2e3328f97ba0bd6316bf21326082e04978fc7fbdf1d403fa2e797f0d3"
+    },
+    {
+      "file": "assets/club-crest-final-original.png",
+      "bytes": 1615946,
+      "sha256": "c8ed5b87dbf6a9c17fcbcc61974a9f4bd06418b3ef60ac8dddb534a6a504513b"
+    },
+    {
+      "file": "assets/club-crest-original.png",
+      "bytes": 1397049,
+      "sha256": "31c854f9497403ceb37824a6115b4496dfd1f9d2984b859bb480f3d7d71bcba2"
+    },
+    {
+      "file": "assets/clubs/1028.png",
+      "bytes": 49241,
+      "sha256": "786cc3ef0886fd87d3644d3ef9d89ef02c5bf74a6403dfc4a3db3555f001e441"
+    },
+    {
+      "file": "assets/clubs/1030.png",
+      "bytes": 62525,
+      "sha256": "ac4055a6763a26590282da9ba61ce898459f8bf741200369fe230cb33f2cfec5"
+    },
+    {
+      "file": "assets/clubs/117.png",
+      "bytes": 58842,
+      "sha256": "051bd6e762efa5977b6322e0039993725d51573c79ebb61d7d57aed3709dfd36"
+    },
+    {
+      "file": "assets/clubs/146.png",
+      "bytes": 22155,
+      "sha256": "c0aca753f0c46c7fcef3eabc9108cea60547981e753f5e503fc1669dd8a43190"
+    },
+    {
+      "file": "assets/clubs/521.png",
+      "bytes": 30144,
+      "sha256": "71275bea5b0f7a988c5f72ff5fd2053c78360f609ac173738eda9ed54f0acec7"
+    },
+    {
+      "file": "assets/clubs/757.png",
+      "bytes": 33723,
+      "sha256": "1c3885cfa22d8d0fa67b5061e1cd3223ab4011e536c3b3aa41a266709059dde4"
+    },
+    {
+      "file": "assets/clubs/930.png",
+      "bytes": 76663,
+      "sha256": "9616348a2db09ba5f94699424a20bc5b7ba71e3c78076aaeb94f1d99d5b35b5b"
+    },
+    {
+      "file": "assets/clubs/932.png",
+      "bytes": 37369,
+      "sha256": "79b1caf1b91abbe00138112976f81a3440cf19fecd45f874ae03b2cc7b478275"
+    },
+    {
+      "file": "assets/clubs/934.png",
+      "bytes": 51340,
+      "sha256": "a7d9d9b068a5f64acb70531c1f8f09ba57b025d7e0f5309b2ae07cab8d959488"
+    },
+    {
+      "file": "assets/clubs/936.png",
+      "bytes": 69828,
+      "sha256": "fd8d0c93f21f0042c8e40229a0dff68880c919ed83ecca01f8a6f0c2fd0e6d84"
+    },
+    {
+      "file": "assets/clubs/sources.json",
+      "bytes": 4231,
+      "sha256": "57db0895c54af034b987042554b7d2b20235e183d27f951ea3d6848419dfd705"
+    },
+    {
+      "file": "assets/home-crest-original.png",
+      "bytes": 1297920,
+      "sha256": "a423ec7fa499ae42bbf6b85e00213bb5034e871e6ae845256e8774b43104673c"
+    },
+    {
+      "file": "assets/home-fortress.jpg",
+      "bytes": 194869,
+      "sha256": "e3707c8fdd9eda3d2fb69b499a72e229814f456dc80852703858d2562415babb"
+    },
+    {
+      "file": "assets/players/andrey-gaydash.webp",
+      "bytes": 8122,
+      "sha256": "09a3284137a2ad0bd7a2549c4d324fe3e7bc6cb7aeaac28d6dd6a9ae37828c46"
+    },
+    {
+      "file": "assets/players/anton-monakhov.webp",
+      "bytes": 6440,
+      "sha256": "726bd141f9854dc73f6fb1b949da38d2cca71fb4f7014276c8e26501998b4e1b"
+    },
+    {
+      "file": "assets/players/evgeniy-bredun.webp",
+      "bytes": 7902,
+      "sha256": "b6f5df6470706c734cc466fc5dd019d44b840793296647ca12d04fe13cb2df1f"
+    },
+    {
+      "file": "assets/players/vladimir-semenov.webp",
+      "bytes": 3946,
+      "sha256": "24cdfcbee558d9216cb56d3724172ac63b9cc9b61051758df9eaab6a9e149a19"
+    },
+    {
+      "file": "assets/previous-crest/README.md",
+      "bytes": 1197,
+      "sha256": "94b8227ade0d9ad9954a44c99fea11e5b86eecfff3201cc2bfdd346ee4ef607e"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/README.md",
+      "bytes": 924,
+      "sha256": "4058862261808c100601e0b5d0ecd44e8feff62d96cc0b5764e7692fd3e35e3b"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/fk-sudak-pwa-192.png",
+      "bytes": 37998,
+      "sha256": "e541caae86499755ef08fd116bdfcd0dcd61d5fc33ebf148e5773943d0354805"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/fk-sudak-pwa-512.png",
+      "bytes": 222953,
+      "sha256": "97fc6509322dbb9e05311a113381907d3d7955ce8669e3c2f73076d4d3c01f78"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/fk-sudak-pwa-maskable-512.png",
+      "bytes": 97451,
+      "sha256": "29a5a2d9b053b65527221cd352e804dd18524371ab029ecda76215daa8ce4afa"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/icon-192.png",
+      "bytes": 37998,
+      "sha256": "e541caae86499755ef08fd116bdfcd0dcd61d5fc33ebf148e5773943d0354805"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/icon-512.png",
+      "bytes": 222953,
+      "sha256": "97fc6509322dbb9e05311a113381907d3d7955ce8669e3c2f73076d4d3c01f78"
+    },
+    {
+      "file": "assets/previous-crest/crest-v4/icon-maskable-512.png",
+      "bytes": 97451,
+      "sha256": "29a5a2d9b053b65527221cd352e804dd18524371ab029ecda76215daa8ce4afa"
+    },
+    {
+      "file": "assets/previous-crest/fk-sudak-pwa-192.png",
+      "bytes": 36183,
+      "sha256": "abee26cb53fe327526cf6895f20875a12298795ea5f25e0231b98b71d65632c3"
+    },
+    {
+      "file": "assets/previous-crest/fk-sudak-pwa-512.png",
+      "bytes": 173757,
+      "sha256": "5b68190971476245c05168c64d2e0c6f542593fc450b2f77652aa1ca1c418f38"
+    },
+    {
+      "file": "assets/previous-crest/fk-sudak-pwa-maskable-512.png",
+      "bytes": 333607,
+      "sha256": "dc7bbf66d0bfdcf6c89f442b60a6ae4f0c3d7d59cd78944e4ac68c8ba8dcf1f2"
+    },
+    {
+      "file": "assets/previous-crest/icon-192.png",
+      "bytes": 36183,
+      "sha256": "abee26cb53fe327526cf6895f20875a12298795ea5f25e0231b98b71d65632c3"
+    },
+    {
+      "file": "assets/previous-crest/icon-512.png",
+      "bytes": 173757,
+      "sha256": "5b68190971476245c05168c64d2e0c6f542593fc450b2f77652aa1ca1c418f38"
+    },
+    {
+      "file": "assets/previous-crest/icon-maskable-512.png",
+      "bytes": 333607,
+      "sha256": "dc7bbf66d0bfdcf6c89f442b60a6ae4f0c3d7d59cd78944e4ac68c8ba8dcf1f2"
+    },
+    {
+      "file": "assets/pwa-launcher/crest-any-192-9297226bb1a7.png",
+      "bytes": 44455,
+      "sha256": "9297226bb1a730b5ece0d1d832017f96b9439e35414445026b975ec260d1f403"
+    },
+    {
+      "file": "assets/pwa-launcher/crest-any-512-5aaab8386f21.png",
+      "bytes": 255390,
+      "sha256": "5aaab8386f2130503aa74a48c1d27d4b514b9260ce63b94348aa6652a859bcef"
+    },
+    {
+      "file": "assets/pwa-launcher/crest-maskable-512-ad8a6296949e.png",
+      "bytes": 191235,
+      "sha256": "ad8a6296949e8ec2c53dc0d3f8bf9c81e71e8e30e1fd2ca0a88a16cb8d6776a8"
+    },
+    {
+      "file": "championship.css",
+      "bytes": 7759,
+      "sha256": "01d6f46de9ae9d7842346da5f7e26a04267b8941795a54b9bc88c0e34d9e8fb8"
+    },
+    {
+      "file": "data.json",
+      "bytes": 2914756,
+      "sha256": "94051a5bebeebafeb3d9bff50c62fbdf15af8199ecd4b6f2d732d3498dc7c09d"
+    },
+    {
+      "file": "favicon.png",
+      "bytes": 2276,
+      "sha256": "57e4b0a6a9926fff51cb0b638440858b76f095995714321a5bf2f14b54ddb028"
+    },
+    {
+      "file": "fetch_data.py",
+      "bytes": 49963,
+      "sha256": "54b26fcaeffbdcb4278db7740df707f142ed2065df2114151512b7b016ece914"
+    },
+    {
+      "file": "fk-sudak-pwa-192.png",
+      "bytes": 47481,
+      "sha256": "4789f124c3d0fca05aa7187e1f4db7e1f20b08b0f3cd276d19c3958a387a1ac4"
+    },
+    {
+      "file": "fk-sudak-pwa-512.png",
+      "bytes": 278405,
+      "sha256": "5a23d9c25b5aeb02b8e538c96cb260faa2d23955f18f9027c8ec8b81a1afd2fd"
+    },
+    {
+      "file": "fk-sudak-pwa-maskable-512.png",
+      "bytes": 139463,
+      "sha256": "ff75faba7bd4256e123dbf2ef7452bef6d10d9dea15b17e8e0aaa833caa28687"
+    },
+    {
+      "file": "icon-192.png",
+      "bytes": 47481,
+      "sha256": "4789f124c3d0fca05aa7187e1f4db7e1f20b08b0f3cd276d19c3958a387a1ac4"
+    },
+    {
+      "file": "icon-512.png",
+      "bytes": 278405,
+      "sha256": "5a23d9c25b5aeb02b8e538c96cb260faa2d23955f18f9027c8ec8b81a1afd2fd"
+    },
+    {
+      "file": "icon-maskable-512.png",
+      "bytes": 139463,
+      "sha256": "ff75faba7bd4256e123dbf2ef7452bef6d10d9dea15b17e8e0aaa833caa28687"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 654,
+      "sha256": "4cd89e1090edf8e2e0eec8abf769bf51b54bc85000c28843709136e8cb9b9241"
+    },
+    {
+      "file": "match-center.css",
+      "bytes": 10700,
+      "sha256": "4ee9de3a880bbd6e73c495ff144dfebec76b9b91b63e5291db50efdf1f5524ae"
+    },
+    {
+      "file": "modern-home.css",
+      "bytes": 15521,
+      "sha256": "e7821ca3ca571f1329c1c9cb2145ba82d95c1b0bc5fd0ce1af6157a5ecd85a7f"
+    },
+    {
+      "file": "player_stats_cache_2026.json",
+      "bytes": 16910,
+      "sha256": "b8b2067ad45b83ae4acbc17e53ce1bce212f14658d57e0893e9efb191879339f"
+    },
+    {
+      "file": "scripts/multi_club_matches.py",
+      "bytes": 15997,
+      "sha256": "bff944c908cfd8cf9f76d3213654286d3e4e8325dab6540cad98070e31859082"
+    },
+    {
+      "file": "scripts/multi_club_rosters.py",
+      "bytes": 30438,
+      "sha256": "b3dd33db30947018f5b110e78f364cf770eb22d4e600af1633528efd8de6fe22"
+    },
+    {
+      "file": "scripts/multi_club_schema.py",
+      "bytes": 25258,
+      "sha256": "ff130dd60cf8f9267729bd6554ab62d970ff7ddc116350e3fdd7caec75f0a01a"
+    },
+    {
+      "file": "scripts/multi_club_sources.py",
+      "bytes": 14288,
+      "sha256": "0755fe64c47856f95be99dec1baaade1913fa5aeb4946ad984e1797169dafe40"
+    },
+    {
+      "file": "update_player_stats.py",
+      "bytes": 13864,
+      "sha256": "9c5f881a7aad64030bd96e423dcdefa2cf361a1dc76bf156b40c4ea4c6b4b223"
+    }
+  ]
+}
