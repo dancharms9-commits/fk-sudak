@@ -1,5 +1,5 @@
-// Typography v15; retain shell/data policy and make all three UI weights offline.
-const CACHE="sudak-typography-v15";
+// CFU v16: dynamic atomic snapshots live in validated application storage.
+const CACHE="sudak-cfu-v16";
 const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];
 const PLAYER_PHOTOS=["./assets/players/vladimir-semenov.webp","./assets/players/andrey-gaydash.webp","./assets/players/anton-monakhov.webp","./assets/players/evgeniy-bredun.webp"];
 
@@ -30,6 +30,7 @@ self.addEventListener("fetch",event=>{
   // data.json всегда читается из сети; при её отсутствии приложение
   // явно сообщает о недоступности свежих данных.
   if(url.pathname.endsWith("/data.json"))return;
+  if(["/cfu-sync-2026.json","/cfu-premier-2026.json","/cfu-premier-match-details-2026.json"].some(path=>url.pathname.endsWith(path)))return;
   event.respondWith((async()=>{
     // Versioned crest and local portraits are precached. Return them immediately
     // so a weak connection cannot delay artwork or request external photo hosts.

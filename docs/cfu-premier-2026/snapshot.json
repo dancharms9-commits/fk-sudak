@@ -1382,8 +1382,8 @@
       "venue": "Стадион \"Крымтеплица\", Аграрное, г. Симферополь",
       "homeScore": 1,
       "awayScore": 0,
-      "status": null,
-      "statusLabel": null
+      "status": "finished",
+      "statusLabel": "Матч завершен"
     },
     "cfu:match:18768": {
       "matchId": "cfu:match:18768",
@@ -1398,10 +1398,10 @@
       "time": "14:00",
       "timeZone": null,
       "venue": "УТЦ \"Авангард\", Ялта",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": null,
-      "statusLabel": null
+      "status": "finished",
+      "statusLabel": "Матч завершен"
     },
     "cfu:match:18767": {
       "matchId": "cfu:match:18767",
@@ -1416,10 +1416,10 @@
       "time": "15:00",
       "timeZone": null,
       "venue": "ЦСПСК РК, Симферополь",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": null,
-      "statusLabel": null
+      "status": "finished",
+      "statusLabel": "Матч завершен"
     },
     "cfu:match:18769": {
       "matchId": "cfu:match:18769",
@@ -1585,43 +1585,43 @@
     }
   },
   "standings": {
-    "asOfRound": 24,
+    "asOfRound": 25,
     "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/table/?season=2026",
     "rows": [
       {
         "rank": 1,
         "teamId": "cfu:team:tavriya",
-        "played": 20,
-        "wins": 15,
+        "played": 21,
+        "wins": 16,
         "draws": 1,
         "losses": 4,
-        "goalsFor": 59,
+        "goalsFor": 61,
         "goalsAgainst": 18,
-        "goalDifference": 41,
-        "points": 46
+        "goalDifference": 43,
+        "points": 49
       },
       {
         "rank": 2,
         "teamId": "cfu:team:gfc-yalta",
-        "played": 21,
-        "wins": 14,
+        "played": 22,
+        "wins": 15,
         "draws": 4,
         "losses": 3,
-        "goalsFor": 62,
-        "goalsAgainst": 32,
-        "goalDifference": 30,
-        "points": 46
+        "goalsFor": 64,
+        "goalsAgainst": 33,
+        "goalDifference": 31,
+        "points": 49
       },
       {
         "rank": 3,
         "teamId": "cfu:team:zarechnoe",
-        "played": 21,
+        "played": 22,
         "wins": 12,
         "draws": 3,
-        "losses": 6,
+        "losses": 7,
         "goalsFor": 59,
-        "goalsAgainst": 25,
-        "goalDifference": 34,
+        "goalsAgainst": 27,
+        "goalDifference": 32,
         "points": 39
       },
       {
@@ -1639,37 +1639,37 @@
       {
         "rank": 5,
         "teamId": "cfu:team:fc-okean",
-        "played": 20,
+        "played": 21,
         "wins": 5,
         "draws": 2,
-        "losses": 13,
-        "goalsFor": 25,
-        "goalsAgainst": 45,
-        "goalDifference": -20,
+        "losses": 14,
+        "goalsFor": 26,
+        "goalsAgainst": 47,
+        "goalDifference": -21,
         "points": 17
       },
       {
         "rank": 6,
         "teamId": "cfu:team:fc-sparta-kt",
-        "played": 20,
-        "wins": 3,
+        "played": 21,
+        "wins": 4,
         "draws": 2,
         "losses": 15,
-        "goalsFor": 23,
+        "goalsFor": 24,
         "goalsAgainst": 85,
-        "goalDifference": -62,
-        "points": 11
+        "goalDifference": -61,
+        "points": 14
       },
       {
         "rank": 7,
         "teamId": "cfu:team:fc-feodosiya",
-        "played": 21,
+        "played": 22,
         "wins": 2,
         "draws": 2,
-        "losses": 17,
+        "losses": 18,
         "goalsFor": 21,
-        "goalsAgainst": 73,
-        "goalDifference": -52,
+        "goalsAgainst": 74,
+        "goalDifference": -53,
         "points": 8
       }
     ]
@@ -1680,37 +1680,40 @@
     "competitionUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/",
     "robotsUrl": "https://www.cfu2015.com/robots.txt",
     "crawlDelaySeconds": 40,
-    "retrieval": "saved_raw_html_via_public_read_only_reader",
-    "retrievedAt": "2026-11-11T12:32:32.986064+00:00",
+    "retrieval": "direct_http",
+    "retrievedAt": "2026-11-11T20:17:24.572569+00:00",
     "sections": {
       "teams": {
         "url": "https://www.cfu2015.com/matches/premier-leagueCFU/teams/?season=2026",
-        "checkedAt": "2026-11-11T12:29:52.283181+00:00",
+        "checkedAt": "2026-11-11T20:17:24.572569+00:00",
         "status": "current",
         "coverage": "complete",
         "httpStatus": 200,
         "records": 7,
-        "reason": "official_team_registry_parsed"
+        "reason": "official_team_registry_parsed",
+        "sourceSha256": "a424cfd762ddb9762a19a497b98715ff7338db178cf4b9633c680422d7ab201c"
       },
       "table": {
         "url": "https://www.cfu2015.com/matches/premier-leagueCFU/table/?season=2026",
-        "checkedAt": "2026-11-11T12:32:32.986064+00:00",
+        "checkedAt": "2026-11-11T20:16:03.956569+00:00",
         "status": "current",
         "coverage": "complete",
         "httpStatus": 200,
         "records": 7,
-        "reason": "official_full_standings_parsed"
+        "reason": "official_full_standings_parsed",
+        "sourceSha256": "9074c0299e178625cb7dc5d73b257698f3df4f273538a00c9578e2c68bcc32a7"
       },
       "calendar": {
         "url": "https://www.cfu2015.com/matches/premier-leagueCFU/calendar/?season=2026",
-        "checkedAt": "2026-11-11T12:29:58.975355+00:00",
+        "checkedAt": "2026-11-11T20:15:43.772569+00:00",
         "status": "current",
         "coverage": "complete",
         "httpStatus": 200,
         "records": 84,
         "circles": 4,
         "rounds": 28,
-        "reason": "official_calendar_parsed"
+        "reason": "official_calendar_parsed",
+        "sourceSha256": "78ff74da30b30ed184660f36c0abc54ff87265c34225cbae1f5237f9570fee82"
       }
     }
   },

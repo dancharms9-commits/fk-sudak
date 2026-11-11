@@ -201,6 +201,7 @@ jobs:
           stage_site(ROOT, ROOT / "_site", decode_json((ROOT / "data.json").read_bytes()))
           PYTHON
       - run: node tests/pages-pwa.browser.cjs
+      - run: node tests/cfu-auto-refresh.browser.cjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

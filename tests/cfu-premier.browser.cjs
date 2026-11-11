@@ -48,7 +48,7 @@ const server=http.createServer((req,res)=>{
   await openCfu();
   assert.equal(await page.locator('[data-competition="cfu"]').getAttribute('aria-pressed'),'true');
   assert.equal(await page.locator('[data-cfu-standing]').count(),7);
-  assert((await page.locator('#cfu-panel').innerText()).includes('Официальная таблица после 24-го тура'));
+  assert((await page.locator('#cfu-panel').innerText()).includes('Официальная таблица после 25-го тура'));
   await noOverflow();
   await page.screenshot({path:path.join(shots,'cfu-table-390.png'),fullPage:true});
 

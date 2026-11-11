@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 * * * *"
   workflow_dispatch:
+    inputs:
+      force_cfu:
+        description: "Однократно проверить КФС вне окон игрового дня"
+        type: boolean
+        default: false
   push:
     branches: [main]
 
@@ -66,6 +71,7 @@ jobs:
           PAGES_URL: ${{ steps.pages.outputs.base_url }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          CFU_FORCE: ${{ inputs.force_cfu || false }}
       - uses: actions/upload-pages-artifact@v3
         if: steps.source.outputs.enabled == 'true'
         with:
@@ -78,6 +84,7 @@ jobs:
           name: football-state-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             _site/data.json
+            _site/cfu-sync-2026.json
             _state/player_stats_cache_2026.json
           retention-days: 90
           if-no-files-found: error

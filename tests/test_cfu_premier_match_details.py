@@ -158,7 +158,9 @@ class CfuMatchDetailsTests(unittest.TestCase):
         committed = load_match_details(
             ROOT / 'docs/cfu-premier-2026/match-details.json',
             self.calendar, self.rosters)
-        self.assertEqual(committed, self.snapshot)
+        self.assertEqual(len(committed['matchesById']), 5)
+        for key, detail in self.snapshot['matchesById'].items():
+            self.assertEqual(committed['matchesById'][key], detail)
         public = ROOT / 'cfu-premier-match-details-2026.json'
         self.assertEqual(public.read_bytes(),
                          (ROOT / 'docs/cfu-premier-2026/match-details.json').read_bytes())

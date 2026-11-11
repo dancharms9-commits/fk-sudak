@@ -65,7 +65,7 @@ sw_path=root/'sw.js'
 sw=sw_path.read_text(encoding='utf-8')
 for previous in ['sudak-v2','sudak-ui-v3','sudak-crest-v4','sudak-launch-v5','sudak-launch-v6']:
     sw=sw.replace(f'const CACHE="{previous}";','const CACHE="sudak-launch-v7";',1)
-if not any(f'const CACHE="{version}";' in sw for version in ['sudak-launch-v7','sudak-home-v8','sudak-match-v9','sudak-tabs-v10','sudak-route-v11','sudak-player-photos-v12','sudak-championship-v13','sudak-matches-v14','sudak-typography-v15']):
+if not any(f'const CACHE="{version}";' in sw for version in ['sudak-launch-v7','sudak-home-v8','sudak-match-v9','sudak-tabs-v10','sudak-route-v11','sudak-player-photos-v12','sudak-championship-v13','sudak-matches-v14','sudak-typography-v15','sudak-cfu-v16']):
     raise SystemExit('ERROR: unknown service-worker version. No files changed.')
 new='const SHELL=["./","./index.html","./manifest.json","./assets/club-crest-final-original.png","./icon-192.png?v=final-crest-v7","./icon-512.png?v=final-crest-v7","./icon-maskable-512.png?v=final-crest-v7","./favicon.png?v=final-crest-v7","./apple-touch-icon.png?v=final-crest-v7"];'
 for previous in [
