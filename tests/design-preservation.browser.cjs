@@ -46,7 +46,12 @@ async function stableScreenshot(p){
   const comparator=await browser.newPage();
   const old=data.res.map(r=>({name:'legacy-'+data.match_details[[2026,r[0],r[1],r[5]].join('|')].id,hash:'#match='+encodeURIComponent([2026,r[0],r[1],r[5]].join('|'))+'&from=matches'}));
   const screens=[{name:'home',hash:'#home'},{name:'sudak-player',hash:'#player=rffk-202&from=home'},{name:'calendar',hash:'#table',calendar:true},{name:'universal-center',hash:'#match=rffk-38771&from=table'},{name:'scheduled-center',hash:'#match=4%3A2026%3A20%3A117%3A141&from=table'},...old];
-  for(const width of [320,390,768,1440])for(const theme of ['light','dark']){
+  // Optional local narrowing; the default run keeps the complete matrix.
+  const widths=process.env.DESIGN_PRESERVATION_WIDTH?[Number(process.env.DESIGN_PRESERVATION_WIDTH)]:[320,390,768,1440];
+  const themes=process.env.DESIGN_PRESERVATION_THEME?[process.env.DESIGN_PRESERVATION_THEME]:['light','dark'];
+  if(widths.some(w=>![320,390,768,1440].includes(w)))throw Error('Unsupported design-preservation width');
+  if(themes.some(t=>!['light','dark'].includes(t)))throw Error('Unsupported design-preservation theme');
+  for(const width of widths)for(const theme of themes){
    const snapshots=[];
    const c=await browser.newContext({serviceWorkers:'block',reducedMotion:'reduce',viewport:{width,height:844},deviceScaleFactor:1});
    await c.addInitScript(theme=>{localStorage.setItem('sudak-theme',theme);Date.now=()=>Date.parse('2026-11-10T12:00:00Z')},theme);
@@ -71,15 +76,20 @@ async function stableScreenshot(p){
       lists[0].replaceChildren();
      },mode==='before'?baselineContainerType:'inline-size');
      // The only approved addition to the RFK calendar shell is the new
-     // competition switch. Assert it in the candidate, then remove exactly
-     // that container so every original element keeps its old geometry.
-     if(screen.calendar&&mode==='after'){
-      const removed=await p.evaluate(()=>{
-       const switches=document.querySelectorAll('#table > [data-competition-switch="true"]');
-       if(switches.length!==1)return false;
-       switches[0].remove();return true;
-      });
-      if(!removed)throw Error('Competition switch container missing or duplicated');
+     // competition switch. The comparison base may already contain it when
+     // the PR base includes the CFU selector, so remove exactly that direct
+     // child from both documents. The candidate must publish it.
+     if(screen.calendar){
+      const normalized=await p.evaluate(mode=>{
+       const switches=[...document.querySelectorAll('#table > [data-competition-switch="true"]')];
+       if(switches.length>1)return {ok:false,reason:'duplicated'};
+       if(mode==='after'&&switches.length!==1)return {ok:false,reason:'missing'};
+       for(const element of switches)element.remove();
+       return {ok:true,removed:switches.length};
+      },mode);
+      if(!normalized.ok)throw Error('Competition switch container missing or duplicated: '+normalized.reason);
+      const absent=await p.evaluate(()=>!document.querySelector('#table > [data-competition-switch="true"]'));
+      if(!absent)throw Error('Competition switch remained after normalization');
      }
      await p.mouse.move(0,0);frames[screen.name]={layout:await p.evaluate(layout),png:await stableScreenshot(p),edges:await p.locator('#nav button.on').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,radius:parseFloat(getComputedStyle(e).borderRadius)}}))};
      if(shots&&['home','calendar','universal-center','scheduled-center','sudak-player',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
