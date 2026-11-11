@@ -57,6 +57,17 @@ async function stableScreenshot(p){
      await p.evaluate(hash=>{history.replaceState({},'',hash);applyRoute();document.activeElement?.blur();scrollTo(0,0)},screen.hash);
      if(screen.calendar)await p.evaluate(()=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round='18';CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()});
      await p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.querySelectorAll('header img,main>section.on img')].filter(i=>{const r=i.getBoundingClientRect();return r.width&&r.top<innerHeight}).map(i=>i.decode().catch(()=>{})));await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});
+     // Compare the real calendar shell against the original main. Remove only
+     // row children from both documents, retaining the list itself, borders,
+     // header, filters and footer. The separate match-row contract checks the
+     // complete, unmodified rows against a frozen reference and source data.
+     if(screen.calendar)await p.evaluate(mode=>{
+      const lists=document.querySelectorAll('#table .champ-match-list');
+      if(lists.length!==1||!lists[0].querySelector('.champ-match'))throw Error('Calendar list missing');
+      const type=getComputedStyle(lists[0]).containerType;
+      if(type!==(mode==='before'?'normal':'inline-size'))throw Error('Unexpected calendar container type: '+type);
+      lists[0].replaceChildren();
+     },mode);
      await p.mouse.move(0,0);frames[screen.name]={layout:await p.evaluate(layout),png:await stableScreenshot(p),edges:await p.locator('#nav button.on').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,radius:parseFloat(getComputedStyle(e).borderRadius)}}))};
      if(shots&&['home','calendar','universal-center','scheduled-center','sudak-player',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
     }

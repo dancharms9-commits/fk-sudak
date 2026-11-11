@@ -26,6 +26,28 @@ on:
       - ".github/workflows/**"
 permissions: {contents: read}
 jobs:
+  match-row-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-save --package-lock=false playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/match-row-final.browser.cjs
+        env:
+          MATCH_ROW_DIR: match-row-screenshots
+      - run: node tests/match-row-contract.browser.cjs
+        env:
+          MATCH_ROW_CONTRACT_DIR: match-row-contract
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: match-row-contract
+          path: |
+            match-row-screenshots/
+            match-row-contract/
   typography:
     runs-on: ubuntu-latest
     timeout-minutes: 15
