@@ -153,8 +153,9 @@ const inspectClub=()=>{
      // Actual failed local crest requests must expose the existing initials.
      await p.route('**/assets/clubs/*.png',r=>r.abort());await p.goto(base+'?audit-crest-failure=1#table');await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.locator('#launch-splash').waitFor({state:'detached'});
      await p.evaluate(()=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round='18';renderChampionship()});await p.waitForFunction(()=>!document.querySelector('#table .champ-team img[src^="assets/clubs/"]'));
-     const fallback=await p.locator('#table .champ-team .champ-badge').evaluateAll(es=>es.filter(e=>!e.querySelector('img')).map(e=>({text:e.querySelector('span')?.textContent,visibility:getComputedStyle(e.querySelector('span')).visibility})));
-     assert(fallback.length>0,'no failed-crest fallback');assert(fallback.every(x=>x.text&&x.visibility!=='hidden'),'initials remain visible');
+     await settle(p);
+     const fallback=await p.locator('#table .champ-team .champ-badge').evaluateAll(es=>es.filter(e=>!e.querySelector('img')).map(e=>({text:e.querySelector('span')?.textContent,visibility:getComputedStyle(e.querySelector('span')).visibility,html:e.outerHTML})));
+     assert(fallback.length>0,'no failed-crest fallback');assert(fallback.every(x=>x.text&&x.visibility!=='hidden'),`initials remain visible: ${JSON.stringify(fallback)}`);
      await clean.close();
     }
     await p.close();
