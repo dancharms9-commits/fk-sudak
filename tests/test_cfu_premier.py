@@ -255,6 +255,29 @@ class CfuPremierTests(unittest.TestCase):
         self.assertEqual(committed['standings'], self.snapshot['standings'])
         self.assertEqual(committed['unresolvedRecords'], self.snapshot['unresolvedRecords'])
 
+    def test_published_snapshot_is_staged_byte_identical(self):
+        """The Pages copy is the validated snapshot and stage_site() publishes it."""
+        from scripts import build_pages
+
+        published = ROOT / 'cfu-premier-2026.json'
+        committed = ROOT / 'docs/cfu-premier-2026/snapshot.json'
+        self.assertEqual(published.read_bytes(), committed.read_bytes())
+        validate_snapshot(json.loads(published.read_text(encoding='utf-8')))
+
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'source'
+            output = Path(directory) / 'site'
+            source.mkdir()
+            for name in ('index.html', 'sw.js', 'manifest.json',
+                         'icon-192.png', 'icon-512.png'):
+                (source / name).write_bytes(b'x')
+            (source / 'data.json').write_text('{}', encoding='utf-8')
+            (source / 'cfu-premier-2026.json').write_bytes(published.read_bytes())
+            build_pages.stage_site(source, output, {})
+            staged = output / 'cfu-premier-2026.json'
+            self.assertTrue(staged.is_file())
+            self.assertEqual(staged.read_bytes(), published.read_bytes())
+
     def test_snapshot_contract_and_namespace(self):
         self.assertIs(validate_snapshot(self.snapshot), self.snapshot)
         mutated = copy.deepcopy(self.snapshot)
