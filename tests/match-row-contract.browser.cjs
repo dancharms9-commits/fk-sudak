@@ -4,7 +4,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json')));
 const reference=Buffer.from(fs.readFileSync(path.join(root,'tests/fixtures/match-row-reference.html'),'utf8').replace(/\r\n/g,'\n'));
-assert.equal(crypto.createHash('sha256').update(reference).digest('hex'),'8f2bb6c13be3def0ef9893fe325ad984d062ce522d577562b34a0f78ae2f2bd9','Review any change to the frozen match-row reference');
+assert.equal(crypto.createHash('sha256').update(reference).digest('hex'),'5f9ced796ba48479b30a46e0541cf0055a462d8f5ab296107a43c94ba306322c','Review any change to the frozen match-row reference');
 const out=path.resolve(process.env.MATCH_ROW_CONTRACT_DIR||path.join(root,'_state/match-row-contract'));
 const server=http.createServer((req,res)=>{
  const url=new URL(req.url,'http://localhost');
@@ -34,7 +34,7 @@ const inspect=()=>{
    names:team.map(e=>e.textContent.trim().replace(/^.*?(?=ФК|СК|АФК|УОР|«|Название)/,'')),teamText:team.map(e=>e.innerText.trim()),
    status:st?.textContent.trim(),statusLabel:st?.getAttribute('aria-label'),openLabel:row.querySelector('.champ-open')?.getAttribute('aria-label'),details:row.matches('details')?row.querySelector('.champ-match-info')?.textContent:null,
    badges:team.map(e=>{const b=e.querySelector('.champ-badge'),i=b?.querySelector('img');return {src:i?.getAttribute('src')||null,fit:i?getComputedStyle(i).objectFit:null,bg:i?getComputedStyle(i).backgroundColor:null,initials:b?.querySelector('span')?.textContent||'',initialsVisible:b?getComputedStyle(b.querySelector('span')).visibility:null}}),
-   controls:controls.map(box),row:box(row),dateBox:box(date),teamBoxes:team.map(box),scoreBox:box(score),statusBox:st?box(st):null,debug:[getComputedStyle(row).fontSize,getComputedStyle(row.parentElement).fontSize,getComputedStyle(team[0]).fontSize],
+   controls:controls.map(box),row:box(row),dateBox:box(date),teamBoxes:team.map(box),scoreBox:box(score),scoreFont:parseFloat(getComputedStyle(score).fontSize),statusBox:st?box(st):null,debug:[getComputedStyle(row).fontSize,getComputedStyle(row.parentElement).fontSize,getComputedStyle(team[0]).fontSize],
    broken: texts.flatMap(words),clipped:texts.filter(e=>e.scrollWidth>e.clientWidth+1).map(e=>e.textContent.trim())};
  });
 };
@@ -44,7 +44,7 @@ const inspectClub=()=>{
  return [...document.querySelectorAll('#team.on .club-fixture')].map(row=>{
   const meta=row.querySelector('.club-match-meta'),pair=[...row.querySelectorAll('.club-match-pair .club-link')],score=row.querySelector('.club-score'),status=row.querySelector('.club-short-status,.club-match-status');
   return {id:row.dataset.clubMatch,score:score.textContent.trim().replace('›','').trim(),label:score.getAttribute('aria-label'),dateLabel:meta.firstElementChild?.getAttribute('aria-label'),datetime:meta.querySelector('time')?.getAttribute('datetime')||null,
-   teams:pair.map(e=>({id:e.dataset.team,text:e.innerText,box:box(e),img:e.querySelector('img')?.getAttribute('src')||null})),meta:box(meta),scoreBox:box(score),row:box(row),status:status?.textContent.trim(),statusBox:status?box(status):null,
+   teams:pair.map(e=>({id:e.dataset.team,text:e.innerText,font:parseFloat(getComputedStyle(e).fontSize),box:box(e),img:e.querySelector('img')?.getAttribute('src')||null})),meta:box(meta),metaFont:parseFloat(getComputedStyle(meta).fontSize),scoreBox:box(score),row:box(row),status:status?.textContent.trim(),statusBox:status?box(status):null,
    broken:[...pair,...(status?[status]:[])].flatMap(broken),clipped:[...pair,...(status?[status]:[])].filter(e=>e.scrollWidth>e.clientWidth+1).map(e=>e.textContent.trim())};
  });
 };
@@ -89,6 +89,8 @@ const inspectClub=()=>{
        assert(r.label.includes(full));if(m.status==='finished')assert.equal(r.status,undefined);else assert.equal(r.status,shortStatus[full]||full);
        assert.deepEqual(r.teams.map(t=>t.id),[m.homeTeamId,m.awayTeamId]);for(const t of r.teams){assert(t.text.includes(data.platform.teamsById[t.id].name));assert(t.box.width>=43.99&&t.box.height>=43.99);assert.equal(t.img,t.id==='141'?'icon-192.png?v=final-crest-v7':`assets/clubs/${t.id}.png`)}
        assert(r.scoreBox.width>=43.99&&r.scoreBox.height>=43.99);assert.equal(r.broken.length,0,`club word split ${r.id}: ${JSON.stringify(r.broken)}`);assert.deepEqual(r.clipped,[],`club clipped ${r.id}`);
+       assert(r.metaFont>=13*factor,'club date readability');assert(r.teams.every(t=>t.font>=15*factor),'club name readability');
+       assert(Math.abs((r.scoreBox.top+r.scoreBox.bottom)/2-(r.teams[0].box.top+r.teams[1].box.bottom)/2)<=1,`club score must stay beside the team pair: ${r.id}`);
        const overlap=(a,b)=>Math.min(a.right,b.right)-Math.max(a.left,b.left)>.5&&Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>.5;
        for(const t of r.teams){assert(!overlap(r.meta,t.box),`club date/team ${r.id}`);assert(!overlap(r.scoreBox,t.box),`club score/team ${r.id}`)}
        assert(r.row.left>=-.5&&r.row.right<=width+.5,`club row overflow ${r.id}`);
@@ -112,8 +114,14 @@ const inspectClub=()=>{
        if(m.date)assert(r.date.includes(m.date.split('-').reverse().slice(0,2).join('.')));else assert(r.date.includes('—'));
        if(m.time)assert(r.date.includes(m.time));else assert(!/\d{1,2}:\d{2}/.test(r.date));
        assert((r.openLabel||r.details||'').includes(label),`full status ${m.id}: ${label}`);
-       assert.equal(r.status,shortStatus[label]||label,`visible status ${m.id}`);
-       if(Object.hasOwn(shortStatus,label))assert.equal(r.statusLabel,label,`status label ${m.id}`);
+       const ordinaryResult=m.status==='finished'&&['Матч завершён','Завершён','Матч завершен','Завершен'].includes(label);
+       if(ordinaryResult){assert.equal(r.status,undefined,`redundant finished label ${m.id}`);assert.equal(r.statusBox,null)}
+       else {assert.equal(r.status,shortStatus[label]||label,`visible status ${m.id}`);if(Object.hasOwn(shortStatus,label))assert.equal(r.statusLabel,label,`status label ${m.id}`)}
+       if(ordinaryResult||(width<=390&&factor===1.5)){
+        const teamsCenter=(r.teamBoxes[0].top+r.teamBoxes[1].bottom)/2;
+        assert(Math.abs((r.scoreBox.top+r.scoreBox.bottom)/2-teamsCenter)<=1,`score must stay beside the team pair: ${m.id}`);
+       }
+       if(width===320&&factor===1.5)assert.equal(r.scoreFont,30,'approved score size at 320px / 150%');
        for(const [j,id] of [m.home_id,m.away_id].entries())assert(r.teamText[j].includes(teams[id]||'Название не опубликовано'),`team ${m.id}`);
        for(const [j,b] of r.badges.entries()){
         const id=[m.home_id,m.away_id][j],team=data.platform.teamsById[id];

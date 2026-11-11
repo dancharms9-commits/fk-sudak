@@ -4,6 +4,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const {execFileSync}=require('node:child_process');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json')));
 const baseline=require('./typography-baseline.cjs')(process.env.MULTI_CLUB_BASELINE_HTML?fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML):execFileSync('git',['show','main:index.html'],{cwd:root}));
+// On main after merge, the source baseline already contains the row container.
+const baselineContainerType=/#table \.champ-match-list\{[^}]*container-type:inline-size/.test(baseline)?'inline-size':'normal';
 const shots=process.env.DESIGN_PRESERVATION_DIR;
 const server=http.createServer((req,res)=>{
  const url=new URL(req.url,'http://localhost');
@@ -61,13 +63,13 @@ async function stableScreenshot(p){
      // row children from both documents, retaining the list itself, borders,
      // header, filters and footer. The separate match-row contract checks the
      // complete, unmodified rows against a frozen reference and source data.
-     if(screen.calendar)await p.evaluate(mode=>{
+     if(screen.calendar)await p.evaluate(expectedType=>{
       const lists=document.querySelectorAll('#table .champ-match-list');
       if(lists.length!==1||!lists[0].querySelector('.champ-match'))throw Error('Calendar list missing');
       const type=getComputedStyle(lists[0]).containerType;
-      if(type!==(mode==='before'?'normal':'inline-size'))throw Error('Unexpected calendar container type: '+type);
+      if(type!==expectedType)throw Error('Unexpected calendar container type: '+type);
       lists[0].replaceChildren();
-     },mode);
+     },mode==='before'?baselineContainerType:'inline-size');
      await p.mouse.move(0,0);frames[screen.name]={layout:await p.evaluate(layout),png:await stableScreenshot(p),edges:await p.locator('#nav button.on').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,radius:parseFloat(getComputedStyle(e).borderRadius)}}))};
      if(shots&&['home','calendar','universal-center','scheduled-center','sudak-player',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
     }
