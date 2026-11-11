@@ -70,6 +70,17 @@ async function stableScreenshot(p){
       if(type!==expectedType)throw Error('Unexpected calendar container type: '+type);
       lists[0].replaceChildren();
      },mode==='before'?baselineContainerType:'inline-size');
+     // The only approved addition to the RFK calendar shell is the new
+     // competition switch. Assert it in the candidate, then remove exactly
+     // that container so every original element keeps its old geometry.
+     if(screen.calendar&&mode==='after'){
+      const removed=await p.evaluate(()=>{
+       const switches=document.querySelectorAll('#table > [data-competition-switch="true"]');
+       if(switches.length!==1)return false;
+       switches[0].remove();return true;
+      });
+      if(!removed)throw Error('Competition switch container missing or duplicated');
+     }
      await p.mouse.move(0,0);frames[screen.name]={layout:await p.evaluate(layout),png:await stableScreenshot(p),edges:await p.locator('#nav button.on').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,radius:parseFloat(getComputedStyle(e).borderRadius)}}))};
      if(shots&&['home','calendar','universal-center','scheduled-center','sudak-player',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
     }
