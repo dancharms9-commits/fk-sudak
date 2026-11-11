@@ -1,0 +1,2088 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#001329">
+<script data-theme-policy>
+// Resolve the existing data-theme attribute before any application styles paint.
+(()=>{
+  let theme='dark';
+  try{const saved=localStorage.getItem('sudak-theme');if(saved==='light'||saved==='dark')theme=saved}catch{}
+  document.documentElement.dataset.theme=theme;
+})();
+</script>
+<style id="launch-canvas">html{background:#001329}</style>
+<script data-launch-policy>
+// A new document navigation is the observable launch boundary, not a storage TTL.
+// Restored PWA tasks may be reported as reload/back_forward: prefer no replay.
+(()=>{
+  const navigation=performance.getEntriesByType?.('navigation')[0];
+  const type=navigation?.type??({0:'navigate',1:'reload',2:'back_forward'})[performance.navigation?.type];
+  document.documentElement.dataset.launch=type==='navigate'?'show':'skip';
+  if(type!=='navigate')document.getElementById('launch-canvas').remove();
+})();
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=final-crest-v7">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=final-crest-v7">
+<link rel="preload" as="image" href="assets/club-crest-final-original.png" fetchpriority="high">
+<title>ФК «Судак»</title>
+<style>
+/* Shared theme tokens are embedded from modern-home.css below. */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:84px}
+header{background:var(--navy);color:var(--onnavy);padding:calc(18px + env(safe-area-inset-top,0px)) 18px 16px;display:flex;gap:14px;align-items:center}
+.crest{width:52px;height:52px;border-radius:50%;background:var(--sea);display:grid;place-items:center;font-weight:800;font-size:26px;border:3px solid var(--sun);flex:none}
+header h1{margin:0;font-size:22px;letter-spacing:.2px}header p{margin:2px 0 0;font-size:13px;opacity:.75}
+main{padding:14px;max-width:640px;margin:0 auto}
+section{display:none}section.on{display:block}
+/* The outgoing section leaves normal flow; the new section owns page height.
+   Keep the original DOM/state and clip the fading layer above the fixed nav. */
+main>section.tab-leaving{display:block;position:fixed;z-index:1;pointer-events:none;
+  left:var(--tab-left);top:var(--tab-top);width:var(--tab-width);
+  clip-path:inset(var(--tab-clip-top) 0 var(--tab-clip-bottom));}
+@media(prefers-reduced-motion:reduce){main>section.tab-leaving{display:none}}
+h2{font-size:15px;margin:22px 2px 8px;color:var(--mute);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.next{background:var(--navy);color:var(--onnavy);border:0}
+.next .vs{font-size:24px;font-weight:800;margin:6px 0 2px;overflow-wrap:anywhere}
+.next small{opacity:.82;display:block;margin-top:3px}
+.tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:99px;background:var(--sun);color:#3a2800;font-weight:600}
+.board{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 10px}
+.num{font-variant-numeric:tabular-nums;font-size:44px;font-weight:800;line-height:1;background:var(--navy);color:#fff;border-radius:12px;padding:10px 12px;min-width:58px;text-align:center}.num.us{background:var(--sea)}
+.tm{flex:1;text-align:center;font-size:13px;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.form{display:flex;gap:6px}.dot{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}.W{background:var(--win)}.D{background:var(--mute)}.L{background:var(--loss)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}.row .l{min-width:0;flex:1}.row b{font-weight:600}.row small{display:block;color:var(--mute);font-size:13px;margin-top:3px}.sc{font-variant-numeric:tabular-nums;font-weight:800;font-size:18px;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}th{color:var(--mute);font-weight:500;text-align:right;padding:6px 4px}td{padding:9px 4px;text-align:right;border-top:1px solid var(--line)}th:nth-child(2),td:nth-child(2){text-align:left;width:100%;overflow-wrap:anywhere}tr.me td{background:color-mix(in srgb,var(--sun) 22%,transparent);font-weight:700}
+.g{display:grid;grid-template-columns:1fr auto;gap:0 12px}.pl{display:contents}.pl span{padding:9px 0;border-top:1px solid var(--line)}.pl span:last-child{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+.news a{display:block;color:inherit;text-decoration:none;padding:11px 0;border-bottom:1px solid var(--line)}.news a:last-child{border:0}.news a:focus-visible{outline:2px solid var(--sea);outline-offset:2px}.news small{display:block;color:var(--mute);margin-top:4px}.news .source{font-size:12px;color:var(--sea)}
+/* Раздел статистики: отдельные карточки, видимые значения и фильтры. */
+.stats-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;margin:10px 2px}
+.stats-head strong{font-size:17px}.stats-source{font-size:12px;color:var(--sea);text-decoration:underline;text-underline-offset:3px}
+.stats-filters{display:flex;gap:7px;overflow-x:auto;padding:4px 1px 10px;scrollbar-width:thin}
+.stats-filters button{font:inherit;font-size:13px;white-space:nowrap;padding:8px 11px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;cursor:pointer}
+.stats-filters button[aria-pressed="true"]{background:var(--sun);color:var(--navy);border-color:var(--sun);font-weight:700}
+.stats-filters button:focus-visible,.player-link:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.stats-list{display:grid;gap:9px}.stats-player{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.stats-name{font-size:15px;font-weight:700}.stats-role{font-size:12px;color:var(--mute);margin-top:2px}
+.stats-values{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.stats-value{min-width:74px;flex:1;border-radius:9px;background:var(--bg);padding:7px 10px}
+.stats-value b{display:block;font-size:19px;font-variant-numeric:tabular-nums}.stats-value small{color:var(--mute);font-size:11px}
+.stats-minor{font-size:12px;color:var(--mute);margin:9px 0 0}
+.stats-top{font-size:13px;line-height:1.7;margin:6px 0 0;padding-left:22px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-radius:10px;min-width:0}nav button i{font-style:normal;font-size:20px}nav button.on{color:var(--sea);font-weight:700}nav button:focus-visible{outline:2px solid var(--sea)}
+.note{font-size:12.5px;color:var(--mute);text-align:center;margin:18px 8px 0}.empty{color:var(--mute);font-size:14px}.hint{color:var(--mute);font-size:12px;line-height:1.45;margin:10px 2px}.venue{color:var(--mute)}
+/* Match links retain the existing cards, colours and mobile spacing. */
+a.match-link{display:block;color:inherit;text-decoration:none;cursor:pointer}
+a.match-link:focus-visible,.match-back:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+a.match-link:hover{background:var(--bg)}
+.match-cue{display:block;color:var(--sea);font-size:12px;text-align:center;margin-top:9px}
+.match-back{font:inherit;background:var(--card);color:var(--sea);border:1px solid var(--line);border-radius:10px;min-height:44px;padding:9px 14px;cursor:pointer}
+.match-meta{text-align:center;color:var(--mute);font-size:14px;line-height:1.7;margin:0}
+#match .tm small{display:block;font-size:11px;font-weight:400;color:var(--mute);margin-top:4px}
+.goal-timeline{list-style:none;padding:0;margin:0}
+.goal-timeline li{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.goal-timeline li:last-child{border:0}
+.goal-minute{color:var(--sea);font-weight:700;min-width:46px;font-variant-numeric:tabular-nums}
+.goal-player{flex:1;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.goal-player small{display:block;color:var(--mute);font-size:12px;margin-top:3px}
+@media(max-width:360px){#match .board{gap:6px}#match .num{font-size:36px;min-width:44px;padding:9px 8px}}
+a.player-link{display:block;color:inherit;text-decoration:none;cursor:pointer}
+a.player-link:hover{border-color:var(--sea)}
+.player-hero{display:flex;align-items:center;gap:16px;margin-top:16px}
+.player-hero>div:last-child{min-width:0}.player-hero h2{color:var(--ink);font-size:22px;line-height:1.2;margin:0;overflow-wrap:anywhere}
+.player-hero .stats-role{margin:7px 0 10px;font-size:14px}
+.player-avatar{position:relative;display:grid;place-items:center;width:88px;height:104px;flex:none;border-radius:16px;overflow:hidden;background:linear-gradient(145deg,var(--navy),#145B80);border:2px solid var(--sun);color:#fff;font-size:28px;font-weight:800}
+.player-avatar img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0}
+.profile-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.profile-values .stats-value{min-width:0;margin:0;padding:10px 8px}
+.player-goals a.player-goal{display:flex}
+@media(max-width:360px){.player-avatar{width:70px;height:88px}.player-hero{gap:12px}.player-hero h2{font-size:20px}}
+
+/* Modern Football Home 2026 — shared source, embedded for the offline shell. */
+:root{
+  color-scheme:dark;
+  --bg:#001329;--card:#102139;--raised:#193452;--ink:#FAF9F6;--mute:#B9C5D5;
+  --line:#304B69;--sea:#FFD02A;--navy:#001329;--sun:#FFCB05;--onnavy:#FAF9F6;
+  --win:#63D49B;--loss:#FF929B;--win-fill:#18724D;--loss-fill:#A23243;
+  --shadow:0 5px 18px #0000001A;
+  --nav-top:#0A2C50;--nav-bottom:#001329;--nav-ink:#DCE7F4;
+  --nav-active:#FFD76A;--nav-gold:#F6CC64;--nav-selected:#124579;--nav-light:#71C9FF30;
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#EFF5FB;--card:#E0ECF8;--raised:#CEDFF0;--ink:#112D49;--mute:#465E76;
+  --line:#ACC4DC;--sea:#765400;--win:#176D43;--loss:#A5293F;
+  --shadow:0 5px 18px #173A5B0C;
+  --nav-top:#D2E5F8;--nav-bottom:#ECF4FC;--nav-ink:#294660;
+  --nav-active:#18344F;--nav-gold:#8D6200;--nav-selected:#FBE4A0;--nav-light:#FFFFFFBB;
+}
+html:not(:has(#launch-canvas)){background:var(--bg)}
+html{scroll-behavior:auto}
+body{background:var(--bg);-webkit-tap-highlight-color:transparent;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+header{position:relative;display:flex;align-items:center;gap:12px;min-height:80px;padding:calc(12px + env(safe-area-inset-top,0px)) 104px 14px 16px;background:var(--card);color:var(--ink);border-bottom:2px solid var(--sun)}
+header .crest{width:54px;height:54px;flex:0 0 54px;border:1px solid #FFFFFF30;border-radius:12px;overflow:hidden;background:#001329}
+header .crest img{width:100%;height:100%;object-fit:contain;display:block}
+header .brand{min-width:0}
+header h1{font-size:clamp(18px,5.4vw,23px);line-height:1.15;letter-spacing:.1px}
+header p{font-size:12px;opacity:.85;margin-top:5px;overflow-wrap:anywhere}
+main{width:100%;max-width:720px;padding:17px 14px 24px}
+h2{margin:22px 3px 10px;color:var(--ink);font-size:16px;font-weight:750}
+.card{border-radius:14px;border-color:var(--line);box-shadow:var(--shadow)}
+#home .home-intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:3px 2px 16px}
+#home .home-kicker{font-size:12px;color:var(--mute);font-weight:600;letter-spacing:.5px}
+#home .home-intro h2{margin:0;font-size:22px;line-height:1.2;letter-spacing:-.5px}
+#home .home-next,#match .home-next{display:block;background:var(--card);color:var(--ink);padding:20px;border:1px solid var(--line);border-radius:16px;text-decoration:none}
+.home-match-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.home-match-top .tag{background:var(--sun);color:var(--navy);padding:4px 10px;font-size:12px;font-weight:750}
+.home-season{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.home-competition{margin:14px 0 0;font-size:12px;color:var(--mute);line-height:1.5}
+.home-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:14px;margin:22px 0;font-size:clamp(18px,4.8vw,26px);font-weight:750;line-height:1.25}
+.home-teams>span{overflow-wrap:anywhere;min-width:0}
+.home-teams>span:last-child{text-align:right}
+.home-score{font-size:clamp(22px,6vw,34px);white-space:nowrap;color:var(--sea);font-variant-numeric:tabular-nums}
+.home-match-meta{display:grid;gap:5px;font-size:13px;line-height:1.5;color:var(--mute)}
+.home-match-meta b{font-size:15px;color:var(--ink);font-weight:650}
+.home-detail{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:13px;margin-top:17px;font-size:14px;font-weight:650;color:var(--sea)}
+#home .home-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 18px;align-items:start}
+#home .home-block{min-width:0;display:block}
+#home .home-block h2{margin:20px 0 10px;font-size:16px}
+.home-block-head{display:flex;align-items:baseline;flex-wrap:wrap;justify-content:space-between;gap:0 12px}
+.home-block-head>a{font-size:13px;color:var(--sea);text-decoration:none;padding:10px 0;min-height:44px}
+#home .home-result{padding:16px;display:block}
+.home-result-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.home-result-top small{font-size:13px;color:var(--mute)}
+.home-outcome{font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px}
+.home-outcome.W{color:var(--win);background:color-mix(in srgb,var(--win) 10%,transparent)}
+.home-outcome.D{color:var(--mute);background:var(--bg)}
+.home-outcome.L{color:var(--loss);background:color-mix(in srgb,var(--loss) 10%,transparent)}
+.home-result-score{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:13px;font-size:15px;font-weight:650}
+.home-result-score>span{min-width:0;overflow-wrap:anywhere}
+.home-result-score b{font-size:30px;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.home-opponent{font-weight:400;color:var(--mute)}
+#home .match-cue{font-size:13px;text-align:left;margin-top:14px}
+.home-standing-top{display:flex;gap:18px;align-items:center;padding:2px 0 16px;border-bottom:1px solid var(--line)}
+.home-standing-top>b{display:flex;align-items:baseline;gap:7px;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+.home-standing-top small{font-size:13px;font-weight:500;color:var(--mute)}
+.home-standing-top>span{font-size:12px;line-height:1.5;color:var(--mute)}
+.home-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:16px 0;gap:8px}
+.home-metrics dt{color:var(--mute);font-size:12px}
+.home-metrics dd{margin:3px 0 0;font-size:24px;font-weight:750;font-variant-numeric:tabular-nums}
+.home-form{border-top:1px solid var(--line);padding-top:12px}
+.home-form>span{display:block;font-size:12px;color:var(--mute);margin-bottom:8px}
+#home .form{gap:7px}
+#home .form .dot{width:30px;height:30px;border-radius:6px;font-size:13px}
+.home-leader{border-bottom:1px solid var(--line);padding:12px 0}
+.home-leader:first-child{padding-top:0}.home-leader:last-of-type{border:0;padding-bottom:0}
+.home-leader-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
+#home h3{font-size:14px;line-height:1.4;margin:0;font-weight:650;overflow-wrap:anywhere}
+.home-leader-heading>b{font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.home-leader-heading small{font-size:12px;color:var(--mute);font-weight:400}
+#home .home-player{display:flex;gap:10px;align-items:center;min-height:52px;padding:6px 0;font-size:14px;border-radius:6px}
+.home-player>span:nth-child(2){flex:1;min-width:0;overflow-wrap:anywhere}
+.home-player>span:last-child{color:var(--mute)}
+.home-avatar{position:relative;width:40px;height:40px;flex:none;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:12px;font-weight:650;color:var(--mute)}
+.home-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#home .home-news .card{padding:0 16px}
+#home .home-news a{padding:15px 0;overflow-wrap:anywhere}
+#home .home-news h3{margin:6px 0 8px;font-size:15px}
+#home .home-news small{margin:0;font-size:12px}
+#home .home-news p{font-size:13px;color:var(--mute);margin:6px 0 10px}
+#home a.card,#home .home-player{transition:background-color 180ms ease,border-color 180ms ease,transform 180ms ease}
+#home a.card:active,#home .home-player:active{transform:scale(.99)}
+#home a:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+#home .home-next:focus-visible{outline-color:var(--sun)}
+/* Variant 3: stadium lights, a restrained pitch glow and the existing five tabs. */
+nav{padding-left:max(6px,env(safe-area-inset-left,0px));padding-right:max(6px,env(safe-area-inset-right,0px))}
+nav{isolation:isolate;background:radial-gradient(ellipse at 2% 0,var(--nav-light),transparent 28%),radial-gradient(ellipse at 98% 0,var(--nav-light),transparent 28%),linear-gradient(var(--nav-top),var(--nav-bottom));box-shadow:0 -4px 20px #00132924;border-color:var(--line)}
+nav:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(0deg,#418D7220,transparent 25%)}
+nav button{min-height:52px;transition:background .18s ease,color .18s ease}
+nav button{position:relative;color:var(--nav-ink);gap:4px;border-radius:12px}
+nav button.on{color:var(--nav-active);background:linear-gradient(180deg,var(--nav-selected),color-mix(in srgb,var(--nav-selected) 50%,transparent));box-shadow:inset 0 1px 0 var(--nav-light)}
+nav button.on:after{content:"";position:absolute;inset-inline:22%;bottom:2px;height:3px;border-radius:3px;background:var(--sun);box-shadow:0 0 7px #FFCB0560;pointer-events:none}
+nav button i{display:block;line-height:0}
+nav .nav-icon{display:block;width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #00132930)}
+nav .nav-gold{stroke:var(--nav-gold)}
+nav .nav-fill{fill:currentColor;fill-opacity:.16}
+nav button:focus-visible{outline:2px solid var(--sea);outline-offset:-2px}
+.theme-toggle{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(16px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:center;gap:4px;width:76px;min-height:44px;padding:4px;border:1px solid var(--line);border-radius:24px;background:var(--raised);color:var(--mute);cursor:pointer;z-index:2}
+.theme-toggle svg{width:28px;height:28px;padding:4px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;border-radius:50%}
+:root[data-theme="dark"] .theme-moon,:root[data-theme="light"] .theme-sun{background:var(--sun);color:var(--navy)}
+.theme-toggle:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+.dot.W{background:var(--win-fill)}.dot.L{background:var(--loss-fill)}.dot.D{background:#4A6178}
+@media(hover:hover){#home a.card:hover,#home .home-player:hover{border-color:var(--sea);background:var(--bg)}#home .home-next:hover{background:var(--raised);border-color:var(--sun)}.home-block-head>a:hover{text-decoration:underline}nav button:hover{background-color:color-mix(in srgb,var(--nav-selected) 40%,transparent)}}
+@media(min-width:768px){main:has(#home.on){max-width:1040px}#home .home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#home .home-teams{font-size:28px;margin:25px 0}#home .home-next{padding:24px}#home .home-intro h2{font-size:26px}}
+@media(max-width:360px){header{gap:10px;padding-left:12px;padding-right:100px}header .crest{width:48px;height:48px;flex-basis:48px}header p{font-size:11px}main{padding-inline:10px}#home .home-next{padding:16px}.home-teams{gap:9px}.home-block-head{gap:0 8px}.home-standing-top{gap:12px}nav button{font-size:11px;padding-inline:0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Final home: the approved wordmark, a natural photo and the original crest. */
+.home-wordmark{display:none}
+body:has(#home.on) header{
+  max-width:1040px;margin-inline:auto;
+  height:clamp(358px,110vw,540px);padding:24px 16px 14px;
+  padding-top:calc(24px + env(safe-area-inset-top,0px));
+  display:flex;flex-direction:column;justify-content:flex-end;
+  border:0;text-align:center;
+  background:var(--bg);isolation:isolate;
+}
+/* Photograph and fade are separate so only the photograph is filtered. */
+body:has(#home.on) header:before{
+  content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background:url("assets/home-fortress.jpg") 70% top/cover no-repeat;
+  filter:saturate(1.18) contrast(1.10) brightness(1.06);
+}
+body:has(#home.on) header:after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(180deg,transparent 56%,var(--bg) 94%),
+    linear-gradient(#0013290A,#0013290A);
+  background-repeat:no-repeat;
+}
+:root[data-theme="light"] body:has(#home.on) header:before{
+  filter:saturate(1.12) contrast(1.08);
+}
+:root[data-theme="light"] body:has(#home.on) header:after{
+  background-image:linear-gradient(180deg,transparent 56%,var(--bg) 94%);
+}
+@media(max-width:640px){
+  body:has(#home.on) header:before{
+    /* Preserve the crop approved in PR #25 independently of the title height. */
+    background-position:30% top;
+    background-size:auto max(clamp(288px,90vw,388.8px),70.4375vw);
+  }
+  body:has(#home.on) header:after{
+    /* The fade reaches the page colour before the photograph ends. */
+    background-size:100% clamp(302px,95vw,410px),100% 100%;
+  }
+}
+body:has(#home.on) header .crest{
+  position:absolute;top:calc(16px + env(safe-area-inset-top,0px));
+  left:clamp(16px,4vw,28px);
+  /* Exactly 80% of the crest dimensions approved in PR #22. */
+  width:clamp(104px,32.48vw,176.8px);height:auto;aspect-ratio:3/4;
+  flex:none;border:0;border-radius:0;
+  background:transparent url("assets/home-crest-original.png") center/contain no-repeat;
+  /* Clip only the empty navy corners outside the original shield. */
+  clip-path:polygon(50% 1.5%,64% 2.5%,77% 5.5%,90% 9.5%,95.5% 12.5%,97.5% 25%,98.5% 34%,97.5% 45%,94.5% 56%,89.5% 66%,82.5% 75%,72.5% 84%,61.5% 93%,50% 98.5%,38.5% 93%,27.5% 84%,17.5% 75%,10.5% 66%,5.5% 56%,2.5% 45%,1.5% 34%,2.5% 25%,4.5% 12.5%,9.5% 9.5%,22.5% 5.5%,35.5% 2.5%);
+}
+body:has(#home.on) header .crest img{opacity:0}
+body:has(#home.on) header .brand{position:relative;width:100%}
+body:has(#home.on) header h1{
+  width:clamp(170px,52vw,252px);margin:0 auto;
+  line-height:1;color:#FAF9F6;text-shadow:none;
+}
+/* Keep the heading's real text and accessible name on every screen. */
+body:has(#home.on) header .club-name{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+}
+body:has(#home.on) .home-wordmark{display:block;width:100%;height:auto;overflow:visible}
+#home .home-intro .home-kicker{font-size:clamp(12px,3.6vw,14px)}
+body:has(#home.on) header p{
+  color:var(--mute);opacity:1;margin-top:12px;
+  font-size:clamp(12px,3.8vw,15px);line-height:1.4;
+}
+/* A fine navy edge keeps the white/gold lettering readable on the light fade. */
+:root[data-theme="light"] body:has(#home.on) .home-wordmark path{
+  stroke:#001329;stroke-width:3;stroke-linejoin:round;paint-order:stroke fill;
+}
+/* The shared reduced-motion rule must not animate header geometry between tabs. */
+@media(prefers-reduced-motion:reduce){
+  header,header:before,header *{transition:none!important}
+}
+
+/* Standings table: fixed numeric columns, responsive team name. */
+#table table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: clamp(12px, 1.2vw + 9px, 14px);
+  font-variant-numeric: tabular-nums;
+}
+#table th, #table td {
+  padding: 12px 6px;
+  vertical-align: middle;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+#table th:first-child, #table td:first-child { width: 28px; text-align: center; }
+#table th:nth-child(2), #table td:nth-child(2) {
+  width: auto;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#table th:nth-child(3), #table td:nth-child(3) { width: 33px; text-align: center; }
+#table th:nth-child(4), #table td:nth-child(4) { width: 69px; text-align: center; }
+#table th:nth-child(5), #table td:nth-child(5) { width: 34px; text-align: center; }
+@media (max-width: 360px) {
+  #table th, #table td { padding: 10px 3px; }
+  #table th:nth-child(4), #table td:nth-child(4) { width: 60px; }
+}
+
+/* Squad cards stay in the cached HTML shell; other sections keep their width. */
+main:has(#squad.on){max-width:1200px}
+#squad .stats-head{align-items:flex-end;margin:8px 2px 18px;gap:12px}
+#squad .squad-kicker{display:block;color:var(--sea);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+#squad .stats-head h2{font-size:30px;line-height:1.1;margin:6px 0 0;letter-spacing:-.7px}
+#squad .squad-summary{display:grid;gap:10px;margin-bottom:14px}
+#squad .squad-summary .card{margin:0;padding:14px 16px;box-shadow:none}
+#squad .squad-coach{border-left:3px solid var(--sun)}
+#squad .squad-coach small{display:block;color:var(--mute);font-size:12px;margin-bottom:5px}
+#squad .squad-leaders h2{margin:0 0 6px;font-size:13px}
+#squad .stats-top{font-size:12px;margin:0;padding-left:18px}
+#squad .stats-filters{gap:8px;padding:6px 2px 14px;margin:6px 0 2px}
+#squad .stats-filters button{min-height:44px;padding:9px 14px;font-weight:600}
+#squad .stats-filters button[aria-pressed="true"]{background:var(--sun);border-color:var(--sun);color:var(--navy);box-shadow:inset 0 -2px #00132920}
+#squad .stats-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#squad .stats-player{min-width:0;padding:0;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 16px #102A4308;transition:border-color .2s ease,box-shadow .2s ease}
+#squad .squad-portrait{position:relative;aspect-ratio:1/1;display:grid;place-items:center;isolation:isolate;overflow:hidden;background:linear-gradient(145deg,var(--navy),#145B80);color:#fff;border-bottom:3px solid var(--sun)}
+#squad .squad-portrait:before{content:"";position:absolute;z-index:-1;width:80%;aspect-ratio:1;border:1px solid #FFFFFF24;border-radius:50%;right:-30%;bottom:-30%;box-shadow:0 0 0 22px #FFFFFF08,0 0 0 44px #FFFFFF05}
+#squad .squad-initials{font-size:clamp(32px,7vw,52px);font-weight:800;letter-spacing:2px;opacity:.8}
+#squad .squad-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+#squad .squad-card-body{display:flex;flex-direction:column;flex:1;min-width:0;padding:12px}
+#squad .stats-name{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+#squad .stats-role{font-size:11px;margin:5px 0 12px;overflow-wrap:anywhere}
+#squad .stats-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:auto}
+#squad .stats-value{min-width:0;padding:8px;border-radius:10px}
+#squad .stats-value b{font-size:22px;line-height:1.2}
+#squad .stats-value small{font-size:11px}
+#squad .squad-card-cue{display:flex;align-items:center;justify-content:space-between;color:var(--sea);font-size:11px;font-weight:700;margin-top:12px}
+#squad .squad-card-cue span{font-size:16px;line-height:1}
+#squad .stats-list>.empty{grid-column:1/-1}
+@media(min-width:640px){
+  #squad .stats-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  #squad .squad-summary{grid-template-columns:1fr 2fr}
+  #squad .squad-card-body{padding:14px}
+}
+@media(min-width:1024px){#squad .stats-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:1280px){#squad .stats-list{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(hover:hover){#squad .stats-player:hover{border-color:var(--sea);box-shadow:0 8px 24px #102A4318}}
+@keyframes squad-appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:no-preference){
+  #squad.on .stats-player{animation:squad-appear .32s ease backwards;animation-delay:var(--squad-delay,0ms)}
+}
+@media(prefers-reduced-motion:reduce){#squad .stats-player{animation:none;transition:none}}
+
+/* Full club-authorized portraits: retain the complete head at every card size. */
+.player-avatar img.club-photo,#squad .squad-portrait img.club-photo,.home-avatar img.club-photo{object-fit:contain;object-position:center;background:#fff}
+.photo-source{color:var(--sea);text-underline-offset:3px}
+</style>
+<style data-match-center>
+/* Match centre: scoped to the existing match route; inline in the offline shell. */
+#match #match-title{font-size:22px;letter-spacing:-.4px;margin:18px 0 14px}
+#match .match-back{margin-top:2px}
+#match .center-hero{background:var(--card);color:var(--ink);padding:20px 16px;border-color:var(--line);border-radius:16px}
+#match .center-hero-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#match .center-competition{color:var(--mute);font-size:12px;line-height:1.5;flex:1;min-width:130px}
+#match .center-hero .tag{background:var(--sun);color:#001329;font-size:12px;padding:4px 9px;white-space:nowrap}
+#match .center-round{margin:8px 0 0;font-size:12px;color:var(--mute)}
+#match .board{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:9px;margin:24px 0}
+#match .tm{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:0;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+#match .tm b{font-weight:700;width:100%}
+#match .tm small{font-size:12px;color:var(--mute);margin:0}
+#match .center-badge{display:grid;place-items:center;width:48px;height:48px;border-radius:10px;background:#001329;flex:none}
+#match .center-badge img{display:block;width:48px;height:48px;object-fit:contain}
+#match .center-neutral{background:var(--raised);border:1px solid var(--line);color:var(--mute);font-size:16px;letter-spacing:1px}
+#match .center-score{min-width:0;text-align:center;align-self:center}
+#match .center-score-numbers{display:flex;align-items:center;justify-content:center;gap:4px;font-size:28px;color:var(--sea);font-weight:750}
+#match .num{font-size:clamp(34px,8vw,58px);padding:0;min-width:0;background:none;color:var(--ink);border-radius:0;line-height:1.1;letter-spacing:-1px}
+#match .num.us{color:var(--sea)}
+#match .center-score>small{display:block;font-size:11px;color:var(--mute);margin-top:8px}
+#match .center-not-started{display:block;max-width:95px;font-size:12px;line-height:1.45;color:var(--sea);font-weight:650}
+#match .match-meta{font-size:13px;color:var(--mute);line-height:1.7}
+#match .center-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding:16px;margin:12px 0 20px}
+#match .center-info>div{min-width:0;overflow-wrap:anywhere}
+#match .center-info>div:nth-child(2){grid-column:1/-1}
+#match .center-info dt{font-size:12px;color:var(--mute);margin-bottom:3px}
+#match .center-info dd{margin:0;font-size:13px;line-height:1.5;font-weight:550}
+#match h2{font-size:16px;margin:20px 0 10px}
+#match h3{font-size:15px;line-height:1.4;margin:0 0 16px;overflow-wrap:anywhere}
+#match h4{font-size:12px;color:var(--mute);font-weight:550;margin:0 0 8px}
+#match .center-scorers{list-style:none;margin:0;padding:0}
+#match .center-scorers li{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 0}
+#match .center-scorers li:first-child{padding-top:0}#match .center-scorers li:last-child{border:0;padding-bottom:0}
+#match .center-goal-name{min-width:0;flex:1;overflow-wrap:anywhere;font-size:14px}
+#match .center-goal-name small{display:block;color:var(--mute);font-size:12px;line-height:1.5}
+#match .center-goal-minute{text-align:right;max-width:100px;flex:none}
+#match .center-goal-minute b{font-size:18px;font-variant-numeric:tabular-nums}
+#match .center-goal-minute small{display:block;font-size:12px;color:var(--mute);margin-top:3px}
+#match .center-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 22px;align-items:start}
+#match .center-grid>article{min-width:0}
+#match .center-timeline{list-style:none;margin:0;padding:0}
+#match .center-timeline li{display:flex;align-items:center;gap:10px;padding:12px 0;position:relative;border-bottom:1px solid var(--line)}
+#match .center-timeline li:last-child{border:0}
+#match .center-event-clock{width:42px;flex:none;display:flex;align-self:stretch;align-items:center;flex-direction:column;gap:8px;position:relative;padding-top:3px}
+#match .center-event-clock>span:first-child{font-variant-numeric:tabular-nums;font-size:13px;font-weight:650;position:relative;z-index:1;background:var(--card)}
+#match .is-timed li:not(:last-child) .center-event-clock:after{content:"";position:absolute;width:1px;background:var(--line);top:38px;bottom:-24px;left:50%}
+#match .center-event-icon{font-size:16px;line-height:1.5;color:var(--sea);background:var(--card);position:relative;z-index:1}
+#match .center-event-icon.yellow,#match .center-event-icon.second_yellow{color:var(--sea)}
+#match .center-event-icon.red{color:var(--loss)}
+#match .center-event-label{font-size:12px;color:var(--mute);display:block;margin-bottom:2px}
+#match .goal-player{font-size:14px;line-height:1.45;min-width:0;overflow-wrap:anywhere}
+#match .goal-player>span:not(.center-event-label){display:block;padding-block:7px}
+#match .goal-player small{font-size:12px;line-height:1.5}
+#match .center-timeline .sc{font-size:16px;align-self:center}
+#match .center-player{color:var(--sea);min-height:44px;display:inline-flex;align-items:center;text-decoration:none;line-height:1.4;overflow-wrap:anywhere;border-radius:4px;transition:background-color 180ms ease,transform 180ms ease}
+#match .center-player:hover{text-decoration:underline;text-underline-offset:3px}
+#match .center-player:active{background:var(--bg);transform:scale(.99)}
+#match .center-player:focus-visible,#match summary:focus-visible,#match .center-protocol:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+#match .center-lineup-list{list-style:none;padding:0;margin:0}
+#match .center-lineup-list li{display:flex;gap:10px;align-items:center;min-height:44px;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere}
+#match .center-lineup-list li:last-child{border:0}
+#match .center-shirt{font-size:12px;color:var(--mute);min-width:22px;flex:none;font-variant-numeric:tabular-nums}
+#match .center-lineup-grid{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+#match .center-lineup-team{margin:0;min-width:0}
+#match summary{font-size:14px;color:var(--sea);font-weight:650;min-height:44px;padding:12px 0;cursor:pointer}
+#match summary span{color:var(--mute);font-size:12px;margin-left:7px;font-weight:400}
+#match details{margin-top:8px;border-top:1px solid var(--line)}
+#match .center-protocol{display:flex;gap:16px;align-items:center;justify-content:space-between;text-decoration:none;margin-top:22px;min-height:64px;padding:16px}
+#match .center-protocol b{font-size:15px}#match .center-protocol small{display:block;color:var(--mute);font-size:12px;margin-top:5px;line-height:1.5}
+#match .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:768px){main:has(#match.on){max-width:1040px}#match .center-hero{padding:24px}#match .tm{font-size:21px}#match .center-info{grid-template-columns:repeat(3,minmax(0,1fr))}#match .center-info>div:nth-child(2){grid-column:auto}#match .center-grid:has(.center-lineups){grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}#match .center-goals .center-scorers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}#match .center-not-started{max-width:140px;font-size:16px}#match .center-lineups:only-child .center-lineup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){#match .center-player{transition:none}}
+</style>
+<style id="launch-splash-styles">
+/* Inline critical styles: the launch screen needs no extra CSS/JS request. */
+#launch-splash[hidden],#launch-error[hidden]{display:none}
+#launch-splash{
+  position:fixed;inset:0;z-index:1000;isolation:isolate;
+  /* Keep the crest centred independently of the label, like the OS launch icon. */
+  display:grid;grid-template-rows:minmax(0,1fr);place-items:center;
+  padding:calc(24px + env(safe-area-inset-top,0px))
+    max(16px,env(safe-area-inset-right,0px))
+    calc(24px + env(safe-area-inset-bottom,0px))
+    max(16px,env(safe-area-inset-left,0px));
+  background:#001329;color:#F7E5B0;touch-action:none;
+  opacity:1;transition:opacity .5s ease;
+}
+#launch-splash.is-leaving{opacity:0}
+.launch-crest{
+  display:block;align-self:center;width:min(70vw,380px);height:auto;
+  max-width:100%;max-height:calc(100% - 96px);object-fit:contain;opacity:1;
+}
+.launch-name{
+  position:absolute;inset-inline:16px;bottom:calc(40px + env(safe-area-inset-bottom,0px));
+  margin:0;padding-left:.24em;font-size:clamp(18px,4.6vw,24px);
+  font-weight:650;line-height:1.3;letter-spacing:.24em;text-align:center;
+}
+#launch-error{
+  position:relative;z-index:1001;margin:12px;padding:16px;
+  border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);
+}
+#launch-error button,#retry-data{font:inherit;min-height:44px;padding:8px 12px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){
+  #launch-splash{transition:none!important}
+  #launch-splash.is-leaving{opacity:1}
+  #launch-splash .launch-crest{animation:none!important;opacity:1}
+}
+</style>
+<style data-championship>
+/* Championship hub: embedded in index.html so the existing offline shell suffices. */
+#table{min-width:0}
+#table .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#table-title{display:flex;align-items:center;gap:10px;font-size:22px;margin:4px 2px 16px}
+.champ-season{font-size:12px;font-weight:600;color:var(--mute);padding:4px 8px;border:1px solid var(--line);border-radius:8px}
+.champ-tabs{display:grid;grid-template-columns:.85fr 1.2fr 1fr;gap:4px;padding:4px;background:var(--line);border-radius:12px;margin-bottom:18px}
+.champ-tabs button,.champ-rounds button{font:inherit;font-size:13px;font-weight:650;min-height:44px;padding:8px 4px;border:0;border-radius:9px;cursor:pointer;color:var(--mute);background:transparent;transition:background .18s,color .18s}
+.champ-tabs button[aria-selected="true"]{background:var(--sun);color:var(--navy);box-shadow:0 1px 4px #00132912}
+.champ-tabs button:focus-visible,.champ-rounds button:focus-visible,#table select:focus-visible,#table input:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.champ-standing{padding:6px 10px}
+#champ-panel{animation:champ-in .18s ease-out}
+@keyframes champ-in{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+.champ-rounds{display:grid;grid-template-columns:minmax(0,1fr) minmax(75px,1fr) minmax(0,1fr);gap:8px;margin-bottom:14px}
+.champ-rounds button{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+.champ-rounds button:disabled{opacity:.4;cursor:default}
+#table select,#table input{display:block;width:100%;min-width:0;min-height:44px;border:1px solid var(--line);border-radius:9px;padding:9px 8px;background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+.champ-filters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-bottom:12px}
+.champ-filters label{min-width:0;font-size:12px;color:var(--mute);display:grid;gap:5px}
+.champ-match{display:block;color:var(--ink);text-decoration:none;padding:0;overflow:hidden}
+.champ-match>summary,.champ-match:is(a){padding:13px 11px;cursor:pointer;list-style:none}
+.champ-match>summary::-webkit-details-marker{display:none}
+.champ-match>summary:focus-visible,.champ-match:is(a):focus-visible{outline:2px solid var(--sea);outline-offset:-3px}
+.champ-pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;margin:12px 0}
+.champ-team{display:flex;align-items:center;gap:7px;min-width:0;font-size:13px;line-height:1.3;overflow-wrap:anywhere}
+.champ-team:last-child{flex-direction:row-reverse;text-align:right}
+.champ-score{font-size:24px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.champ-badge{position:relative;display:grid;place-items:center;width:30px;height:32px;flex:none;font-size:10px;color:var(--mute)}
+.champ-badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--card)}
+.champ-meta{display:block;color:var(--mute);font-size:12px}
+.champ-status{display:flex;justify-content:space-between}
+.champ-club{border-color:var(--sea);background:color-mix(in srgb,var(--sea) 6%,var(--card))}
+.champ-match-info{padding:0 13px 13px;border-top:1px solid var(--line);font-size:14px}
+.champ-match-info p{margin:10px 0}
+.champ-source{display:inline-flex;align-items:center;min-height:44px;color:var(--sea);font-weight:650}
+.champ-scorers{list-style:none;margin:0;padding:0;overflow:hidden}
+.champ-scorer{display:grid;grid-template-columns:22px minmax(0,1fr) 30px 34px;gap:7px;align-items:center;padding:13px 10px;border-bottom:1px solid var(--line)}
+.champ-scorer:last-child{border-bottom:0}
+.champ-rank{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.champ-person{min-width:0;overflow-wrap:anywhere;font-size:14px}
+.champ-person a{color:var(--ink);text-decoration:none;display:inline-block;min-height:44px;align-content:center}
+.champ-person a:hover{text-decoration:underline}
+.champ-person small{display:block;color:var(--mute);font-size:11px;line-height:1.6}
+.champ-total{text-align:center;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.champ-total small{display:block;font-size:10px;font-weight:400;color:var(--mute)}
+.champ-goals{color:var(--sea)}
+@media(max-width:350px){.champ-badge{width:23px;height:26px}.champ-team{font-size:12px;gap:4px}.champ-pair{gap:6px}.champ-scorer{padding-inline:8px;gap:5px}.champ-filters{gap:7px}}
+@media(prefers-reduced-motion:reduce){#champ-panel{animation:none}.champ-tabs button,.champ-rounds button{transition:none}}
+</style>
+<style data-club-pages>
+/* Club context uses the existing shell and tokens; home styles stay untouched. */
+body:has(#team.on)>header .crest,body:has(#team.on)>header .brand,body[data-club-profile="true"]>header .crest,body[data-club-profile="true"]>header .brand{display:none}
+body:has(#team.on)>header:before,body[data-club-profile="true"]>header:before{content:'Чемпионат РК · 2026';font-size:14px;font-weight:650}
+#team{min-width:0}
+#team .club-hero{margin-top:14px;padding:20px;display:flex;align-items:center;gap:16px}
+#team-title{color:var(--ink);font-size:clamp(22px,6vw,30px);line-height:1.2;margin:0 0 6px;overflow-wrap:anywhere}
+#team .club-city{margin:0;color:var(--mute);font-size:14px}
+#team .club-hero .champ-badge{width:72px;height:80px;flex:none;font-size:22px}
+#team .club-hero .champ-badge img{width:72px;height:80px}
+#team .club-season{margin:8px 0 0;font-size:12px;color:var(--mute)}
+#team .club-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+#team .club-metrics div{background:var(--bg);padding:12px 8px;border-radius:10px;text-align:center}
+#team .club-metrics dt{color:var(--mute);font-size:11px}
+#team .club-metrics dd{font-size:24px;font-weight:750;margin:3px 0 0;font-variant-numeric:tabular-nums}
+#team .club-record{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;margin:14px 0 0;color:var(--mute)}
+#team .club-record b{color:var(--ink)}
+.club-source{display:inline-flex;align-items:center;min-height:44px;color:var(--sea);font-size:13px}
+#team .club-match-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;color:var(--mute);font-size:12px;margin-bottom:10px}
+#team .club-match-pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+#team .club-match-pair .club-link:last-child{text-align:right;justify-content:flex-end}
+#team .club-score{font-size:20px;font-weight:750;white-space:nowrap;font-variant-numeric:tabular-nums}
+.club-link{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;overflow-wrap:anywhere;max-width:100%;font-size:inherit}
+.club-link:hover{text-decoration:underline}
+.club-link:focus-visible,#team a:focus-visible{outline:2px solid var(--sea);outline-offset:3px;border-radius:4px}
+#table td .club-link{font-weight:650}
+#table td .champ-badge{width:24px;height:28px;flex:none}
+#table td .champ-badge img{width:24px;height:28px}
+#table .champ-team .club-link{display:flex;gap:7px}
+#table .champ-team:last-child .club-link{flex-direction:row-reverse}
+#table div.champ-match{position:relative;padding:13px 11px}
+#table div.champ-match>.club-source:after{content:'';position:absolute;inset:0}
+#table div.champ-match .club-link{position:relative;z-index:1}
+#table .champ-team .club-link{font-weight:700}
+.club-source:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+#match .tm>.club-link{display:flex;flex-direction:column;font-weight:600}
+#team .club-players{list-style:none;margin:0;padding:0}
+#team .club-players li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere}
+#team .club-players li:last-child{border:0}
+#team .club-players a{color:var(--ink);min-height:44px;display:inline-flex;align-items:center}
+#team .club-player-stats{font-size:12px;color:var(--mute);margin:4px 0}
+#team .club-directory{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px}
+@media(max-width:350px){#team .club-hero{padding:14px;gap:12px}#team .club-hero .champ-badge,#team .club-hero .champ-badge img{width:56px;height:64px}#team .club-match-pair{gap:6px;font-size:13px}}
+.club-roster-role{font-size:13px;color:var(--mute);margin:18px 0 4px}
+.club-roster-extra{margin-top:16px;border-top:1px solid var(--line);padding-top:8px}
+.club-roster-extra>summary{min-height:44px;padding:10px 0;cursor:pointer;font-size:13px;font-weight:650;overflow-wrap:anywhere}
+#team .club-roster-player{display:flex;gap:10px;width:100%;text-decoration:none}
+.club-roster-player>span:nth-last-child(2){flex:1;min-width:0;overflow-wrap:anywhere}
+.club-roster-player small{display:block;color:var(--mute)}
+.club-shirt{font-size:12px;color:var(--mute);min-width:24px;font-variant-numeric:tabular-nums}
+.platform-player-context p{margin:7px 0;overflow-wrap:anywhere}
+.platform-player-clubs{display:flex;flex-wrap:wrap;gap:6px 16px}
+.platform-player-context h3{font-size:14px}
+</style>
+
+<style data-clubs-players-polish>
+/* Opt-in typography and spacing; existing home, championship and match CSS stay intact. */
+#team h2,.universal-player h2{font-size:17px;line-height:1.35;margin:20px 0 8px;overflow-wrap:anywhere}
+#team .club-hero{padding:12px 0;gap:12px;margin:8px 0 12px;border:0;border-radius:0;background:none;box-shadow:none}
+#team .club-hero>div{min-width:0}
+#team #team-title{font-size:24px;margin:0 0 4px;line-height:1.2}
+#team .club-hero .champ-badge,#team .club-hero .champ-badge img{width:56px;height:64px}
+#team .club-city{font-size:13px}
+#team .club-season{margin-top:4px;line-height:1.4}
+#team .club-statistics{padding:12px;box-shadow:none;margin:0 0 8px}
+#team .club-metrics{gap:0;align-items:center}
+#team .club-metrics div{padding:0 10px;text-align:left;background:none;border-radius:0;border-right:1px solid var(--line)}
+#team .club-metrics div:first-child{padding-left:0}
+#team .club-metrics div:last-child{border:0}
+#team .club-metrics dt{font-size:12px}
+#team .club-metrics dd{font-size:28px;line-height:1.2;margin-top:2px}
+#team .club-metrics div:last-child dd{font-size:22px}
+#team .club-record{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px;border-top:1px solid var(--line);padding-top:10px;margin:10px 0 0}
+#team .club-record div{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;justify-content:space-between}
+#team .club-record dt{font-size:11px}
+#team .club-record dd{color:var(--ink);font-size:14px;font-weight:700;margin:0;font-variant-numeric:tabular-nums}
+#team .club-sections{display:flex;border-bottom:1px solid var(--line);gap:4px}
+#team .club-sections button{font:inherit;font-size:13px;font-weight:650;min-height:44px;min-width:44px;padding:8px 12px;border:0;background:none;color:var(--ink);cursor:pointer;flex:1;overflow-wrap:anywhere}
+#team .club-sections button:focus-visible,.universal-player a:focus-visible,.football-sources>summary:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+#team .football-warning,.universal-player .football-warning{margin:8px 0;font-size:12px;line-height:1.5}
+#team .football-sources,.universal-player .football-sources{border-bottom:1px solid var(--line);margin:0 0 12px;font-size:13px;overflow-wrap:anywhere}
+#team .football-sources>summary,.universal-player .football-sources>summary{min-height:44px;min-width:44px;align-content:center;padding:10px 0;cursor:pointer;color:var(--mute);line-height:1.5}
+#team .football-source-list,.universal-player .football-source-list{list-style:none;margin:0;padding:0}
+#team .football-source-list li,.universal-player .football-source-list li{padding:8px 0;border-top:1px solid var(--line)}
+#team .football-source-list p,.universal-player .football-source-list p{margin:4px 0;color:var(--mute);font-size:12px;line-height:1.5}
+#team .football-match-list,.universal-player .football-match-list{border-top:1px solid var(--line)}
+#team .football-match-list{container-type:inline-size}
+#team .club-fixture{display:grid;grid-template-columns:3.5em minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);position:relative;min-width:0}
+#team .club-match-meta{font-size:13px;margin:0;display:grid;gap:2px;line-height:1.4;overflow-wrap:normal}
+#team .club-match-meta span{display:block}
+#team .club-match-meta .club-short-status{font-size:12px}
+#team .club-match-pair{display:flex;flex-direction:column;gap:0;align-items:stretch;min-width:0}
+#team .club-match-pair .club-link,#team .club-match-pair .club-link:last-child{font-size:15px;line-height:1.35;min-height:48px;min-width:44px;text-align:left;justify-content:flex-start}
+#team .club-match-pair .champ-badge{width:24px;height:24px}
+#team .club-match-status{grid-column:1/-1;color:var(--mute);font-size:12px;line-height:1.3;overflow-wrap:normal}
+#team .club-fixture .champ-badge img,#table .champ-match .champ-badge img{background:transparent}
+#team .club-fixture .champ-badge:has(img)>span,#table .champ-match .champ-badge:has(img)>span{visibility:hidden}
+#team .club-score{position:static;gap:6px;min-width:48px;min-height:44px;justify-content:center;font-size:22px;color:var(--ink);text-decoration:none;font-variant-numeric:tabular-nums}
+#team .club-score:after{content:'';position:absolute;inset:0}
+#team .club-match-pair .club-link{position:relative;z-index:1}
+#team .club-fixture:focus-within{outline:2px solid var(--sea);outline-offset:2px}
+#team .club-score>span,.universal-player .player-confirmed-match>span:last-child{font-size:16px;color:var(--mute)}
+@container (max-width:18em){
+  #team .club-fixture{grid-template-columns:minmax(0,1fr) max-content;gap:4px 8px;padding-block:8px}
+  #team .club-match-meta{grid-column:1/-1;grid-row:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+  #team .club-match-meta>span:first-child{display:flex;flex-wrap:wrap;gap:4px 8px}
+  #team .club-match-pair{grid-column:1;grid-row:2}
+  #team .club-match-pair .club-link{overflow-wrap:normal;word-break:normal}
+  #team .club-score{grid-column:2;grid-row:2;align-self:center}
+  #team .club-match-status{grid-column:1/-1;grid-row:3}
+}
+.football-count{color:var(--mute);font-size:12px;font-weight:500;margin-left:4px}
+#team .club-roster-role{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:13px;color:var(--mute);margin:16px 0 4px}
+#team .club-roster-role span{font-size:12px;font-weight:500}
+#team .roster-coverage{font-size:12px;color:var(--mute);margin:0 0 10px}
+#team .club-players li{padding:0}
+#team .club-players .club-roster-player{min-height:48px;padding:4px 0;gap:10px;align-items:center}
+#team .club-roster-player>span:nth-child(2){flex:1;min-width:0;overflow-wrap:anywhere}
+#team .club-roster-player>span:nth-last-child(2){flex:initial}
+#team .club-roster-player>span:nth-child(2){flex:1}
+#team .roster-avatar{display:grid;place-items:center;position:relative;flex:none;width:32px;height:36px;border-radius:6px;overflow:hidden;background:var(--card);color:var(--mute);font-size:11px}
+#team .roster-avatar img{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
+#team .club-player-statistics .club-players a{display:flex;width:100%;justify-content:space-between;min-height:52px;padding:6px 0;gap:8px;text-decoration:none}
+#team .club-player-statistics summary{color:var(--ink);font-size:17px;font-weight:700}
+#team .club-directory{gap:0 16px}#team .club-directory .club-link{min-width:44px}
+.universal-player{min-width:0}
+.universal-player .player-hero{padding:12px 0;margin:8px 0 4px;gap:12px;border:0;border-radius:0;box-shadow:none;background:none}
+.universal-player .player-hero h2{font-size:24px;margin:0;line-height:1.2}
+.universal-player .player-avatar{width:80px;height:100px;border-radius:12px}
+.universal-player .player-hero .stats-role{margin:5px 0 0;font-size:13px}
+.universal-player .profile-club{font-size:14px;font-weight:650}
+.universal-player .profile-club a{min-height:44px;min-width:44px}
+.universal-player .profile-season{font-size:12px;line-height:1.5;color:var(--mute);margin:0}
+.universal-player .profile-competition{font-size:14px;font-weight:600;margin:16px 0 8px}
+.universal-player .profile-statistics{padding:12px;box-shadow:none}
+.universal-player .profile-values{gap:0}
+.universal-player .profile-values .stats-value{background:none;border-radius:0;padding:0 8px;border-right:1px solid var(--line)}
+.universal-player .profile-values .stats-value:first-child{padding-left:0}
+.universal-player .profile-values .stats-value:last-child{border:0}
+.universal-player .profile-values b{font-size:30px;line-height:1.2}
+.universal-player .profile-values small{font-size:12px}
+.universal-player .profile-secondary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;border-top:1px solid var(--line);padding-top:8px;margin:12px 0 8px}
+.universal-player .profile-secondary>div{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:4px 0;line-height:1.4}
+.universal-player .profile-secondary dt{font-size:12px;color:var(--mute);overflow-wrap:anywhere}
+.universal-player .profile-secondary dd{margin:0;font-size:14px;font-variant-numeric:tabular-nums}
+.universal-player .profile-statistics>.hint{margin:8px 0 0;font-size:11px;line-height:1.5}
+.universal-player .profile-registrations{list-style:none;padding:0;margin:8px 0;font-size:13px}
+.universal-player .profile-registrations li{padding:8px 0;border-top:1px solid var(--line)}
+.universal-player .profile-registrations p{margin:4px 0;line-height:1.5}
+.universal-player .profile-sources>summary{color:var(--ink);font-weight:650}
+.universal-player .club-source{min-width:44px}
+.universal-player .photo-source{display:inline-flex;align-items:center;min-width:44px;min-height:44px}
+.universal-player .player-confirmed-match{display:grid;grid-template-columns:64px minmax(0,1fr) auto 8px;gap:8px;align-items:center;padding:10px 0;min-height:60px;min-width:44px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.universal-player .football-match-date{color:var(--mute);font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.universal-player .football-match-teams{font-size:13px;line-height:1.65;overflow-wrap:anywhere;min-width:0}
+.universal-player .club-score{font-size:22px;white-space:nowrap;font-variant-numeric:tabular-nums}
+#team [id^="club-"]{scroll-margin-top:16px}
+@media(max-width:350px){#team #team-title,.universal-player .player-hero h2{font-size:22px}#team .club-record{gap:8px}#team .club-record div{display:block}#team .club-record dd{margin-top:2px}#team .club-sections button{padding-inline:4px;font-size:12px}.universal-player .player-avatar{width:64px;height:88px}#team .club-fixture{gap:6px}.universal-player .player-confirmed-match{grid-template-columns:54px minmax(0,1fr) auto 8px;gap:6px}}
+</style>
+
+<style data-design-polish>
+/* Stage 6: championship only. Spacing 4/8/12/16; all actions >=44px. */
+#table .champ-tabs{grid-template-columns:.7fr 1.2fr 1.1fr;background:none;border-radius:0;padding:0;gap:0;margin-bottom:12px;border-bottom:1px solid var(--line)}
+#table .champ-tabs button{position:relative;border-radius:0;min-width:0;font-size:13px;overflow-wrap:anywhere;transition:none}
+#table .champ-tabs button[aria-selected="true"]{background:none;color:var(--ink);box-shadow:none}
+#table .champ-tabs button[aria-selected="true"]:after{content:'';position:absolute;left:8px;right:8px;bottom:-1px;height:2px;background:var(--sun)}
+#table .champ-rounds{grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;margin-bottom:8px}
+#table .champ-rounds button{font-size:20px;background:none;border-color:transparent}
+#table .champ-rounds select{text-align:center;font-weight:650}
+#table .champ-calendar-filters{gap:8px;margin-bottom:8px}
+#table .champ-calendar-filters label{display:block}
+#table #champ-match-count{margin:8px 0;font-size:12px}
+#table #champ-panel{animation:none}
+#table .champ-match-list{border-block:1px solid var(--line);container-type:inline-size}
+#table .champ-match{position:relative;background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;margin:0}
+#table .champ-match:last-child{border-bottom:0}
+#table div.champ-match,#table .champ-match>summary{display:grid;grid-template-columns:3.2em minmax(0,1fr) 4.5em;align-items:center;gap:8px;padding:4px 8px}
+#table .champ-date{font-size:12px;line-height:1.4;display:grid;gap:2px;overflow-wrap:normal}
+#table .champ-date small{display:block;font-size:inherit}
+#table .champ-teams{display:grid;min-width:0}
+#table .champ-team,#table .champ-team:last-child{flex-direction:row;text-align:left;font-size:14px;line-height:1.3;min-height:44px}
+#table .champ-team .club-link,#table .champ-team:last-child .club-link{flex-direction:row;gap:8px;font-weight:550;min-height:44px;width:100%;min-width:0}
+#table .champ-team .club-link>span:last-child{min-width:0}
+#table .champ-team .champ-badge{width:24px;height:24px}
+#table .champ-result{text-align:center;min-width:64px;display:grid;justify-items:center}
+#table .champ-score{font-size:26px;line-height:1.15;color:var(--ink);font-weight:750;letter-spacing:-.5px}
+#table .champ-open{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;color:inherit;text-decoration:none}
+#table .champ-open:after{content:'';position:absolute;inset:0}
+#table .champ-open:focus-visible{outline:none}
+#table .champ-match:has(.champ-open:focus-visible){outline:2px solid var(--sea);outline-offset:-2px}
+#table .champ-match:has(.champ-open:hover){background:var(--card)}
+#table .champ-status{display:block;max-width:100%;font-size:12px;line-height:1.35;margin-top:4px;overflow-wrap:normal;word-break:normal}
+#table .champ-status-full{grid-column:1/-1;max-width:none;margin:0}
+@container (max-width:18em){
+  #table div.champ-match,#table .champ-match>summary{grid-template-columns:minmax(0,1fr) max-content;gap:4px 8px;padding-block:8px}
+  #table .champ-date{grid-column:1;grid-row:1;display:flex;flex-wrap:wrap;gap:4px 8px}
+  #table .champ-result{display:contents}
+  #table .champ-teams{grid-column:1;grid-row:2}
+  #table .champ-team{overflow-wrap:normal;word-break:normal}
+  #table .champ-result .champ-open,#table .champ-result>.champ-score{grid-column:2;grid-row:2;justify-self:center;align-self:center}
+  #table .champ-score{font-size:20px}
+  #table .champ-status{grid-column:2;grid-row:1;max-width:7em;margin:0;text-align:right}
+  #table .champ-status-full{grid-column:1/-1;grid-row:3;text-align:left;max-width:none}
+}
+#table .champ-match.champ-club{border-color:var(--line);background:none}
+#table .champ-club .champ-teams{border-left:2px solid var(--sun);padding-left:6px}
+@media(max-width:350px){#table .champ-tabs{grid-template-columns:.8fr 1.15fr 1.05fr}#table .champ-tabs button{padding-inline:0}#table .champ-score{font-size:20px}}
+
+/* Stage 6: opt-in universal centers; legacy Sudak markup keeps its styles. */
+#match:has(.match-polish) #match-title{margin:12px 0;font-size:20px}
+#match:has(.match-polish) #match-title:focus{outline:none}
+#match .match-polish{min-width:0}
+#match .match-polish .center-hero{padding:16px 12px;border:0;border-radius:12px;margin-bottom:16px}
+#match .match-polish .center-hero-head{gap:8px;align-items:baseline}
+#match .match-polish .center-competition{font-size:12px;line-height:1.4;min-width:0;flex-basis:100%}
+#match .match-polish .center-status{font-size:13px;line-height:1.4;font-weight:650;color:var(--ink)}
+#match .match-polish .center-round{font-size:12px;margin:4px 0 0}
+#match .match-polish .board{margin:16px 0;gap:8px;align-items:center}
+#match .match-polish .tm{font-size:14px;gap:4px}
+#match .match-polish .tm>.club-link{gap:8px;width:100%;min-width:44px}
+#match .match-polish .center-badge{width:48px;height:48px;background:none;border:0;border-radius:0}
+#match .match-polish .center-badge .champ-badge{width:48px;height:48px;font-size:16px}
+#match .match-polish .center-badge img{width:48px;height:48px;background:var(--card)}
+#match .match-polish .center-score-numbers{gap:4px;color:var(--ink)}
+#match .match-polish .num{font-size:clamp(36px,10vw,56px);color:var(--ink);font-weight:800}
+#match .match-polish .center-score-dash{font-size:40px;line-height:1.2;font-weight:700;color:var(--mute)}
+#match .match-polish .center-score>small{font-size:12px;margin-top:4px}
+#match .match-polish .match-meta{font-size:13px;line-height:1.6;text-align:center;margin:0}
+#match .match-polish .card{border:0;border-radius:0;background:none;padding:0;margin:0}
+#match .match-polish h2{font-size:16px;color:var(--ink);margin:20px 0 8px}
+#match .match-polish h3{font-size:14px;margin:0 0 12px}
+#match .match-polish .center-scorers li{padding:8px 0;min-height:52px}
+#match .match-polish .center-goal-name,#match .match-polish .goal-player{font-size:14px}
+#match .match-polish .center-goal-minute b{font-size:16px}
+#match .match-polish .center-timeline li{padding:8px 0;min-height:60px}
+#match .match-polish .center-player{color:var(--ink);min-width:44px;transition:none}
+#match .match-polish .center-player:active{transform:none}
+#match .match-polish .center-lineup-team{padding-top:12px;border-top:1px solid var(--line)}
+#match .match-polish .center-event-icon{color:var(--mute)}
+#match .match-polish .center-event-icon.yellow,#match .match-polish .center-event-icon.second_yellow{color:var(--sea)}
+#match .match-polish .center-event-icon.red{color:var(--loss)}
+#match .match-polish .center-protocol{min-height:44px;padding:12px 0;margin-top:16px;border-top:1px solid var(--line)}
+#match .match-polish .center-protocol b{font-size:14px}
+#match .match-polish .center-data{margin-top:12px}
+#match .match-polish .center-data summary{color:var(--mute);font-size:13px}
+@media(min-width:768px){#match .match-polish .center-hero{padding:16px 24px}#match .match-polish .center-hero-head{flex-wrap:nowrap}#match .match-polish .center-competition{flex-basis:auto}#match .match-polish .center-status{flex:none}#match .match-polish .board{max-width:640px;margin:16px auto}#match .match-polish .tm{font-size:18px}}
+
+</style>
+<style data-typography-refresh>
+/* IBM Plex Sans 1.1.0, complete Cyrillic/Latin WOFF2; see assets/fonts/README.md.
+   Embedded in index.html so the offline shell needs no extra stylesheet fetch. */
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/ibm-plex-sans/IBMPlexSans-Regular.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:600;font-display:swap;src:url("assets/fonts/ibm-plex-sans/IBMPlexSans-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/ibm-plex-sans/IBMPlexSans-Bold.woff2") format("woff2")}
+:root{
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --type-body:16px;--type-section:17px;--type-name:15px;
+  --weight-regular:400;--weight-heading:600;--weight-score:700;
+  --leading-body:1.4;--leading-heading:1.3;--leading-copy:1.55;
+}
+body{font-family:var(--font-ui);font-size:var(--type-body);line-height:var(--leading-body)}
+button,input,select,textarea{font-family:inherit}
+b,strong{font-weight:var(--weight-heading)}
+h1,h2,h3,h4,header h1{font-weight:var(--weight-heading)}
+h2{font-size:var(--type-section);line-height:var(--leading-heading)}
+#home h2,#home h3,#home .home-intro h2{font-weight:var(--weight-heading)}
+#team h2,.universal-player h2{font-weight:var(--weight-heading)}
+#squad .stats-name,.stats-name{font-size:var(--type-name);font-weight:var(--weight-heading);line-height:var(--leading-heading)}
+#table .champ-team .club-link,#table td .club-link,#match .tm b,#match .tm>.club-link{font-weight:var(--weight-heading)}
+.home-teams,.home-match-top .tag,.home-detail,.home-result-score,.home-outcome{font-weight:var(--weight-heading)}
+.champ-tabs button,.champ-rounds button,#table .champ-rounds select,nav button.on,#team .club-sections button{font-weight:var(--weight-heading)}
+#team .club-player-statistics summary,.universal-player .profile-sources>summary{font-weight:var(--weight-heading)}
+.num,.sc,.home-score,.home-result-score b,.home-standing-top>b,.home-metrics dd,
+#team .club-metrics dd,#team .club-record dd,#team .club-score,.universal-player .club-score,
+#table .champ-score,.champ-total,.stats-value b,.universal-player .profile-values b,
+#match .center-score-numbers,#match .match-polish .num{font-weight:var(--weight-score);font-variant-numeric:tabular-nums}
+.num,.sc,.home-score,.home-result-score b,#table .champ-score{letter-spacing:0}
+table,.stats-values,.profile-secondary dd,.club-shirt,.goal-minute,.center-event-clock{font-variant-numeric:tabular-nums}
+.news{line-height:var(--leading-copy)}
+.news a,.player-hero h2,#team #team-title,.club-roster-player b{overflow-wrap:anywhere}
+/* Preserve the home composition and existing score/title sizes. Controls grow
+   with enlarged text instead of clipping it; their minimum remains 44 CSS px. */
+nav button{min-width:44px;min-height:44px;overflow-wrap:anywhere}
+.stats-filters button,.stats-source{min-width:44px;min-height:44px}
+.stats-source{display:inline-flex;align-items:center}
+#table .hint a{display:inline-flex;align-items:center;min-width:44px;min-height:44px}
+/* The filters keep their two columns at normal size and reflow with large text. */
+#table .champ-filters{grid-template-columns:repeat(auto-fit,minmax(min(100%,8em),1fr))}
+#squad .stats-filters{flex-wrap:wrap;overflow-x:visible}
+#squad .stats-filters button{flex:0 1 auto;white-space:normal;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<div id="launch-splash" role="status" aria-label="ФК Судак. Запуск приложения" aria-busy="true" hidden>
+  <img class="launch-crest" src="assets/club-crest-final-original.png" alt="" width="1086" height="1448" fetchpriority="high" decoding="async">
+  <p class="launch-name" aria-hidden="true">ФК СУДАК</p>
+</div>
+<div id="launch-error" role="alert" hidden>
+  <p>Не удалось завершить запуск. Можно продолжить с доступной информацией или повторить загрузку.</p>
+  <button type="button" id="launch-continue">Продолжить</button>
+  <button type="button" id="launch-retry">Повторить загрузку</button>
+</div>
+<script data-launch-splash>
+// One controller per document: hash routes, data refresh and focus never restart it.
+(()=>{
+  const splash=document.getElementById('launch-splash');
+  if(document.documentElement.dataset.launch!=='show'){
+    splash.remove();return;
+  }
+  const image=splash.querySelector('img');
+  const warning=document.getElementById('launch-error');
+  const timers=[];
+  const locked=[];
+  let finished=false,appReady=false,crestReady=false,started=false;
+  let previousFocus=null;
+  splash.hidden=false;
+  function finish(failed=false){
+    if(finished)return;
+    finished=true;
+    timers.forEach(clearTimeout);
+    locked.forEach(([element,inert])=>{element.inert=inert});
+    splash.remove();
+    document.getElementById('launch-canvas')?.remove();
+    warning.hidden=!failed;
+    window.removeEventListener('error',onError);
+    window.removeEventListener('unhandledrejection',onError);
+    window.removeEventListener('sudak:ready',onReady);
+    window.removeEventListener('pagehide',onPageHide);
+    if(previousFocus?.isConnected&&!failed)previousFocus.focus({preventScroll:true});
+  }
+  function start(){
+    if(started||finished||!appReady||!crestReady)return;
+    started=true;
+    // Count the brand interval only once the actual approved PNG is visible.
+    timers.push(setTimeout(()=>splash.classList.add('is-leaving'),3000));
+    timers.push(setTimeout(()=>finish(),3500));
+  }
+  function onReady(){
+    if(finished||appReady)return;
+    appReady=true;
+    previousFocus=document.activeElement===document.body?null:document.activeElement;
+    document.querySelectorAll('body > header,body > main,body > nav').forEach(element=>{
+      locked.push([element,element.inert]);element.inert=true;
+    });
+    start();
+  }
+  function onError(){finish(true)}
+  function onPageHide(){finish()}
+  // A BFCache restoration must not resume a partly completed launch overlay.
+  window.addEventListener('pagehide',onPageHide);
+  window.addEventListener('sudak:ready',onReady);
+  window.addEventListener('error',onError);
+  window.addEventListener('unhandledrejection',onError);
+  image.addEventListener('load',()=>{
+    crestReady=true;splash.classList.add('crest-ready');start();
+  },{once:true});
+  image.addEventListener('error',onError,{once:true});
+  if(image.complete){
+    if(image.naturalWidth){crestReady=true;splash.classList.add('crest-ready')}
+    else onError();
+  }
+  // A broken script, unavailable image or stalled startup must never trap users.
+  timers.push(setTimeout(()=>finish(true),8000));
+  document.getElementById('launch-continue').addEventListener('click',()=>{warning.hidden=true});
+  document.getElementById('launch-retry').addEventListener('click',()=>location.reload());
+})();
+</script>
+
+<header><div class="crest" aria-hidden="true"><img src="icon-192.png?v=final-crest-v7" alt="" width="54" height="54"></div><div class="brand"><h1><span class="club-name">ФК «Судак»</span><!-- Letter contours from the user-approved mockup; no web font. --><svg class="home-wordmark" viewBox="0 0 425 154" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path class="wordmark-fc" fill="#FFCB05" fill-rule="evenodd" d="M180,6L181,6L181,7L192,7L192,6L193,6L193,7L194,7L194,8L193,8L193,12L194,12L194,13L195,13L195,12L201,12L201,11L203,11L203,12L206,12L207,14L209,14L209,15L211,16L211,18L212,18L212,21L213,21L213,27L212,27L211,32L208,33L207,35L203,35L203,36L193,36L193,42L194,42L194,43L180,43L180,44L179,44L179,39L180,39L179,36L167,36L167,35L163,34L162,31L161,31L161,29L160,29L160,20L161,20L162,16L163,16L165,13L170,12L170,11L179,12L179,11L180,11L180,10L179,10L179,7L180,7ZM217,9L221,9L221,10L223,10L223,9L234,9L234,11L233,11L233,13L232,13L232,22L233,22L233,23L236,21L236,19L237,19L237,18L238,18L238,17L239,17L239,16L240,16L245,10L247,10L247,9L259,9L259,10L254,14L254,16L252,16L252,15L248,15L248,16L247,16L247,17L246,17L246,18L240,23L240,26L246,26L246,27L249,27L249,28L252,28L252,29L253,29L253,30L255,31L255,33L256,33L256,36L257,36L257,39L258,39L259,44L256,44L256,43L242,43L241,37L240,37L239,33L238,33L235,29L232,29L232,41L233,41L233,43L220,43L220,44L219,44L219,12L217,11ZM178,16L175,17L174,20L173,20L173,29L174,29L174,31L176,32L179,32L179,24L180,24L179,20L180,20L180,17ZM194,16L193,16L193,32L198,32L198,31L199,31L199,18L198,18L197,16ZM283,21L289,22L289,23L301,23L301,24L312,24L312,25L326,25L326,26L340,26L340,27L352,27L352,28L367,28L367,29L368,29L368,30L360,30L337,30L337,31L312,31L312,32L291,32L291,33L282,33L282,32L278,29L278,26L279,26L279,24L280,24L281,22L283,22ZM126,22L136,22L136,23L140,26L139,30L138,30L137,32L135,32L135,33L128,33L128,32L104,32L104,31L77,31L77,30L65,30L48,30L48,29L53,29L53,28L64,28L64,27L77,27L77,26L89,26L89,25L116,24L116,23L126,23Z"/><path class="wordmark-name" fill="#FAF9F6" fill-rule="evenodd" d="M147,61L157,61L157,62L156,62L156,64L155,64L154,67L147,67L147,68L145,68L145,69L141,72L140,76L138,77L138,80L137,80L137,82L136,82L136,84L135,84L134,90L133,90L132,96L131,96L131,100L130,100L130,103L129,103L128,111L127,111L126,117L125,117L124,123L123,123L122,129L121,129L121,131L120,131L120,134L119,134L118,138L116,139L116,141L113,142L112,144L108,145L107,147L98,147L98,146L101,144L101,142L102,142L107,136L109,136L109,135L111,134L111,132L112,132L112,130L113,130L113,128L114,128L115,122L116,122L117,119L116,119L116,118L112,118L111,116L107,116L106,118L102,118L96,118L96,119L95,119L95,116L94,116L94,109L93,109L93,104L92,104L91,94L90,94L89,82L88,82L88,74L87,74L88,67L118,67L118,68L117,68L117,72L116,72L116,98L117,98L117,106L118,106L118,109L120,109L120,107L121,107L121,105L122,105L122,102L123,102L123,99L124,99L124,96L125,96L125,93L126,93L126,90L127,90L127,87L128,87L128,84L129,84L129,81L130,81L130,78L131,78L131,76L132,76L134,70L135,70L139,65L141,65L142,63L147,62ZM36,65L50,65L50,66L55,66L55,67L58,67L58,68L63,69L63,73L60,74L60,75L59,75L59,76L58,76L53,82L51,82L51,79L49,78L49,76L48,76L46,73L41,72L41,71L35,73L35,75L34,75L33,78L32,78L32,82L31,82L31,94L32,94L32,98L33,98L33,101L34,101L35,105L36,105L40,110L42,110L42,111L49,111L49,110L51,110L52,108L54,108L55,106L57,106L60,102L62,102L63,105L64,105L64,107L62,108L62,110L61,110L57,115L55,115L55,116L53,116L53,117L50,117L50,118L47,118L47,119L42,119L42,120L29,120L29,119L25,119L25,118L20,117L19,115L17,115L17,114L16,114L16,113L10,108L10,106L9,106L9,104L8,104L8,102L7,102L7,97L6,97L6,91L7,91L7,86L8,86L9,80L11,79L11,77L12,77L17,71L19,71L19,70L21,70L21,69L23,69L23,68L26,68L26,67L36,66ZM400,66L414,66L414,67L413,67L413,68L412,68L412,69L411,69L411,70L410,70L405,76L402,76L402,75L396,75L396,76L392,77L391,79L389,79L389,80L384,84L384,86L381,88L381,91L405,92L406,95L407,95L407,97L408,97L408,100L409,100L409,102L410,102L411,112L412,112L413,119L410,119L410,118L389,118L389,119L388,119L388,118L387,118L387,115L386,115L386,113L385,113L384,107L383,107L382,103L380,102L380,100L379,100L378,98L376,98L375,96L372,96L372,97L372,119L371,119L371,118L350,118L350,119L348,119L348,96L347,96L347,92L348,92L348,73L347,73L347,71L348,71L348,67L375,67L375,69L374,69L374,73L373,73L373,87L374,87L374,86L376,85L376,83L379,81L379,79L380,79L385,73L387,73L389,70L391,70L391,69L393,69L393,68L395,68L395,67L400,67ZM189,67L218,67L218,70L219,70L219,72L220,72L222,78L223,78L223,81L224,81L224,83L225,83L225,86L226,86L226,90L227,90L229,112L236,112L235,118L234,118L234,121L233,121L233,125L232,125L232,131L223,130L223,123L222,123L220,120L218,120L218,119L214,119L214,118L204,118L199,118L199,119L195,119L195,118L190,118L190,119L180,119L180,120L177,120L177,121L174,123L174,130L164,130L164,129L165,129L165,123L164,123L164,119L163,119L163,115L162,115L162,113L163,113L163,112L169,112L169,105L170,105L171,95L172,95L174,92L176,92L178,89L180,89L183,85L185,85L185,84L190,80L192,74L191,74L191,72L188,70ZM279,67L309,67L310,72L311,72L311,74L312,74L312,76L313,76L313,79L314,79L315,84L316,84L316,87L317,87L317,91L318,91L318,95L319,95L319,99L320,99L321,106L322,106L322,111L323,111L323,113L325,114L325,118L324,118L324,119L321,119L321,118L300,118L297,108L297,107L294,107L292,110L290,110L289,112L287,112L287,113L285,113L284,115L280,116L279,118L267,118L267,119L260,119L260,120L257,119L256,109L257,109L257,104L258,104L258,96L259,96L262,92L266,91L267,89L269,89L269,88L271,88L272,86L274,86L275,84L277,84L277,83L281,80L281,78L282,78L282,73L281,73L281,71L279,70ZM288,81L287,81L286,84L284,85L284,88L283,88L283,90L282,90L282,92L281,92L281,95L280,95L280,100L279,100L279,108L284,108L284,107L285,107L288,106L288,105L290,105L290,104L292,104L292,103L295,101L295,100L294,100L293,93L292,93L292,90L291,90L291,87L290,87L290,84L289,84ZM197,82L195,83L195,85L193,86L193,88L192,88L192,90L191,90L190,96L189,96L189,100L188,100L188,106L187,106L187,112L196,112L206,112L206,110L205,110L205,106L204,106L204,102L203,102L203,98L202,98L202,95L201,95L201,91L200,91L199,85L198,85Z"/></svg></h1><p>Открытый чемпионат Крыма · 2026</p></div>
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Светлая тема" aria-pressed="false" title="Включить светлую тему">
+  <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg>
+  <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.6 8.6 0 1 0 11 11Z"/></svg>
+</button></header>
+<main>
+<section id="home" class="on" aria-label="Главная"></section>
+<section id="matches" aria-label="Матчи"></section>
+<section id="table" aria-label="Чемпионат РК"></section>
+<section id="squad" aria-label="Состав"></section>
+<section id="news" aria-label="Новости"></section>
+<section id="match" aria-label="Подробности матча"></section>
+<section id="player" aria-label="Профиль футболиста"></section>
+<section id="team" aria-label="Страница команды"></section>
+<p class="note" id="upd" role="status">Загружаем актуальные данные…</p>
+<button type="button" id="retry-data" hidden>Повторить загрузку данных</button>
+</main>
+<nav id="nav" aria-label="Разделы приложения">
+<button type="button" data-t="home" class="on" aria-current="page"><i aria-hidden="true"><svg class="nav-icon" viewBox="0 0 40 40" focusable="false"><path class="nav-gold" d="m5 19 15-14 15 14" stroke-width="3"/><path class="nav-fill" d="M9 17v18h8V24h6v11h8V17L20 7Z"/><path d="M9 19v16h8V24h6v11h8V19"/></svg></i>Главная</button>
+<button type="button" data-t="matches"><i aria-hidden="true"><svg class="nav-icon" viewBox="0 0 40 40" focusable="false"><path class="nav-fill" d="M5 8h26v26H5Z"/><path d="M30 17V8H5v26h14M5 15h25"/><path class="nav-gold" d="M11 4v8m13-8v8" stroke-width="3"/><path d="M11 21h1m6 0h1m-8 6h1" stroke-width="3"/><circle cx="28" cy="28" r="9"/><path d="m28 24 4 3-1.5 4h-5L24 27Zm0 0v-5m4 8 4.5-1.5m-6 5.5 2 5m-7-5-2 5M24 27l-4.5-1.5"/></svg></i>Матчи</button>
+<button type="button" data-t="table"><i aria-hidden="true"><svg class="nav-icon" viewBox="0 0 40 40" focusable="false"><path d="M10 10H4v5c0 5 5 9 10 9m16-14h6v5c0 5-5 9-10 9"/><path class="nav-gold nav-fill" d="M10 6h20v9c0 9-5 13-10 13s-10-4-10-13Z"/><path class="nav-gold" d="M10 6h20v9c0 9-5 13-10 13s-10-4-10-13ZM20 28v6m-7 2h14" stroke-width="2.5"/><path d="m20 11 1.6 3.3 3.7.5-2.7 2.6.6 3.6-3.2-1.7-3.2 1.7.6-3.6-2.7-2.6 3.7-.5Z" stroke-width="1.2"/></svg></i>Чемпионат</button>
+<button type="button" data-t="squad"><i aria-hidden="true"><svg class="nav-icon" viewBox="0 0 40 40" focusable="false"><circle cx="20" cy="10" r="5"/><circle cx="7" cy="14" r="4"/><circle cx="33" cy="14" r="4"/><path class="nav-fill" d="M10 35v-7c0-7 20-7 20 0v7Z"/><path d="M10 35v-7c0-7 20-7 20 0v7M2 31v-6c0-4 5-5 9-4m27 10v-6c0-4-5-5-9-4"/><path class="nav-gold" d="m11 27 5-3 4 3 4-3 5 3M3 24l3-2m31 2-3-2" stroke-width="2.5"/></svg></i>Состав</button>
+<button type="button" data-t="news"><i aria-hidden="true"><svg class="nav-icon" viewBox="0 0 40 40" focusable="false"><path class="nav-fill" d="M5 17h8L29 9v22l-16-8H5Z"/><path d="M5 17h8L29 9v22l-16-8H5Zm8 0v6M9 23l3 12h5l-3-11"/><path class="nav-gold" d="m29 8 3 24m2-15 4-1m-5-5 3-3m-2 17 4 2" stroke-width="2.5"/></svg></i>Новости</button>
+</nav>
+<script data-theme-toggle>
+(()=>{
+  const root=document.documentElement,button=document.getElementById('theme-toggle');
+  const sync=()=>{
+    const light=root.dataset.theme==='light';
+    button.setAttribute('aria-pressed',String(light));
+    button.title=light?'Включить тёмную тему':'Включить светлую тему';
+  };
+  button.addEventListener('click',()=>{
+    const theme=root.dataset.theme==='light'?'dark':'light';
+    root.dataset.theme=theme;
+    try{localStorage.setItem('sudak-theme',theme)}catch{}
+    sync();
+  });
+  sync();
+})();
+</script>
+<script>
+'use strict';
+// Резервные сведения нужны только при отсутствии сети. Актуальные значения — data.json.
+let TABLE=[["СК «Каштан»",16,"90–21",48],["ФК «Судак»",16,"63–30",40],["«СТО-Газель»",15,"68–30",33],["ФК «Фуна»",15,"54–42",24],["ФК «НКСТРОЙ-Керчь»",15,"36–45",17],["ФК «Саки»",15,"34–55",15],["АФК",15,"29–45",14],["ФК «Сталкер»",16,"39–83",14],["ФК «Турбо»",16,"30–64",13],["«Темп»",15,"29–59",12],["УОР",6,"20–18",6]];
+let RES=[["25 октября","ФК «Саки»",3,2,"","в гостях"],["10 октября","«СТО-Газель»",4,2,"","дома"],["4 октября","ФК «Фуна»",3,2,"","в гостях"],["26 сентября","АФК",6,1,"","дома"],["12 сентября","ФК «НКСТРОЙ-Керчь»",4,0,"","в гостях"]];
+let NEXT=[["14 ноября","УОР","","в гостях"],["22 ноября","ФК «Сталкер»","","в гостях"],["28 ноября","СК «Каштан»","","дома"]];
+let SQUAD={};let COACH="";let NEWS=[];
+let MATCH_DETAILS={};
+let PLAYER_STATS_2026=null;let PLAYER_ROLE="all";
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const asNumber=value=>Number.isFinite(Number(value))?Number(value):0;
+const lt={W:"В",D:"Н",L:"П"};
+const kind=r=>asNumber(r[2])>asNumber(r[3])?"W":asNumber(r[2])===asNumber(r[3])?"D":"L";
+const venue=v=>v?esc(v):"Стадион уточняется";
+function newsLink(raw){
+  try{const u=new URL(String(raw||""),"https://rffk-roo.ru");return u.protocol==="https:"&&u.hostname==="rffk-roo.ru"&&/^\/news\/\d+\/?$/.test(u.pathname)?u.href:""}catch{return ""}
+}
+// Главная использует те же массивы, что календарь, таблица и профили.
+const HOME_SEASON=2026;
+const HOME_MONTHS=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+function homeDate(value){
+  const hit=String(value||'').trim().toLowerCase().match(/^(\d{1,2})\s+([а-я]+)(?:\s+(\d{4}))?$/);
+  if(!hit)return null;
+  const month=HOME_MONTHS.indexOf(hit[2]),year=Number(hit[3]||HOME_SEASON),day=Number(hit[1]);
+  const date=new Date(Date.UTC(year,month,day));
+  return month>=0&&year===HOME_SEASON&&date.getUTCMonth()===month&&date.getUTCDate()===day?date.getTime():null;
+}
+function homeMatches(upcoming=NEXT,results=RES,now=Date.now()){
+  // Даты календаря без времени сравниваем по дню в часовом поясе клуба.
+  const clubDay=new Date(now+3*60*60*1000).toISOString().slice(0,10);
+  const today=Date.parse(clubDay+'T00:00:00Z');
+  const dated=(rows,up)=>rows.filter(r=>Array.isArray(r)&&r[1]&&['дома','в гостях'].includes(r[up?3:5]))
+    .map(row=>({row,date:homeDate(row[0])})).filter(m=>m.date!==null);
+  const next=dated(upcoming,true).filter(m=>m.date>=today).sort((a,b)=>a.date-b.date)[0]?.row||null;
+  const completed=dated(results,false).filter(m=>Number.isInteger(m.row[2])&&m.row[2]>=0&&Number.isInteger(m.row[3])&&m.row[3]>=0&&m.date<=today)
+    .sort((a,b)=>b.date-a.date).map(m=>m.row);
+  return {next,latest:completed[0]||null,completed};
+}
+const upcomingMatchRow=n=>[n[0],n[1],null,null,n[2],n[3]];
+function homeStanding(table=TABLE){
+  const index=table.findIndex(t=>Array.isArray(t)&&normalizedName(t[0]).replace(/[«»"']/g,'')==='фк судак');
+  if(index<0)return null;
+  const row=table[index],goals=String(row[2]??'').match(/^(\d+)\s*[–—:-]\s*(\d+)$/);
+  const metric=n=>Number.isInteger(n)&&n>=0?n:null;
+  return {place:index+1,games:metric(row[1]),points:metric(row[3]),difference:goals?Number(goals[1])-Number(goals[2]):null};
+}
+function homeLeaders(players=playerRows()){
+  return [['league_goals','Бомбардиры','гол.'],['league_games','Больше матчей','матч.'],['league_minutes','Больше минут','мин.']].map(([field,label,unit])=>{
+    const known=players.filter(p=>Number.isInteger(p[field])&&p[field]>=0);
+    const value=known.length?Math.max(...known.map(p=>p[field])):null;
+    return {field,label,unit,value,partial:known.length<players.length,
+      players:value>0?known.filter(p=>p[field]===value).sort((a,b)=>a.name.localeCompare(b.name,'ru')):[]};
+  });
+}
+function homeNews(news=NEWS){
+  return news.filter(n=>Array.isArray(n)&&n[1]&&newsLink(n[3]))
+    .map((row,index)=>({row,index,date:homeDate(row[0])}))
+    .sort((a,b)=>(b.date??-Infinity)-(a.date??-Infinity)||a.index-b.index).slice(0,3).map(n=>n.row);
+}
+const homeOutcome=r=>({W:'Победа',D:'Ничья',L:'Поражение'})[kind(r)];
+function homeMatchCard(row,upcoming=false,interactive=true){
+  const r=upcoming?upcomingMatchRow(row):row,home=r[5]==='дома';
+  const teams=home?['ФК «Судак»',r[1]]:[r[1],'ФК «Судак»'];
+  const detail=MATCH_DETAILS[matchKey(r)];
+  const time=/^([01]\d|2[0-3]):[0-5]\d$/.test(detail?.time||'')?detail.time:'';
+  return `<${interactive?'a':'div'} class="card ${interactive?'match-link ':''}home-next"${interactive?` href="${esc(matchHref(r))}" data-match="${esc(matchKey(r))}"`: ''}><div class="home-match-top"><span class="tag">${upcoming?'Ближайший матч':'Последний матч'}</span><span class="home-season">2026</span></div><p class="home-competition">Открытый чемпионат Республики Крым</p><div class="home-teams"><span>${esc(teams[0])}</span><b class="home-score">${upcoming?'—':home?r[2]+' : '+r[3]:r[3]+' : '+r[2]}</b><span>${esc(teams[1])}</span></div><div class="home-match-meta"><b>${esc(r[0])}${time?' · '+esc(time):''}</b>${r[4]?`<span>${esc(r[4])}</span>`:''}<span>${upcoming?'Запланирован'+(!time?' · Время уточняется':''):'Завершён · '+homeOutcome(r)}</span></div>${interactive?'<span class="home-detail">Подробнее <span aria-hidden="true">↗</span></span>':''}</${interactive?'a':'div'}>`;
+}
+function homeLeaderCard(leader){
+  return `<div class="home-leader"><div class="home-leader-heading"><h3>${leader.label}</h3><b>${leader.players.length?esc(leader.value)+' <small>'+leader.unit+'</small>':'—'}</b></div>${leader.players.length?leader.players.map(p=>{
+    const photo=officialPhoto(p),initials=p.name.trim().split(/\s+/).slice(0,2).map(n=>n[0]).join('');
+    return `<a class="home-player player-link" href="${esc(playerHref(p)+'&from=home')}" data-player="${esc(playerKey(p))}"><span class="home-avatar" aria-hidden="true"><span>${esc(initials)}</span>${photo?`<img${clubPlayerPhoto(p)?' class="club-photo"':''} src="${esc(photo)}" alt="" width="40" height="40" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:''}</span><span>${esc(p.name)}</span><span aria-hidden="true">›</span></a>`;
+  }).join(''):'<p class="hint">'+(leader.value===0?'Лидер пока не определён.':'Статистика пока недоступна.')+'</p>'}${leader.players.length>1?'<p class="hint">Равный показатель</p>':''}</div>`;
+}
+let homeOpened=false;
+function homeMotion(element){
+  // Inline boot renders and selects the route in one parser task, without effects.
+  if(document.readyState==='loading')return;
+  if(element?.animate&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)element.animate([{opacity:.65},{opacity:1}],{duration:200,easing:'ease-out'});
+}
+function revealHome(){
+  if(homeOpened||currentRoute().section!=='home'||$('launch-splash'))return;
+  homeOpened=true;
+  homeMotion($('home'));
+}
+function renderHome(){
+  const {next,latest,completed}=homeMatches(),standing=homeStanding(),leaders=homeLeaders(),news=homeNews();
+  const main=next?homeMatchCard(next,true):latest?homeMatchCard(latest):'<div class="card empty">Матчи пока не опубликованы.</div>';
+  const result=next&&latest?`<article class="home-block"><h2>Последний результат</h2><a class="card match-link home-result" href="${esc(matchHref(latest))}" data-match="${esc(matchKey(latest))}"><div class="home-result-top"><span class="home-outcome ${kind(latest)}">${homeOutcome(latest)}</span><small>${esc(latest[0])}</small></div><div class="home-result-score"><span>ФК «Судак»<br><span class="home-opponent">${esc(latest[1])}</span></span><b>${latest[2]} : ${latest[3]}</b></div><span class="match-cue">Подробности матча →</span></a></article>`:'';
+  const form=completed.slice(0,5);
+  const position=`<article class="home-block"><div class="home-block-head"><h2>В чемпионате</h2><a href="#table" data-home-tab="table">Чемпионат →</a></div><div class="card home-standing">${standing?`<div class="home-standing-top"><b>${standing.place}<small>место</small></b><span>Открытый чемпионат РК<br>Сезон 2026</span></div><dl class="home-metrics"><div><dt>Матчи</dt><dd>${statValue(standing.games)}</dd></div><div><dt>Очки</dt><dd>${statValue(standing.points)}</dd></div><div><dt>Разница</dt><dd>${standing.difference===null?'—':(standing.difference>0?'+':'')+standing.difference}</dd></div></dl>`:'<p class="empty">Положение клуба пока недоступно.</p>'}${form.length?`<div class="home-form"><span>Последние ${form.length} игр</span><div class="form" aria-label="Результаты: от нового к старому">${form.map(r=>`<span class="dot ${kind(r)}" title="${homeOutcome(r)}: ${esc(r[1])}, ${esc(r[0])}" aria-label="${homeOutcome(r)}">${lt[kind(r)]}</span>`).join('')}</div></div>`:''}<p class="hint">Актуальность данных — под разделами страницы.</p></div></article>`;
+  const leaderBlock=`<article class="home-block home-leaders"><div class="home-block-head"><h2>Лидеры команды</h2><a href="#squad" data-home-tab="squad">Состав →</a></div><div class="card">${leaders.map(homeLeaderCard).join('')}<p class="hint">Статистика чемпионата · 2026${Number.isFinite(Date.parse(PLAYER_STATS_2026?.stats_as_of||''))?' · '+esc(new Date(PLAYER_STATS_2026.stats_as_of).toLocaleDateString('ru-RU')):''}</p></div></article>`;
+  const newsBlock=`<article class="home-block home-news"><div class="home-block-head"><h2>Новости РФФК</h2><a href="#news" data-home-tab="news">Все новости →</a></div><div class="card news">${news.length?news.map(n=>`<a href="${esc(newsLink(n[3]))}" target="_blank" rel="noopener noreferrer">${n[0]?`<small>${esc(n[0])}</small>`:''}<h3>${esc(n[1])}</h3>${n[2]?`<p>${esc(n[2])}</p>`:''}<span class="source">Читать на сайте федерации ↗</span></a>`).join(''):'<p class="empty">Подтверждённые публикации пока недоступны.</p>'}</div></article>`;
+  const blocks=[['intro','<div class="home-intro"><span class="home-kicker">Сезон 2026</span><h2>В центре игры</h2></div>'],['featured',main],['dashboard',`<div class="home-grid">${result}${position}${leaderBlock}${newsBlock}</div>`]];
+  // Не заменяем неизменившиеся блоки: сохраняем фокус и не запускаем анимацию при смене вкладок.
+  const root=$('home'),active=document.activeElement;
+  const focused=root.contains?.(active)?active.closest('a')?.getAttribute('href'):null;
+  for(const [key,html] of blocks){
+    let block=root.querySelector(`[data-home-block="${key}"]`);
+    if(!block){block=document.createElement('div');block.dataset.homeBlock=key;root.append(block)}
+    if(block._homeHTML===html)continue;
+    block.innerHTML=html;block._homeHTML=html;
+    if(homeOpened&&currentRoute().section==='home'&&!document.hidden)homeMotion(block);
+  }
+  root.querySelectorAll('.home-avatar img').forEach(img=>img.onerror=()=>img.remove());
+  if(focused)[...root.querySelectorAll('a')].find(a=>a.getAttribute('href')===focused)?.focus({preventScroll:true});
+}
+function render(){
+  const me=TABLE.findIndex(t=>String(t[0]).includes("Судак"));
+  renderHome();
+  $("matches").innerHTML=`<h2>Календарь</h2><div class="card">${NEXT.length?NEXT.map(n=>`<a class="row match-link" style="display:flex" href="#match=${encodeURIComponent(matchKey(upcomingMatchRow(n)))}&amp;from=matches" data-match="${esc(matchKey(upcomingMatchRow(n)))}"><div class="l"><b>${esc(n[1])}</b><small class="venue">${venue(n[2])}</small></div><div style="text-align:right"><b>${esc(n[0])}</b><small>${esc(n[3])}</small></div></a>`).join(""):`<div class="empty">Матчи пока не назначены.</div>`}</div><h2>Результаты</h2><div class="card">${RES.length?RES.map(r=>{const k=kind(r);return `<a class="row match-link result-link" style="display:flex" href="#match=${encodeURIComponent(matchKey(r))}&amp;from=matches" data-match="${esc(matchKey(r))}" aria-label="Подробности матча: ${esc(r[1])}, ${esc(r[0])}, ${esc(r[2])}:${esc(r[3])}"><div style="display:flex;gap:10px;align-items:center;min-width:0;flex:1"><div class="dot ${k}">${lt[k]}</div><div class="l"><b>${esc(r[1])}</b><small>${esc(r[0])} · ${venue(r[4])}</small></div></div><div class="sc">${esc(r[2])}:${esc(r[3])} <span aria-hidden="true">›</span></div></a>`}).join(""):`<div class="empty">Результаты не опубликованы.</div>`}</div>`;
+  renderChampionship();
+  renderSquad();
+  const published=NEWS.filter(n=>Array.isArray(n)&&n.length>=4&&newsLink(n[3]));
+  $("news").innerHTML=`<h2>Новости федерации · 2026</h2><div class="card news">${published.length?published.map(n=>`<a href="${esc(newsLink(n[3]))}" target="_blank" rel="noopener noreferrer"><b>${esc(n[1])}</b><small>${esc(n[0])}${n[2]?" · "+esc(n[2]):""}</small><span class="source">Открыть на сайте федерации ↗</span></a>`).join(""):`<div class="empty">Свежие новости пока не удалось подтвердить. Показываем только публикации текущего года с рабочей ссылкой на источник.</div>`}</div>`;
+  renderMatch();
+  renderPlayer();
+  renderClub();
+}
+const matchKey=r=>[2026,r[0],r[1],r[5]].join("|");
+const matchHref=r=>"#match="+encodeURIComponent(matchKey(r))+"&from=home";
+function protocolLink(raw){
+  try{const u=new URL(String(raw||""),"https://rffk-roo.ru");return u.protocol==="https:"&&u.host==="rffk-roo.ru"&&/^\/matches\/\d+\/?$/.test(u.pathname)&&!u.search&&!u.hash?u.href:""}catch{return ""}
+}
+const PLAYER_ROLES=["all","Вратари","Защитники","Полузащитники","Нападающие"];
+const normalizedName=value=>String(value||"").normalize("NFC").toLocaleLowerCase("ru").replace(/ё/g,"е").trim().replace(/\s+/g," ");
+function officialPlayerURL(raw){
+  try{const u=new URL(String(raw||""));return u.protocol==="https:"&&u.host==="rffk-roo.ru"&&/^\/players\/\d+\/$/.test(u.pathname)&&!u.search&&!u.hash?u.href:""}catch{return ""}
+}
+const playerKey=p=>officialPlayerURL(p.profile_url)?"rffk-"+new URL(p.profile_url).pathname.split("/")[2]:"name:"+normalizedName(p.name);
+const profileHash=(key,name,role=PLAYER_ROLE)=>"#player="+encodeURIComponent(key)+"&name="+encodeURIComponent(name||"")+"&role="+encodeURIComponent(role);
+const playerHref=p=>profileHash(playerKey(p),p.name);
+function findPlayer(route,players=playerRows()){
+  if(route.teamId)return platformProfile(route);
+  const exact=players.filter(p=>playerKey(p)===route.player);
+  if(exact.length===1)return exact[0];
+  // Old/partial statistics may temporarily omit the official profile URL.
+  const sameName=players.filter(p=>normalizedName(p.name)===normalizedName(route.playerName));
+  return !exact.length&&sameName.length===1&&!officialPlayerURL(sameName[0].profile_url)?sameName[0]:platformProfile(route);
+}
+// Club representative confirmed publication, local WebP and offline use.
+// Keep portraits independent of the hourly federation/statistics refresh.
+const CLUB_PLAYER_PHOTOS=Object.freeze({
+  "rffk-1151": {
+    "name": "Семенов Владимир",
+    "url": "assets/players/vladimir-semenov.webp",
+    "source": "https://www.sofascore.com/football/player/vladimir-semenov/2624727",
+    "publisher": "Sofascore"
+  },
+  "rffk-3359": {
+    "name": "Гайдаш Андрей",
+    "url": "assets/players/andrey-gaydash.webp",
+    "source": "http://tavriya-history.ru/player_bom3.php?id=716",
+    "publisher": "История Таврии"
+  },
+  "rffk-2310": {
+    "name": "Монахов Антон",
+    "url": "assets/players/anton-monakhov.webp",
+    "source": "http://tavriya-history.ru/player_bom3.php?id=367&year=2019",
+    "publisher": "История Таврии"
+  },
+  "rffk-684": {
+    "name": "Бредун Евгений",
+    "url": "assets/players/evgeniy-bredun.webp",
+    "source": "https://footballfakts.ru/person/88261-bredunevgeniydmitrievich",
+    "publisher": "FootballFacts"
+  }
+});
+function clubPlayerPhoto(p){
+  const photo=CLUB_PLAYER_PHOTOS[playerKey(p)];
+  return photo&&normalizedName(p.name)===normalizedName(photo.name)?photo:null;
+}
+function playerPhotoCredit(p){
+  const photo=clubPlayerPhoto(p);
+  return photo?`<a class="photo-source" href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">Источник фото: ${esc(photo.publisher)} ↗</a>`:"Фото: РФФК";
+}
+function officialPhoto(p){
+  const clubPhoto=clubPlayerPhoto(p);if(clubPhoto)return clubPhoto.url;
+  if(!officialPlayerURL(p.profile_url))return "";
+  if(p.photo_source_url!==p.profile_url){
+    const c=p._platform,person=c&&PLATFORM?.playersById?.[c.id];
+    const sourceTeam=person?.photoSourceUrl?.match(/^https:\/\/rffk-roo\.ru\/teams\/([1-9]\d*)\/$/)?.[1];
+    if(!c||person?.photoUrl!==p.photo_url||!platformMembership(c.id,sourceTeam))return "";
+  }
+  try{
+    const u=new URL(p.photo_url);
+    return u.protocol==="https:"&&u.host==="rffk-roo.ru"&&!u.search&&!u.hash&&
+      /^\/uploads\/people\/(?:large|medium|small)\/[a-z0-9_-]+\.(?:jpe?g|png|webp)$/i.test(u.pathname)&&
+      !/(?:default|no[-_]?photo|placeholder|unknown|empty|avatar)\./i.test(u.pathname)?u.href:"";
+  }catch{return ""}
+}
+function scorerMatchesName(author,name){
+  const a=normalizedName(author),n=normalizedName(name);
+  if(a===n)return true;
+  // Exact surname + first initial, optionally with a patronymic initial.
+  // Never use surname-only matching or edit-distance guesses.
+  const hit=a.match(/^([\p{L}]+(?:-[\p{L}]+)*)\s+([\p{L}])\.(?:\s*([\p{L}])\.)?$/u);
+  const parts=n.split(" ");
+  return !!hit&&parts.length>=2&&hit[1]===parts[0]&&hit[2]===parts[1][0]&&
+    (!hit[3]||(parts.length>=3&&hit[3]===parts[2][0]));
+}
+function resolveScorer(goal,players){
+  // An own goal belongs to the match score, never to personal scoring totals.
+  if(!goal||!["goal","penalty"].includes(goal.type))return null;
+  const candidates=players.filter(p=>scorerMatchesName(goal.player,p.name));
+  return candidates.length===1?candidates[0]:null;
+}
+function playerGoalMatches(player,players=playerRows(),results=RES,details=MATCH_DETAILS){
+  const entries=[];let unavailable=0,ambiguous=0;
+  for(const row of results){
+    const d=verifiedMatchDetail(row,details[matchKey(row)]);
+    const side=row[5]==="дома"?"home":"away";
+    const scores=side==="home"?[row[2],row[3]]:[row[3],row[2]];
+    const names=side==="home"?["ФК «Судак»",row[1]]:[row[1],"ФК «Судак»"];
+    if(!d||d.status!=="available"||!Array.isArray(d.goals)||
+       d.home!==names[0]||d.away!==names[1]||d.home_score!==scores[0]||d.away_score!==scores[1]||
+       !/^2026-\d{2}-\d{2}$/.test(d.date||"")){
+      unavailable++;continue;
+    }
+    for(const g of d.goals){
+      if(g.side!==side||!["goal","penalty"].includes(g.type))continue;
+      const scorer=resolveScorer(g,players);
+      if(!scorer&&scorerMatchesName(g.player,player.name))ambiguous++;
+      if(scorer&&playerKey(scorer)===playerKey(player))entries.push({row,goal:g,date:d.date});
+    }
+  }
+  // RES is already ordered newest-first; keep the source order within a match.
+  return {entries,unavailable,ambiguous};
+}
+function renderPlayer(){
+  const route=currentRoute();if(route.section!=="player")return;
+  const p=findPlayer(route);
+  document.body?.setAttribute('data-club-profile',String(!!p?._platform&&p._platform.teamId!=='141'||!!route.teamId&&route.teamId!=='141'));
+  const back=`<button type="button" class="match-back" id="player-back">← ${route.origin==="team"?"К команде":route.origin==="table"?"К чемпионату":route.origin==="match"?"К матчу":route.origin==="home"?"На главную":"К составу"}</button>`;
+  if(!p){$("player").innerHTML=back+'<h2 id="player-title" tabindex="-1">Футболист недоступен</h2><div class="card empty">Профиль пока не найден в загруженном составе. Проверьте подключение или вернитесь к составу.</div>';return}
+  document.title=p.name+" · ФК «Судак»";
+  const initials=p.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join("");
+  const photo=officialPhoto(p),source=officialPlayerURL(p.profile_url);
+  if(p._platform&&p._platform.teamId!=='141'){renderPolishedPlayer(p,back,photo,source);return}
+  const avatar=`<div class="player-avatar"><span aria-hidden="true">${esc(initials)}</span>${photo?`<img${clubPlayerPhoto(p)?' class="club-photo"':''} src="${esc(photo)}" alt="${esc(p.name)}" referrerpolicy="no-referrer"${p._platform?' loading="lazy"':''}>`:""}</div>`;
+  const values=[["league_games","Матчи"],["league_goals","Голы"],["league_minutes","Минуты"],["league_starts","В старте"],["league_substitutions","На замену"],["league_penalty_goals","С пенальти"]];
+  if(p._platform)values.push(['league_yellow_cards','Жёлтые карточки'],['league_second_yellow_cards','Вторые жёлтые'],['league_red_cards','Красные карточки']);
+  const stats=values.map(([field,label])=>`<div class="stats-value" data-stat="${field}"><b>${statValue(p[field])}</b><small>${label}</small></div>`).join("");
+  const {entries,unavailable,ambiguous}=p._platform?{entries:[],unavailable:0,ambiguous:0}:playerGoalMatches(p);
+  const total=Number.isInteger(p.league_goals)&&p.league_goals>=0?p.league_goals:null;
+  const uncertain=unavailable||ambiguous||total===null||entries.length!==total;
+  let coverage=entries.length?`По протоколам подтверждено голов: ${entries.length}.`:"Подтверждённые голы в доступных протоколах не найдены.";
+  if(unavailable)coverage+=` Недоступны или неполны протоколы: ${unavailable}.`;
+  if(ambiguous)coverage+=' Есть неоднозначные сокращённые имена: такие голы не приписаны футболисту.';
+  if(uncertain)coverage+=' Список может быть неполным; итоговая статистика РФФК показана отдельно и не пересчитывается по протоколам.';
+  const list=entries.length?entries.map(({row,goal,date},i)=>`<a class="row match-link player-goal" href="#match=${encodeURIComponent(matchKey(row))}&amp;from=player&amp;player=${encodeURIComponent(playerKey(p))}&amp;name=${encodeURIComponent(p.name)}&amp;role=${encodeURIComponent(PLAYER_ROLE)}${route.origin==="table"?"&amp;profileFrom=table":route.origin==="home"?"&amp;profileFrom=home":route.origin==="match"?"&amp;profileFrom=match&amp;profileBack="+encodeURIComponent(route.matchParent):""}" data-match="${esc(matchKey(row))}" data-goal="${i}"><div class="l"><b>${esc(row[1])}</b><small>${esc(date.split("-").reverse().join("."))} · ${esc(goal.minute)}′${goal.type==="penalty"?" · с пенальти":""}</small></div><div class="sc">${esc(row[5]==="дома"?row[2]:row[3])}:${esc(row[5]==="дома"?row[3]:row[2])} <span aria-hidden="true">›</span></div></a>`).join(""):
+    `<p class="empty">${total===0&&!uncertain?"По статистике РФФК голов в чемпионате 2026 нет.":"Подтверждённые голы в доступных протоколах не найдены. Это не означает, что футболист не забивал."}</p>`;
+  const stale=p.stats_current===false||PLAYER_STATS_2026?.verified===false;
+  $("player").innerHTML=back+`<div class="card player-hero">${avatar}<div><h2 id="player-title" tabindex="-1">${esc(p.name)}</h2><p class="stats-role">${esc(p.position)}</p>${p._platform&&Number.isInteger(p.number)?`<span class="tag">№ ${p.number}</span> `:''}<span class="tag">Сезон 2026</span></div></div><h2>Открытый чемпионат Республики Крым · 2026</h2><div class="card"><div class="profile-values">${stats}</div><p class="hint">${stale?"Последние подтверждённые значения РФФК. ":""}Прочерк означает отсутствие подтверждённых данных. Голы с пенальти входят в общее число голов.</p></div>${p._platform?platformProfileInfo(p):`<p class="hint">Всего игр в карточке РФФК: ${statValue(p.federation_games)} · общий показатель федерации, не показатель сезона 2026.</p>`}${source?`<p class="hint"><a class="stats-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Карточка футболиста на сайте РФФК ↗</a>${photo?" · "+playerPhotoCredit(p):""}</p>`:""}${p._platform?'':`<h2>Голы в матчах</h2><p class="hint" id="goal-coverage">${esc(coverage)}</p><div class="card player-goals">${list}</div><p class="hint">Итоговый счёт в списке: хозяева — гости. Автоголы не включены в личные голы футболиста.</p>`}`;
+  $("player").innerHTML+=playerMatchesHTML(p);
+  const image=$("player").querySelector('.player-avatar img');
+  if(image)image.addEventListener("error",()=>image.remove(),{once:true});
+}
+// Match centre shares existing calendar identities, protocol data and player matching.
+const MATCH_EVENT_LABELS={goal:'Гол',penalty:'Гол с пенальти',own_goal:'Автогол',missed_penalty:'Пенальти не реализован',yellow:'Жёлтая карточка',second_yellow:'Повторное предупреждение',red:'Красная карточка',substitution:'Замена',substitution_out:'Уход с поля',substitution_in:'Выход на поле'};
+const MATCH_GOAL_TYPES=['goal','penalty','own_goal'];
+function matchMinute(value){
+  const hit=String(value??'').trim().match(/^(\d{1,3})(?:\+(\d{1,2}))?$/);
+  return hit&&Number(hit[1])>=1&&Number(hit[1])<=120&&Number(hit[2]||0)<=30?hit[1]+(hit[2]?'+'+hit[2]:''):null;
+}
+function verifiedMatchDetail(row,detail){
+  if(!detail||!['дома','в гостях'].includes(row[5]))return null;
+  const source=protocolLink(detail.source_url);
+  if(source&&detail.id&&new URL(source).pathname.split('/')[2]!==String(detail.id))return null;
+  const home=row[5]==='дома',date=homeDate(row[0]);
+  if(date===null||detail.date!==new Date(date).toISOString().slice(0,10)||
+     detail.home!==(home?'ФК «Судак»':row[1])||detail.away!==(home?row[1]:'ФК «Судак»'))return null;
+  if(Number.isInteger(row[2])&&Number.isInteger(row[3])&&
+    (detail.home_score!==(home?row[2]:row[3])||detail.away_score!==(home?row[3]:row[2])))return null;
+  return detail;
+}
+function confirmedMatchGoals(detail,scores){
+  if(detail?.status!=='available'||!Array.isArray(detail.goals))return null;
+  const running=[0,0],goals=[];
+  for(const raw of detail.goals){
+    if(!raw||!MATCH_GOAL_TYPES.includes(raw.type)||!['home','away'].includes(raw.side))return null;
+    running[raw.side==='home'?0:1]++;
+    if(!Array.isArray(raw.score)||raw.score.length!==2||raw.score.some((v,i)=>v!==running[i]))return null;
+    goals.push({...raw,player:typeof raw.player==='string'?raw.player:'',minute:matchMinute(raw.minute)});
+  }
+  return running.every((v,i)=>v===scores[i])?goals:null;
+}
+function confirmedMatchEvents(detail,goals){
+  if(!goals)return {items:[],complete:false};
+  if(!Array.isArray(detail.events))return {items:goals,complete:false};
+  const items=detail.events.filter(e=>e&&Object.hasOwn(MATCH_EVENT_LABELS,e.type)&&['home','away'].includes(e.side))
+    .map(e=>({...e,player:typeof e.player==='string'?e.player:'',minute:matchMinute(e.minute)}));
+  const signature=g=>JSON.stringify([g.type,g.side,g.player,g.minute,g.score]);
+  const scoring=items.filter(e=>MATCH_GOAL_TYPES.includes(e.type));
+  if(scoring.length!==goals.length||scoring.some((e,i)=>signature(e)!==signature(goals[i])))return {items:goals,complete:false};
+  return {items,complete:detail.events_complete===true&&items.length===detail.events.length};
+}
+function matchCenter(key,results=RES,upcoming=NEXT,details=MATCH_DETAILS){
+  const result=results.find(r=>Array.isArray(r)&&matchKey(r)===key);
+  const planned=upcoming.find(n=>Array.isArray(n)&&matchKey(upcomingMatchRow(n))===key);
+  const row=result||(planned?upcomingMatchRow(planned):null);
+  if(!row)return platformMatchCenter(key);
+  const home=row[5]==='дома',finished=!!result&&[row[2],row[3]].every(n=>Number.isInteger(n)&&n>=0);
+  const scores=finished?(home?[row[2],row[3]]:[row[3],row[2]]):null;
+  const detail=verifiedMatchDetail(row,details[key]);
+  const goals=finished?confirmedMatchGoals(detail,scores):null;
+  const events=confirmedMatchEvents(detail,goals);
+  const status=finished?'Завершён':detail?.match_status==='cancelled'?'Отменён':detail?.match_status==='postponed'?'Перенесён':planned?'Запланирован':'Результат уточняется';
+  const lineups={};
+  for(const side of ['home','away']){
+    const raw=detail?.lineups?.[side],groups={};
+    for(const group of ['starters','substitutes']){
+      if(Array.isArray(raw?.[group]))groups[group]=raw[group].filter(p=>p&&typeof p.name==='string'&&p.name.trim())
+        .map(p=>({name:p.name,profile_url:officialPlayerURL(p.profile_url),number:Number.isInteger(p.number)&&p.number>=0&&p.number<=99?p.number:null}));
+    }
+    if(Object.values(groups).some(group=>group.length))lineups[side]=groups;
+  }
+  return {key,row,home,finished,scores,detail,goals,events,lineups,status,
+    teams:home?['ФК «Судак»',row[1]]:[row[1],'ФК «Судак»'],clubSide:home?'home':'away',
+    time:/^([01]\d|2[0-3]):[0-5]\d$/.test(detail?.time||'')?detail.time:'',
+    date:detail?.date?detail.date.split('-').reverse().join('.'):homeDate(row[0])!==null?row[0]+(!/\b2026\b/.test(row[0])?' 2026':''):'',
+    venue:typeof detail?.venue==='string'&&detail.venue?detail.venue:typeof row[4]==='string'?row[4]:'',
+    competition:typeof detail?.competition==='string'&&detail.competition?detail.competition:'Открытый чемпионат Республики Крым',round:typeof detail?.round==='string'?detail.round:'',source:protocolLink(detail?.source_url)};
+}
+// Platform and legacy records adapt to the same match renderer.
+function platformMatchKey(m){return m.sourceMatchId?'rffk-'+m.sourceMatchId:m.matchId}
+function platformMatchCenter(key){
+  const m=PLATFORM?.matchesById?.[key]||Object.values(PLATFORM?.matchesById||{}).find(m=>platformMatchKey(m)===key);
+  if(!m||m.competitionId!=='4'||m.seasonId!=='22'||!platformTeam(m.homeTeamId)||!platformTeam(m.awayTeamId)||m.homeTeamId===m.awayTeamId)return null;
+  if(m.sourceMatchId&&clubOfficialURL(m.sourceUrl,'matches',m.sourceMatchId)==='')return null;
+  const scores=['finished','technical'].includes(m.status)&&[m.homeScore,m.awayScore].every(v=>Number.isInteger(v)&&v>=0)?[m.homeScore,m.awayScore]:null;
+  const raw=PLATFORM.protocolsByMatchId?.[m.matchId];
+  const protocol=scores&&raw&&['sourceMatchId','sourceUrl','homeTeamId','awayTeamId','date','homeScore','awayScore'].every(f=>raw[f]===m[f])?raw:null;
+  const lineups={};
+  for(const side of ['home','away'])for(const group of ['starters','substitutes']){
+    const entries=protocol?.lineups?.[side]?.[group];if(!Array.isArray(entries))continue;
+    const valid=entries.filter(e=>PLATFORM.playersById?.[e.playerId]&&clubOfficialURL(e.sourceUrl,'players',e.playerId));
+    if(valid.length)(lineups[side]||={})[group]=valid.map(e=>({name:PLATFORM.playersById[e.playerId].name,profile_url:e.sourceUrl,number:e.number}));
+  }
+  const items=(protocol?.events||[]).filter(e=>Object.hasOwn(MATCH_EVENT_LABELS,e.type)&&[m.homeTeamId,m.awayTeamId].includes(e.teamId)&&matchMinute(e.minute))
+    .map(e=>({type:e.type,side:e.teamId===m.homeTeamId?'home':'away',player:e.sourceLabel,playerId:e.playerId,minute:matchMinute(e.minute),score:e.score}));
+  const scoring=items.filter(e=>MATCH_GOAL_TYPES.includes(e.type)&&Array.isArray(e.score)&&e.score.length===2&&e.score.every(v=>Number.isInteger(v)&&v>=0));
+  const checked=confirmedMatchGoals({status:'available',goals:scoring},scores||[]);
+  const goals=protocol?(checked||(scoring.length?scoring:null)):null;
+  return {key,platformMatch:m,protocol,home:m.homeTeamId==='141',scores,finished:!!scores,
+    teams:[platformTeam(m.homeTeamId).name,platformTeam(m.awayTeamId).name],clubSide:m.homeTeamId==='141'?'home':m.awayTeamId==='141'?'away':null,
+    goals,events:{items:items.filter(e=>!MATCH_GOAL_TYPES.includes(e.type)||scoring.includes(e)),complete:protocol?.eventsComplete===true},lineups,
+    status:champStatus(m),date:m.date?m.date.split('-').reverse().join('.'):'',time:protocol?.time||m.time||'',
+    venue:protocol?.venue||m.venue||'',city:protocol?.city||'',round:protocol?.roundLabel||m.roundId+'-й тур',
+    competition:'Открытый чемпионат Республики Крым · 2026',source:protocolLink(m.sourceUrl)};
+}
+function confirmedPlayerMatches(id){
+  if(!id||!PLATFORM)return [];
+  return Object.values(PLATFORM.protocolsByMatchId||{}).filter(p=>{
+    const m=PLATFORM.matchesById[p.matchId];
+    return m&&['finished','technical'].includes(m.status)&&['sourceMatchId','sourceUrl','date','homeScore','awayScore'].every(f=>p[f]===m[f])&&
+      Object.values(p.lineups||{}).some(groups=>Object.values(groups).some(entries=>entries.some(e=>e.playerId===id&&clubOfficialURL(e.sourceUrl,'players',id))));
+  }).map(p=>PLATFORM.matchesById[p.matchId]).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+}
+function playerMatchesHTML(p){
+  const id=officialPlayerURL(p.profile_url)?.split('/')[4],matches=confirmedPlayerMatches(id);
+  if(!matches.length)return '';
+  const parent=location.hash.startsWith('#player=')?location.hash:'';
+  return '<h2>Подтверждённые матчи</h2><p class="hint">Участие подтверждено официальным составом конкретной игры. Список может быть неполным.</p><div class="card">'+matches.map(m=>`<a class="row match-link" data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=player&amp;player=${encodeURIComponent(playerKey(p))}&amp;profileRoute=${encodeURIComponent(parent)}"><div class="l"><b>${esc(platformTeam(m.homeTeamId).name)} — ${esc(platformTeam(m.awayTeamId).name)}</b><small>${esc(m.date||'Дата не указана')}</small></div><span class="sc">${m.homeScore}:${m.awayScore}</span></a>`).join('')+'</div>';
+}
+function matchPlayer(name,side,model,players=playerRows(),sourceURL=''){
+  if(side!==model.clubSide||!name)return null;
+  const groups=model.lineups[side];
+  const entries=groups?Object.values(groups).flat():[];
+  if(sourceURL){
+    const matches=players.filter(p=>officialPlayerURL(p.profile_url)===sourceURL&&normalizedName(p.name)===normalizedName(name));
+    return matches.length===1?matches[0]:null;
+  }
+  if(entries.length){
+    const identities=entries.filter(p=>scorerMatchesName(name,p.name));
+    if(identities.length!==1)return null;
+    if(identities[0].profile_url)return matchPlayer(identities[0].name,side,model,players,identities[0].profile_url);
+    const exact=players.filter(p=>normalizedName(p.name)===normalizedName(identities[0].name));
+    return exact.length===1?exact[0]:null;
+  }
+  const matches=players.filter(p=>scorerMatchesName(name,p.name));
+  return matches.length===1?matches[0]:null;
+}
+const eventActorSide=e=>e.type==='own_goal'?(e.side==='home'?'away':'home'):e.side;
+function matchPersonHTML(name,side,model,entry,sourceURL=''){
+  if(model.platformMatch){
+    const pid=officialPlayerURL(sourceURL)?.split('/')[4],person=PLATFORM?.playersById?.[pid];
+    if(!person)return `<span>${esc(name||'Футболист не указан')}</span>`;
+    const tid=model.platformMatch[side+'TeamId'],context=platformMembership(pid,tid)?tid:null;
+    const href=platformPlayerHref(pid,context)+'&from=match&back='+encodeURIComponent(location.hash);
+    return `<a class="player-link center-player" data-player="rffk-${esc(pid)}" data-match-player="${esc(entry)}" href="${esc(href)}">${esc(name)}<span class="sr-only"> — профиль футболиста</span></a>`;
+  }
+  const person=matchPlayer(name,side,model,playerRows(),sourceURL);
+  if(!person)return `<span>${esc(name||'Футболист не указан')}</span>`;
+  const parent=location.hash.startsWith('#match=')?location.hash:matchHref(model.row);
+  return `<a class="player-link center-player" data-player="${esc(playerKey(person))}" data-match-player="${esc(entry)}" href="${esc(playerHref(person)+'&from=match&back='+encodeURIComponent(parent))}">${esc(name)}<span class="sr-only"> — профиль футболиста</span></a>`;
+}
+function matchGoalsHTML(model){
+  if(!model.finished)return '';
+  if(model.goals===null&&model.platformMatch&&model.events.items.length)return '<div class="card empty center-unavailable" role="status">Протокол содержит неполные сведения о голах. Доступные подтверждённые события и составы показаны ниже.</div>';
+  if(model.goals===null)return '<div class="card empty center-unavailable" role="status">Протокол матча недоступен или содержит неполные данные. Авторы голов, минуты и хронология пока не подтверждены.</div>';
+  if(!model.goals.length)return '<div class="card empty">В этом матче голов не было.</div>';
+  return `<article class="center-goals"><h2>Авторы голов</h2><div class="card"><ul class="center-scorers">${model.goals.map((goal,index)=>{
+    const actor=eventActorSide(goal),team=model.teams[actor==='home'?0:1];
+    return `<li><div class="center-goal-name">${matchPersonHTML(goal.player,actor,model,'scorer-'+index,goal.playerId?PLATFORM?.playersById?.[goal.playerId]?.sourceUrl:'')}<small>${esc(team)}${goal.type==='own_goal'?' · В пользу '+esc(model.teams[goal.side==='home'?0:1]):''}</small></div><div class="center-goal-minute">${goal.minute?`<b>${esc(goal.minute)}′</b>`:''}<small>${MATCH_EVENT_LABELS[goal.type]}</small></div></li>`;
+  }).join('')}</ul></div></article>`;
+}
+function matchEventsHTML(model){
+  const items=model.events.items;if(!items.length)return '';
+  const timed=items.every(e=>e.minute!==null);
+  const goalsOnly=items.every(e=>MATCH_GOAL_TYPES.includes(e.type));
+  const symbol=e=>({goal:'●',penalty:'●',own_goal:'●',missed_penalty:'×',yellow:'▰',second_yellow:'▰',red:'▰',substitution:'↔',substitution_in:'↗',substitution_out:'↙'})[e.type];
+  return `<article class="center-events"><h2>${timed?'Хронология матча':'Подтверждённые события'}</h2><p class="hint">${goalsOnly?'Доступны только события голов. ':model.events.complete?'События из официального протокола. ':'Показаны доступные подтверждённые события. '}${timed?'':'Минуты части событий не указаны; сохранён порядок источника.'}</p><div class="card"><ol class="center-timeline ${timed?'is-timed':''}">${items.map((e,index)=>{
+    const actor=eventActorSide(e),team=model.teams[actor==='home'?0:1];
+    return `<li class="${MATCH_GOAL_TYPES.includes(e.type)?'is-goal':''}" data-event="${esc(e.type)}"><div class="center-event-clock">${e.minute?`<span>${esc(e.minute)}′</span>`:''}<span class="center-event-icon ${esc(e.type)}" aria-hidden="true">${symbol(e)}</span></div><div class="goal-player"><span class="center-event-label">${MATCH_EVENT_LABELS[e.type]}</span>${matchPersonHTML(e.player,actor,model,'event-'+index,e.playerId?PLATFORM?.playersById?.[e.playerId]?.sourceUrl:'')}<small>${esc(team)}${e.type==='own_goal'?' · В пользу '+esc(model.teams[e.side==='home'?0:1]):''}</small></div>${MATCH_GOAL_TYPES.includes(e.type)?`<b class="sc">${esc(e.score[0])}:${esc(e.score[1])}</b>`:''}</li>`;
+  }).join('')}</ol></div></article>`;
+}
+function matchLineupsHTML(model){
+  if(!Object.keys(model.lineups).length)return '';
+  const list=(entries,side,group)=>`<ul class="center-lineup-list">${entries.map((p,index)=>`<li>${p.number!==null?`<span class="center-shirt">${p.number}</span>`:''}${matchPersonHTML(p.name,side,model,side+'-'+group+'-'+index,p.profile_url)}</li>`).join('')}</ul>`;
+  return `<article class="center-lineups"><h2>Составы команд</h2><div class="center-lineup-grid">${['home','away'].map((side,i)=>{
+    const groups=model.lineups[side];if(!groups)return '';
+    return `<div class="card center-lineup-team"><h3>${esc(model.teams[i])}</h3>${model.platformMatch&&groups.starters?.length!==11?`<p class="hint">РФФК публикует строк стартового состава: ${groups.starters?.length||0}. Показаны опубликованные сведения; список не дополняется.</p>`:''}${groups.starters?.length?'<h4>Стартовый состав</h4>'+list(groups.starters,side,'starters'):''}${groups.substitutes?.length?`<details data-center-list="${side}-bench"><summary>Запасные <span>${groups.substitutes.length}</span></summary>${list(groups.substitutes,side,'substitutes')}</details>`:''}</div>`;
+  }).join('')}</div></article>`;
+}
+// Presentation only. Legacy Sudak protocols continue through the original markup.
+function polishedMatchHTML(model){
+  const {teams,scores,platformMatch:m}=model;
+  const team=i=>`<div class="tm"><a class="club-link" data-team="${esc(i?m.awayTeamId:m.homeTeamId)}" href="${clubHref(i?m.awayTeamId:m.homeTeamId)}"><span class="center-badge">${clubBadge(i?m.awayTeamId:m.homeTeamId)}</span><b>${esc(teams[i])}</b></a><small>${i?'Гости':'Хозяева'}</small></div>`;
+  const quality=model.protocol?.quality||m.protocolQuality||m.quality;
+  const limited=quality?.coverage==='partial'||quality?.status!=='current';
+  const city=model.city&&!model.venue.toLocaleLowerCase('ru').includes(model.city.toLocaleLowerCase('ru'))?model.city:'';
+  return `<div class="match-polish"><div class="center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="center-status">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num">${scores[0]}</span><span aria-hidden="true">:</span><span class="num">${scores[1]}</span></div><small>Итоговый счёт</small>`:'<span class="center-score-dash" aria-label="Счёт не опубликован">—</span>'}</div>${team(1)}</div><p class="match-meta">${esc(model.date||'Дата не указана')}${model.time?' · '+esc(model.time)+' МСК':''}${model.venue?'<br>'+esc(model.venue):''}${city?'<br>'+esc(city):''}</p></div>${!model.finished?'<p class="hint">Подтверждённый результат и события появятся после публикации РФФК.</p>':''}${limited?(quality?.status==='current'?'<p class="hint">Данные РФФК неполные.</p>':clubQuality(quality)):''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол РФФК</b><small>Откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}${quality?.status==='current'?'<details class="center-data" data-center-list="source"><summary>Данные РФФК</summary>'+clubQuality(quality)+'</details>':''}</div>`;
+}
+function renderMatch(){
+  const route=currentRoute();if(route.section!=='match')return;
+  const model=matchCenter(route.key),root=$('match');
+  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==='team'?'К команде':route.origin==='table'?'К чемпионату':route.origin==='player'?'К футболисту':route.origin==='home'?'На главную':'К матчам'}</button>`;
+  let html=back+'<h2 tabindex="-1" id="match-title">Центр матча</h2>';
+  if(!model)html+='<div class="card empty">Сведения об этом матче пока недоступны. Проверьте подключение или выберите матч в разделе «Матчи».</div>';
+  else{
+    const {teams,home,scores}=model;
+    const badge=(side,name)=>side===model.clubSide?'<span class="center-badge"><img src="icon-192.png?v=final-crest-v7" alt="" width="48" height="48"></span>':'<span class="center-badge center-neutral" aria-hidden="true">'+esc(name.replace(/[«»"']/g,'').split(/\s+/).filter(n=>!['ФК','СК','АФК'].includes(n)).slice(0,2).map(n=>n[0]).join('')||'—')+'</span>';
+    const linkedMatch=PLATFORM?.matchesById?.[PLATFORM?.legacyLinks?.matches?.[route.key]];
+    const platformMatch=model.platformMatch||(linkedMatch&&model.detail&&linkedMatch.sourceMatchId===String(model.detail.id)&&linkedMatch.date===model.detail.date&&linkedMatch.homeScore===model.detail.home_score&&linkedMatch.awayScore===model.detail.away_score?linkedMatch:null);
+    const team=(i)=>{const id=i===0?platformMatch?.homeTeamId:platformMatch?.awayTeamId,content=(model.platformMatch?`<span class="center-badge"><img src="${esc(clubLogo(id))}" alt="" width="48" height="48"></span>`:badge(i===0?'home':'away',teams[i]))+`<b>${esc(teams[i])}</b>`;
+      return `<div class="tm">${platformTeam(id)?`<a class="club-link" data-team="${esc(id)}" href="${clubHref(id)}">${content}</a>`:content}<small>${i===0?'Хозяева':'Гости'}</small></div>`};
+    const fields=[['Дата',model.date+(model.time?' · '+model.time:'')],['Турнир',model.competition],['Тур',model.round],['Стадион',model.venue],['Город',model.city],['Статус',model.status]].filter(([,value])=>value);
+    const polish=model.platformMatch&&(!model.platformMatch.sourceMatchId||!Object.values(MATCH_DETAILS).some(d=>d.status==='available'&&String(d.id)===model.platformMatch.sourceMatchId));
+    html+=polish?polishedMatchHTML(model):`<div class="card center-hero"><div class="center-hero-head"><span class="center-competition">${esc(model.competition)}</span><span class="tag">${esc(model.status)}</span></div>${model.round?`<p class="center-round">${esc(model.round)}</p>`:''}<div class="board">${team(0)}<div class="center-score">${scores?`<div class="center-score-numbers"><span class="num ${home?'us':''}">${scores[0]}</span><span aria-hidden="true">:</span><span class="num ${home?'':'us'}">${scores[1]}</span></div><small>Итоговый счёт</small>`:`<span class="center-not-started">${model.status==='Запланирован'?'Матч не начался':esc(model.status)}</span>`}</div>${team(1)}</div><p class="match-meta">${esc(model.date)}${model.time?' · '+esc(model.time):''}${model.venue?'<br>'+esc(model.venue):''}</p></div><dl class="card center-info">${fields.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${!model.finished?'<p class="hint">'+(model.status==='Запланирован'?'Матч запланирован. Итоговый счёт и протокол появятся после публикации.':'Подтверждённый результат пока не опубликован.')+'</p>':''}${model.platformMatch?clubQuality(model.protocol?.quality||model.platformMatch.protocolQuality||model.platformMatch.quality):''}${matchGoalsHTML(model)}<div class="center-grid">${matchEventsHTML(model)}${matchLineupsHTML(model)}</div>${model.source?`<a class="card center-protocol stats-source" href="${esc(model.source)}" target="_blank" rel="noopener noreferrer"><span><b>Полный протокол</b><small>Официальный сайт РФФК · откроется в новой вкладке</small></span><span aria-hidden="true">↗</span></a>`:''}`;
+  }
+  if(root._centerHTML===html)return;
+  const open=[...(root.querySelectorAll?.('details[open]')||[])].map(el=>el.dataset.centerList);
+  const focused=root.contains?.(document.activeElement)?document.activeElement?.dataset?.matchPlayer:null;
+  const sameMatch=root._centerKey===route.key;
+  root.innerHTML=html;root._centerHTML=html;root._centerKey=route.key;
+  for(const img of root.querySelectorAll?.('.match-polish .champ-badge img')||[])img.addEventListener('error',()=>img.remove(),{once:true});
+  if(sameMatch){
+    for(const el of root.querySelectorAll?.('details')||[])el.open=open.includes(el.dataset.centerList);
+    if(focused)[...(root.querySelectorAll?.('a[data-match-player]')||[])].find(a=>a.dataset.matchPlayer===focused)?.focus({preventScroll:true});
+  }else if(!$('launch-splash'))homeMotion(root);
+}
+function matchParentHash(value){
+  if(typeof value!=='string'||!value.startsWith('#match=')||value.length>4096)return '';
+  const params=new URLSearchParams(value.slice(1));
+  return params.get('match')?value:'';
+}
+function profileParentTab(hash){
+  const p=new URLSearchParams(String(hash||'').slice(1));
+  return p.get('from')==='match'?matchParentTab(p.get('back')):p.get('team')||p.get('from')==='table'?'table':p.get('from')==='home'?'home':'squad';
+}
+function matchParentTab(hash,depth=0){
+  const params=new URLSearchParams(String(hash||'').slice(1));
+  if(['table','team'].includes(params.get('from')))return 'table';
+  if(params.get('from')==='home')return 'home';
+  if(params.get('profileRoute')&&depth<8)return profileParentTab(params.get('profileRoute'));
+  if(params.get('from')!=='player')return 'matches';
+  if(params.get('profileFrom')==='table')return 'table';
+  if(params.get('profileFrom')==='home')return 'home';
+  const parent=matchParentHash(params.get('profileBack'));
+  return params.get('profileFrom')==='match'&&parent&&depth<8?matchParentTab(parent,depth+1):'squad';
+}
+function currentRoute(){
+  const hash=location.hash.slice(1),params=new URLSearchParams(hash);
+  const role=PLAYER_ROLES.includes(params.get("role"))?params.get("role"):
+    (PLAYER_ROLES.includes(history.state?.playerRole)?history.state.playerRole:PLAYER_ROLE);
+  const player=params.get("player"),playerName=params.get("name")||"";
+  if(hash.startsWith("team="))return params.get("team")==="141"?{section:"home",role}:{section:"team",teamId:params.get("team"),role};
+  if(hash.startsWith("player="))return {section:"player",player,playerName,role,teamId:params.get("team"),competitionId:params.get("competition"),seasonId:params.get("season"),origin:params.get("from")==="match"?"match":params.get("team")?"team":params.get("from")==="table"?"table":params.get("from")==="home"?"home":params.get("from")==="match"?"match":"squad",matchParent:matchParentHash(params.get("back"))};
+  if(hash.startsWith("match=")){
+    const from=params.get("from");
+    return {section:"match",key:params.get("match"),origin:from==="team"?"team":from==="table"?"table":from==="player"&&player?"player":from==="home"?"home":"matches",player,playerName,role,teamId:params.get("team"),profileRoute:params.get("profileRoute")?.startsWith("#player=")?params.get("profileRoute"):null,profileOrigin:params.get("profileFrom"),profileBack:matchParentHash(params.get("profileBack"))};
+  }
+  const section=hash.split("&")[0];
+  return {section:["home","matches","table","squad","news"].includes(section)?section:"home",role};
+}
+function routeParent(route){
+  if(route.section==="match"&&route.origin==="team")return platformTeam(route.teamId)?clubHref(route.teamId):"#table";
+  if(route.section==="match"&&route.origin==="player"&&route.profileRoute)return route.profileRoute;
+  if(route.section==="player"&&route.origin==="team")return platformTeam(route.teamId)?clubHref(route.teamId):"#table";
+  if(route.section==="player")return route.origin==="table"?"#table":route.origin==="match"?(route.matchParent||"#matches"):route.origin==="home"?"#home":"#squad&role="+encodeURIComponent(route.role);
+  if(route.origin==="player")return profileHash(route.player,route.playerName,route.role)+(route.profileOrigin==="table"?"&from=table":route.profileOrigin==="home"?"&from=home":route.profileOrigin==="match"?"&from=match&back="+encodeURIComponent(route.profileBack):"");
+  return "#"+route.origin;
+}
+let tabTransition=null;
+function clearTabTransition(){tabTransition?.();tabTransition=null}
+function prepareTabTransition(next){
+  clearTabTransition();
+  const previous=document.querySelector('main section.on');
+  const tabs=['home','matches','table','squad','news'];
+  if(document.readyState==='loading'||!previous||previous===next||!tabs.includes(previous.id)||!tabs.includes(next.id)||
+    $('launch-splash')||!next.animate||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return ()=>{};
+  // Cancel section entry effects so they cannot compete with the crossfade.
+  for(const element of [previous,next])element.getAnimations().forEach(animation=>animation.cancel());
+  const rect=previous.getBoundingClientRect();
+  const top=Math.max(0,document.querySelector('main').getBoundingClientRect().top);
+  const bottom=$('nav').getBoundingClientRect().top;
+  const properties={'--tab-left':rect.left+'px','--tab-top':rect.top+'px','--tab-width':rect.width+'px',
+    '--tab-clip-top':Math.max(0,top-rect.top)+'px','--tab-clip-bottom':Math.max(0,rect.bottom-bottom)+'px'};
+  const inert=previous.inert,hidden=previous.getAttribute('aria-hidden');
+  previous.inert=true;previous.setAttribute('aria-hidden','true');
+  Object.entries(properties).forEach(([key,value])=>previous.style.setProperty(key,value));
+  previous.classList.add('tab-leaving');
+  let animations=[],cleared=false;
+  const clear=()=>{
+    if(cleared)return;
+    cleared=true;animations.forEach(animation=>animation.cancel());
+    previous.classList.remove('tab-leaving');
+    Object.keys(properties).forEach(key=>previous.style.removeProperty(key));
+    previous.inert=inert;
+    if(hidden===null)previous.removeAttribute('aria-hidden');else previous.setAttribute('aria-hidden',hidden);
+    if(tabTransition===clear)tabTransition=null;
+  };
+  tabTransition=clear;
+  return ()=>{
+    if(next.id==='home')homeOpened=true;
+    const options={duration:200,easing:'cubic-bezier(.2,.65,.3,1)'};
+    animations=[previous.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-6px)'}],options),
+      next.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],options)];
+    Promise.all(animations.map(animation=>animation.finished)).then(clear,clear);
+  };
+}
+window.addEventListener('pagehide',clearTabTransition);
+window.matchMedia?.('(prefers-reduced-motion: reduce)').addEventListener('change',event=>{
+  if(event.matches)clearTabTransition();
+});
+function applyRoute(restore=false){
+  const route=currentRoute();
+  document.body?.removeAttribute('data-club-profile');
+  const animateTab=prepareTabTransition($(route.section));
+  if(PLAYER_ROLE!==route.role){PLAYER_ROLE=route.role;renderSquad()}
+  document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
+  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileRoute?profileParentTab(route.profileRoute):route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?(route.origin==="team"?"table":route.origin):route.section;
+  document.querySelectorAll('#nav button').forEach(el=>{
+    const active=el.dataset.t===tab;
+    el.classList.toggle("on",active);
+    if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");
+  });
+  if(route.section==="match")renderMatch();
+  if(route.section==="player")renderPlayer();
+  if(route.section==="team")renderClub();
+  const title=route.section==="team"?(platformTeam(route.teamId)?.name||"Команда"):route.section==="player"?findPlayer(route)?.name:route.section==="match"?"Матч":"";
+  document.title=(title?title+" · ":"")+"ФК «Судак»";
+  window.scrollTo(0,restore?(history.state?.scrollY||0):0);
+  animateTab();
+  if(restore){
+    const focus=history.state?.focusPlatformPlayer?{selector:"a[data-platform-player]",field:"platformPlayer",value:history.state.focusPlatformPlayer}:history.state?.focusTeam?{selector:"a[data-team]",field:"team",value:history.state.focusTeam}:history.state?.focusPlayer?{selector:"a[data-player]",field:"player",value:history.state.focusPlayer}:
+      history.state?.focusMatch?{selector:"a[data-match]",field:"match",value:history.state.focusMatch}:null;
+    const link=focus?[...$(route.section).querySelectorAll(focus.selector)].find(a=>a.dataset[focus.field]===focus.value&&(!history.state?.focusGoal||a.dataset.goal===history.state.focusGoal)&&(!history.state?.focusEntry||a.dataset.matchPlayer===history.state.focusEntry)):null;
+    if(link){link.focus({preventScroll:true});return}
+  }
+  $(route.section+"-title")?.focus({preventScroll:true});
+  revealHome();
+}
+function rememberPosition(focusMatch,focusPlayer,focusGoal,focusEntry){
+  history.replaceState({...history.state,scrollY:window.scrollY,playerRole:PLAYER_ROLE,focusMatch,focusPlayer,focusGoal,focusEntry,focusTeam:undefined,focusPlatformPlayer:undefined},"",location.href);
+}
+for(const section of ["home","matches","player","table"])$(section).addEventListener("click",openMatch);
+function plainClick(event){return event.button===0&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.altKey}
+function openMatch(event){
+  const link=event.target.closest("a[data-match]");
+  if(!link||!plainClick(event))return;
+  event.preventDefault();
+  const origin=currentRoute().section;
+  rememberPosition(link.dataset.match,undefined,link.dataset.goal);
+  history.pushState({matchEntry:true,parent:location.hash},"",origin==="player"?link.getAttribute("href"):"#match="+encodeURIComponent(link.dataset.match)+"&from="+origin);
+  applyRoute();
+}
+for(const section of ["squad","home","match","table"])$(section).addEventListener("click",event=>{
+  const link=event.target.closest("a[data-player]");
+  if(!link||!plainClick(event))return;
+  event.preventDefault();rememberPosition(undefined,link.dataset.player,undefined,link.dataset.matchPlayer);
+  history.pushState({playerEntry:true,parent:location.hash||"#"+currentRoute().section},"",link.getAttribute("href"));applyRoute();
+});
+function returnToParent(){
+  const route=currentRoute();
+  if((route.section==="match"&&history.state?.matchEntry)||(route.section==="player"&&history.state?.playerEntry))history.back();
+  else{history.replaceState({},"",routeParent(route));applyRoute()}
+}
+$("match").addEventListener("click",event=>{if(event.target.closest("#match-back"))returnToParent()});
+$("player").addEventListener("click",event=>{if(event.target.closest("#player-back"))returnToParent()});
+window.addEventListener("popstate",()=>applyRoute(true));
+window.addEventListener("hashchange",()=>applyRoute(true));
+if("scrollRestoration" in history)history.scrollRestoration="manual";
+
+// Отдельная статистика конкретного турнира: 2026, не смешиваем с общим числом игр.
+function playerRows(){
+  if(PLAYER_STATS_2026?.season===2026&&Array.isArray(PLAYER_STATS_2026.players)&&
+     PLAYER_STATS_2026.players.length>0){
+    return PLAYER_STATS_2026.players.filter(p=>p&&typeof p.name==="string"&&
+      typeof p.position==="string"&&typeof p.federation_games==="number");
+  }
+  // Совместимость со старым data.json до первого нового запуска Actions.
+  return Object.entries(SQUAD).flatMap(([position,members])=>
+    (Array.isArray(members)?members:[]).map(row=>{
+      const [name,count]=String(row).split("|");
+      return {name,position,federation_games:Number(count)||0,
+        league_games:null,league_goals:null,league_minutes:null,league_penalty_goals:null};
+    }));
+}
+const statValue=value=>Number.isInteger(value)&&value>=0?esc(value):"—";
+function renderSquad(){
+  const players=playerRows();
+  const roles=["Вратари","Защитники","Полузащитники","Нападающие"];
+  const verified=players.filter(p=>Number.isInteger(p.league_goals)&&p.league_goals>=0);
+  const best=[...verified].sort((a,b)=>b.league_goals-a.league_goals||a.name.localeCompare(b.name,"ru")).slice(0,3);
+  const listing=players.filter(p=>PLAYER_ROLE==="all"||p.position===PLAYER_ROLE)
+    .sort((a,b)=>{
+      const ga=Number.isInteger(a.league_goals)?a.league_goals:-1;
+      const gb=Number.isInteger(b.league_goals)?b.league_goals:-1;
+      return gb-ga||a.name.localeCompare(b.name,"ru");
+    });
+  const source="https://rffk-roo.ru/tournaments/4/";
+  const labels=[["all","Все"],...roles.map(role=>[role,role])];
+  const leader=best.length?`<div class="card squad-leaders"><h2>Бомбардиры · 2026</h2><ol class="stats-top">${best.map(p=>`<li><b>${esc(p.name)}</b> — ${esc(p.league_goals)} гол.</li>`).join("")}</ol></div>`:"";
+  const stale=PLAYER_STATS_2026?.verified===false&&verified.length>0;
+  const statDate=Date.parse(PLAYER_STATS_2026?.stats_as_of||"");
+  const asOf=Number.isFinite(statDate)?" ("+new Date(statDate).toLocaleDateString("ru-RU")+")":"";
+  const caution=verified.length
+    ?(stale?"Статистика чемпионата из последнего подтверждённого обновления"+asOf+": сейчас источник временно недоступен.":"Статистика чемпионата подтверждена турнирной таблицей РФФК"+asOf+".")
+    :"Подтверждённая статистика чемпионата пока недоступна: прочерк означает отсутствие данных, а не ноль.";
+  const head=`<div class="stats-head"><div><span class="squad-kicker">Наша команда · 2026</span><h2>Состав</h2></div><a class="stats-source" href="${source}" target="_blank" rel="noopener noreferrer">Источник: РФФК ↗</a></div>`;
+  const coach=COACH?`<div class="card squad-coach"><small>Главный тренер</small><b>${esc(COACH)}</b></div>`:"";
+  const filters=`<div class="stats-filters" role="group" aria-label="Фильтр по позиции">${labels.map(([val,label])=>`<button type="button" data-role="${esc(val)}" aria-pressed="${PLAYER_ROLE===val}">${esc(label)}${val==="all"?" ("+players.length+")":""}</button>`).join("")}</div>`;
+  const cards=listing.map((p,index)=>{
+    const photo=officialPhoto(p);
+    const initials=p.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join("");
+    const portrait=`<div class="squad-portrait" aria-hidden="true"><span class="squad-initials">${esc(initials)}</span>${photo?`<img${clubPlayerPhoto(p)?' class="club-photo"':''} src="${esc(photo)}" alt="" loading="lazy" decoding="async" width="320" height="320" referrerpolicy="no-referrer">`:""}</div>`;
+    return `<a class="stats-player player-link" href="${esc(playerHref(p))}" data-player="${esc(playerKey(p))}" aria-label="Профиль футболиста: ${esc(p.name)}" style="--squad-delay:${Math.min(index,5)*35}ms">${portrait}<div class="squad-card-body"><div class="stats-name">${esc(p.name)}</div><div class="stats-role">${esc(p.position)}</div><div class="stats-values"><div class="stats-value" data-stat="league_games"><b>${statValue(p.league_games)}</b><small>Матчи · 2026</small></div><div class="stats-value" data-stat="league_goals"><b>${statValue(p.league_goals)}</b><small>Голы · 2026</small></div></div><span class="squad-card-cue">Профиль <span aria-hidden="true">↗</span></span></div></a>`;
+  }).join("");
+  $("squad").innerHTML=head+`<div class="squad-summary">${coach}${leader}</div>`+`<p class="hint">${esc(caution)}</p>`+filters+
+    `<div class="stats-list">${cards||'<div class="card empty">Игроки не найдены.</div>'}</div>`+
+    `<p class="hint">Матчи и голы — только Открытый чемпионат РК 2026. Прочерк означает, что значение не подтверждено. Подробная статистика — в профиле. Фото — из карточек РФФК и материалов, опубликованных с разрешения представителя ФК «Судак»; если снимка нет, показаны инициалы.</p>`;
+}
+// Image errors do not bubble; capture also handles lazy portraits after filtering.
+$("squad").addEventListener("error",event=>{
+  if(event.target.matches(".squad-portrait img"))event.target.remove();
+},true);
+$("squad").addEventListener("click",event=>{
+  const btn=event.target.closest("button[data-role]");if(!btn)return;
+  if(!["all","Вратари","Защитники","Полузащитники","Нападающие"].includes(btn.dataset.role))return;
+  PLAYER_ROLE=btn.dataset.role;
+  history.replaceState({...history.state,playerRole:PLAYER_ROLE},"","#squad&role="+encodeURIComponent(PLAYER_ROLE));renderSquad();
+});
+
+$("home").addEventListener("click",event=>{
+  const link=event.target.closest('a[data-home-tab]');if(!link||!plainClick(event))return;
+  event.preventDefault();rememberPosition();history.pushState({},"",link.getAttribute('href'));applyRoute();
+});
+$("nav").addEventListener("click",event=>{
+  const b=event.target.closest("button[data-t]");if(!b)return;
+  rememberPosition();
+  history.pushState({},"","#"+b.dataset.t+(b.dataset.t==="squad"?"&role="+encodeURIComponent(PLAYER_ROLE):""));applyRoute();
+});
+// Данные федерации обновляются в GitHub каждый час. Открытая вкладка
+// проверяет опубликованный data.json каждые пять минут, а также при
+// возвращении на вкладку и восстановлении подключения к интернету.
+// Перерисовываем карточки только при появлении новой версии данных.
+const DATA_POLL_MS=5*60*1000;
+const DATA_MIN_GAP_MS=15*1000;
+let lastAttemptAt=0;
+let lastDataTimestamp=-Infinity;
+let lastDataLabel="";
+let hasNetworkData=false;
+let hasSavedData=false;
+const DATA_STORAGE_KEY="sudak-data-v1";
+let loadingData=false;
+
+function dataLabel(timestamp){
+  return "Данные обновлены: "+new Date(timestamp).toLocaleString("ru-RU",{
+    day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"
+  });
+}
+
+function validData(d){
+  return d&&Array.isArray(d.table)&&d.table.length>=5&&
+    d.table.some(row=>Array.isArray(row)&&String(row[0]).includes("Судак"))&&
+    Array.isArray(d.res)&&Array.isArray(d.next)&&Array.isArray(d.news)&&
+    d.squad&&typeof d.squad==="object"&&!Array.isArray(d.squad)&&Number.isFinite(Date.parse(d.updated));
+}
+function adoptData(d){
+  const platform=clubPlatform(d.platform);if(platform)PLATFORM=platform;
+  TABLE=d.table;RES=d.res;NEXT=d.next;SQUAD=d.squad;
+  NEWS=d.news;COACH=typeof d.coach==="string"?d.coach:COACH;
+  CHAMPIONSHIP=d.championship?.season===2026?d.championship:null;
+  PLAYER_STATS_2026=d.player_stats_2026||null;
+  MATCH_DETAILS=d.match_details&&typeof d.match_details==="object"&&!Array.isArray(d.match_details)?d.match_details:{};
+}
+function restoreSavedData(){
+  try{
+    const d=JSON.parse(localStorage.getItem(DATA_STORAGE_KEY));
+    if(!validData(d))return;
+    adoptData(d);lastDataTimestamp=Date.parse(d.updated);
+    lastDataLabel=dataLabel(lastDataTimestamp);hasSavedData=true;
+    $("upd").textContent=lastDataLabel+" · Сохранённые данные; проверяем обновления…";
+  }catch{/* Storage may be disabled or full; network loading still works. */}
+}
+
+async function refreshData(force=false){
+  if(loadingData||(!force&&Date.now()-lastAttemptAt<DATA_MIN_GAP_MS))return;
+  lastAttemptAt=Date.now();
+  loadingData=true;
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),20000);
+  try{
+    // Уникальный параметр запрещает промежуточным кэшам возвращать старую
+    // версию; service worker исключает data.json из своего кэширования.
+    const url=new URL("data.json",document.baseURI);
+    url.searchParams.set("v",String(Date.now()));
+    const response=await fetch(url.href,{
+      cache:"no-store",signal:controller.signal,headers:{Accept:"application/json"}
+    });
+    if(!response.ok)throw Error("HTTP "+response.status);
+    const d=await response.json();
+    if(!validData(d))throw Error("Неожиданный формат данных");
+    const stamp=Date.parse(d.updated);
+    // Защита от запаздывающего ответа CDN: не откатываемся к старой версии.
+    if(stamp>=lastDataTimestamp){
+      if(!hasNetworkData||stamp>lastDataTimestamp){
+        const scroll=window.scrollY,active=document.activeElement;
+        const focusId=active?.id,selection=active?.selectionStart;
+        adoptData(d);
+        render();
+        if(focusId){const el=$(focusId);el?.focus({preventScroll:true});if(el?.type==='search'&&selection!==null)el.setSelectionRange(selection,selection)}
+        window.scrollTo(0,scroll);
+      }
+      lastDataTimestamp=stamp;
+      lastDataLabel=dataLabel(stamp);
+      try{localStorage.setItem(DATA_STORAGE_KEY,JSON.stringify(d));hasSavedData=true}catch{}
+    }
+    hasNetworkData=true;
+    $("upd").textContent=lastDataLabel;
+    $("retry-data").hidden=true;
+  }catch(error){
+    // При отсутствии сети не очищаем уже показанный календарь и результаты.
+    $("upd").textContent=hasNetworkData||hasSavedData
+      ?lastDataLabel+" · Нет связи, показаны последние полученные данные"
+      :"Нет свежих данных: показана резервная информация. Проверьте интернет.";
+    $("retry-data").hidden=false;
+  }finally{
+    clearTimeout(timeout);
+    loadingData=false;
+  }
+}
+
+// One player identity, explicit club/season context; never combine club totals.
+function platformPlayerHref(id,teamId){
+  return '#player='+encodeURIComponent('rffk-'+id)+(teamId?'&team='+encodeURIComponent(teamId)+'&competition=4&season=22&from=team':'');
+}
+function platformMembership(id,teamId){
+  const r=PLATFORM?.rosters?.['4:22:'+teamId];
+  if(!r)return null;
+  const regs=Object.values(PLATFORM.registrations||{}).filter(reg=>reg.playerId===id&&reg.teamId===teamId&&reg.roleKind!=='staff');
+  if(!r.playerIds?.includes(id)&&!r.clubPlayerIds?.includes(id)&&!regs.length)return null;
+  const stored=r.entriesByPlayerId?.[id],entry=stored?.currentlyListed===false?null:stored,seasonRegs=regs.filter(reg=>reg.scope==='competition_season'&&reg.competitionId==='4'&&reg.seasonId==='22'),positions=[...new Set(seasonRegs.map(reg=>reg.position).filter(Boolean))],numbers=[...new Set(seasonRegs.map(reg=>reg.number).filter(n=>Number.isInteger(n)))];
+  return {teamId,position:entry?.position||(positions.length===1?positions[0]:null),
+    number:entry?.number??(numbers.length===1?numbers[0]:null),registrations:regs,
+    state:teamId==='141'&&r.playerIds?.includes(id)&&r.quality?.reason==='imported_snapshot'?'legacy':r.playerIds?.includes(id)?'confirmed':r.historicalPlayerIds?.includes(id)||(regs.some(reg=>reg.scope==='club')&&regs.filter(reg=>reg.scope==='club').every(reg=>reg.releasedAt&&reg.releasedAt<'2026-01-01'))?'historical':'unverified'};
+}
+function platformProfile(route){
+  const id=/^rffk-([1-9]\d*)$/.exec(route.player||'')?.[1],person=PLATFORM?.playersById?.[id];
+  if(!id||!person||person.playerId!==id)return null;
+  const team=route.teamId?platformTeam(route.teamId):null;
+  if(route.teamId&&(!team||route.competitionId!=='4'||route.seasonId!=='22'))return null;
+  const membership=team?platformMembership(id,team.teamId):null;
+  if(team&&!membership)return null;
+  const stat=team?PLATFORM.playerSeasonStats?.[`${id}:${team.teamId}:4:22`]:null;
+  const s=stat&&clubKnown(stat.quality)?stat:null;
+  return {name:person.name,profile_url:person.sourceUrl,photo_url:person.photoUrl||null,photo_source_url:person.photoSourceUrl||null,
+    position:membership?.position||'Амплуа не указано',number:membership?.number??null,
+    league_games:s?.games??null,league_goals:s?.goals??null,league_minutes:s?.minutes??null,
+    league_starts:s?.starts??null,league_substitutions:s?.substitutions??null,league_penalty_goals:s?.penaltyGoals??null,
+    league_yellow_cards:s?.yellowCards??null,league_second_yellow_cards:s?.secondYellowCards??null,league_red_cards:s?.redCards??null,
+    _platform:{id,teamId:team?.teamId||null,team,membership,stat:s,person}};
+}
+function platformProfileInfo(p){
+  const c=p._platform;if(!c)return '';
+  const labels={legacy:'Сохранённый состав «Судака». Регистрация сезона новым импортёром не проверялась.',confirmed:'Участие в чемпионате 2026 подтверждено.',historical:'Историческая связь с клубом. Участие в чемпионате 2026 не подтверждено.',unverified:'Клубная связь РФФК. Принадлежность к сезону 2026 пока не подтверждена.'};
+  const memberships=CLUB_IDS.map(id=>platformMembership(c.id,id)).filter(Boolean);
+  const other=memberships.map(m=>`<a class="club-source" data-platform-player="${esc(c.id+':'+m.teamId)}" href="${esc(platformPlayerHref(c.id,m.teamId))}">${esc(platformTeam(m.teamId).name)}${m.state==='confirmed'?' · 2026':' · сезон не подтверждён'}</a>`).join('');
+  const regs=c.membership?.registrations.filter(r=>r.scope==='club')||[];
+  return `<div class="card platform-player-context">${c.team?`<p>Команда: ${clubLink(c.teamId)}</p><p class="hint">${labels[c.membership.state]}</p>`:'<p class="empty">Выберите клубный контекст. Статистика разных команд не суммируется.</p>'}${regs.map(r=>`<p class="hint">Заявлен: ${esc(r.registeredAt||'дата не опубликована')}${r.releasedAt?' · Отзаявлен: '+esc(r.releasedAt):' · Дата отзаявки не опубликована'}</p>`).join('')}${regs.some(r=>r.quality?.status==='stale')?'<p class="hint">Некоторые даты заявок сохранены из предыдущей проверки и требуют повторного подтверждения.</p>':''}${c.person.registrationIssues?.length?'<p class="hint">Некоторые сведения о заявках РФФК неоднозначны. Они не используются для подтверждения регистрации в сезоне.</p>':''}${clubQuality(c.person.profileQuality||c.person.quality)}${c.stat?clubQuality(c.stat.quality):'<p class="hint">Подтверждённая индивидуальная статистика этого клуба и сезона пока отсутствует в приложении. Прочерки не означают нулевые показатели.</p>'}${other?'<h3>Клубные связи РФФК</h3><div class="platform-player-clubs">'+other+'</div>':''}</div>`;
+}
+
+// Presentation helpers for universal club/player pages only. Source joins stay above.
+function footballDate(raw,withTime=false){
+  if(!raw||!Number.isFinite(Date.parse(raw)))return 'дата не опубликована';
+  return new Date(raw.length===10?raw+'T12:00:00Z':raw).toLocaleString('ru-RU',{timeZone:'Europe/Moscow',day:'numeric',month:'long',year:'numeric',...(withTime?{hour:'2-digit',minute:'2-digit'}:{})}).replace(' г.','');
+}
+function footballQualityKey(q){return JSON.stringify([q?.status,q?.coverage,q?.sourceUrl,q?.lastVerifiedAt,q?.lastSuccessAt])}
+function footballQuality(label,q){
+  const states={current:'Данные проверены.',stale:'Актуальность пока не подтверждена.',temporarily_unavailable:'Источник временно недоступен. Сохранены последние полученные данные.',not_published:'Источник не публикует эти сведения.',not_checked:'Загрузка этого раздела ещё не выполнена.'};
+  const url=(()=>{try{const u=new URL(q?.sourceUrl);return u.protocol==='https:'&&u.host==='rffk-roo.ru'&&!u.search?u.href:''}catch{return ''}})();
+  return `<li><b>${esc(label)}</b><p>${states[q?.status]||'Данные пока не опубликованы в приложении.'}${q?.coverage==='partial'?' Данные неполные.':''}${q?.lastVerifiedAt?' Последнее подтверждение: '+esc(footballDate(q.lastVerifiedAt,true))+' · МСК.':''}${q?.lastSuccessAt&&q.lastSuccessAt!==q.lastVerifiedAt?' Последняя успешная проверка: '+esc(footballDate(q.lastSuccessAt,true))+' · МСК.':''}</p>${url?`<a class="club-source" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Источник РФФК ↗</a>`:''}</li>`;
+}
+function footballWarnings(entries){
+  const partial=entries.some(([,q])=>q?.coverage==='partial');
+  const states=[...new Set(entries.map(([,q])=>q?.status).filter(s=>s&&s!=='current'))];
+  const labels={stale:'Актуальность части сведений пока не подтверждена.',temporarily_unavailable:'Источник временно недоступен; показаны сохранённые сведения.',not_published:'Часть сведений не опубликована источником.',not_checked:'Загрузка этого раздела ещё не выполнена.'};
+  const text=[partial?'Данные неполные.':'',...states.map(s=>labels[s]||'Часть сведений пока не подтверждена.')].filter(Boolean).join(' ');
+  return text?`<p class="hint football-warning" data-quality-warning>${esc(text)}</p>`:'';
+}
+function footballSources(entries,heading=''){
+  const stamps=entries.map(([,q])=>q?.lastVerifiedAt||q?.lastSuccessAt).filter(v=>Number.isFinite(Date.parse(v))).sort((a,b)=>Date.parse(a)-Date.parse(b));
+  const title=heading||'Данные РФФК'+(stamps.length?' · проверено '+footballDate(stamps[0]):' · время проверки не указано');
+  // Identical source/quality messages occur once, with their scopes kept together.
+  const grouped=new Map();
+  for(const [label,q] of entries){const key=footballQualityKey(q),item=grouped.get(key);if(item){if(!item[0].split(' / ').includes(label))item[0]+=' / '+label}else grouped.set(key,[label,q])}
+  return `<details class="football-sources${heading?' profile-sources':''}"><summary>${esc(title)}</summary><ul class="football-source-list">${[...grouped.values()].map(([label,q])=>footballQuality(label,q)).join('')}</ul></details>`;
+}
+function polishedPlayerMatches(p){
+  const matches=confirmedPlayerMatches(p._platform.id);if(!matches.length)return '';
+  const parent=location.hash.startsWith('#player=')?location.hash:'';
+  return `<div class="player-matches"><h2>Подтверждённые матчи <span class="football-count">${matches.length}</span></h2><p class="hint">Участие подтверждено официальным составом конкретной игры. Список может быть неполным.</p><div class="football-match-list">${matches.map(m=>`<a class="player-confirmed-match match-link" data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=player&amp;player=${encodeURIComponent(playerKey(p))}&amp;profileRoute=${encodeURIComponent(parent)}"><span class="football-match-date">${esc(footballDate(m.date))}</span><span class="football-match-teams">${esc(platformTeam(m.homeTeamId).name)}<br>${esc(platformTeam(m.awayTeamId).name)}</span><b class="club-score">${m.homeScore}:${m.awayScore}</b><span aria-hidden="true">›</span></a>`).join('')}</div></div>`;
+}
+function renderPolishedPlayer(p,back,photo,source){
+  const c=p._platform,initials=p.name.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('');
+  const primary=[['league_games','Матчи'],['league_minutes','Минуты'],['league_goals','Голы']];
+  const secondary=[['league_starts','В старте'],['league_substitutions','На замену'],['league_penalty_goals','С пенальти'],['league_yellow_cards','Жёлтые карточки'],['league_second_yellow_cards','Вторые жёлтые'],['league_red_cards','Красные карточки']];
+  const membershipLabels={confirmed:'Участие в чемпионате 2026 подтверждено.',historical:'Историческая связь с клубом. Участие в чемпионате 2026 не подтверждено.',unverified:'Клубная связь РФФК. Принадлежность к сезону 2026 пока не подтверждена.'};
+  const entries=[['Профиль',c.person.profileQuality||c.person.quality],...(c.stat?[['Статистика клуба за сезон',c.stat.quality],...Object.entries(c.stat.fieldQuality||{}).filter(([,q])=>q.status!=='current').map(([f,q])=>['Показатель: '+({games:'матчи',minutes:'минуты',goals:'голы',starts:'в старте',substitutions:'на замену',penaltyGoals:'с пенальти',yellowCards:'жёлтые карточки',secondYellowCards:'вторые жёлтые',redCards:'красные карточки'}[f]||f),q])]:[])];
+  const regs=Object.values(PLATFORM.registrations||{}).filter(r=>r.playerId===c.id);
+  const sharedRegistrationQuality=r=>entries.some(([,q])=>footballQualityKey(q)===footballQualityKey(r.quality));
+  for(const r of regs)if(sharedRegistrationQuality(r))entries.push(['Регистрации',r.quality]);
+  const memberships=CLUB_IDS.map(id=>platformMembership(c.id,id)).filter(Boolean);
+  const issues=c.person.registrationIssues||[];
+  const registrationHTML=regs.map(r=>`<li data-registration="${esc(r.registrationId||'')}"><div>${platformTeam(r.teamId)?clubLink(r.teamId):'Клуб источника не подтверждён'}</div><b>${r.scope==='competition_season'?'Сезонная регистрация · '+esc(r.competitionId==='4'&&r.seasonId==='22'?'чемпионат 2026':[r.competitionId,r.seasonId].filter(Boolean).join(' / ')):'Клубная связь'}${r.roleKind==='staff'?' · сотрудник':''}</b><p>Заявлен: ${esc(footballDate(r.registeredAt))}<br>${r.releasedAt?'Отзаявлен: '+esc(footballDate(r.releasedAt)):'Дата отзаявки не опубликована'}</p>${r.position||Number.isInteger(r.number)?`<p>${esc(r.position||'Амплуа не указано')}${Number.isInteger(r.number)?' · № '+r.number:''}</p>`:''}${sharedRegistrationQuality(r)?'':footballWarnings([['Регистрация',r.quality]])}${!sharedRegistrationQuality(r)&&r.quality?.lastVerifiedAt?`<p class="hint">Последнее подтверждение: ${esc(footballDate(r.quality.lastVerifiedAt,true))} · МСК.</p>`:''}${!sharedRegistrationQuality(r)&&r.quality?.lastSuccessAt&&r.quality.lastSuccessAt!==r.quality.lastVerifiedAt?`<p class="hint">Последняя успешная проверка: ${esc(footballDate(r.quality.lastSuccessAt,true))} · МСК.</p>`:''}${officialPlayerURL(r.sourceUrl)?`<a class="club-source" href="${esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">Регистрация на РФФК ↗</a>`:''}</li>`).join('');
+  const registrationSources=`${c.membership?`<p class="hint">${membershipLabels[c.membership.state]||'Регистрация сезона не проверена.'}</p>`:''}<h3>Клубные связи РФФК</h3><div class="platform-player-clubs">${memberships.map(m=>`<a class="club-source" data-platform-player="${esc(c.id+':'+m.teamId)}" href="${esc(platformPlayerHref(c.id,m.teamId))}">${esc(platformTeam(m.teamId).name)}${m.state==='confirmed'?' · 2026':' · сезон не подтверждён'}</a>`).join('')}</div><h3>Регистрации</h3><p class="hint">Клубная связь и сезонная регистрация — разные сведения. Отсутствие даты отзаявки не подтверждает текущий клуб. Периоды показаны отдельно, без объединения.</p><ul class="profile-registrations">${registrationHTML||'<li>Подтверждённых регистраций в приложении пока нет.</li>'}</ul>${issues.length?`<h3>Неоднозначные сведения РФФК</h3><ul class="profile-registrations">${issues.map(i=>`<li>${platformTeam(i.teamId)?esc(platformTeam(i.teamId).name):'Клуб не подтверждён'} · строка источника ${esc(i.sourceRow??'не указана')}: ${esc(({ambiguous_registration_period:'несовместимые сведения о периоде регистрации',registration_without_team_id:'нет официального ID клуба',invalid_registration_period:'дата отзаявки раньше заявки'})[i.reason]||'сведения не позволяют подтвердить регистрацию')}. Спорный период не приписан клубу.</li>`).join('')}</ul>`:''}${source?`<a class="club-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Карточка футболиста на сайте РФФК ↗</a>`:''}${photo?`<p class="hint">${playerPhotoCredit(p)}</p>`:''}`;
+  const details=footballSources(entries,'Регистрация и источники РФФК').replace('<details ',history.state?.profileSourcesOpen?'<details open ':'<details ').replace('</details>',registrationSources+'</details>');
+  $('player').innerHTML=back+`<div class="universal-player"><div class="card player-hero"><div class="player-avatar"><span aria-hidden="true">${esc(initials)}</span>${photo?`<img${clubPlayerPhoto(p)?' class="club-photo"':''} src="${esc(photo)}" alt="${esc(p.name)}" referrerpolicy="no-referrer" loading="lazy">`:''}</div><div><h2 id="player-title" tabindex="-1">${esc(p.name)}</h2><p class="stats-role">${esc(p.position)}${Number.isInteger(p.number)?` · № ${p.number}`:""}</p>${c.team?`<div class="profile-club">${clubLink(c.teamId)}</div>`:''}<p class="profile-season">${c.membership?.state==='confirmed'?'Клуб в чемпионате':'Клубная связь'} · сезон 2026</p></div></div>${c.membership?(c.membership.state==='confirmed'?'':`<p class="hint football-warning">${membershipLabels[c.membership.state]||'Регистрация сезона не проверена.'}</p>`):'<p class="hint football-warning">Выберите клубный контекст. Статистика разных команд не суммируется.</p>'}<h2 class="profile-competition">Открытый чемпионат Республики Крым · 2026</h2><div class="card profile-statistics"><div class="profile-values">${primary.map(([f,label])=>`<div class="stats-value" data-stat="${f}"><b>${statValue(p[f])}</b><small>${label}</small></div>`).join('')}</div><dl class="profile-secondary">${secondary.map(([f,label])=>`<div><dt>${label}</dt><dd data-stat="${f}"><b>${statValue(p[f])}</b></dd></div>`).join('')}</dl><p class="hint">Прочерк означает отсутствие подтверждённых данных. Голы с пенальти входят в общее число голов.</p></div>${!c.stat?'<p class="hint football-warning">Подтверждённая индивидуальная статистика этого клуба и сезона пока отсутствует в приложении. Прочерки не означают нулевые показатели.</p>':''}${footballWarnings([...entries,...regs.map(r=>['Регистрации',r.quality])])}${issues.length?'<p class="hint football-warning">Сведения о заявках РФФК неоднозначны. Спорные периоды не подтверждают регистрацию в сезоне; подробности ниже.</p>':''}${c.person.unresolvedSeasonGroups?.length?'<p class="hint football-warning">Часть сезонных сведений не удалось однозначно связать с клубом; эти показатели не приписаны футболисту в данном клубном контексте.</p>':''}${details}${polishedPlayerMatches(p)}</div>`;
+  const image=$('player').querySelector('.player-avatar img');if(image)image.addEventListener('error',()=>image.remove(),{once:true});
+}
+
+function platformRosterHTML(teamId){
+  const r=PLATFORM?.rosters?.['4:22:'+teamId];if(!r)return '<p class="empty">Состав пока не загружен в приложение.</p>';
+  const list=(ids,state)=>{
+    const players=ids.map(id=>PLATFORM.playersById[id]).filter(Boolean);
+    const roles=[['Вратарь','Вратари'],['Защитник','Защитники'],['Полузащитник','Полузащитники'],['Нападающий','Нападающие'],[null,'Без подтверждённого амплуа']];
+    return roles.map(([role,label])=>{
+      const members=players.filter(p=>{const pos=platformMembership(p.playerId,teamId)?.position;return role?pos===role:!roles.some(([known])=>known&&known===pos)}).sort((a,b)=>a.name.localeCompare(b.name,'ru'));
+      return members.length?`<h3 class="club-roster-role">${label}<span>${members.length}</span></h3><ul class="club-players">${members.map(p=>{const m=platformMembership(p.playerId,teamId),photo=officialPhoto({name:p.name,profile_url:p.sourceUrl,photo_url:p.photoUrl,photo_source_url:p.photoSourceUrl,_platform:{id:p.playerId}});return `<li><a class="club-roster-player" data-platform-player="${esc(p.playerId+':'+teamId)}" href="${esc(platformPlayerHref(p.playerId,teamId))}"><span class="roster-avatar" aria-hidden="true"><span>${esc(p.name.split(/\s+/).slice(0,2).map(w=>w[0]).join(''))}</span>${photo?`<img src="${esc(photo)}" alt="" width="32" height="36" loading="lazy" decoding="async" referrerpolicy="no-referrer">`:''}</span><span>${esc(p.name)}<small>${esc(m?.position||'Амплуа не указано')}</small></span>${Number.isInteger(m?.number)?`<span class="club-shirt">${m.number}</span>`:''}<span aria-hidden="true">›</span></a></li>`}).join('')}</ul>`:'';
+    }).join('');
+  };
+  const confirmed=r.playerIds||[],historical=r.historicalPlayerIds||[],unverified=r.unverifiedPlayerIds||[];
+  const hasCatalog=Array.isArray(r.clubPlayerIds);
+  return `${confirmed.length?`<p class="roster-coverage">Чемпионат 2026 · подтверждено участие: <b>${confirmed.length}</b></p>${list(confirmed,'confirmed')}`:hasCatalog?'<p class="empty">Сезонный состав пока не подтверждён. Общий клубный список показан отдельно.</p>':''}${unverified.length?`<details class="club-roster-extra"><summary>Общий список РФФК · сезон не подтверждён: ${unverified.length}</summary><p class="hint">Наличие на клубной странице не доказывает регистрацию в чемпионате 2026.</p>${list(unverified,'unverified')}</details>`:''}${historical.length?`<details class="club-roster-extra"><summary>Исторические регистрации: ${historical.length}</summary>${list(historical,'historical')}</details>`:''}<p class="hint">Полнота сезонного состава не гарантируется. Общий клубный список и исторические регистрации показаны отдельно.</p>`;
+}
+$('player').addEventListener('toggle',event=>{
+  if(currentRoute().section==='player'&&event.target.isConnected&&event.target.matches('.universal-player .profile-sources'))history.replaceState({...history.state,profileSourcesOpen:event.target.open},'',location.href);
+},true);
+for(const id of ['team','player'])$(id).addEventListener('click',event=>{
+  const link=event.target.closest('a[data-platform-player]');if(!link||!plainClick(event))return;
+  event.preventDefault();rememberPosition();history.replaceState({...history.state,focusPlatformPlayer:link.dataset.platformPlayer},'',location.href);
+  history.pushState({playerEntry:true,parent:location.hash||'#table'},'',link.getAttribute('href'));applyRoute();
+});
+
+// Platform v1 selectors: only pinned season participants and ID joins.
+let PLATFORM=null;
+const CLUB_IDS=Object.freeze(['141','936','1030','932','521','930','146','934','757','1028','117']);
+function clubPlatform(p){
+  const s=p?.competitionSeasons?.['4:22'],ids=s?.participantTeamIds;
+  return p?.schemaVersion===1&&p.provider==='rffk'&&s?.competitionId==='4'&&s.seasonId==='22'&&s.seasonYear===2026&&
+    ['teamsById','matchesById','standings','rosters','playersById','playerSeasonStats','legacyLinks'].every(key=>p[key]&&typeof p[key]==='object'&&!Array.isArray(p[key]))&&
+    (!p.standings['4:22']||Array.isArray(p.standings['4:22'].rows))&&Array.isArray(ids)&&ids.length===11&&new Set(ids).size===11&&CLUB_IDS.every(id=>ids.includes(id)&&p.teamsById?.[id]?.teamId===id&&typeof p.teamsById[id].name==='string')?p:null;
+}
+function platformTeam(id,p=PLATFORM){return typeof id==='string'&&CLUB_IDS.includes(id)&&p?.competitionSeasons?.['4:22']?.participantTeamIds?.includes(id)?p.teamsById?.[id]||null:null}
+const clubHref=id=>'#team='+encodeURIComponent(id);
+function clubOfficialURL(raw,kind,id){
+  try{const u=new URL(raw);return u.protocol==='https:'&&u.host==='rffk-roo.ru'&&u.pathname===`/${kind}/${id}/`&&!u.search&&!u.hash?u.href:''}catch{return ''}
+}
+function clubLogo(id){
+  const t=platformTeam(id);if(!t)return '';
+  if(id==='141')return 'icon-192.png?v=final-crest-v7';
+  return /^https:\/\/rffk-roo\.ru\/uploads\/clubs\/small\/[\w.-]+\.png$/.test(t.branding?.officialLogoUrl||'')?'assets/clubs/'+id+'.png':'';
+}
+function clubBadge(id){
+  const t=platformTeam(id),url=clubLogo(id);
+  const initials=t?.name?.replace(/[«»"']/g,'').split(/\s+/).filter(w=>!['ФК','СК'].includes(w)).slice(0,2).map(w=>w[0]).join('')||'?';
+  return `<span class="champ-badge" aria-hidden="true"><span>${esc(initials)}</span>${url?`<img src="${esc(url)}" alt="" width="32" height="32" loading="lazy">`:''}</span>`;
+}
+function clubLink(id,label,badge=false){
+  const t=platformTeam(id),text=label??t?.name??'Команда не подтверждена';
+  return t?`<a class="club-link" data-team="${esc(id)}" href="${clubHref(id)}">${badge?clubBadge(id):''}<span>${esc(text)}</span></a>`:esc(text);
+}
+const clubKnown=q=>['current','stale','temporarily_unavailable'].includes(q?.status);
+function clubQuality(q,empty=false){
+  const stamp=Number.isFinite(Date.parse(q?.lastVerifiedAt||''))?new Date(q.lastVerifiedAt).toLocaleString('ru-RU',{timeZone:'Europe/Moscow'}):'';
+  const messages={current:'Подтверждённые данные РФФК.',stale:'Сохранённый снимок. Актуальность пока не подтверждена.',
+    not_published:'Источник не публикует эти сведения.',temporarily_unavailable:'Источник временно недоступен.'+(empty?'':' Сохранены последние полученные данные.'),
+    not_checked:'Данные пока не опубликованы в приложении. Загрузка этого раздела ещё не выполнена.'};
+  return `<p class="hint">${messages[q?.status]||'Данные пока не опубликованы в приложении.'}${stamp?' Последнее подтверждение: '+esc(stamp)+' · МСК.':''}${q?.coverage==='partial'?' Данные неполные.':''}</p>`;
+}
+function clubContext(id,p=PLATFORM,now=Date.now()){
+  const team=platformTeam(id,p);if(!team)return null;
+  const inSeason=r=>r?.competitionId==='4'&&r.seasonId==='22';
+  const table=p.standings?.['4:22'];
+  const standing=inSeason(table)&&clubKnown(table.quality)?(Array.isArray(table.rows)?table.rows.find(r=>r?.teamId===id):null)||null:null;
+  const matches=Object.values(p.matchesById||{}).filter(m=>inSeason(m)&&clubKnown(m.quality)&&
+    platformTeam(m.homeTeamId,p)&&platformTeam(m.awayTeamId,p)&&m.homeTeamId!==m.awayTeamId&&[m.homeTeamId,m.awayTeamId].includes(id));
+  const played=m=>['finished','technical'].includes(m.status)&&[m.homeScore,m.awayScore].every(n=>Number.isInteger(n)&&n>=0);
+  const day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+  const results=matches.filter(played).sort((a,b)=>(b.date||'').localeCompare(a.date||'')||b.matchId.localeCompare(a.matchId)).slice(0,5);
+  const upcoming=matches.filter(m=>m.status==='scheduled'&&/^2026-\d{2}-\d{2}$/.test(m.date||'')&&m.date>=day&&m.homeScore===null&&m.awayScore===null)
+    .sort((a,b)=>a.date.localeCompare(b.date)||(a.time||'').localeCompare(b.time||''));
+  const roster=p.rosters?.['4:22:'+id];
+  const players=inSeason(roster)&&roster.teamId===id&&clubKnown(roster.quality)?(Array.isArray(roster.playerIds)?roster.playerIds:[]).map(pid=>p.playersById?.[pid]?.playerId===pid?p.playersById[pid]:null).filter(player=>player&&clubKnown(player.quality)):[];
+  const stats=Object.values(p.playerSeasonStats||{}).filter(s=>inSeason(s)&&s.teamId===id&&clubKnown(s.quality)&&p.playersById?.[s.playerId]?.playerId===s.playerId);
+  return {team,standing,tableQuality:table?.quality,results,upcoming,players,rosterQuality:roster?.quality,stats};
+}
+function clubMatchHTML(m){
+  const score=[m.homeScore,m.awayScore].every(n=>Number.isInteger(n)&&n>=0)?`${m.homeScore}:${m.awayScore}`:'—';
+  const status=compactMatchStatus(m), showStatus=m.status!=='finished';
+  return `<article class="club-fixture" data-club-match="${esc(m.matchId)}"><div class="club-match-meta"> <span aria-label="${esc(champDate(m))}">${matchDateHTML(m)}</span>${showStatus&&status.compact?`<span class="club-short-status" aria-label="${esc(champStatus(m))}">${esc(status.text)}</span>`:''}</div><div class="club-match-pair">${clubLink(m.homeTeamId,undefined,true)}${clubLink(m.awayTeamId,undefined,true)}</div><a class="club-source club-score" data-club-protocol data-match="${esc(platformMatchKey(m))}" href="#match=${encodeURIComponent(platformMatchKey(m))}&amp;from=team&amp;team=${encodeURIComponent(currentRoute().teamId||m.homeTeamId)}" aria-label="${esc(platformTeam(m.homeTeamId).name+' — '+platformTeam(m.awayTeamId).name+', '+score+', '+champStatus(m)+', центр матча')}">${score}<span aria-hidden="true">›</span></a>${showStatus&&!status.compact?`<span class="club-match-status">${esc(status.text)}</span>`:''}</article>`;
+}
+function clubPlayersHTML(players){
+  return `<ul class="club-players">${players.map(p=>{const url=clubOfficialURL(p.sourceUrl,'players',p.playerId);return `<li>${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(p.name)} ↗</a>`:esc(p.name)}</li>`}).join('')}</ul>`;
+}
+function renderClub(){
+  const route=currentRoute();if(route.section!=='team')return;
+  const model=clubContext(route.teamId),root=$('team');
+  let html='<button type="button" class="match-back" id="team-back">← Назад</button>';
+  if(!model){
+    html+='<h2 id="team-title" tabindex="-1">Команда недоступна</h2><p class="card empty">Команда не входит в подтверждённый список сезона либо данные платформы ещё не загружены. Выберите клуб в таблице чемпионата.</p><a class="club-source" href="#table">К чемпионату →</a>';
+  }else{
+    const {team,standing:s,results,upcoming,players,stats}=model;
+    const metric=n=>Number.isInteger(n)?String(n):'—';
+    const source=clubOfficialURL(team.sourceUrl,'teams',team.teamId);
+    const metricHTML=(label,n)=>`<div><dt>${label}</dt><dd>${metric(n)}</dd></div>`;
+    const metrics=s?`<div class="club-summary"><dl class="club-metrics">${[['Место',s.rank],['Очки',s.points],['Матчи',s.played]].map(([l,n])=>metricHTML(l,n)).join('')}</dl><dl class="club-record">${[['Победы',s.wins],['Ничьи',s.draws],['Поражения',s.losses],['Забито',s.goalsFor],['Пропущено',s.goalsAgainst],['Разница',s.goalDifference]].map(([l,n])=>metricHTML(l,n)).join('')}</dl></div>`:'<p class="empty">Положение в чемпионате пока не загружено.</p>';
+    const roster=PLATFORM.rosters?.['4:22:'+team.teamId];
+    const qualities=[['Таблица',model.tableQuality],...results.map((m,i)=>['Результат '+(i+1),m.quality]),...upcoming.map((m,i)=>['Предстоящий матч '+(i+1),m.quality]),['Сезонный состав',model.rosterQuality],['Общий список клуба',roster?.clubListQuality],...stats.map(s=>['Статистика: '+PLATFORM.playersById[s.playerId].name,s.quality])];
+    html+=`<div class="card club-hero">${clubBadge(team.teamId)}<div><h2 id="team-title" tabindex="-1">${esc(team.name)}</h2><p class="club-city">${esc(team.city||'Город пока не указан')}</p><p class="club-season">Открытый чемпионат Республики Крым · 2026</p></div></div><div class="card club-statistics">${metrics}</div><div class="club-sections" aria-label="Разделы клуба"><button type="button" data-club-section="club-results">Матчи</button><button type="button" data-club-section="club-roster">Состав</button><button type="button" data-club-section="club-player-stats">Статистика</button></div>${footballWarnings(qualities)}${footballSources(qualities)}<h2 id="club-results" tabindex="-1">Последние результаты <span class="football-count">${results.length}</span></h2><div class="football-match-list">${results.length?results.map(clubMatchHTML).join(''):'<p class="empty">Подтверждённые результаты пока не загружены.</p>'}</div><h2>Предстоящие матчи</h2><div class="football-match-list">${upcoming.length?upcoming.map(clubMatchHTML).join(''):'<p class="empty">Подтверждённых предстоящих матчей в приложении пока нет.</p>'}</div><h2 id="club-roster" tabindex="-1">Состав</h2><div class="club-roster">${platformRosterHTML(team.teamId)}</div><details class="football-sources club-player-statistics" id="club-player-stats"><summary>Статистика футболистов</summary>${stats.length?`<p class="hint">Доступные записи; полнота состава и показателей не гарантируется.</p><ul class="club-players">${stats.map(s=>`<li><a data-platform-player="${esc(s.playerId+':'+team.teamId)}" href="${esc(platformPlayerHref(s.playerId,team.teamId))}"><span>${esc(PLATFORM.playersById[s.playerId].name)}<small class="club-player-stats">Матчи: ${metric(s.games)} · Голы: ${metric(s.goals)} · Минуты: ${metric(s.minutes)}</small></span><span aria-hidden="true">›</span></a></li>`).join('')}</ul>`:'<p class="empty">Данные пока не опубликованы в приложении. Полная статистика этого клуба ещё не загружена.</p>'}</details>${source?`<a class="club-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Официальная страница клуба · РФФК ↗</a>`:''}<h2>Команды чемпионата</h2><div class="club-directory">${CLUB_IDS.map(id=>clubLink(id)).join('')}</div>`;
+  }
+  if(root._clubHTML!==html){root.innerHTML=html;root._clubHTML=html;for(const img of root.querySelectorAll?.('img')||[])img.addEventListener('error',()=>img.remove(),{once:true})}
+  document.title=(model?model.team.name:'Команда')+' · ФК «Судак»';
+}
+function openClub(event){
+  const link=event.target.closest('a[data-team]');if(!link||!plainClick(event)||!platformTeam(link.dataset.team))return;
+  event.preventDefault();
+  rememberPosition();history.replaceState({...history.state,focusTeam:link.dataset.team},'',location.href);
+  history.pushState({teamEntry:true,parent:location.hash||'#home'},'',link.getAttribute('href'));applyRoute();
+}
+for(const id of ['table','match','team','player'])$(id).addEventListener('click',openClub);
+$('team').addEventListener('click',event=>{
+  const jump=event.target.closest('[data-club-section]');
+  if(jump){const target=$(jump.dataset.clubSection);if(target){if(target.tagName==='DETAILS')target.open=true;target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.scrollIntoView({block:'start',behavior:'instant'})}}
+  if(event.target.closest('#team-back')){
+    if(history.state?.teamEntry)history.back();else{history.replaceState({},'','#table');applyRoute()}
+  }
+  const link=event.target.closest('a[data-club-protocol]');if(!link||!plainClick(event))return;
+  event.preventDefault();rememberPosition(link.dataset.match);history.pushState({matchEntry:true,parent:location.hash},'',link.getAttribute('href'));applyRoute();
+});
+
+// Championship uses the same data.json snapshot and existing club routes.
+let CHAMPIONSHIP=null;
+const CHAMP_STATE_KEY='sudak-championship-v1';
+const CHAMP_VIEWS=['standings','calendar','scorers'];
+function readChampState(){
+  try{const s=JSON.parse(localStorage.getItem(CHAMP_STATE_KEY));return s&&typeof s==='object'?s:{}}catch{return {}}
+}
+const savedChampState=readChampState();
+let CHAMP_STATE={view:CHAMP_VIEWS.includes(savedChampState.view)?savedChampState.view:'standings',
+  round:typeof savedChampState.round==='string'?savedChampState.round:null,
+  team:typeof savedChampState.team==='string'?savedChampState.team:'all',
+  status:['all','played','upcoming'].includes(savedChampState.status)?savedChampState.status:'all',
+  scorerTeam:typeof savedChampState.scorerTeam==='string'?savedChampState.scorerTeam:'all',
+  search:typeof savedChampState.search==='string'?savedChampState.search.slice(0,150):''};
+function saveChampState(){try{localStorage.setItem(CHAMP_STATE_KEY,JSON.stringify(CHAMP_STATE))}catch{}}
+const champTeams=()=>CHAMPIONSHIP?.calendar?.teams||[];
+const champRounds=()=>CHAMPIONSHIP?.calendar?.rounds||[];
+const champMatches=()=>(CHAMPIONSHIP?.calendar?.matches||[]).map(raw=>{
+  const m=PLATFORM?.matchesById?.[raw.id];
+  if(!m||m.competitionId!=='4'||m.seasonId!=='22'||!clubKnown(m.quality))return raw;
+  return {...raw,source_id:m.sourceMatchId,source_url:m.sourceUrl,date:m.date,time:m.time,venue:m.venue,
+    home_score:m.homeScore,away_score:m.awayScore,status:m.status,status_label:m.statusLabel||null};
+});
+const champTeam=id=>champTeams().find(t=>t.id===id);
+const champTeamName=id=>champTeam(id)?.name||'Название не опубликовано';
+const champPlayed=m=>['finished','technical'].includes(m.status);
+function defaultChampRound(rounds=champRounds(),matches=champMatches(),now=Date.now()){
+  const day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+  const future=matches.filter(m=>m.status==='scheduled'&&m.date&&m.date>=day).sort((a,b)=>a.date.localeCompare(b.date));
+  if(future.length){
+    const ids=new Set(future.filter(m=>m.date===future[0].date).map(m=>m.round_id));
+    if(ids.size===1)return future[0].round_id;
+  }
+  return [...rounds].reverse().find(r=>matches.some(m=>m.round_id===r.id))?.id||rounds[0]?.id||null;
+}
+function selectedChampMatches(matches=champMatches(),state=CHAMP_STATE){
+  return matches.filter(m=>m.round_id===state.round&&(state.team==='all'||[m.home_id,m.away_id].includes(state.team))&&
+    (state.status==='all'||(state.status==='played'?champPlayed(m):!champPlayed(m)&&m.status!=='cancelled')));
+}
+function selectedChampScorers(players=CHAMPIONSHIP?.scorers?.players||[],state=CHAMP_STATE){
+  const words=normalizedName(state.search).split(/\s+/).filter(Boolean);
+  return players.filter(p=>(state.scorerTeam==='all'||p.team_id===state.scorerTeam)&&words.every(word=>normalizedName(p.name).includes(word)));
+}
+function championshipPlayer(p,players=playerRows()){
+  if(p.team_id!=='141'||!p.id)return null;
+  const candidates=players.filter(q=>playerKey(q)==='rffk-'+p.id&&normalizedName(q.name)===normalizedName(p.name));
+  return candidates.length===1?candidates[0]:null;
+}
+function championshipClubMatch(m){
+  if(!m.club_match_key||![m.home_id,m.away_id].includes('141'))return null;
+  const d=MATCH_DETAILS[m.club_match_key];
+  return d?.status==='available'&&String(d.id)===m.source_id&&d.date===m.date&&
+    d.home_score===m.home_score&&d.away_score===m.away_score&&RES.some(r=>matchKey(r)===m.club_match_key)?m.club_match_key:null;
+}
+function champTeamOptions(selected){
+  const teams=[...champTeams()].sort((a,b)=>(a.id==='141'?-1:b.id==='141'?1:(a.name||'я').localeCompare(b.name||'я','ru')));
+  return '<option value="all">Все команды</option>'+teams.map(t=>`<option value="${esc(t.id)}" ${selected===t.id?'selected':''}>${esc(t.name||'Название не опубликовано · №'+t.id)}</option>`).join('');
+}
+function champBadge(id){
+  const t=champTeam(id),url=t?.logo_url;
+  let safe='';try{const u=new URL(url);if(u.protocol==='https:'&&u.host==='rffk-roo.ru'&&/^\/uploads\/clubs\/(small|medium|large)\/[\w.-]+$/.test(u.pathname)&&!u.search&&!u.hash)safe=u.href}catch{}
+  const image=id==='141'?'icon-192.png?v=final-crest-v7':safe;
+  return `<span class="champ-badge" aria-hidden="true"><span>${esc(t?.name?.replace(/[«»"']/g,'').split(/\s+/).filter(w=>!['ФК','СК'].includes(w)).slice(0,2).map(w=>w[0]).join('')||'?')}</span>${image?`<img src="${esc(image)}" alt="" width="32" height="32" loading="lazy" referrerpolicy="no-referrer">`:''}</span>`;
+}
+function champStatus(m){
+  return m.status_label||m.statusLabel||({finished:'Матч завершён',technical:'Технический результат',scheduled:m.date?'Матч запланирован':'Дата уточняется',postponed:'Матч перенесён',cancelled:'Матч отменён',suspended:'Матч приостановлен'})[m.status]||'Статус уточняется';
+}
+function champDate(m){return (m.date?m.date.split('-').reverse().join('.'):'Дата не указана')+(m.time?' · '+m.time:'')}
+function matchDateHTML(m){return (m.date?`<time datetime="${esc(m.date)}">${esc(m.date.split('-').reverse().slice(0,2).join('.'))}</time>`:'<span aria-label="Дата уточняется">—</span>')+(m.time?`<span>${esc(m.time)}</span>`:'')}
+function compactMatchStatus(m){
+  const full=champStatus(m);
+  const short={'Матч завершён':'Завершён','Завершён':'Завершён','Матч запланирован':'По плану','Запланирован':'По плану','Матч перенесён':'Перенос','Матч перенесен':'Перенос','Перенесён':'Перенос','Перенесен':'Перенос','Матч отменён':'Отмена','Отменён':'Отмена','Технический результат':'Тех. итог','Тех. победа':'Тех. победа'};
+  return Object.hasOwn(short,full)?{text:short[full],compact:true}:{text:full,compact:false};
+}
+function champMatchHTML(m){
+  const score=Number.isInteger(m.home_score)&&Number.isInteger(m.away_score)?`${m.home_score}:${m.away_score}`:'—';
+  const clubKey=championshipClubMatch(m),isClub=[m.home_id,m.away_id].includes('141');
+  const confirmed=PLATFORM?.matchesById?.[m.id];
+  const key=clubKey||(confirmed?platformMatchKey(confirmed):null);
+  const status=compactMatchStatus(m);
+  const showStatus=!(m.status==='finished'&&['Матч завершён','Завершён','Матч завершен','Завершен'].includes(champStatus(m)));
+  const teams=`<span class="champ-teams">${[m.home_id,m.away_id].map(id=>`<span class="champ-team">${platformTeam(id)?clubLink(id,champTeamName(id),true):champBadge(id)+'<b>'+esc(champTeamName(id))+'</b>'}</span>`).join('')}</span>`;
+  const label=`${champTeamName(m.home_id)} — ${champTeamName(m.away_id)}, ${score}, ${champStatus(m)}. Центр матча`;
+  const card=`<span class="champ-date champ-meta" aria-label="${esc(champDate(m))}">${matchDateHTML(m)}</span>${teams}<span class="champ-result">${key?`<a class="champ-open" data-match="${esc(key)}" href="#match=${encodeURIComponent(key)}&amp;from=table" aria-label="${esc(label)}"><strong class="champ-score">${score}</strong></a>`:`<strong class="champ-score">${score}</strong>`}${showStatus&&status.compact?`<span class="champ-meta champ-status" aria-label="${esc(champStatus(m))}">${esc(status.text)}</span>`:''}</span>${showStatus&&!status.compact?`<span class="champ-meta champ-status champ-status-full">${esc(status.text)}</span>`:''}`;
+  if(key)return `<div class="champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}">${card}</div>`;
+  const url=protocolLink(m.source_url);
+  return `<details class="card champ-match ${isClub?'champ-club':''}" data-champ-match="${esc(m.id)}"><summary>${card}</summary><div class="champ-match-info"><p>${esc(champTeamName(m.home_id))} — ${esc(champTeamName(m.away_id))}</p><p>${esc(champStatus(m))}</p><p>${esc(m.venue||'Стадион не указан')}</p><p class="hint">${champPlayed(m)?'Доступные сведения РФФК.':'Результат пока не опубликован.'}</p>${url?`<a class="champ-source" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Протокол РФФК ↗</a>`:'<p class="hint">Ссылка на протокол пока не опубликована.</p>'}</div></details>`;
+}
+function champScorerHTML(p){
+  const local=championshipPlayer(p),url=officialPlayerURL(p.source_url),club=p.team_id==='141';
+  const name=local?`<a href="${playerHref(local)}&amp;from=table" data-player="${esc(playerKey(local))}">${esc(p.name)}<span class="visually-hidden"> — профиль ФК «Судак»</span></a>`:url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(p.name)} <span aria-label="Официальная карточка РФФК">↗</span></a>`:esc(p.name);
+  return `<li class="champ-scorer ${club?'champ-club':''}" data-scorer="${esc(p.id)}"><span class="champ-rank">${esc(p.rank)}</span><div class="champ-person"><b>${name}</b><small>${esc(p.team_name)}</small><small>Пенальти: ${statValue(p.penalty_goals)} · Минуты: ${statValue(p.minutes)}</small></div><span class="champ-total">${statValue(p.games)}<small>игр</small></span><span class="champ-total champ-goals">${statValue(p.goals)}<small>голов</small></span></li>`;
+}
+function champFreshness(section){
+  const stamp=Number.isFinite(Date.parse(section?.updated||''))?new Date(section.updated).toLocaleString('ru-RU',{timeZone:'Europe/Moscow'}):null;
+  return `<p class="hint" role="status">${section?.stale?'Источник временно недоступен. Сохранены последние подтверждённые данные. ':''}${stamp?'Получено: '+esc(stamp)+' · МСК. ':''}<a href="https://rffk-roo.ru/tournaments/4/seasons/22/" target="_blank" rel="noopener noreferrer">Источник: РФФК ↗</a></p>`;
+}
+function clubStandingsHTML(){
+  const table=PLATFORM?.standings?.['4:22'];
+  if(table?.competitionId==='4'&&table.seasonId==='22'&&clubKnown(table.quality)&&Array.isArray(table.rows)&&table.rows.length)return table.rows.filter(r=>platformTeam(r?.teamId)).map(r=>`<tr class="${r.teamId==='141'?'me':''}"><td>${esc(r.rank)}</td><td>${clubLink(r.teamId,undefined,true)}</td><td>${esc(r.played??'—')}</td><td>${esc(r.goalsFor??'—')}–${esc(r.goalsAgainst??'—')}</td><td>${esc(r.points??'—')}</td></tr>`).join('');
+  return TABLE.map((t,i)=>`<tr class="${String(t[0]).includes('Судак')?'me':''}"><td>${i+1}</td><td>${esc(t[0])}</td><td>${esc(t[1])}</td><td>${esc(t[2])}</td><td>${esc(t[3])}</td></tr>`).join('');
+}
+function renderChampionship(){
+  const root=$('table'),view=CHAMP_STATE.view;
+  const open=[...(root.querySelectorAll?.('details[open][data-champ-match]')||[])].map(el=>el.dataset.champMatch);
+  if(!champRounds().some(r=>r.id===CHAMP_STATE.round))CHAMP_STATE.round=defaultChampRound();
+  const tabs=CHAMP_VIEWS.map((v,i)=>`<button type="button" id="champ-tab-${v}" role="tab" data-champ-view="${v}" aria-selected="${view===v}" aria-controls="champ-panel" tabindex="${view===v?0:-1}">${['Таблица','Туры и матчи','Бомбардиры'][i]}</button>`).join('');
+  let content='';
+  if(view==='standings'){
+    content=`<div class="card champ-standing"><table><thead><tr><th scope="col">#</th><th scope="col">Команда</th><th scope="col">И</th><th scope="col">Мячи</th><th scope="col">О</th></tr></thead><tbody>${clubStandingsHTML()}</tbody></table></div><p class="hint">И — игры, О — очки. Официальная таблица РФФК; мячи указаны как забитые–пропущенные.</p>${PLATFORM?clubQuality(PLATFORM.standings?.['4:22']?.quality):''}`;
+  }else if(view==='calendar'){
+    const rounds=champRounds(),index=rounds.findIndex(r=>r.id===CHAMP_STATE.round),matches=selectedChampMatches();
+    content=rounds.length?`<div class="champ-rounds"><button type="button" data-champ-step="-1" aria-label="Предыдущий тур" ${index<=0?'disabled':''}>←</button><label class="visually-hidden" for="champ-round">Тур</label><select id="champ-round">${rounds.map(r=>`<option value="${esc(r.id)}" ${r.id===CHAMP_STATE.round?'selected':''}>${esc(r.name)}</option>`).join('')}</select><button type="button" data-champ-step="1" aria-label="Следующий тур" ${index===rounds.length-1?'disabled':''}>→</button></div><div class="champ-filters champ-calendar-filters"><label><span class="visually-hidden">Команда</span><select id="champ-team">${champTeamOptions(CHAMP_STATE.team)}</select></label><label><span class="visually-hidden">Матчи</span><select id="champ-status">${[['all','Все матчи'],['played','Сыгранные'],['upcoming','Предстоящие']].map(([v,label])=>`<option value="${v}" ${v===CHAMP_STATE.status?'selected':''}>${label}</option>`).join('')}</select></label></div><p class="hint" id="champ-match-count" aria-live="polite">Матчей: ${matches.length}</p><div class="champ-match-list">${matches.length?matches.map(champMatchHTML).join(''):'<p class="card empty">Матчей по выбранным фильтрам нет. Можно выбрать другой тур или команду.</p>'}</div>`:'<p class="card empty">Календарь пока не загружен. При подключении данные появятся автоматически.</p>';
+    content+=champFreshness(CHAMPIONSHIP?.calendar);
+  }else{
+    const players=selectedChampScorers(),total=CHAMPIONSHIP?.scorers?.players?.length||0;
+    content=`<div class="champ-filters"><label>Поиск по ФИО<input type="search" id="champ-search" placeholder="Фамилия или имя" maxlength="150" value="${esc(CHAMP_STATE.search)}" autocomplete="off"></label><label>Команда<select id="champ-scorer-team">${champTeamOptions(CHAMP_STATE.scorerTeam)}</select></label></div><p class="hint" id="champ-scorer-count" aria-live="polite">Найдено: ${players.length} из ${total} · Порядок и места РФФК</p><ol class="card champ-scorers" aria-label="Бомбардиры чемпионата">${players.length?players.map(champScorerHTML).join(''):'<li class="empty">Футболисты не найдены.</li>'}</ol><p class="hint">Весь опубликованный рейтинг РФФК: ${total} игроков. Отсутствие в списке не означает ноль голов. Пенальти входят в число голов.</p>${champFreshness(CHAMPIONSHIP?.scorers)}`;
+  }
+  if(view==='scorers'&&!CHAMPIONSHIP?.scorers?.players?.length)content='<p class="card empty">Рейтинг пока не загружен. При подключении данные появятся автоматически.</p>'+champFreshness(CHAMPIONSHIP?.scorers);
+  root.innerHTML=`<h2 id="table-title" tabindex="-1">Чемпионат РК <span class="champ-season">2026</span></h2><div class="champ-tabs" role="tablist" aria-label="Разделы чемпионата">${tabs}</div><div id="champ-panel" role="tabpanel" aria-labelledby="champ-tab-${view}">${content}</div>`;
+  for(const el of root.querySelectorAll?.('details[data-champ-match]')||[])el.open=open.includes(el.dataset.champMatch);
+  for(const img of root.querySelectorAll?.('.champ-badge img')||[])img.addEventListener('error',()=>img.remove(),{once:true});
+}
+function updateChampControls(focusId){
+  saveChampState();const y=window.scrollY;renderChampionship();
+  if(focusId)$(focusId)?.focus({preventScroll:true});window.scrollTo(0,y);
+}
+$('table').addEventListener('click',event=>{
+  const tab=event.target.closest('[data-champ-view]'),step=event.target.closest('[data-champ-step]');
+  if(tab){CHAMP_STATE.view=tab.dataset.champView;updateChampControls('champ-tab-'+CHAMP_STATE.view)}
+  if(step){const rounds=champRounds(),index=rounds.findIndex(r=>r.id===CHAMP_STATE.round),next=rounds[index+Number(step.dataset.champStep)];if(next){CHAMP_STATE.round=next.id;updateChampControls('champ-round')}}
+});
+$('table').addEventListener('keydown',event=>{
+  const tab=event.target.closest('[data-champ-view]');if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();const i=CHAMP_VIEWS.indexOf(CHAMP_STATE.view);
+  CHAMP_STATE.view=CHAMP_VIEWS[event.key==='Home'?0:event.key==='End'?2:(i+(event.key==='ArrowRight'?1:2))%3];updateChampControls('champ-tab-'+CHAMP_STATE.view);
+});
+$('table').addEventListener('change',event=>{
+  const fields={'champ-round':'round','champ-team':'team','champ-status':'status','champ-scorer-team':'scorerTeam'},field=fields[event.target.id];
+  if(field){CHAMP_STATE[field]=event.target.value;updateChampControls(event.target.id)}
+});
+$('table').addEventListener('input',event=>{
+  if(event.target.id!=='champ-search')return;
+  CHAMP_STATE.search=event.target.value;saveChampState();
+  // Keep the input node, focus, caret and mobile keyboard during typing.
+  const players=selectedChampScorers(),list=$('table').querySelector('.champ-scorers');
+  list.innerHTML=players.length?players.map(champScorerHTML).join(''):'<li class="empty">Футболисты не найдены.</li>';
+  $('champ-scorer-count').textContent=`Найдено: ${players.length} из ${CHAMPIONSHIP?.scorers?.players?.length||0} · Порядок и места РФФК`;
+});
+
+restoreSavedData();
+render();
+applyRoute(true);
+window.dispatchEvent(new Event("sudak:ready"));
+// Главная появляется после настоящей заставки; при reload доступна сразу.
+if($('launch-splash')){
+  const homeObserver=new MutationObserver(()=>{if(!$('launch-splash')){homeObserver.disconnect();revealHome()}});
+  homeObserver.observe(document.body,{childList:true});
+}
+refreshData();
+$("retry-data").addEventListener("click",()=>refreshData(true));
+setInterval(()=>{if(!document.hidden)refreshData()},DATA_POLL_MS);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshData()});
+window.addEventListener("focus",()=>refreshData());
+window.addEventListener("online",()=>refreshData(true));
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>{
+    // Проверяем наличие новой версии приложения при открытии и далее раз в час.
+    reg.update().catch(()=>{});
+    setInterval(()=>{if(!document.hidden)reg.update().catch(()=>{})},60*60*1000);
+  }).catch(()=>{});
+}
+
+</script>
+</body>
+</html>

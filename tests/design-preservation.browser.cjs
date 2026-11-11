@@ -4,6 +4,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const {execFileSync}=require('node:child_process');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json')));
 const baseline=require('./typography-baseline.cjs')(process.env.MULTI_CLUB_BASELINE_HTML?fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML):execFileSync('git',['show','main:index.html'],{cwd:root}));
+// On main after merge, the source baseline already contains the row container.
+const baselineContainerType=/#table \.champ-match-list\{[^}]*container-type:inline-size/.test(baseline)?'inline-size':'normal';
 const shots=process.env.DESIGN_PRESERVATION_DIR;
 const server=http.createServer((req,res)=>{
  const url=new URL(req.url,'http://localhost');
@@ -57,6 +59,17 @@ async function stableScreenshot(p){
      await p.evaluate(hash=>{history.replaceState({},'',hash);applyRoute();document.activeElement?.blur();scrollTo(0,0)},screen.hash);
      if(screen.calendar)await p.evaluate(()=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round='18';CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()});
      await p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.querySelectorAll('header img,main>section.on img')].filter(i=>{const r=i.getBoundingClientRect();return r.width&&r.top<innerHeight}).map(i=>i.decode().catch(()=>{})));await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});
+     // Compare the real calendar shell against the original main. Remove only
+     // row children from both documents, retaining the list itself, borders,
+     // header, filters and footer. The separate match-row contract checks the
+     // complete, unmodified rows against a frozen reference and source data.
+     if(screen.calendar)await p.evaluate(expectedType=>{
+      const lists=document.querySelectorAll('#table .champ-match-list');
+      if(lists.length!==1||!lists[0].querySelector('.champ-match'))throw Error('Calendar list missing');
+      const type=getComputedStyle(lists[0]).containerType;
+      if(type!==expectedType)throw Error('Unexpected calendar container type: '+type);
+      lists[0].replaceChildren();
+     },mode==='before'?baselineContainerType:'inline-size');
      await p.mouse.move(0,0);frames[screen.name]={layout:await p.evaluate(layout),png:await stableScreenshot(p),edges:await p.locator('#nav button.on').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,radius:parseFloat(getComputedStyle(e).borderRadius)}}))};
      if(shots&&['home','calendar','universal-center','scheduled-center','sudak-player',old[0].name].includes(screen.name)){fs.mkdirSync(shots,{recursive:true});fs.writeFileSync(path.join(shots,`${screen.name}-${theme}-${width}-${mode}.png`),frames[screen.name].png)}
     }
