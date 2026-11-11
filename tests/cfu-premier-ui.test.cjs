@@ -128,7 +128,8 @@ test('club page lists every published result plus the remaining fixtures',()=>{
   assert(markup.includes('Симферополь'));
   assert(markup.includes('Опубликованные результаты'));
   assert(markup.includes('Остальные матчи календаря'));
-  assert(markup.includes('Состав и статистика футболистов будут добавлены после проверки официальных данных КФС.'));
+  assert(markup.includes('Состав · сезон 2026'));
+  assert(markup.includes('Загружаем официальный состав КФС'));
   assert(markup.includes('https://www.cfu2015.com/teams/tavriya/'));
   const expected=run(`cfuTeamMatches('cfu:team:tavriya').length`);
   assert.equal((markup.match(/data-cfu-match=/g)||[]).length,expected);
@@ -143,7 +144,7 @@ test('CFU club hash routes are decoded and remain separate from RFFK ids',()=>{
 });
 
 test('competition choice uses a new storage key and defaults to RFFK',()=>{
-  assert.equal(ui.run('COMPETITION'),'rfk');
+  assert.equal(setup().run('COMPETITION'),'rfk');
   ui.run(`COMPETITION='cfu';saveCompetition();true`);
   assert.equal(ui.writes['sudak-competition-v1'],'cfu');
   assert.equal(Object.hasOwn(ui.writes,'sudak-championship-v1'),false);

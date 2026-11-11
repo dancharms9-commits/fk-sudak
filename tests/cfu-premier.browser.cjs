@@ -21,7 +21,7 @@ const server=http.createServer((req,res)=>{
  const page=await context.newPage(),errors=[];
  page.on('pageerror',error=>errors.push(error.message));
  const ready=async()=>{
-  await page.waitForFunction(()=>!loadingData&&!!CFU_PREMIER&&!!CHAMPIONSHIP);
+  await page.waitForFunction(()=>!loadingData&&!!CFU_PREMIER&&!!CFU_ROSTERS&&!!CHAMPIONSHIP);
   await page.locator('#launch-splash').waitFor({state:'detached'});
  };
  const noOverflow=async()=>{
@@ -84,9 +84,10 @@ const server=http.createServer((req,res)=>{
   await page.locator('#team.on').waitFor();
   assert.equal((await page.locator('#team-title').innerText()).includes('Таврия'),true);
   assert((await page.locator('#team').innerText()).includes('Симферополь'));
-  assert((await page.locator('#team').innerText()).includes('Состав и статистика футболистов будут добавлены после проверки официальных данных КФС.'));
+  assert((await page.locator('#team').innerText()).includes('Состав · сезон 2026'));
+  assert((await page.locator('#team .cfu-deregistered').count())>0);
   assert.equal(await page.locator('#team [data-cfu-match]').count(),24);
-  assert.equal(await page.locator('#team a.cfu-source[href*="/teams/tavriya/"]').count(),1);
+  assert.equal(await page.locator('#team a.cfu-source[href*="/teams/tavriya/"]').count(),2);
   assert((await page.locator('#team').innerText()).includes('Опубликованные результаты'));
   await noOverflow();
   await page.screenshot({path:path.join(shots,'cfu-club-390.png'),fullPage:true});

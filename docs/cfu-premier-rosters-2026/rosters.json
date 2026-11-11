@@ -1,0 +1,4066 @@
+{
+  "schemaVersion": 1,
+  "provider": "cfu",
+  "competitionKey": "cfu-premier-2026",
+  "season": 2026,
+  "playersById": {
+    "cfu:player:129": {
+      "playerId": "cfu:player:129",
+      "provider": "cfu",
+      "sourcePlayerId": "129",
+      "sourceUrl": "https://www.cfu2015.com/players/129/",
+      "name": "Андрей Милевский",
+      "dateOfBirth": "1996-01-28"
+    },
+    "cfu:player:131": {
+      "playerId": "cfu:player:131",
+      "provider": "cfu",
+      "sourcePlayerId": "131",
+      "sourceUrl": "https://www.cfu2015.com/players/131/",
+      "name": "Длявер Нуридинов",
+      "dateOfBirth": "1992-05-02"
+    },
+    "cfu:player:139": {
+      "playerId": "cfu:player:139",
+      "provider": "cfu",
+      "sourcePlayerId": "139",
+      "sourceUrl": "https://www.cfu2015.com/players/139/",
+      "name": "Евгений Харченко",
+      "dateOfBirth": "1994-12-21"
+    },
+    "cfu:player:153": {
+      "playerId": "cfu:player:153",
+      "provider": "cfu",
+      "sourcePlayerId": "153",
+      "sourceUrl": "https://www.cfu2015.com/players/153/",
+      "name": "Арсен Муратов",
+      "dateOfBirth": "1995-02-13"
+    },
+    "cfu:player:159": {
+      "playerId": "cfu:player:159",
+      "provider": "cfu",
+      "sourcePlayerId": "159",
+      "sourceUrl": "https://www.cfu2015.com/players/159/",
+      "name": "Денис Ситников",
+      "dateOfBirth": "1995-05-09"
+    },
+    "cfu:player:193": {
+      "playerId": "cfu:player:193",
+      "provider": "cfu",
+      "sourcePlayerId": "193",
+      "sourceUrl": "https://www.cfu2015.com/players/193/",
+      "name": "Денис Головещенко",
+      "dateOfBirth": "1984-02-24"
+    },
+    "cfu:player:195": {
+      "playerId": "cfu:player:195",
+      "provider": "cfu",
+      "sourcePlayerId": "195",
+      "sourceUrl": "https://www.cfu2015.com/players/195/",
+      "name": "Александр Лайко",
+      "dateOfBirth": "1992-10-19"
+    },
+    "cfu:player:197": {
+      "playerId": "cfu:player:197",
+      "provider": "cfu",
+      "sourcePlayerId": "197",
+      "sourceUrl": "https://www.cfu2015.com/players/197/",
+      "name": "Александр Малюков",
+      "dateOfBirth": "1992-07-03"
+    },
+    "cfu:player:201": {
+      "playerId": "cfu:player:201",
+      "provider": "cfu",
+      "sourcePlayerId": "201",
+      "sourceUrl": "https://www.cfu2015.com/players/201/",
+      "name": "Владимир Сечин",
+      "dateOfBirth": "1992-08-12"
+    },
+    "cfu:player:258": {
+      "playerId": "cfu:player:258",
+      "provider": "cfu",
+      "sourcePlayerId": "258",
+      "sourceUrl": "https://www.cfu2015.com/players/258/",
+      "name": "Валентин Манякин",
+      "dateOfBirth": "1997-06-26"
+    },
+    "cfu:player:271": {
+      "playerId": "cfu:player:271",
+      "provider": "cfu",
+      "sourcePlayerId": "271",
+      "sourceUrl": "https://www.cfu2015.com/players/271/",
+      "name": "Арсен Абляметов",
+      "dateOfBirth": "1984-08-10"
+    },
+    "cfu:player:280": {
+      "playerId": "cfu:player:280",
+      "provider": "cfu",
+      "sourcePlayerId": "280",
+      "sourceUrl": "https://www.cfu2015.com/players/280/",
+      "name": "Роман Климентовский",
+      "dateOfBirth": "1989-04-14"
+    },
+    "cfu:player:285": {
+      "playerId": "cfu:player:285",
+      "provider": "cfu",
+      "sourcePlayerId": "285",
+      "sourceUrl": "https://www.cfu2015.com/players/285/",
+      "name": "Евгений Одинцов",
+      "dateOfBirth": "1986-08-23"
+    },
+    "cfu:player:314": {
+      "playerId": "cfu:player:314",
+      "provider": "cfu",
+      "sourcePlayerId": "314",
+      "sourceUrl": "https://www.cfu2015.com/players/314/",
+      "name": "Дмитрий Матвиенко",
+      "dateOfBirth": "1992-05-25"
+    },
+    "cfu:player:466": {
+      "playerId": "cfu:player:466",
+      "provider": "cfu",
+      "sourcePlayerId": "466",
+      "sourceUrl": "https://www.cfu2015.com/players/466/",
+      "name": "Вадим Автаев",
+      "dateOfBirth": "1996-12-05"
+    },
+    "cfu:player:471": {
+      "playerId": "cfu:player:471",
+      "provider": "cfu",
+      "sourcePlayerId": "471",
+      "sourceUrl": "https://www.cfu2015.com/players/471/",
+      "name": "Арсентий Ануфриенко",
+      "dateOfBirth": "1990-12-27"
+    },
+    "cfu:player:510": {
+      "playerId": "cfu:player:510",
+      "provider": "cfu",
+      "sourcePlayerId": "510",
+      "sourceUrl": "https://www.cfu2015.com/players/510/",
+      "name": "Ярослав Юдин",
+      "dateOfBirth": "1998-03-07"
+    },
+    "cfu:player:618": {
+      "playerId": "cfu:player:618",
+      "provider": "cfu",
+      "sourcePlayerId": "618",
+      "sourceUrl": "https://www.cfu2015.com/players/618/",
+      "name": "Александр Малиневский",
+      "dateOfBirth": "1998-10-26"
+    },
+    "cfu:player:619": {
+      "playerId": "cfu:player:619",
+      "provider": "cfu",
+      "sourcePlayerId": "619",
+      "sourceUrl": "https://www.cfu2015.com/players/619/",
+      "name": "Эннур Бекмамбетов",
+      "dateOfBirth": "1999-02-14"
+    },
+    "cfu:player:637": {
+      "playerId": "cfu:player:637",
+      "provider": "cfu",
+      "sourcePlayerId": "637",
+      "sourceUrl": "https://www.cfu2015.com/players/637/",
+      "name": "Владислав Ковальчук",
+      "dateOfBirth": "1995-05-25"
+    },
+    "cfu:player:663": {
+      "playerId": "cfu:player:663",
+      "provider": "cfu",
+      "sourcePlayerId": "663",
+      "sourceUrl": "https://www.cfu2015.com/players/663/",
+      "name": "Владимир Пшеничников",
+      "dateOfBirth": "1998-06-12"
+    },
+    "cfu:player:691": {
+      "playerId": "cfu:player:691",
+      "provider": "cfu",
+      "sourcePlayerId": "691",
+      "sourceUrl": "https://www.cfu2015.com/players/691/",
+      "name": "Тарас Мыкуляк",
+      "dateOfBirth": "1995-10-04"
+    },
+    "cfu:player:694": {
+      "playerId": "cfu:player:694",
+      "provider": "cfu",
+      "sourcePlayerId": "694",
+      "sourceUrl": "https://www.cfu2015.com/players/694/",
+      "name": "Владислав Семенишин",
+      "dateOfBirth": "2000-04-14"
+    },
+    "cfu:player:715": {
+      "playerId": "cfu:player:715",
+      "provider": "cfu",
+      "sourcePlayerId": "715",
+      "sourceUrl": "https://www.cfu2015.com/players/715/",
+      "name": "Илья Захаров",
+      "dateOfBirth": "1995-09-26"
+    },
+    "cfu:player:772": {
+      "playerId": "cfu:player:772",
+      "provider": "cfu",
+      "sourcePlayerId": "772",
+      "sourceUrl": "https://www.cfu2015.com/players/772/",
+      "name": "Владислав Цой",
+      "dateOfBirth": "1994-03-26"
+    },
+    "cfu:player:799": {
+      "playerId": "cfu:player:799",
+      "provider": "cfu",
+      "sourcePlayerId": "799",
+      "sourceUrl": "https://www.cfu2015.com/players/799/",
+      "name": "Сергей Мачух",
+      "dateOfBirth": "1999-11-20"
+    },
+    "cfu:player:803": {
+      "playerId": "cfu:player:803",
+      "provider": "cfu",
+      "sourcePlayerId": "803",
+      "sourceUrl": "https://www.cfu2015.com/players/803/",
+      "name": "Азамат Атаев",
+      "dateOfBirth": "1994-10-24"
+    },
+    "cfu:player:812": {
+      "playerId": "cfu:player:812",
+      "provider": "cfu",
+      "sourcePlayerId": "812",
+      "sourceUrl": "https://www.cfu2015.com/players/812/",
+      "name": "Никита Филатов",
+      "dateOfBirth": "1992-06-24"
+    },
+    "cfu:player:863": {
+      "playerId": "cfu:player:863",
+      "provider": "cfu",
+      "sourcePlayerId": "863",
+      "sourceUrl": "https://www.cfu2015.com/players/863/",
+      "name": "Александр Смирнов",
+      "dateOfBirth": "2000-04-30"
+    },
+    "cfu:player:868": {
+      "playerId": "cfu:player:868",
+      "provider": "cfu",
+      "sourcePlayerId": "868",
+      "sourceUrl": "https://www.cfu2015.com/players/868/",
+      "name": "Данил Фролов",
+      "dateOfBirth": "2001-04-04"
+    },
+    "cfu:player:892": {
+      "playerId": "cfu:player:892",
+      "provider": "cfu",
+      "sourcePlayerId": "892",
+      "sourceUrl": "https://www.cfu2015.com/players/892/",
+      "name": "Андрей Филиппов",
+      "dateOfBirth": "1993-07-06"
+    },
+    "cfu:player:929": {
+      "playerId": "cfu:player:929",
+      "provider": "cfu",
+      "sourcePlayerId": "929",
+      "sourceUrl": "https://www.cfu2015.com/players/929/",
+      "name": "Геннадий Егоров",
+      "dateOfBirth": "1989-02-04"
+    },
+    "cfu:player:936": {
+      "playerId": "cfu:player:936",
+      "provider": "cfu",
+      "sourcePlayerId": "936",
+      "sourceUrl": "https://www.cfu2015.com/players/936/",
+      "name": "Дмитрий Манонин",
+      "dateOfBirth": "2001-06-22"
+    },
+    "cfu:player:951": {
+      "playerId": "cfu:player:951",
+      "provider": "cfu",
+      "sourcePlayerId": "951",
+      "sourceUrl": "https://www.cfu2015.com/players/951/",
+      "name": "Александр Герасимов",
+      "dateOfBirth": "1999-07-03"
+    },
+    "cfu:player:953": {
+      "playerId": "cfu:player:953",
+      "provider": "cfu",
+      "sourcePlayerId": "953",
+      "sourceUrl": "https://www.cfu2015.com/players/953/",
+      "name": "Абдурашидбек Тохиров",
+      "dateOfBirth": "2001-06-01"
+    },
+    "cfu:player:978": {
+      "playerId": "cfu:player:978",
+      "provider": "cfu",
+      "sourcePlayerId": "978",
+      "sourceUrl": "https://www.cfu2015.com/players/978/",
+      "name": "Валерий Дзёнь",
+      "dateOfBirth": "2000-03-29"
+    },
+    "cfu:player:991": {
+      "playerId": "cfu:player:991",
+      "provider": "cfu",
+      "sourcePlayerId": "991",
+      "sourceUrl": "https://www.cfu2015.com/players/991/",
+      "name": "Дмитрий Ходарченко",
+      "dateOfBirth": "1995-02-18"
+    },
+    "cfu:player:998": {
+      "playerId": "cfu:player:998",
+      "provider": "cfu",
+      "sourcePlayerId": "998",
+      "sourceUrl": "https://www.cfu2015.com/players/998/",
+      "name": "Владислав Алексин",
+      "dateOfBirth": "1992-09-03"
+    },
+    "cfu:player:1185": {
+      "playerId": "cfu:player:1185",
+      "provider": "cfu",
+      "sourcePlayerId": "1185",
+      "sourceUrl": "https://www.cfu2015.com/players/1185/",
+      "name": "Руслан Эминов",
+      "dateOfBirth": "2001-11-18"
+    },
+    "cfu:player:1232": {
+      "playerId": "cfu:player:1232",
+      "provider": "cfu",
+      "sourcePlayerId": "1232",
+      "sourceUrl": "https://www.cfu2015.com/players/1232/",
+      "name": "Олег Скворцов",
+      "dateOfBirth": "2001-05-11"
+    },
+    "cfu:player:1233": {
+      "playerId": "cfu:player:1233",
+      "provider": "cfu",
+      "sourcePlayerId": "1233",
+      "sourceUrl": "https://www.cfu2015.com/players/1233/",
+      "name": "Артём Демьяненко",
+      "dateOfBirth": "1999-07-27"
+    },
+    "cfu:player:1263": {
+      "playerId": "cfu:player:1263",
+      "provider": "cfu",
+      "sourcePlayerId": "1263",
+      "sourceUrl": "https://www.cfu2015.com/players/1263/",
+      "name": "Вадим Гришин",
+      "dateOfBirth": "1990-01-28"
+    },
+    "cfu:player:1276": {
+      "playerId": "cfu:player:1276",
+      "provider": "cfu",
+      "sourcePlayerId": "1276",
+      "sourceUrl": "https://www.cfu2015.com/players/1276/",
+      "name": "Антон Алтунин",
+      "dateOfBirth": "1996-01-26"
+    },
+    "cfu:player:1277": {
+      "playerId": "cfu:player:1277",
+      "provider": "cfu",
+      "sourcePlayerId": "1277",
+      "sourceUrl": "https://www.cfu2015.com/players/1277/",
+      "name": "Даниил Красов",
+      "dateOfBirth": "2001-09-07"
+    },
+    "cfu:player:1340": {
+      "playerId": "cfu:player:1340",
+      "provider": "cfu",
+      "sourcePlayerId": "1340",
+      "sourceUrl": "https://www.cfu2015.com/players/1340/",
+      "name": "Руслан Короев",
+      "dateOfBirth": "1996-10-21"
+    },
+    "cfu:player:1343": {
+      "playerId": "cfu:player:1343",
+      "provider": "cfu",
+      "sourcePlayerId": "1343",
+      "sourceUrl": "https://www.cfu2015.com/players/1343/",
+      "name": "Сейран Гафаров",
+      "dateOfBirth": "2004-12-31"
+    },
+    "cfu:player:1350": {
+      "playerId": "cfu:player:1350",
+      "provider": "cfu",
+      "sourcePlayerId": "1350",
+      "sourceUrl": "https://www.cfu2015.com/players/1350/",
+      "name": "Владимир Яцук",
+      "dateOfBirth": "1984-06-28"
+    },
+    "cfu:player:1394": {
+      "playerId": "cfu:player:1394",
+      "provider": "cfu",
+      "sourcePlayerId": "1394",
+      "sourceUrl": "https://www.cfu2015.com/players/1394/",
+      "name": "Никита Мазуренко",
+      "dateOfBirth": "2004-03-02"
+    },
+    "cfu:player:1398": {
+      "playerId": "cfu:player:1398",
+      "provider": "cfu",
+      "sourcePlayerId": "1398",
+      "sourceUrl": "https://www.cfu2015.com/players/1398/",
+      "name": "Денис Польский",
+      "dateOfBirth": "2001-07-14"
+    },
+    "cfu:player:1443": {
+      "playerId": "cfu:player:1443",
+      "provider": "cfu",
+      "sourcePlayerId": "1443",
+      "sourceUrl": "https://www.cfu2015.com/players/1443/",
+      "name": "Владислав Ковалев",
+      "dateOfBirth": "2004-04-28"
+    },
+    "cfu:player:1457": {
+      "playerId": "cfu:player:1457",
+      "provider": "cfu",
+      "sourcePlayerId": "1457",
+      "sourceUrl": "https://www.cfu2015.com/players/1457/",
+      "name": "Асан Чубаров",
+      "dateOfBirth": "2004-09-29"
+    },
+    "cfu:player:1463": {
+      "playerId": "cfu:player:1463",
+      "provider": "cfu",
+      "sourcePlayerId": "1463",
+      "sourceUrl": "https://www.cfu2015.com/players/1463/",
+      "name": "Илья Зинченко",
+      "dateOfBirth": "1999-08-17"
+    },
+    "cfu:player:1519": {
+      "playerId": "cfu:player:1519",
+      "provider": "cfu",
+      "sourcePlayerId": "1519",
+      "sourceUrl": "https://www.cfu2015.com/players/1519/",
+      "name": "Максим Тарасенко",
+      "dateOfBirth": "2002-10-07"
+    },
+    "cfu:player:1532": {
+      "playerId": "cfu:player:1532",
+      "provider": "cfu",
+      "sourcePlayerId": "1532",
+      "sourceUrl": "https://www.cfu2015.com/players/1532/",
+      "name": "Даниил Завадко",
+      "dateOfBirth": "2005-04-10"
+    },
+    "cfu:player:1537": {
+      "playerId": "cfu:player:1537",
+      "provider": "cfu",
+      "sourcePlayerId": "1537",
+      "sourceUrl": "https://www.cfu2015.com/players/1537/",
+      "name": "Эрнес Годжен",
+      "dateOfBirth": "2003-08-03"
+    },
+    "cfu:player:1564": {
+      "playerId": "cfu:player:1564",
+      "provider": "cfu",
+      "sourcePlayerId": "1564",
+      "sourceUrl": "https://www.cfu2015.com/players/1564/",
+      "name": "Арсен Созанов",
+      "dateOfBirth": "2002-09-01"
+    },
+    "cfu:player:1566": {
+      "playerId": "cfu:player:1566",
+      "provider": "cfu",
+      "sourcePlayerId": "1566",
+      "sourceUrl": "https://www.cfu2015.com/players/1566/",
+      "name": "Имеда Бухрикидзе",
+      "dateOfBirth": "1999-03-16"
+    },
+    "cfu:player:1632": {
+      "playerId": "cfu:player:1632",
+      "provider": "cfu",
+      "sourcePlayerId": "1632",
+      "sourceUrl": "https://www.cfu2015.com/players/1632/",
+      "name": "Андрей Самойленко",
+      "dateOfBirth": "2004-09-06"
+    },
+    "cfu:player:1633": {
+      "playerId": "cfu:player:1633",
+      "provider": "cfu",
+      "sourcePlayerId": "1633",
+      "sourceUrl": "https://www.cfu2015.com/players/1633/",
+      "name": "Евгений Суинов",
+      "dateOfBirth": "2005-09-28"
+    },
+    "cfu:player:1634": {
+      "playerId": "cfu:player:1634",
+      "provider": "cfu",
+      "sourcePlayerId": "1634",
+      "sourceUrl": "https://www.cfu2015.com/players/1634/",
+      "name": "Фариз Мамедов",
+      "dateOfBirth": "2005-08-19"
+    },
+    "cfu:player:1652": {
+      "playerId": "cfu:player:1652",
+      "provider": "cfu",
+      "sourcePlayerId": "1652",
+      "sourceUrl": "https://www.cfu2015.com/players/1652/",
+      "name": "Артём Арутюнян",
+      "dateOfBirth": "2004-04-01"
+    },
+    "cfu:player:1653": {
+      "playerId": "cfu:player:1653",
+      "provider": "cfu",
+      "sourcePlayerId": "1653",
+      "sourceUrl": "https://www.cfu2015.com/players/1653/",
+      "name": "Виталий Кулев",
+      "dateOfBirth": "2001-04-04"
+    },
+    "cfu:player:1669": {
+      "playerId": "cfu:player:1669",
+      "provider": "cfu",
+      "sourcePlayerId": "1669",
+      "sourceUrl": "https://www.cfu2015.com/players/1669/",
+      "name": "Денис Лаврека",
+      "dateOfBirth": "1999-10-28"
+    },
+    "cfu:player:1676": {
+      "playerId": "cfu:player:1676",
+      "provider": "cfu",
+      "sourcePlayerId": "1676",
+      "sourceUrl": "https://www.cfu2015.com/players/1676/",
+      "name": "Дмитрий Кобесов",
+      "dateOfBirth": "1998-07-31"
+    },
+    "cfu:player:1688": {
+      "playerId": "cfu:player:1688",
+      "provider": "cfu",
+      "sourcePlayerId": "1688",
+      "sourceUrl": "https://www.cfu2015.com/players/1688/",
+      "name": "Никита Попов",
+      "dateOfBirth": "2003-03-26"
+    },
+    "cfu:player:1690": {
+      "playerId": "cfu:player:1690",
+      "provider": "cfu",
+      "sourcePlayerId": "1690",
+      "sourceUrl": "https://www.cfu2015.com/players/1690/",
+      "name": "Даниил Железнов",
+      "dateOfBirth": "2003-02-14"
+    },
+    "cfu:player:1703": {
+      "playerId": "cfu:player:1703",
+      "provider": "cfu",
+      "sourcePlayerId": "1703",
+      "sourceUrl": "https://www.cfu2015.com/players/1703/",
+      "name": "Александр Погорелов",
+      "dateOfBirth": "2006-03-15"
+    },
+    "cfu:player:1704": {
+      "playerId": "cfu:player:1704",
+      "provider": "cfu",
+      "sourcePlayerId": "1704",
+      "sourceUrl": "https://www.cfu2015.com/players/1704/",
+      "name": "Евгений Радченко",
+      "dateOfBirth": "1994-07-22"
+    },
+    "cfu:player:1710": {
+      "playerId": "cfu:player:1710",
+      "provider": "cfu",
+      "sourcePlayerId": "1710",
+      "sourceUrl": "https://www.cfu2015.com/players/1710/",
+      "name": "Дмитрий Донцов",
+      "dateOfBirth": "2005-08-05"
+    },
+    "cfu:player:1712": {
+      "playerId": "cfu:player:1712",
+      "provider": "cfu",
+      "sourcePlayerId": "1712",
+      "sourceUrl": "https://www.cfu2015.com/players/1712/",
+      "name": "Сослан Кабисов",
+      "dateOfBirth": "2000-02-17"
+    },
+    "cfu:player:1718": {
+      "playerId": "cfu:player:1718",
+      "provider": "cfu",
+      "sourcePlayerId": "1718",
+      "sourceUrl": "https://www.cfu2015.com/players/1718/",
+      "name": "Заур Цакоев",
+      "dateOfBirth": "1996-12-13"
+    },
+    "cfu:player:1744": {
+      "playerId": "cfu:player:1744",
+      "provider": "cfu",
+      "sourcePlayerId": "1744",
+      "sourceUrl": "https://www.cfu2015.com/players/1744/",
+      "name": "Хамед Камара",
+      "dateOfBirth": "1996-12-25"
+    },
+    "cfu:player:1748": {
+      "playerId": "cfu:player:1748",
+      "provider": "cfu",
+      "sourcePlayerId": "1748",
+      "sourceUrl": "https://www.cfu2015.com/players/1748/",
+      "name": "Никита Торгашов",
+      "dateOfBirth": "1999-02-06"
+    },
+    "cfu:player:1759": {
+      "playerId": "cfu:player:1759",
+      "provider": "cfu",
+      "sourcePlayerId": "1759",
+      "sourceUrl": "https://www.cfu2015.com/players/1759/",
+      "name": "Вячеслав Калина",
+      "dateOfBirth": "2005-09-01"
+    },
+    "cfu:player:1761": {
+      "playerId": "cfu:player:1761",
+      "provider": "cfu",
+      "sourcePlayerId": "1761",
+      "sourceUrl": "https://www.cfu2015.com/players/1761/",
+      "name": "Дмитрий Могильный",
+      "dateOfBirth": "2005-03-10"
+    },
+    "cfu:player:1771": {
+      "playerId": "cfu:player:1771",
+      "provider": "cfu",
+      "sourcePlayerId": "1771",
+      "sourceUrl": "https://www.cfu2015.com/players/1771/",
+      "name": "Рамазан Исаев",
+      "dateOfBirth": "1998-01-17"
+    },
+    "cfu:player:1772": {
+      "playerId": "cfu:player:1772",
+      "provider": "cfu",
+      "sourcePlayerId": "1772",
+      "sourceUrl": "https://www.cfu2015.com/players/1772/",
+      "name": "Марлен Удобаши",
+      "dateOfBirth": "2006-06-25"
+    },
+    "cfu:player:1773": {
+      "playerId": "cfu:player:1773",
+      "provider": "cfu",
+      "sourcePlayerId": "1773",
+      "sourceUrl": "https://www.cfu2015.com/players/1773/",
+      "name": "Артем Бундев",
+      "dateOfBirth": "2003-10-14"
+    },
+    "cfu:player:1776": {
+      "playerId": "cfu:player:1776",
+      "provider": "cfu",
+      "sourcePlayerId": "1776",
+      "sourceUrl": "https://www.cfu2015.com/players/1776/",
+      "name": "Владимир Клепча",
+      "dateOfBirth": "2003-04-09"
+    },
+    "cfu:player:1778": {
+      "playerId": "cfu:player:1778",
+      "provider": "cfu",
+      "sourcePlayerId": "1778",
+      "sourceUrl": "https://www.cfu2015.com/players/1778/",
+      "name": "Батраз Гаглоев",
+      "dateOfBirth": "2004-03-14"
+    },
+    "cfu:player:1782": {
+      "playerId": "cfu:player:1782",
+      "provider": "cfu",
+      "sourcePlayerId": "1782",
+      "sourceUrl": "https://www.cfu2015.com/players/1782/",
+      "name": "Данил Новиков",
+      "dateOfBirth": "2005-01-05"
+    },
+    "cfu:player:1783": {
+      "playerId": "cfu:player:1783",
+      "provider": "cfu",
+      "sourcePlayerId": "1783",
+      "sourceUrl": "https://www.cfu2015.com/players/1783/",
+      "name": "Родион Толстенок",
+      "dateOfBirth": "2006-09-03"
+    },
+    "cfu:player:1788": {
+      "playerId": "cfu:player:1788",
+      "provider": "cfu",
+      "sourcePlayerId": "1788",
+      "sourceUrl": "https://www.cfu2015.com/players/1788/",
+      "name": "Илья Кирпс",
+      "dateOfBirth": "2006-06-02"
+    },
+    "cfu:player:1790": {
+      "playerId": "cfu:player:1790",
+      "provider": "cfu",
+      "sourcePlayerId": "1790",
+      "sourceUrl": "https://www.cfu2015.com/players/1790/",
+      "name": "Вадим Петренко",
+      "dateOfBirth": "2006-12-22"
+    },
+    "cfu:player:1796": {
+      "playerId": "cfu:player:1796",
+      "provider": "cfu",
+      "sourcePlayerId": "1796",
+      "sourceUrl": "https://www.cfu2015.com/players/1796/",
+      "name": "Герман Кочиев",
+      "dateOfBirth": "2006-11-25"
+    },
+    "cfu:player:1800": {
+      "playerId": "cfu:player:1800",
+      "provider": "cfu",
+      "sourcePlayerId": "1800",
+      "sourceUrl": "https://www.cfu2015.com/players/1800/",
+      "name": "Рустам Дадабаев",
+      "dateOfBirth": "1982-11-27"
+    },
+    "cfu:player:1803": {
+      "playerId": "cfu:player:1803",
+      "provider": "cfu",
+      "sourcePlayerId": "1803",
+      "sourceUrl": "https://www.cfu2015.com/players/1803/",
+      "name": "Олег Коваленко",
+      "dateOfBirth": "1977-10-26"
+    },
+    "cfu:player:1805": {
+      "playerId": "cfu:player:1805",
+      "provider": "cfu",
+      "sourcePlayerId": "1805",
+      "sourceUrl": "https://www.cfu2015.com/players/1805/",
+      "name": "Илья Копцев",
+      "dateOfBirth": "2008-04-24"
+    },
+    "cfu:player:1809": {
+      "playerId": "cfu:player:1809",
+      "provider": "cfu",
+      "sourcePlayerId": "1809",
+      "sourceUrl": "https://www.cfu2015.com/players/1809/",
+      "name": "Валерий Мазур",
+      "dateOfBirth": "1991-03-06"
+    },
+    "cfu:player:1826": {
+      "playerId": "cfu:player:1826",
+      "provider": "cfu",
+      "sourcePlayerId": "1826",
+      "sourceUrl": "https://www.cfu2015.com/players/1826/",
+      "name": "Егор Снытко",
+      "dateOfBirth": "2000-12-24"
+    },
+    "cfu:player:1828": {
+      "playerId": "cfu:player:1828",
+      "provider": "cfu",
+      "sourcePlayerId": "1828",
+      "sourceUrl": "https://www.cfu2015.com/players/1828/",
+      "name": "Вадим Бардин",
+      "dateOfBirth": "2002-06-29"
+    },
+    "cfu:player:1834": {
+      "playerId": "cfu:player:1834",
+      "provider": "cfu",
+      "sourcePlayerId": "1834",
+      "sourceUrl": "https://www.cfu2015.com/players/1834/",
+      "name": "Даниил Фоменко",
+      "dateOfBirth": "2003-11-26"
+    },
+    "cfu:player:1844": {
+      "playerId": "cfu:player:1844",
+      "provider": "cfu",
+      "sourcePlayerId": "1844",
+      "sourceUrl": "https://www.cfu2015.com/players/1844/",
+      "name": "Александр Потапович",
+      "dateOfBirth": "2008-01-15"
+    },
+    "cfu:player:1860": {
+      "playerId": "cfu:player:1860",
+      "provider": "cfu",
+      "sourcePlayerId": "1860",
+      "sourceUrl": "https://www.cfu2015.com/players/1860/",
+      "name": "Роман Микишенко",
+      "dateOfBirth": "2006-04-19"
+    },
+    "cfu:player:1864": {
+      "playerId": "cfu:player:1864",
+      "provider": "cfu",
+      "sourcePlayerId": "1864",
+      "sourceUrl": "https://www.cfu2015.com/players/1864/",
+      "name": "Глеб Здоров",
+      "dateOfBirth": "2007-03-14"
+    },
+    "cfu:player:1865": {
+      "playerId": "cfu:player:1865",
+      "provider": "cfu",
+      "sourcePlayerId": "1865",
+      "sourceUrl": "https://www.cfu2015.com/players/1865/",
+      "name": "Михаил Примаченко",
+      "dateOfBirth": "2007-09-14"
+    },
+    "cfu:player:1866": {
+      "playerId": "cfu:player:1866",
+      "provider": "cfu",
+      "sourcePlayerId": "1866",
+      "sourceUrl": "https://www.cfu2015.com/players/1866/",
+      "name": "Максим Стойчев",
+      "dateOfBirth": "2007-11-15"
+    },
+    "cfu:player:1870": {
+      "playerId": "cfu:player:1870",
+      "provider": "cfu",
+      "sourcePlayerId": "1870",
+      "sourceUrl": "https://www.cfu2015.com/players/1870/",
+      "name": "Никита Лисименко",
+      "dateOfBirth": "2002-01-09"
+    },
+    "cfu:player:1872": {
+      "playerId": "cfu:player:1872",
+      "provider": "cfu",
+      "sourcePlayerId": "1872",
+      "sourceUrl": "https://www.cfu2015.com/players/1872/",
+      "name": "Иван Москаленко",
+      "dateOfBirth": "2003-02-17"
+    },
+    "cfu:player:1873": {
+      "playerId": "cfu:player:1873",
+      "provider": "cfu",
+      "sourcePlayerId": "1873",
+      "sourceUrl": "https://www.cfu2015.com/players/1873/",
+      "name": "Владислав Максимов",
+      "dateOfBirth": "2006-12-24"
+    },
+    "cfu:player:1888": {
+      "playerId": "cfu:player:1888",
+      "provider": "cfu",
+      "sourcePlayerId": "1888",
+      "sourceUrl": "https://www.cfu2015.com/players/1888/",
+      "name": "Сергей Суханов",
+      "dateOfBirth": "2009-09-20"
+    },
+    "cfu:player:1889": {
+      "playerId": "cfu:player:1889",
+      "provider": "cfu",
+      "sourcePlayerId": "1889",
+      "sourceUrl": "https://www.cfu2015.com/players/1889/",
+      "name": "Вадим Макобок",
+      "dateOfBirth": "2009-04-22"
+    },
+    "cfu:player:1890": {
+      "playerId": "cfu:player:1890",
+      "provider": "cfu",
+      "sourcePlayerId": "1890",
+      "sourceUrl": "https://www.cfu2015.com/players/1890/",
+      "name": "Григорий Федотов",
+      "dateOfBirth": "2007-10-05"
+    },
+    "cfu:player:1892": {
+      "playerId": "cfu:player:1892",
+      "provider": "cfu",
+      "sourcePlayerId": "1892",
+      "sourceUrl": "https://www.cfu2015.com/players/1892/",
+      "name": "Мустафа Аблаев",
+      "dateOfBirth": "2008-09-11"
+    },
+    "cfu:player:1893": {
+      "playerId": "cfu:player:1893",
+      "provider": "cfu",
+      "sourcePlayerId": "1893",
+      "sourceUrl": "https://www.cfu2015.com/players/1893/",
+      "name": "Максим Трушляков",
+      "dateOfBirth": "2005-08-31"
+    },
+    "cfu:player:1897": {
+      "playerId": "cfu:player:1897",
+      "provider": "cfu",
+      "sourcePlayerId": "1897",
+      "sourceUrl": "https://www.cfu2015.com/players/1897/",
+      "name": "Никита Скуратовский",
+      "dateOfBirth": "2006-09-18"
+    },
+    "cfu:player:1904": {
+      "playerId": "cfu:player:1904",
+      "provider": "cfu",
+      "sourcePlayerId": "1904",
+      "sourceUrl": "https://www.cfu2015.com/players/1904/",
+      "name": "Алексей Колодяжный",
+      "dateOfBirth": "2008-05-23"
+    },
+    "cfu:player:1906": {
+      "playerId": "cfu:player:1906",
+      "provider": "cfu",
+      "sourcePlayerId": "1906",
+      "sourceUrl": "https://www.cfu2015.com/players/1906/",
+      "name": "Денис Громов",
+      "dateOfBirth": "2008-08-13"
+    },
+    "cfu:player:1908": {
+      "playerId": "cfu:player:1908",
+      "provider": "cfu",
+      "sourcePlayerId": "1908",
+      "sourceUrl": "https://www.cfu2015.com/players/1908/",
+      "name": "Даниил Шаров",
+      "dateOfBirth": "2007-08-23"
+    },
+    "cfu:player:1912": {
+      "playerId": "cfu:player:1912",
+      "provider": "cfu",
+      "sourcePlayerId": "1912",
+      "sourceUrl": "https://www.cfu2015.com/players/1912/",
+      "name": "Максим Подлужный",
+      "dateOfBirth": "2003-04-22"
+    },
+    "cfu:player:1921": {
+      "playerId": "cfu:player:1921",
+      "provider": "cfu",
+      "sourcePlayerId": "1921",
+      "sourceUrl": "https://www.cfu2015.com/players/1921/",
+      "name": "Роберт Таучелов",
+      "dateOfBirth": "2004-01-11"
+    },
+    "cfu:player:1927": {
+      "playerId": "cfu:player:1927",
+      "provider": "cfu",
+      "sourcePlayerId": "1927",
+      "sourceUrl": "https://www.cfu2015.com/players/1927/",
+      "name": "Тимур Назаров",
+      "dateOfBirth": "2007-04-11"
+    },
+    "cfu:player:1933": {
+      "playerId": "cfu:player:1933",
+      "provider": "cfu",
+      "sourcePlayerId": "1933",
+      "sourceUrl": "https://www.cfu2015.com/players/1933/",
+      "name": "Никита Зуйков",
+      "dateOfBirth": "2005-02-19"
+    },
+    "cfu:player:1934": {
+      "playerId": "cfu:player:1934",
+      "provider": "cfu",
+      "sourcePlayerId": "1934",
+      "sourceUrl": "https://www.cfu2015.com/players/1934/",
+      "name": "Дмитрий Мишков",
+      "dateOfBirth": "2007-07-03"
+    },
+    "cfu:player:1952": {
+      "playerId": "cfu:player:1952",
+      "provider": "cfu",
+      "sourcePlayerId": "1952",
+      "sourceUrl": "https://www.cfu2015.com/players/1952/",
+      "name": "Рамзан Гарчханов",
+      "dateOfBirth": "2009-02-09"
+    },
+    "cfu:player:1955": {
+      "playerId": "cfu:player:1955",
+      "provider": "cfu",
+      "sourcePlayerId": "1955",
+      "sourceUrl": "https://www.cfu2015.com/players/1955/",
+      "name": "Арсен Бестаев",
+      "dateOfBirth": "2005-03-17"
+    },
+    "cfu:player:1958": {
+      "playerId": "cfu:player:1958",
+      "provider": "cfu",
+      "sourcePlayerId": "1958",
+      "sourceUrl": "https://www.cfu2015.com/players/1958/",
+      "name": "Даниил Легкий",
+      "dateOfBirth": "2007-02-23"
+    },
+    "cfu:player:1960": {
+      "playerId": "cfu:player:1960",
+      "provider": "cfu",
+      "sourcePlayerId": "1960",
+      "sourceUrl": "https://www.cfu2015.com/players/1960/",
+      "name": "Арсен Черткоев",
+      "dateOfBirth": "2004-05-22"
+    },
+    "cfu:player:1967": {
+      "playerId": "cfu:player:1967",
+      "provider": "cfu",
+      "sourcePlayerId": "1967",
+      "sourceUrl": "https://www.cfu2015.com/players/1967/",
+      "name": "Артем Фоминых",
+      "dateOfBirth": "2001-01-05"
+    },
+    "cfu:player:1971": {
+      "playerId": "cfu:player:1971",
+      "provider": "cfu",
+      "sourcePlayerId": "1971",
+      "sourceUrl": "https://www.cfu2015.com/players/1971/",
+      "name": "Муса Гюлалиев",
+      "dateOfBirth": "2007-06-25"
+    },
+    "cfu:player:1972": {
+      "playerId": "cfu:player:1972",
+      "provider": "cfu",
+      "sourcePlayerId": "1972",
+      "sourceUrl": "https://www.cfu2015.com/players/1972/",
+      "name": "Артём Крамный",
+      "dateOfBirth": "2007-11-30"
+    },
+    "cfu:player:1977": {
+      "playerId": "cfu:player:1977",
+      "provider": "cfu",
+      "sourcePlayerId": "1977",
+      "sourceUrl": "https://www.cfu2015.com/players/1977/",
+      "name": "Евгений Проценко",
+      "dateOfBirth": "2008-02-21"
+    },
+    "cfu:player:1978": {
+      "playerId": "cfu:player:1978",
+      "provider": "cfu",
+      "sourcePlayerId": "1978",
+      "sourceUrl": "https://www.cfu2015.com/players/1978/",
+      "name": "Сергей Смотрелкин",
+      "dateOfBirth": "2008-03-17"
+    },
+    "cfu:player:1985": {
+      "playerId": "cfu:player:1985",
+      "provider": "cfu",
+      "sourcePlayerId": "1985",
+      "sourceUrl": "https://www.cfu2015.com/players/1985/",
+      "name": "Абубакар Иналкаев",
+      "dateOfBirth": "2004-07-31"
+    },
+    "cfu:player:1986": {
+      "playerId": "cfu:player:1986",
+      "provider": "cfu",
+      "sourcePlayerId": "1986",
+      "sourceUrl": "https://www.cfu2015.com/players/1986/",
+      "name": "Тимур Гаглоев",
+      "dateOfBirth": "2007-09-14"
+    },
+    "cfu:player:1995": {
+      "playerId": "cfu:player:1995",
+      "provider": "cfu",
+      "sourcePlayerId": "1995",
+      "sourceUrl": "https://www.cfu2015.com/players/1995/",
+      "name": "Семен Заец",
+      "dateOfBirth": "2003-02-27"
+    },
+    "cfu:player:2001": {
+      "playerId": "cfu:player:2001",
+      "provider": "cfu",
+      "sourcePlayerId": "2001",
+      "sourceUrl": "https://www.cfu2015.com/players/2001/",
+      "name": "Юрий Дудаев",
+      "dateOfBirth": "2003-04-09"
+    },
+    "cfu:player:2002": {
+      "playerId": "cfu:player:2002",
+      "provider": "cfu",
+      "sourcePlayerId": "2002",
+      "sourceUrl": "https://www.cfu2015.com/players/2002/",
+      "name": "Вадим Горюнов",
+      "dateOfBirth": "2009-08-15"
+    },
+    "cfu:player:2013": {
+      "playerId": "cfu:player:2013",
+      "provider": "cfu",
+      "sourcePlayerId": "2013",
+      "sourceUrl": "https://www.cfu2015.com/players/2013/",
+      "name": "Ниязи Аметов",
+      "dateOfBirth": "2000-08-07"
+    },
+    "cfu:player:2014": {
+      "playerId": "cfu:player:2014",
+      "provider": "cfu",
+      "sourcePlayerId": "2014",
+      "sourceUrl": "https://www.cfu2015.com/players/2014/",
+      "name": "Ильяс Музафаров",
+      "dateOfBirth": "1991-05-06"
+    },
+    "cfu:player:2016": {
+      "playerId": "cfu:player:2016",
+      "provider": "cfu",
+      "sourcePlayerId": "2016",
+      "sourceUrl": "https://www.cfu2015.com/players/2016/",
+      "name": "Ильяс Сейтаблаев",
+      "dateOfBirth": "1995-09-17"
+    },
+    "cfu:player:2027": {
+      "playerId": "cfu:player:2027",
+      "provider": "cfu",
+      "sourcePlayerId": "2027",
+      "sourceUrl": "https://www.cfu2015.com/players/2027/",
+      "name": "Владимир Семенов",
+      "dateOfBirth": "1994-10-14"
+    },
+    "cfu:player:2028": {
+      "playerId": "cfu:player:2028",
+      "provider": "cfu",
+      "sourcePlayerId": "2028",
+      "sourceUrl": "https://www.cfu2015.com/players/2028/",
+      "name": "Даниил Еремин",
+      "dateOfBirth": "2004-04-08"
+    },
+    "cfu:player:2029": {
+      "playerId": "cfu:player:2029",
+      "provider": "cfu",
+      "sourcePlayerId": "2029",
+      "sourceUrl": "https://www.cfu2015.com/players/2029/",
+      "name": "Дмитрий Шерстобитов",
+      "dateOfBirth": "2004-03-20"
+    },
+    "cfu:player:2030": {
+      "playerId": "cfu:player:2030",
+      "provider": "cfu",
+      "sourcePlayerId": "2030",
+      "sourceUrl": "https://www.cfu2015.com/players/2030/",
+      "name": "Игорь Иванов",
+      "dateOfBirth": "2001-10-05"
+    },
+    "cfu:player:2031": {
+      "playerId": "cfu:player:2031",
+      "provider": "cfu",
+      "sourcePlayerId": "2031",
+      "sourceUrl": "https://www.cfu2015.com/players/2031/",
+      "name": "Виталий Горбачев",
+      "dateOfBirth": "1993-03-03"
+    },
+    "cfu:player:2032": {
+      "playerId": "cfu:player:2032",
+      "provider": "cfu",
+      "sourcePlayerId": "2032",
+      "sourceUrl": "https://www.cfu2015.com/players/2032/",
+      "name": "Яхъя Бадакшанов",
+      "dateOfBirth": "2007-01-13"
+    },
+    "cfu:player:2033": {
+      "playerId": "cfu:player:2033",
+      "provider": "cfu",
+      "sourcePlayerId": "2033",
+      "sourceUrl": "https://www.cfu2015.com/players/2033/",
+      "name": "Дэвид Мудрак",
+      "dateOfBirth": "2005-09-17"
+    },
+    "cfu:player:2034": {
+      "playerId": "cfu:player:2034",
+      "provider": "cfu",
+      "sourcePlayerId": "2034",
+      "sourceUrl": "https://www.cfu2015.com/players/2034/",
+      "name": "Ренат Мудрак",
+      "dateOfBirth": "2009-01-24"
+    },
+    "cfu:player:2035": {
+      "playerId": "cfu:player:2035",
+      "provider": "cfu",
+      "sourcePlayerId": "2035",
+      "sourceUrl": "https://www.cfu2015.com/players/2035/",
+      "name": "Кирилл Коркин",
+      "dateOfBirth": "2003-10-22"
+    },
+    "cfu:player:2036": {
+      "playerId": "cfu:player:2036",
+      "provider": "cfu",
+      "sourcePlayerId": "2036",
+      "sourceUrl": "https://www.cfu2015.com/players/2036/",
+      "name": "Вячеслав Коркин",
+      "dateOfBirth": "2003-10-22"
+    },
+    "cfu:player:2037": {
+      "playerId": "cfu:player:2037",
+      "provider": "cfu",
+      "sourcePlayerId": "2037",
+      "sourceUrl": "https://www.cfu2015.com/players/2037/",
+      "name": "Егор Елисеев",
+      "dateOfBirth": "2003-11-17"
+    },
+    "cfu:player:2038": {
+      "playerId": "cfu:player:2038",
+      "provider": "cfu",
+      "sourcePlayerId": "2038",
+      "sourceUrl": "https://www.cfu2015.com/players/2038/",
+      "name": "Родион Лоленко",
+      "dateOfBirth": "2008-07-08"
+    },
+    "cfu:player:2039": {
+      "playerId": "cfu:player:2039",
+      "provider": "cfu",
+      "sourcePlayerId": "2039",
+      "sourceUrl": "https://www.cfu2015.com/players/2039/",
+      "name": "Андрей Валенко",
+      "dateOfBirth": "2009-12-13"
+    },
+    "cfu:player:2040": {
+      "playerId": "cfu:player:2040",
+      "provider": "cfu",
+      "sourcePlayerId": "2040",
+      "sourceUrl": "https://www.cfu2015.com/players/2040/",
+      "name": "Рауль Муртазаев",
+      "dateOfBirth": "2005-05-05"
+    },
+    "cfu:player:2041": {
+      "playerId": "cfu:player:2041",
+      "provider": "cfu",
+      "sourcePlayerId": "2041",
+      "sourceUrl": "https://www.cfu2015.com/players/2041/",
+      "name": "Данила Кабанов",
+      "dateOfBirth": "2007-06-01"
+    },
+    "cfu:player:2042": {
+      "playerId": "cfu:player:2042",
+      "provider": "cfu",
+      "sourcePlayerId": "2042",
+      "sourceUrl": "https://www.cfu2015.com/players/2042/",
+      "name": "Иван Нестеров",
+      "dateOfBirth": "2005-09-23"
+    },
+    "cfu:player:2043": {
+      "playerId": "cfu:player:2043",
+      "provider": "cfu",
+      "sourcePlayerId": "2043",
+      "sourceUrl": "https://www.cfu2015.com/players/2043/",
+      "name": "Денис Сергиенко",
+      "dateOfBirth": "2001-10-03"
+    },
+    "cfu:player:2044": {
+      "playerId": "cfu:player:2044",
+      "provider": "cfu",
+      "sourcePlayerId": "2044",
+      "sourceUrl": "https://www.cfu2015.com/players/2044/",
+      "name": "Максим Гайдаров",
+      "dateOfBirth": "2003-03-15"
+    },
+    "cfu:player:2045": {
+      "playerId": "cfu:player:2045",
+      "provider": "cfu",
+      "sourcePlayerId": "2045",
+      "sourceUrl": "https://www.cfu2015.com/players/2045/",
+      "name": "Абдусалам Кратов",
+      "dateOfBirth": "2005-12-02"
+    },
+    "cfu:player:2046": {
+      "playerId": "cfu:player:2046",
+      "provider": "cfu",
+      "sourcePlayerId": "2046",
+      "sourceUrl": "https://www.cfu2015.com/players/2046/",
+      "name": "Максим Безкоровайный",
+      "dateOfBirth": "2009-07-20"
+    },
+    "cfu:player:2047": {
+      "playerId": "cfu:player:2047",
+      "provider": "cfu",
+      "sourcePlayerId": "2047",
+      "sourceUrl": "https://www.cfu2015.com/players/2047/",
+      "name": "Даниил Веселов",
+      "dateOfBirth": "2007-07-17"
+    },
+    "cfu:player:2048": {
+      "playerId": "cfu:player:2048",
+      "provider": "cfu",
+      "sourcePlayerId": "2048",
+      "sourceUrl": "https://www.cfu2015.com/players/2048/",
+      "name": "Михаил Ярмухаметов",
+      "dateOfBirth": "2007-01-16"
+    },
+    "cfu:player:2049": {
+      "playerId": "cfu:player:2049",
+      "provider": "cfu",
+      "sourcePlayerId": "2049",
+      "sourceUrl": "https://www.cfu2015.com/players/2049/",
+      "name": "Никита Петров",
+      "dateOfBirth": "2008-04-07"
+    },
+    "cfu:player:2050": {
+      "playerId": "cfu:player:2050",
+      "provider": "cfu",
+      "sourcePlayerId": "2050",
+      "sourceUrl": "https://www.cfu2015.com/players/2050/",
+      "name": "Азамат Бекмуханов",
+      "dateOfBirth": "2006-11-10"
+    },
+    "cfu:player:2051": {
+      "playerId": "cfu:player:2051",
+      "provider": "cfu",
+      "sourcePlayerId": "2051",
+      "sourceUrl": "https://www.cfu2015.com/players/2051/",
+      "name": "Даниил Михалаш",
+      "dateOfBirth": "2008-10-24"
+    },
+    "cfu:player:2052": {
+      "playerId": "cfu:player:2052",
+      "provider": "cfu",
+      "sourcePlayerId": "2052",
+      "sourceUrl": "https://www.cfu2015.com/players/2052/",
+      "name": "Павел Кузнецов",
+      "dateOfBirth": "2002-07-12"
+    },
+    "cfu:player:2053": {
+      "playerId": "cfu:player:2053",
+      "provider": "cfu",
+      "sourcePlayerId": "2053",
+      "sourceUrl": "https://www.cfu2015.com/players/2053/",
+      "name": "Владислав Лепехин",
+      "dateOfBirth": "2002-09-06"
+    },
+    "cfu:player:2054": {
+      "playerId": "cfu:player:2054",
+      "provider": "cfu",
+      "sourcePlayerId": "2054",
+      "sourceUrl": "https://www.cfu2015.com/players/2054/",
+      "name": "Георгий Мархолия",
+      "dateOfBirth": "2003-02-28"
+    },
+    "cfu:player:2055": {
+      "playerId": "cfu:player:2055",
+      "provider": "cfu",
+      "sourcePlayerId": "2055",
+      "sourceUrl": "https://www.cfu2015.com/players/2055/",
+      "name": "Коба Халиев",
+      "dateOfBirth": "2007-04-21"
+    },
+    "cfu:player:2056": {
+      "playerId": "cfu:player:2056",
+      "provider": "cfu",
+      "sourcePlayerId": "2056",
+      "sourceUrl": "https://www.cfu2015.com/players/2056/",
+      "name": "Георгий Павленко",
+      "dateOfBirth": "2007-06-25"
+    },
+    "cfu:player:2057": {
+      "playerId": "cfu:player:2057",
+      "provider": "cfu",
+      "sourcePlayerId": "2057",
+      "sourceUrl": "https://www.cfu2015.com/players/2057/",
+      "name": "Даниил Марков",
+      "dateOfBirth": "2001-01-01"
+    },
+    "cfu:player:2058": {
+      "playerId": "cfu:player:2058",
+      "provider": "cfu",
+      "sourcePlayerId": "2058",
+      "sourceUrl": "https://www.cfu2015.com/players/2058/",
+      "name": "Сослан Засеев",
+      "dateOfBirth": "2002-08-08"
+    },
+    "cfu:player:2059": {
+      "playerId": "cfu:player:2059",
+      "provider": "cfu",
+      "sourcePlayerId": "2059",
+      "sourceUrl": "https://www.cfu2015.com/players/2059/",
+      "name": "Данила Бельцов",
+      "dateOfBirth": "2006-07-01"
+    },
+    "cfu:player:2060": {
+      "playerId": "cfu:player:2060",
+      "provider": "cfu",
+      "sourcePlayerId": "2060",
+      "sourceUrl": "https://www.cfu2015.com/players/2060/",
+      "name": "Рамазан Наниев",
+      "dateOfBirth": "1999-12-27"
+    },
+    "cfu:player:2061": {
+      "playerId": "cfu:player:2061",
+      "provider": "cfu",
+      "sourcePlayerId": "2061",
+      "sourceUrl": "https://www.cfu2015.com/players/2061/",
+      "name": "Сергей Дусенко",
+      "dateOfBirth": "2008-07-20"
+    },
+    "cfu:player:2063": {
+      "playerId": "cfu:player:2063",
+      "provider": "cfu",
+      "sourcePlayerId": "2063",
+      "sourceUrl": "https://www.cfu2015.com/players/2063/",
+      "name": "Адам Бибулатов",
+      "dateOfBirth": "2006-12-28"
+    },
+    "cfu:player:2064": {
+      "playerId": "cfu:player:2064",
+      "provider": "cfu",
+      "sourcePlayerId": "2064",
+      "sourceUrl": "https://www.cfu2015.com/players/2064/",
+      "name": "Азамат Тобоев",
+      "dateOfBirth": "2007-01-24"
+    },
+    "cfu:player:2065": {
+      "playerId": "cfu:player:2065",
+      "provider": "cfu",
+      "sourcePlayerId": "2065",
+      "sourceUrl": "https://www.cfu2015.com/players/2065/",
+      "name": "Платон Дедов",
+      "dateOfBirth": "2010-01-01"
+    },
+    "cfu:player:2066": {
+      "playerId": "cfu:player:2066",
+      "provider": "cfu",
+      "sourcePlayerId": "2066",
+      "sourceUrl": "https://www.cfu2015.com/players/2066/",
+      "name": "Андрей Мельник",
+      "dateOfBirth": "2004-01-26"
+    },
+    "cfu:player:2067": {
+      "playerId": "cfu:player:2067",
+      "provider": "cfu",
+      "sourcePlayerId": "2067",
+      "sourceUrl": "https://www.cfu2015.com/players/2067/",
+      "name": "Владимир Саранчуков",
+      "dateOfBirth": "2007-01-25"
+    },
+    "cfu:player:2068": {
+      "playerId": "cfu:player:2068",
+      "provider": "cfu",
+      "sourcePlayerId": "2068",
+      "sourceUrl": "https://www.cfu2015.com/players/2068/",
+      "name": "Виктор Саранчуков",
+      "dateOfBirth": "2007-01-25"
+    },
+    "cfu:player:2069": {
+      "playerId": "cfu:player:2069",
+      "provider": "cfu",
+      "sourcePlayerId": "2069",
+      "sourceUrl": "https://www.cfu2015.com/players/2069/",
+      "name": "Дмитрий Сидоренко",
+      "dateOfBirth": "1996-07-27"
+    },
+    "cfu:player:2070": {
+      "playerId": "cfu:player:2070",
+      "provider": "cfu",
+      "sourcePlayerId": "2070",
+      "sourceUrl": "https://www.cfu2015.com/players/2070/",
+      "name": "Оганес Арутюнян",
+      "dateOfBirth": "2008-02-17"
+    },
+    "cfu:player:2071": {
+      "playerId": "cfu:player:2071",
+      "provider": "cfu",
+      "sourcePlayerId": "2071",
+      "sourceUrl": "https://www.cfu2015.com/players/2071/",
+      "name": "Лев Мальцев",
+      "dateOfBirth": "2005-07-01"
+    },
+    "cfu:player:2072": {
+      "playerId": "cfu:player:2072",
+      "provider": "cfu",
+      "sourcePlayerId": "2072",
+      "sourceUrl": "https://www.cfu2015.com/players/2072/",
+      "name": "Анушервон Джебов",
+      "dateOfBirth": "2003-03-08"
+    },
+    "cfu:player:2073": {
+      "playerId": "cfu:player:2073",
+      "provider": "cfu",
+      "sourcePlayerId": "2073",
+      "sourceUrl": "https://www.cfu2015.com/players/2073/",
+      "name": "Илья Дорофеев",
+      "dateOfBirth": "2005-08-12"
+    },
+    "cfu:player:2074": {
+      "playerId": "cfu:player:2074",
+      "provider": "cfu",
+      "sourcePlayerId": "2074",
+      "sourceUrl": "https://www.cfu2015.com/players/2074/",
+      "name": "Герман Ананских",
+      "dateOfBirth": "2002-06-29"
+    },
+    "cfu:player:2075": {
+      "playerId": "cfu:player:2075",
+      "provider": "cfu",
+      "sourcePlayerId": "2075",
+      "sourceUrl": "https://www.cfu2015.com/players/2075/",
+      "name": "Альберт Баскаев",
+      "dateOfBirth": "2005-06-26"
+    },
+    "cfu:player:2076": {
+      "playerId": "cfu:player:2076",
+      "provider": "cfu",
+      "sourcePlayerId": "2076",
+      "sourceUrl": "https://www.cfu2015.com/players/2076/",
+      "name": "Арсений Митрюков",
+      "dateOfBirth": "2008-03-18"
+    },
+    "cfu:player:2077": {
+      "playerId": "cfu:player:2077",
+      "provider": "cfu",
+      "sourcePlayerId": "2077",
+      "sourceUrl": "https://www.cfu2015.com/players/2077/",
+      "name": "Георгий Даниэлов",
+      "dateOfBirth": "2006-09-13"
+    },
+    "cfu:player:2078": {
+      "playerId": "cfu:player:2078",
+      "provider": "cfu",
+      "sourcePlayerId": "2078",
+      "sourceUrl": "https://www.cfu2015.com/players/2078/",
+      "name": "Илья Ромащук",
+      "dateOfBirth": "2007-01-25"
+    },
+    "cfu:player:2079": {
+      "playerId": "cfu:player:2079",
+      "provider": "cfu",
+      "sourcePlayerId": "2079",
+      "sourceUrl": "https://www.cfu2015.com/players/2079/",
+      "name": "Григорий Миносян",
+      "dateOfBirth": "2001-08-08"
+    },
+    "cfu:player:2080": {
+      "playerId": "cfu:player:2080",
+      "provider": "cfu",
+      "sourcePlayerId": "2080",
+      "sourceUrl": "https://www.cfu2015.com/players/2080/",
+      "name": "Андрей Деребеев",
+      "dateOfBirth": "2008-08-18"
+    },
+    "cfu:player:2081": {
+      "playerId": "cfu:player:2081",
+      "provider": "cfu",
+      "sourcePlayerId": "2081",
+      "sourceUrl": "https://www.cfu2015.com/players/2081/",
+      "name": "Арсений Севрюков",
+      "dateOfBirth": "2007-01-15"
+    },
+    "cfu:player:2082": {
+      "playerId": "cfu:player:2082",
+      "provider": "cfu",
+      "sourcePlayerId": "2082",
+      "sourceUrl": "https://www.cfu2015.com/players/2082/",
+      "name": "Ярослав Воронков",
+      "dateOfBirth": "2003-09-11"
+    },
+    "cfu:player:2083": {
+      "playerId": "cfu:player:2083",
+      "provider": "cfu",
+      "sourcePlayerId": "2083",
+      "sourceUrl": "https://www.cfu2015.com/players/2083/",
+      "name": "Иван Тяпушкин",
+      "dateOfBirth": "2008-01-16"
+    },
+    "cfu:player:2084": {
+      "playerId": "cfu:player:2084",
+      "provider": "cfu",
+      "sourcePlayerId": "2084",
+      "sourceUrl": "https://www.cfu2015.com/players/2084/",
+      "name": "Реминд Атенгонг",
+      "dateOfBirth": "2000-03-09"
+    },
+    "cfu:player:2105": {
+      "playerId": "cfu:player:2105",
+      "provider": "cfu",
+      "sourcePlayerId": "2105",
+      "sourceUrl": "https://www.cfu2015.com/players/2105/",
+      "name": "Владислав Панасенко",
+      "dateOfBirth": "2009-03-06"
+    },
+    "cfu:player:2107": {
+      "playerId": "cfu:player:2107",
+      "provider": "cfu",
+      "sourcePlayerId": "2107",
+      "sourceUrl": "https://www.cfu2015.com/players/2107/",
+      "name": "Александр Кардаш",
+      "dateOfBirth": "2007-10-25"
+    },
+    "cfu:player:2108": {
+      "playerId": "cfu:player:2108",
+      "provider": "cfu",
+      "sourcePlayerId": "2108",
+      "sourceUrl": "https://www.cfu2015.com/players/2108/",
+      "name": "Владислав Запорожец",
+      "dateOfBirth": "2005-05-10"
+    },
+    "cfu:player:2109": {
+      "playerId": "cfu:player:2109",
+      "provider": "cfu",
+      "sourcePlayerId": "2109",
+      "sourceUrl": "https://www.cfu2015.com/players/2109/",
+      "name": "Анатолий Воробьев",
+      "dateOfBirth": "2006-03-26"
+    },
+    "cfu:player:2110": {
+      "playerId": "cfu:player:2110",
+      "provider": "cfu",
+      "sourcePlayerId": "2110",
+      "sourceUrl": "https://www.cfu2015.com/players/2110/",
+      "name": "Денис Макарчук",
+      "dateOfBirth": "2009-01-23"
+    },
+    "cfu:player:2111": {
+      "playerId": "cfu:player:2111",
+      "provider": "cfu",
+      "sourcePlayerId": "2111",
+      "sourceUrl": "https://www.cfu2015.com/players/2111/",
+      "name": "Артем Булгаков",
+      "dateOfBirth": "2008-02-27"
+    },
+    "cfu:player:2112": {
+      "playerId": "cfu:player:2112",
+      "provider": "cfu",
+      "sourcePlayerId": "2112",
+      "sourceUrl": "https://www.cfu2015.com/players/2112/",
+      "name": "Егор Слюсарь",
+      "dateOfBirth": "2005-09-14"
+    },
+    "cfu:player:2119": {
+      "playerId": "cfu:player:2119",
+      "provider": "cfu",
+      "sourcePlayerId": "2119",
+      "sourceUrl": "https://www.cfu2015.com/players/2119/",
+      "name": "Глеб Сибилев",
+      "dateOfBirth": "2009-07-03"
+    },
+    "cfu:player:2120": {
+      "playerId": "cfu:player:2120",
+      "provider": "cfu",
+      "sourcePlayerId": "2120",
+      "sourceUrl": "https://www.cfu2015.com/players/2120/",
+      "name": "Артём Шишов",
+      "dateOfBirth": "2009-07-29"
+    },
+    "cfu:player:2121": {
+      "playerId": "cfu:player:2121",
+      "provider": "cfu",
+      "sourcePlayerId": "2121",
+      "sourceUrl": "https://www.cfu2015.com/players/2121/",
+      "name": "Иван Александрук",
+      "dateOfBirth": "2009-05-19"
+    },
+    "cfu:player:2122": {
+      "playerId": "cfu:player:2122",
+      "provider": "cfu",
+      "sourcePlayerId": "2122",
+      "sourceUrl": "https://www.cfu2015.com/players/2122/",
+      "name": "Кирилл Мирошниченко",
+      "dateOfBirth": "2008-07-13"
+    },
+    "cfu:player:2123": {
+      "playerId": "cfu:player:2123",
+      "provider": "cfu",
+      "sourcePlayerId": "2123",
+      "sourceUrl": "https://www.cfu2015.com/players/2123/",
+      "name": "Роман Антипенко",
+      "dateOfBirth": "2003-02-08"
+    },
+    "cfu:player:2124": {
+      "playerId": "cfu:player:2124",
+      "provider": "cfu",
+      "sourcePlayerId": "2124",
+      "sourceUrl": "https://www.cfu2015.com/players/2124/",
+      "name": "Алексей Мартынов",
+      "dateOfBirth": "2008-08-06"
+    },
+    "cfu:player:2125": {
+      "playerId": "cfu:player:2125",
+      "provider": "cfu",
+      "sourcePlayerId": "2125",
+      "sourceUrl": "https://www.cfu2015.com/players/2125/",
+      "name": "Артём Ермаков",
+      "dateOfBirth": "2009-05-14"
+    },
+    "cfu:player:2126": {
+      "playerId": "cfu:player:2126",
+      "provider": "cfu",
+      "sourcePlayerId": "2126",
+      "sourceUrl": "https://www.cfu2015.com/players/2126/",
+      "name": "Ибраим Бекташ",
+      "dateOfBirth": "2008-09-27"
+    },
+    "cfu:player:2127": {
+      "playerId": "cfu:player:2127",
+      "provider": "cfu",
+      "sourcePlayerId": "2127",
+      "sourceUrl": "https://www.cfu2015.com/players/2127/",
+      "name": "Егор Бондар",
+      "dateOfBirth": "2007-11-10"
+    },
+    "cfu:player:2128": {
+      "playerId": "cfu:player:2128",
+      "provider": "cfu",
+      "sourcePlayerId": "2128",
+      "sourceUrl": "https://www.cfu2015.com/players/2128/",
+      "name": "Роман Буланов",
+      "dateOfBirth": "2009-10-14"
+    },
+    "cfu:player:2129": {
+      "playerId": "cfu:player:2129",
+      "provider": "cfu",
+      "sourcePlayerId": "2129",
+      "sourceUrl": "https://www.cfu2015.com/players/2129/",
+      "name": "Тимофей Сафонов",
+      "dateOfBirth": "2009-06-26"
+    },
+    "cfu:player:2130": {
+      "playerId": "cfu:player:2130",
+      "provider": "cfu",
+      "sourcePlayerId": "2130",
+      "sourceUrl": "https://www.cfu2015.com/players/2130/",
+      "name": "Исмаил Якубов",
+      "dateOfBirth": "2010-02-19"
+    },
+    "cfu:player:2131": {
+      "playerId": "cfu:player:2131",
+      "provider": "cfu",
+      "sourcePlayerId": "2131",
+      "sourceUrl": "https://www.cfu2015.com/players/2131/",
+      "name": "Дмитрий Крещенецкий",
+      "dateOfBirth": "2008-09-19"
+    },
+    "cfu:player:2132": {
+      "playerId": "cfu:player:2132",
+      "provider": "cfu",
+      "sourcePlayerId": "2132",
+      "sourceUrl": "https://www.cfu2015.com/players/2132/",
+      "name": "Василий Цымбаленко",
+      "dateOfBirth": "2008-05-22"
+    },
+    "cfu:player:2133": {
+      "playerId": "cfu:player:2133",
+      "provider": "cfu",
+      "sourcePlayerId": "2133",
+      "sourceUrl": "https://www.cfu2015.com/players/2133/",
+      "name": "Сергей Нерода",
+      "dateOfBirth": "1989-03-17"
+    },
+    "cfu:player:2134": {
+      "playerId": "cfu:player:2134",
+      "provider": "cfu",
+      "sourcePlayerId": "2134",
+      "sourceUrl": "https://www.cfu2015.com/players/2134/",
+      "name": "Вадим Сейтбилялов",
+      "dateOfBirth": "2009-05-31"
+    },
+    "cfu:player:2135": {
+      "playerId": "cfu:player:2135",
+      "provider": "cfu",
+      "sourcePlayerId": "2135",
+      "sourceUrl": "https://www.cfu2015.com/players/2135/",
+      "name": "Савва Котов",
+      "dateOfBirth": "2003-03-17"
+    },
+    "cfu:player:2136": {
+      "playerId": "cfu:player:2136",
+      "provider": "cfu",
+      "sourcePlayerId": "2136",
+      "sourceUrl": "https://www.cfu2015.com/players/2136/",
+      "name": "Кирилл Твердохлебов",
+      "dateOfBirth": "2007-06-30"
+    },
+    "cfu:player:2137": {
+      "playerId": "cfu:player:2137",
+      "provider": "cfu",
+      "sourcePlayerId": "2137",
+      "sourceUrl": "https://www.cfu2015.com/players/2137/",
+      "name": "Аким Абдоков",
+      "dateOfBirth": "2000-04-17"
+    },
+    "cfu:player:2138": {
+      "playerId": "cfu:player:2138",
+      "provider": "cfu",
+      "sourcePlayerId": "2138",
+      "sourceUrl": "https://www.cfu2015.com/players/2138/",
+      "name": "Илья Голуб",
+      "dateOfBirth": "2004-02-03"
+    },
+    "cfu:player:2139": {
+      "playerId": "cfu:player:2139",
+      "provider": "cfu",
+      "sourcePlayerId": "2139",
+      "sourceUrl": "https://www.cfu2015.com/players/2139/",
+      "name": "Анзор Кештов",
+      "dateOfBirth": "2007-09-05"
+    },
+    "cfu:player:2140": {
+      "playerId": "cfu:player:2140",
+      "provider": "cfu",
+      "sourcePlayerId": "2140",
+      "sourceUrl": "https://www.cfu2015.com/players/2140/",
+      "name": "Булат Бакиров",
+      "dateOfBirth": "2005-01-19"
+    },
+    "cfu:player:2141": {
+      "playerId": "cfu:player:2141",
+      "provider": "cfu",
+      "sourcePlayerId": "2141",
+      "sourceUrl": "https://www.cfu2015.com/players/2141/",
+      "name": "Владимир Абрамов",
+      "dateOfBirth": "2002-04-05"
+    },
+    "cfu:player:2142": {
+      "playerId": "cfu:player:2142",
+      "provider": "cfu",
+      "sourcePlayerId": "2142",
+      "sourceUrl": "https://www.cfu2015.com/players/2142/",
+      "name": "Артём Тимошенко",
+      "dateOfBirth": "2005-01-17"
+    },
+    "cfu:player:2143": {
+      "playerId": "cfu:player:2143",
+      "provider": "cfu",
+      "sourcePlayerId": "2143",
+      "sourceUrl": "https://www.cfu2015.com/players/2143/",
+      "name": "Тамерлан Дзугулов",
+      "dateOfBirth": "2007-09-08"
+    },
+    "cfu:player:2144": {
+      "playerId": "cfu:player:2144",
+      "provider": "cfu",
+      "sourcePlayerId": "2144",
+      "sourceUrl": "https://www.cfu2015.com/players/2144/",
+      "name": "Мухамед Цицов",
+      "dateOfBirth": "2008-04-02"
+    },
+    "cfu:player:2145": {
+      "playerId": "cfu:player:2145",
+      "provider": "cfu",
+      "sourcePlayerId": "2145",
+      "sourceUrl": "https://www.cfu2015.com/players/2145/",
+      "name": "Кантемир Болотоков",
+      "dateOfBirth": "2007-07-24"
+    },
+    "cfu:player:2153": {
+      "playerId": "cfu:player:2153",
+      "provider": "cfu",
+      "sourcePlayerId": "2153",
+      "sourceUrl": "https://www.cfu2015.com/players/2153/",
+      "name": "Станислав Мигаль",
+      "dateOfBirth": "2010-03-18"
+    },
+    "cfu:player:2154": {
+      "playerId": "cfu:player:2154",
+      "provider": "cfu",
+      "sourcePlayerId": "2154",
+      "sourceUrl": "https://www.cfu2015.com/players/2154/",
+      "name": "Эмиль Кишиев",
+      "dateOfBirth": "2005-01-26"
+    },
+    "cfu:player:2155": {
+      "playerId": "cfu:player:2155",
+      "provider": "cfu",
+      "sourcePlayerId": "2155",
+      "sourceUrl": "https://www.cfu2015.com/players/2155/",
+      "name": "Александр Михайленко",
+      "dateOfBirth": "2005-07-08"
+    },
+    "cfu:player:2156": {
+      "playerId": "cfu:player:2156",
+      "provider": "cfu",
+      "sourcePlayerId": "2156",
+      "sourceUrl": "https://www.cfu2015.com/players/2156/",
+      "name": "Роман Хаджиев",
+      "dateOfBirth": "1998-09-21"
+    },
+    "cfu:player:2157": {
+      "playerId": "cfu:player:2157",
+      "provider": "cfu",
+      "sourcePlayerId": "2157",
+      "sourceUrl": "https://www.cfu2015.com/players/2157/",
+      "name": "Богдан Пересунько",
+      "dateOfBirth": "2008-04-10"
+    },
+    "cfu:player:2158": {
+      "playerId": "cfu:player:2158",
+      "provider": "cfu",
+      "sourcePlayerId": "2158",
+      "sourceUrl": "https://www.cfu2015.com/players/2158/",
+      "name": "Эрик Нахатакян",
+      "dateOfBirth": "2008-05-12"
+    },
+    "cfu:player:2159": {
+      "playerId": "cfu:player:2159",
+      "provider": "cfu",
+      "sourcePlayerId": "2159",
+      "sourceUrl": "https://www.cfu2015.com/players/2159/",
+      "name": "Иван Мацигура",
+      "dateOfBirth": "1998-10-21"
+    },
+    "cfu:player:2160": {
+      "playerId": "cfu:player:2160",
+      "provider": "cfu",
+      "sourcePlayerId": "2160",
+      "sourceUrl": "https://www.cfu2015.com/players/2160/",
+      "name": "Евгений Домрачев",
+      "dateOfBirth": "1994-04-16"
+    },
+    "cfu:player:2161": {
+      "playerId": "cfu:player:2161",
+      "provider": "cfu",
+      "sourcePlayerId": "2161",
+      "sourceUrl": "https://www.cfu2015.com/players/2161/",
+      "name": "Владислав Янченко",
+      "dateOfBirth": "2003-11-11"
+    },
+    "cfu:player:2162": {
+      "playerId": "cfu:player:2162",
+      "provider": "cfu",
+      "sourcePlayerId": "2162",
+      "sourceUrl": "https://www.cfu2015.com/players/2162/",
+      "name": "Максим Бутенко",
+      "dateOfBirth": "2009-06-25"
+    },
+    "cfu:player:2163": {
+      "playerId": "cfu:player:2163",
+      "provider": "cfu",
+      "sourcePlayerId": "2163",
+      "sourceUrl": "https://www.cfu2015.com/players/2163/",
+      "name": "Максим Пилипенко",
+      "dateOfBirth": "2010-09-03"
+    },
+    "cfu:player:2164": {
+      "playerId": "cfu:player:2164",
+      "provider": "cfu",
+      "sourcePlayerId": "2164",
+      "sourceUrl": "https://www.cfu2015.com/players/2164/",
+      "name": "Карим Лалаян",
+      "dateOfBirth": "2009-07-13"
+    },
+    "cfu:player:2165": {
+      "playerId": "cfu:player:2165",
+      "provider": "cfu",
+      "sourcePlayerId": "2165",
+      "sourceUrl": "https://www.cfu2015.com/players/2165/",
+      "name": "Мурад Магомедов",
+      "dateOfBirth": "2005-02-11"
+    },
+    "cfu:player:2166": {
+      "playerId": "cfu:player:2166",
+      "provider": "cfu",
+      "sourcePlayerId": "2166",
+      "sourceUrl": "https://www.cfu2015.com/players/2166/",
+      "name": "Дмитрий Шохолов",
+      "dateOfBirth": "2008-07-25"
+    },
+    "cfu:player:2167": {
+      "playerId": "cfu:player:2167",
+      "provider": "cfu",
+      "sourcePlayerId": "2167",
+      "sourceUrl": "https://www.cfu2015.com/players/2167/",
+      "name": "Владислав Чернеев",
+      "dateOfBirth": "1985-04-23"
+    },
+    "cfu:player:2168": {
+      "playerId": "cfu:player:2168",
+      "provider": "cfu",
+      "sourcePlayerId": "2168",
+      "sourceUrl": "https://www.cfu2015.com/players/2168/",
+      "name": "Никита Шевкопляс",
+      "dateOfBirth": "2010-05-05"
+    }
+  },
+  "rostersByTeamId": {
+    "cfu:team:fc-feodosiya": {
+      "teamId": "cfu:team:fc-feodosiya",
+      "provider": "cfu",
+      "sourceTeamId": "fc-feodosiya",
+      "sourceUrl": "https://www.cfu2015.com/teams/fc-feodosiya/",
+      "checkedAt": "2026-11-11T16:26:06.173047+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "4ea22e24ff50ebbb58badba1efeb32c30308db5013068a465cc46d931d842bcc",
+      "records": 39,
+      "entries": [
+        {
+          "playerId": "cfu:player:1803",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 1,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2051",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 12,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:799",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 12,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1761",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 2,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2048",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-09-21"
+        },
+        {
+          "playerId": "cfu:player:195",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1889",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 13,
+          "registeredAt": "2026-10-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2081",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 13,
+          "registeredAt": "2026-05-08",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:1967",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2047",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-06-09"
+        },
+        {
+          "playerId": "cfu:player:197",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 44,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1690",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1634",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 98,
+          "registeredAt": "2026-04-03",
+          "deregisteredAt": "2026-05-28"
+        },
+        {
+          "playerId": "cfu:player:1537",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-09-21",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1888",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2045",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2163",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-10-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:892",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:201",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 11,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1844",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 13,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": "2026-10-06"
+        },
+        {
+          "playerId": "cfu:player:2050",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-08-19"
+        },
+        {
+          "playerId": "cfu:player:2133",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1759",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2049",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2046",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2043",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-10-06"
+        },
+        {
+          "playerId": "cfu:player:2162",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-10-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1927",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 20,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-10-09"
+        },
+        {
+          "playerId": "cfu:player:637",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 20,
+          "registeredAt": "2026-10-09",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2059",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": null,
+          "registrationNote": "аренда"
+        },
+        {
+          "playerId": "cfu:player:2077",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-04-28",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2112",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-06-09",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2132",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2080",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 98,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": "2026-10-23",
+          "registrationNote": "аренда"
+        },
+        {
+          "playerId": "cfu:player:2166",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 98,
+          "registeredAt": "2026-10-23",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1934",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 7,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": "2026-10-06"
+        },
+        {
+          "playerId": "cfu:player:2044",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 9,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:193",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2076",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 99,
+          "registeredAt": "2026-04-28",
+          "deregisteredAt": "2026-08-06"
+        }
+      ]
+    },
+    "cfu:team:fc-mak-dzhankoy": {
+      "teamId": "cfu:team:fc-mak-dzhankoy",
+      "provider": "cfu",
+      "sourceTeamId": "fc-mak-dzhankoy",
+      "sourceUrl": "https://www.cfu2015.com/teams/fc-mak-dzhankoy/",
+      "checkedAt": "2026-11-11T16:24:01.393112+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "4d17a2c47fab2090421964ba2d2ea4acb3651caf64a0a1f26652e74e4a786647",
+      "records": 33,
+      "entries": [
+        {
+          "playerId": "cfu:player:2066",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 1,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1893",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 16,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2105",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 91,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1653",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 2,
+          "registeredAt": "2026-04-28",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1788",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-09-04"
+        },
+        {
+          "playerId": "cfu:player:1971",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2067",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 6,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1866",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-04-03",
+          "deregisteredAt": "2026-08-04"
+        },
+        {
+          "playerId": "cfu:player:951",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1772",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 11,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2111",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 12,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": "2026-08-04"
+        },
+        {
+          "playerId": "cfu:player:1394",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-06-30"
+        },
+        {
+          "playerId": "cfu:player:1865",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-04-03",
+          "deregisteredAt": "2026-06-03"
+        },
+        {
+          "playerId": "cfu:player:1443",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 99,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1890",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-09-04",
+          "deregisteredAt": "2026-08-21"
+        },
+        {
+          "playerId": "cfu:player:929",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:803",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-03-31"
+        },
+        {
+          "playerId": "cfu:player:2069",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-09-04"
+        },
+        {
+          "playerId": "cfu:player:2108",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-09-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1398",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 9,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2078",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 9,
+          "registeredAt": "2026-04-29",
+          "deregisteredAt": "2026-08-14"
+        },
+        {
+          "playerId": "cfu:player:2134",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 12,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2082",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-05-08",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2110",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": "2026-08-04"
+        },
+        {
+          "playerId": "cfu:player:2153",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2070",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1712",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2050",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-08-21",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1343",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-06-04",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:159",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-03-31"
+        },
+        {
+          "playerId": "cfu:player:1826",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 82,
+          "registeredAt": "2026-04-28",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2068",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1263",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 22,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        }
+      ]
+    },
+    "cfu:team:fc-okean": {
+      "teamId": "cfu:team:fc-okean",
+      "provider": "cfu",
+      "sourceTeamId": "fc-okean",
+      "sourceUrl": "https://www.cfu2015.com/teams/fc-okean/",
+      "checkedAt": "2026-11-11T16:24:42.672892+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "39a4eb095ede6056f3118f5c98bfac48258dea7710b8ef0a61c7b576d9a28664",
+      "records": 45,
+      "entries": [
+        {
+          "playerId": "cfu:player:2168",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 14,
+          "registeredAt": "2026-11-10",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2142",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 16,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1703",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 53,
+          "registeredAt": "2026-09-18",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2037",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 73,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2140",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 73,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": "2026-11-10"
+        },
+        {
+          "playerId": "cfu:player:2167",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 73,
+          "registeredAt": "2026-11-10",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1773",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2036",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2138",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": "2026-11-10"
+        },
+        {
+          "playerId": "cfu:player:2137",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1340",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1995",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": "2026-09-18"
+        },
+        {
+          "playerId": "cfu:player:1350",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 20,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:1277",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:694",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 78,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-10-16"
+        },
+        {
+          "playerId": "cfu:player:1704",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 97,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2145",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2039",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 6,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2041",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2143",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1652",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1782",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-05-22",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2035",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-05-22"
+        },
+        {
+          "playerId": "cfu:player:1870",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 9,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2144",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 9,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": "2026-10-15"
+        },
+        {
+          "playerId": "cfu:player:2165",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 9,
+          "registeredAt": "2026-10-16",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1960",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2072",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 12,
+          "registeredAt": "2026-04-02",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2038",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 13,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:803",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-04-02",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2073",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-04-02",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2109",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2164",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-10-08",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2161",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 20,
+          "registeredAt": "2026-10-02",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2040",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-05-22"
+        },
+        {
+          "playerId": "cfu:player:1860",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 33,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": "2026-09-18"
+        },
+        {
+          "playerId": "cfu:player:2158",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 33,
+          "registeredAt": "2026-09-18",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1834",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 78,
+          "registeredAt": "2026-10-16",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1566",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2139",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 3,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2141",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 11,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2032",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 15,
+          "registeredAt": "2026-10-02",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2042",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 17,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": "2026-08-07"
+        },
+        {
+          "playerId": "cfu:player:2154",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 28,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1771",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 98,
+          "registeredAt": "2026-03-24",
+          "deregisteredAt": null
+        }
+      ]
+    },
+    "cfu:team:fc-sparta-kt": {
+      "teamId": "cfu:team:fc-sparta-kt",
+      "provider": "cfu",
+      "sourceTeamId": "fc-sparta-kt",
+      "sourceUrl": "https://www.cfu2015.com/teams/fc-sparta-kt/",
+      "checkedAt": "2026-11-11T16:25:24.928808+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "b54e5a7134be42c261f270aa9d4c81e8bbbc1ba56c53ad443e186c45fd539c42",
+      "records": 47,
+      "entries": [
+        {
+          "playerId": "cfu:player:1710",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 1,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1977",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 12,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2056",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 12,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:2075",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 35,
+          "registeredAt": "2026-04-17",
+          "deregisteredAt": "2026-06-08"
+        },
+        {
+          "playerId": "cfu:player:2120",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 35,
+          "registeredAt": "2026-06-09",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2083",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 70,
+          "registeredAt": "2026-05-08",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:1906",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-08-21",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1952",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": "2026-08-20"
+        },
+        {
+          "playerId": "cfu:player:2055",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:2064",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-04-24"
+        },
+        {
+          "playerId": "cfu:player:2084",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-05-15",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:2127",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1892",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 24,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2032",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 24,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:1744",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 26,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-20"
+        },
+        {
+          "playerId": "cfu:player:1978",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 26,
+          "registeredAt": "2026-08-21",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1958",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 27,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:2074",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-04-17",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:2082",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 90,
+          "registeredAt": "2026-05-19",
+          "deregisteredAt": "2026-06-17",
+          "registrationNote": "аренда"
+        },
+        {
+          "playerId": "cfu:player:2126",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 90,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2108",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": "2026-06-17"
+        },
+        {
+          "playerId": "cfu:player:2122",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-06-09",
+          "deregisteredAt": "2026-08-20"
+        },
+        {
+          "playerId": "cfu:player:2155",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-08-21",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1904",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2065",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2119",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 11,
+          "registeredAt": "2026-06-09",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1796",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-06-09"
+        },
+        {
+          "playerId": "cfu:player:2121",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-06-09",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2002",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-06-09",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2054",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-06-09"
+        },
+        {
+          "playerId": "cfu:player:2053",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-07-23"
+        },
+        {
+          "playerId": "cfu:player:2063",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-04-15"
+        },
+        {
+          "playerId": "cfu:player:1955",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 31,
+          "registeredAt": "2026-04-17",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:1897",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 44,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-04-15"
+        },
+        {
+          "playerId": "cfu:player:1986",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 82,
+          "registeredAt": "2026-11-02",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1921",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 99,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:2131",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 2,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2157",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 4,
+          "registeredAt": "2026-08-28",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2052",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:618",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 9,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1633",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-08-05"
+        },
+        {
+          "playerId": "cfu:player:1782",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 11,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": "2026-05-21"
+        },
+        {
+          "playerId": "cfu:player:1908",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 21,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2125",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 27,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2130",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 31,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2129",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 77,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2128",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 99,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        }
+      ]
+    },
+    "cfu:team:gfc-yalta": {
+      "teamId": "cfu:team:gfc-yalta",
+      "provider": "cfu",
+      "sourceTeamId": "gfc-yalta",
+      "sourceUrl": "https://www.cfu2015.com/teams/gfc-yalta/",
+      "checkedAt": "2026-11-11T16:22:39.248961+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "481c091388c0ec9951995667296e753c1c7d19a51cbe5af22331c6ef0158f3d8",
+      "records": 25,
+      "entries": [
+        {
+          "playerId": "cfu:player:2061",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 61,
+          "registeredAt": "2026-04-02",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2057",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 71,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2136",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 82,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2060",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1634",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 12,
+          "registeredAt": "2026-05-28",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1519",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 13,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1564",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1676",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2059",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 19,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1809",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 91,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2080",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-04-30",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1778",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2058",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1933",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:991",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 11,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1748",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 20,
+          "registeredAt": "2026-06-03",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1873",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1872",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 22,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:936",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 69,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2001",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1912",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 80,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2107",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 6,
+          "registeredAt": "2026-05-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2079",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 9,
+          "registeredAt": "2026-04-30",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1718",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 18,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2135",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 97,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        }
+      ]
+    },
+    "cfu:team:tavriya": {
+      "teamId": "cfu:team:tavriya",
+      "provider": "cfu",
+      "sourceTeamId": "tavriya",
+      "sourceUrl": "https://www.cfu2015.com/teams/tavriya/",
+      "checkedAt": "2026-11-11T16:21:49.924426+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "ae7fc4ebf29ed24ae5f825f271a858d4dacd72f0856a8a90bfa2367b547287c3",
+      "records": 32,
+      "entries": [
+        {
+          "playerId": "cfu:player:258",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 1,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:868",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 42,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2028",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-07-06"
+        },
+        {
+          "playerId": "cfu:player:1985",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-03-26",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2030",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-07-06"
+        },
+        {
+          "playerId": "cfu:player:2123",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2159",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-09-22",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2124",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:663",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 24,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:280",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 33,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2111",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": "2026-09-08"
+        },
+        {
+          "playerId": "cfu:player:1805",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 88,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1790",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-09-02",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1972",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 7,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:285",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-07-06"
+        },
+        {
+          "playerId": "cfu:player:1276",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1457",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-09-22"
+        },
+        {
+          "playerId": "cfu:player:2029",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-07-06"
+        },
+        {
+          "playerId": "cfu:player:978",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2110",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 16,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:271",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1783",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2053",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 22,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:314",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 25,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:953",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 32,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1532",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-09-09",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1688",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-07-06"
+        },
+        {
+          "playerId": "cfu:player:1463",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 8,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1632",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 9,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:998",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 11,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1776",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 18,
+          "registeredAt": "2026-08-06",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2071",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 23,
+          "registeredAt": "2026-04-01",
+          "deregisteredAt": "2026-07-06"
+        }
+      ]
+    },
+    "cfu:team:zarechnoe": {
+      "teamId": "cfu:team:zarechnoe",
+      "provider": "cfu",
+      "sourceTeamId": "zarechnoe",
+      "sourceUrl": "https://www.cfu2015.com/teams/zarechnoe/",
+      "checkedAt": "2026-11-11T16:23:20.235842+00:00",
+      "httpStatus": 200,
+      "status": "current",
+      "coverage": "complete",
+      "reason": "official_2026_roster_parsed",
+      "sourceSha256": "db627840c02876f75db00e8db772fda785451dd034c6bd0202f343f3d930c380",
+      "records": 32,
+      "entries": [
+        {
+          "playerId": "cfu:player:715",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 1,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1800",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 35,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:129",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 96,
+          "registeredAt": "2026-05-15",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:1669",
+          "position": "Вратарь",
+          "positionGroup": "Вратари",
+          "shirtNumber": 99,
+          "registeredAt": "2026-08-14",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2014",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 3,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2016",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 4,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2013",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 5,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:471",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 10,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2156",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-08-21",
+          "deregisteredAt": "2026-09-30"
+        },
+        {
+          "playerId": "cfu:player:1232",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 15,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:691",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 18,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:139",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 21,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2031",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 30,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:812",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 66,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:863",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 77,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1185",
+          "position": "Защитник",
+          "positionGroup": "Защитники",
+          "shirtNumber": 91,
+          "registeredAt": "2026-03-27",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2033",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 2,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1828",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 6,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:131",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 9,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1892",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 11,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:803",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 11,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1457",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 12,
+          "registeredAt": "2026-09-25",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:153",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 13,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1864",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 14,
+          "registeredAt": "2026-09-30",
+          "deregisteredAt": "2026-08-06"
+        },
+        {
+          "playerId": "cfu:player:2034",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 16,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2027",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 17,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:466",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 22,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:1233",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 23,
+          "registeredAt": "2026-08-07",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:619",
+          "position": "Полузащитник",
+          "positionGroup": "Полузащитники",
+          "shirtNumber": 80,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": "2026-09-30"
+        },
+        {
+          "playerId": "cfu:player:772",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 7,
+          "registeredAt": "2026-03-17",
+          "deregisteredAt": "2026-07-24"
+        },
+        {
+          "playerId": "cfu:player:510",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 8,
+          "registeredAt": "2026-03-19",
+          "deregisteredAt": null
+        },
+        {
+          "playerId": "cfu:player:2160",
+          "position": "Нападающий",
+          "positionGroup": "Нападающие",
+          "shirtNumber": 80,
+          "registeredAt": "2026-09-30",
+          "deregisteredAt": null
+        }
+      ]
+    }
+  },
+  "sourceMetadata": {
+    "provider": "cfu",
+    "season": 2026,
+    "competitionUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/",
+    "robotsUrl": "https://www.cfu2015.com/robots.txt",
+    "crawlDelaySeconds": 40,
+    "retrieval": "saved_official_html",
+    "retrievedAt": "2026-11-11T16:26:06.173047+00:00",
+    "playerProfilePattern": "https://www.cfu2015.com/players/<id>/",
+    "rosters": {
+      "coverage": "complete",
+      "teams": 7,
+      "records": 253,
+      "players": 238,
+      "deregisteredRecords": 90,
+      "checkedAt": "2026-11-11T16:26:06.173047+00:00",
+      "reason": "official_2026_club_rosters_parsed"
+    }
+  },
+  "unresolvedRecords": []
+}
