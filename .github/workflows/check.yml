@@ -26,6 +26,23 @@ on:
       - ".github/workflows/**"
 permissions: {contents: read}
 jobs:
+  offline-diagnostics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-save --package-lock=false playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/match-center.browser.cjs
+        env:
+          VISUAL_SCREENSHOT_DIR: offline-diagnostics
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-diagnostics
+          path: offline-diagnostics/
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 25

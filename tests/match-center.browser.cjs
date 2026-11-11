@@ -4,8 +4,9 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
 const first=data.res[0],key=r=>[2026,r[0],r[1],r[5]].join('|'),id=key(first),detail=data.match_details[id];
 const shellCache=fs.readFileSync(path.join(root,'sw.js'),'utf8').match(/const CACHE="([^"]+)"/)[1];
-let oldWorker=false;
+let oldWorker=false,diagnostic;
 const server=http.createServer((req,res)=>{
+  diagnostic?.record('server-request',{url:req.url,oldWorker});
   const pathname=new URL(req.url,'http://localhost').pathname.replace(/^\/fk-sudak(?=\/)/,'');
   const file=path.join(root,oldWorker&&pathname==='/sw.js'?'tests/fixtures/sw-home-v8.js':pathname==='/'?'index.html':pathname);
   if(!file.startsWith(root+path.sep)){res.writeHead(403);res.end();return}
@@ -114,17 +115,23 @@ const server=http.createServer((req,res)=>{
     await context.close();
     context=await browser.newContext({serviceWorkers:'allow',viewport:{width:320,height:844}});
     const offline=await context.newPage();offline.on('pageerror',e=>errors.push(e.message));
+    diagnostic=await require('./sw-diagnostics.cjs')(context,offline,process.env.VISUAL_SCREENSHOT_DIR);
     oldWorker=true;await offline.goto(base+'manifest.json');await offline.evaluate(async()=>{await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready});await offline.waitForFunction(()=>!!navigator.serviceWorker.controller);
     oldWorker=false;await offline.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();await r.update()});
+    await diagnostic.snapshot('update-returned');
     await offline.waitForFunction(async name=>{const keys=await caches.keys();return keys.includes(name)&&!keys.includes('sudak-home-v8')},shellCache);
+    await diagnostic.snapshot('cache-wait-returned');
     await offline.goto(base+hash,{waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});await offline.waitForFunction(()=>!!localStorage.getItem('sudak-data-v1'));
-    await context.setOffline(true);await offline.reload({waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});
+    await diagnostic.snapshot('before-offline');await context.setOffline(true);await diagnostic.snapshot('offline-set');
+    try{await offline.reload({waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'})}catch(error){await diagnostic.finish(error);diagnostic=null;throw error}
+    await diagnostic.snapshot('offline-reload-completed');
     assert((await offline.locator('#upd').innerText()).includes('Нет связи'));assert.equal(await offline.locator('.center-timeline li').count(),detail.events.length);
     assert.equal(await offline.locator('.center-lineup-team').count(),2);await offline.locator('#match .center-scorers a[data-player="rffk-202"]').first().click();await offline.locator('#player.on').waitFor();await offline.locator('#player-back').click();await offline.locator('#match.on').waitFor();
     await offline.evaluate(()=>localStorage.clear());await offline.reload({waitUntil:'domcontentloaded'});await offline.locator('#launch-splash').waitFor({state:'detached'});assert((await offline.locator('#match').innerText()).includes('Протокол матча недоступен'));
     await context.setOffline(false);await offline.waitForFunction(()=>document.querySelector('.center-timeline li'));
     assert.equal(await offline.locator('#launch-splash').count(),0);assert.equal(await offline.locator('.center-protocol').getAttribute('href'),detail.source_url);
     console.log('PASS actual SW v8→v9, saved match/lineups/events/profiles offline, clear missing-cache state and reconnect');
+    await diagnostic.finish();diagnostic=null;
     assert.deepEqual(errors,[]);console.log('PASS no JavaScript errors');
   }finally{if(context)await context.close();await browser.close();server.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});
