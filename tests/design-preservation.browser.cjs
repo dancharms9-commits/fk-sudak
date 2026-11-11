@@ -3,7 +3,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {execFileSync}=require('node:child_process');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json')));
-const baseline=process.env.MULTI_CLUB_BASELINE_HTML?fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML):execFileSync('git',['show','main:index.html'],{cwd:root});
+const baseline=require('./typography-baseline.cjs')(process.env.MULTI_CLUB_BASELINE_HTML?fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML):execFileSync('git',['show','main:index.html'],{cwd:root}));
 const shots=process.env.DESIGN_PRESERVATION_DIR;
 const server=http.createServer((req,res)=>{
  const url=new URL(req.url,'http://localhost');

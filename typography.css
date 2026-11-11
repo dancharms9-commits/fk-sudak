@@ -1,0 +1,41 @@
+/* IBM Plex Sans 1.1.0, complete Cyrillic/Latin WOFF2; see assets/fonts/README.md.
+   Embedded in index.html so the offline shell needs no extra stylesheet fetch. */
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/ibm-plex-sans/IBMPlexSans-Regular.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:600;font-display:swap;src:url("assets/fonts/ibm-plex-sans/IBMPlexSans-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/ibm-plex-sans/IBMPlexSans-Bold.woff2") format("woff2")}
+:root{
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --type-body:16px;--type-section:17px;--type-name:15px;
+  --weight-regular:400;--weight-heading:600;--weight-score:700;
+  --leading-body:1.4;--leading-heading:1.3;--leading-copy:1.55;
+}
+body{font-family:var(--font-ui);font-size:var(--type-body);line-height:var(--leading-body)}
+button,input,select,textarea{font-family:inherit}
+b,strong{font-weight:var(--weight-heading)}
+h1,h2,h3,h4,header h1{font-weight:var(--weight-heading)}
+h2{font-size:var(--type-section);line-height:var(--leading-heading)}
+#home h2,#home h3,#home .home-intro h2{font-weight:var(--weight-heading)}
+#team h2,.universal-player h2{font-weight:var(--weight-heading)}
+#squad .stats-name,.stats-name{font-size:var(--type-name);font-weight:var(--weight-heading);line-height:var(--leading-heading)}
+#table .champ-team .club-link,#table td .club-link,#match .tm b,#match .tm>.club-link{font-weight:var(--weight-heading)}
+.home-teams,.home-match-top .tag,.home-detail,.home-result-score,.home-outcome{font-weight:var(--weight-heading)}
+.champ-tabs button,.champ-rounds button,#table .champ-rounds select,nav button.on,#team .club-sections button{font-weight:var(--weight-heading)}
+#team .club-player-statistics summary,.universal-player .profile-sources>summary{font-weight:var(--weight-heading)}
+.num,.sc,.home-score,.home-result-score b,.home-standing-top>b,.home-metrics dd,
+#team .club-metrics dd,#team .club-record dd,#team .club-score,.universal-player .club-score,
+#table .champ-score,.champ-total,.stats-value b,.universal-player .profile-values b,
+#match .center-score-numbers,#match .match-polish .num{font-weight:var(--weight-score);font-variant-numeric:tabular-nums}
+.num,.sc,.home-score,.home-result-score b,#table .champ-score{letter-spacing:0}
+table,.stats-values,.profile-secondary dd,.club-shirt,.goal-minute,.center-event-clock{font-variant-numeric:tabular-nums}
+.news{line-height:var(--leading-copy)}
+.news a,.player-hero h2,#team #team-title,.club-roster-player b{overflow-wrap:anywhere}
+/* Preserve the home composition and existing score/title sizes. Controls grow
+   with enlarged text instead of clipping it; their minimum remains 44 CSS px. */
+nav button{min-width:44px;min-height:44px;overflow-wrap:anywhere}
+.stats-filters button,.stats-source{min-width:44px;min-height:44px}
+.stats-source{display:inline-flex;align-items:center}
+#table .hint a{display:inline-flex;align-items:center;min-width:44px;min-height:44px}
+/* The filters keep their two columns at normal size and reflow with large text. */
+#table .champ-filters{grid-template-columns:repeat(auto-fit,minmax(min(100%,8em),1fr))}
+#squad .stats-filters{flex-wrap:wrap;overflow-x:visible}
+#squad .stats-filters button{flex:0 1 auto;white-space:normal;overflow-wrap:anywhere}

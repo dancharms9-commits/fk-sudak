@@ -5,3 +5,4 @@ node_modules/
 # Generated only for Pages artifacts; never committed.
 _site/
 _state/
+.playwright-mcp/

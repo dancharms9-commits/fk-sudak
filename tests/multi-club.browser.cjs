@@ -50,7 +50,7 @@ const server=http.createServer((req,res)=>{
     res.setHeader('Content-Type','application/json');
     return res.end(JSON.stringify(url.searchParams.get('format')==='legacy'?legacy:extended));
   }
-  if(url.pathname==='/'&&url.searchParams.has('baseline')&&process.env.MULTI_CLUB_BASELINE_HTML){res.setHeader('Content-Type','text/html;charset=utf-8');return res.end(fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML))}
+  if(url.pathname==='/'&&url.searchParams.has('baseline')&&process.env.MULTI_CLUB_BASELINE_HTML){res.setHeader('Content-Type','text/html;charset=utf-8');return res.end(require('./typography-baseline.cjs')(fs.readFileSync(process.env.MULTI_CLUB_BASELINE_HTML)))}
   const file=path.resolve(root,url.pathname==='/'?'index.html':'.'+url.pathname);
   if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end()}
   fs.readFile(file,(err,body)=>{
