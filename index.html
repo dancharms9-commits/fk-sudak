@@ -2408,8 +2408,8 @@ $('table').addEventListener('input',event=>{
   $('champ-scorer-count').textContent=`Найдено: ${players.length} из ${CHAMPIONSHIP?.scorers?.players?.length||0} · Порядок и места РФФК`;
 });
 
-restoreSavedData();
 restoreCfuPremier();
+restoreSavedData();
 render();
 applyRoute(true);
 window.dispatchEvent(new Event("sudak:ready"));

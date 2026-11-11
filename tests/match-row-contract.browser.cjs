@@ -24,6 +24,19 @@ const status=m=>m.status_label||({finished:'Матч завершён',technical
 const shortStatus={'Матч завершён':'Завершён','Завершён':'Завершён','Матч запланирован':'По плану','Запланирован':'По плану','Матч перенесён':'Перенос','Матч перенесен':'Перенос','Перенесён':'Перенос','Перенесен':'Перенос','Матч отменён':'Отмена','Отменён':'Отмена','Технический результат':'Тех. итог','Тех. победа':'Тех. победа'};
 async function settle(p){await p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.querySelectorAll('#table.on .champ-match img,#team.on .club-fixture img')].map(i=>i.decode().catch(()=>{})));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});}
 async function scaleText(p){await p.evaluate(()=>{const es=[...document.querySelectorAll('body,header,header *,#nav,#nav *,main>section.on,main>section.on *')].filter(e=>!(e instanceof SVGElement)&&!e.closest('.club-name'));const sizes=es.map(e=>parseFloat(getComputedStyle(e).fontSize));es.forEach((e,i)=>e.style.fontSize=sizes[i]*1.5+'px')});}
+async function isolateCompetitionSwitch(p,mode){
+ if(mode!=='candidate')return;
+ // The candidate adds exactly one switch container above the RFK calendar.
+ // Remove only that container, after proving RFK is selected, so the frozen
+ // match-row capture keeps the original shell geometry.
+ const ready=await p.evaluate(()=>{
+  const table=document.querySelector('#table');
+  if(!table||typeof COMPETITION==='undefined'||COMPETITION!=='rfk')return false;
+  return [...table.children].filter(element=>element.matches('[data-competition-switch="true"]')).length===1;
+ });
+ if(!ready)throw Error('Competition switch missing, duplicated or RFK is not selected');
+ await p.evaluate(()=>document.querySelector('#table > [data-competition-switch="true"]').remove());
+}
 const inspect=()=>{
  const box=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}};
  const words=e=>{const issues=[],walker=document.createTreeWalker(e,NodeFilter.SHOW_TEXT);while(walker.nextNode()){const n=walker.currentNode;for(const match of n.data.matchAll(/[\p{L}\p{N}]+/gu)){const r=document.createRange();r.setStart(n,match.index);r.setEnd(n,match.index+match[0].length);const lines=[...r.getClientRects()].filter(x=>x.width>0);if(lines.some(x=>Math.abs(x.top-lines[0].top)>1))issues.push({word:match[0],rects:lines.map(x=>({x:x.x,y:x.y,w:x.width,h:x.height}))});}}return issues};
@@ -60,6 +73,7 @@ const inspectClub=()=>{
    for(const mode of ['reference','candidate']){
     const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto(base+(mode==='reference'?'?reference=1':'')+'#table');await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.locator('#launch-splash').waitFor({state:'detached'});
     await p.evaluate(()=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round='18';CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()});
+    await isolateCompetitionSwitch(p,mode);
     if(factor===1.5)await scaleText(p);await settle(p);await p.mouse.move(0,0);
     // Isolate the list screenshot from the fixed bottom navigation. Navigation
     // itself remains fully compared to main in design-preservation.
@@ -68,7 +82,7 @@ const inspectClub=()=>{
     fs.writeFileSync(path.join(out,`${mode}-${theme}-${width}-${factor}.png`),png);
     for(const round of ['2','19']){
      await p.goto(base+(mode==='reference'?'?reference=1&':'?')+'visual-round='+round+'#table');await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.locator('#launch-splash').waitFor({state:'detached'});
-     await p.evaluate(round=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round=round;CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()},round);if(factor===1.5)await scaleText(p);await settle(p);await p.addStyleTag({content:'#nav{visibility:hidden!important}'});
+     await p.evaluate(round=>{CHAMP_STATE.view='calendar';CHAMP_STATE.round=round;CHAMP_STATE.team='all';CHAMP_STATE.status='all';renderChampionship()},round);await isolateCompetitionSwitch(p,mode);if(factor===1.5)await scaleText(p);await settle(p);await p.addStyleTag({content:'#nav{visibility:hidden!important}'});
      const roundPng=await p.locator('#table .champ-match-list').screenshot({animations:'disabled'});roundShots[round].push(roundPng);fs.writeFileSync(path.join(out,`round-${round}-${mode}-${theme}-${width}-${factor}.png`),roundPng);
     }
     await p.goto(base+(mode==='reference'?'?reference=1&club=1':'?club=1')+'#team=936');await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.locator('#launch-splash').waitFor({state:'detached'});
