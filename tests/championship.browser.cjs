@@ -1,4 +1,5 @@
 /* Real DOM, data refresh and actual SW v12 -> v13, including GitHub Pages scope. */
+const {currentWorker,disconnectServer}=require('./pwa-offline.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
@@ -100,18 +101,18 @@ const server=http.createServer((req,res)=>{
   await swPage.evaluate(async()=>{await navigator.serviceWorker.ready;if(!navigator.serviceWorker.controller)await new Promise(r=>navigator.serviceWorker.addEventListener('controllerchange',r,{once:true}))});
   assert((await swPage.evaluate(()=>caches.keys())).includes('sudak-player-photos-v12'));
   await tab(swPage,'calendar');await swPage.locator('#champ-round').selectOption('18');await swPage.locator('#champ-team').selectOption('141');
-  oldWorker=false;await swPage.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();await r.update()});
-  await swPage.waitForFunction(async name=>(await caches.keys()).includes(name)&&!(await caches.keys()).includes('sudak-player-photos-v12'),cacheName);
+  oldWorker=false;await currentWorker(swPage,cacheName);
   assert.equal(await swPage.locator('#champ-round').inputValue(),'18');
   await swPage.reload();await ready(swPage);
   assert.equal(await swPage.locator('#champ-team').inputValue(),'141');
-  await swContext.setOffline(true);await swPage.reload({waitUntil:'domcontentloaded'});await ready(swPage);
+  await swContext.setOffline(true);const reconnect=await disconnectServer(server);
+  const offlineResponse=await swPage.reload({waitUntil:'domcontentloaded'});assert(offlineResponse.fromServiceWorker());await ready(swPage);
   assert.equal(await swPage.locator('[data-champ-match]').count(),1);
   await swPage.locator('#table a[data-match]').click();await swPage.locator('#match.on').waitFor();assert.equal(await swPage.locator('#match .center-scorers li').count(),5);
   await swPage.locator('#match-back').click();await tab(swPage,'scorers');assert.equal(await swPage.locator('[data-scorer]').count(),25);
   await swPage.locator('#champ-scorer-team').selectOption('141');await swPage.locator('#table a[data-player="rffk-202"]').click();await swPage.locator('#player.on').waitFor();
   assert.equal(await swPage.locator('#player-title').innerText(),'Донской Илья');
-  await swContext.setOffline(false);await swPage.evaluate(()=>window.dispatchEvent(new Event('online')));
+  await reconnect();await swContext.setOffline(false);await swPage.evaluate(()=>window.dispatchEvent(new Event('online')));
   await swPage.waitForFunction(()=>!loadingData&&!document.querySelector('#upd').textContent.includes('Нет связи'));
   assert.deepEqual(errors,[]);await swContext.close();
   console.log('PASS actual SW v12→v13, single current cache, offline reload/calendar/scorers/profile/protocol, reconnect, no JavaScript errors');
