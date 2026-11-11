@@ -929,6 +929,78 @@ nav button{min-width:44px;min-height:44px;overflow-wrap:anywhere}
  #team .cfu-deregistered{grid-column:2;justify-self:start;max-width:none}
 }
 @media(min-width:768px){.cfu-table{font-size:14px}.cfu-teams{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cfu-match-actions{display:flex;flex-wrap:wrap;gap:0 14px;align-items:center;margin-top:2px}
+.cfu-center-link{display:inline-flex;align-items:center;min-height:44px;min-width:44px;color:var(--sea);font-size:13px;font-weight:650;text-decoration:none}
+.cfu-center-link:hover{text-decoration:underline}
+.cfu-center-link:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+</style>
+<style data-cfu-match-center>
+/* Independent CFU match centre; every selector is scoped under #match .cfu-*. */
+#match .cfu-center{min-width:0}
+#match .cfu-center-hero{padding:16px 12px;margin:0 0 16px;overflow-wrap:anywhere}
+#match .cfu-center-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#match .cfu-center-competition{flex:1 1 100%;color:var(--mute);font-size:12px;line-height:1.45}
+#match .cfu-center-status{font-size:12px;line-height:1.35;font-weight:650;color:var(--ink);padding:3px 8px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+#match .cfu-center-status.muted{color:var(--mute);font-weight:550}
+#match .cfu-center-round{margin:6px 0 0;color:var(--mute);font-size:12px;line-height:1.4}
+#match .cfu-center-board{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;margin:18px 0 14px}
+#match .cfu-center-team{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;min-height:44px;color:var(--ink);text-decoration:none;text-align:center;font-size:14px;line-height:1.3;overflow-wrap:anywhere}
+#match .cfu-center-team .cfu-badge{width:46px;height:52px;font-size:15px}
+#match .cfu-center-team b{font-weight:650;overflow-wrap:anywhere}
+#match .cfu-center-team small{color:var(--mute);font-size:11px;line-height:1.3}
+#match .cfu-center-team:focus-visible,#match .cfu-center-player:focus-visible,#match .cfu-center-source:focus-visible,#match [data-cfu-match-retry]:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+#match .cfu-center-score{min-width:64px;text-align:center}
+#match .cfu-center-score b{display:block;font-size:clamp(32px,10vw,52px);line-height:1.1;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+#match .cfu-center-score small{display:block;max-width:9em;margin:5px auto 0;color:var(--mute);font-size:11px;line-height:1.35}
+#match .cfu-center-dash{display:block;font-size:40px;line-height:1.2;color:var(--mute)}
+#match .cfu-center-meta{margin:0;color:var(--mute);font-size:13px;line-height:1.65;overflow-wrap:anywhere}
+#match .cfu-center-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;padding:14px;margin:12px 0 18px}
+#match .cfu-center-info>div{min-width:0;overflow-wrap:anywhere}
+#match .cfu-center-info>div:nth-child(2){grid-column:1/-1}
+#match .cfu-center-info dt{color:var(--mute);font-size:11px;margin:0 0 2px}
+#match .cfu-center-info dd{margin:0;color:var(--ink);font-size:13px;line-height:1.5;font-weight:550}
+#match .cfu-center-actions{display:flex;flex-wrap:wrap;gap:2px 16px;align-items:center;margin:0 0 8px}
+#match .cfu-center-source{display:inline-flex;align-items:center;min-height:44px;min-width:44px;color:var(--sea);font-size:13px;font-weight:650;text-decoration:none}
+#match .cfu-center-source:hover{text-decoration:underline}
+#match .cfu-center-note{font-size:13px;line-height:1.55;overflow-wrap:anywhere}
+#match .cfu-center-warning{color:var(--loss)}
+#match .cfu-center-goals{padding:4px 14px;margin:0}
+#match .cfu-center-team-goals+.cfu-center-team-goals{border-top:1px solid var(--line)}
+#match .cfu-center-team-goals h3{margin:12px 0 4px;font-size:13px;line-height:1.4}
+#match .cfu-center-goal-list{list-style:none;margin:0;padding:0}
+#match .cfu-center-goal{display:flex;align-items:center;gap:10px;min-height:44px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.4}
+#match .cfu-center-goal:last-child{border-bottom:0}
+#match .cfu-center-goal-minute{flex:none;min-width:3.2em;font-size:15px;font-weight:650;font-variant-numeric:tabular-nums}
+#match .cfu-center-goal-body{min-width:0;flex:1;overflow-wrap:anywhere}
+#match .cfu-center-goal-body small{display:block;color:var(--mute);font-size:11px;line-height:1.4}
+#match .cfu-center-player{display:inline-flex;align-items:center;min-height:44px;color:var(--sea);text-decoration:none;overflow-wrap:anywhere}
+#match .cfu-center-player:hover{text-decoration:underline}
+#match .cfu-center-lineups{display:grid;gap:10px}
+#match .cfu-center-lineup{padding:12px 14px}
+#match .cfu-center-lineup h3{margin:0 0 8px;font-size:14px}
+#match .cfu-center-lineup h4{margin:10px 0 4px;color:var(--mute);font-size:12px;font-weight:550}
+#match .cfu-center-lineup-list{list-style:none;margin:0;padding:0}
+#match .cfu-center-lineup-list li{display:flex;align-items:center;gap:8px;min-height:40px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.4;overflow-wrap:anywhere}
+#match .cfu-center-lineup-list li:last-child{border-bottom:0}
+#match .cfu-center-shirt{flex:none;min-width:1.8em;color:var(--mute);font-size:12px;font-variant-numeric:tabular-nums}
+#match .cfu-center-unavailable{padding:14px}
+#match .cfu-center-retry{font:inherit;font-size:14px;font-weight:650;min-height:44px;min-width:44px;padding:8px 14px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);cursor:pointer}
+@media(max-width:359px){
+  #match .cfu-center-hero{padding-inline:10px}
+  #match .cfu-center-board{gap:5px}
+  #match .cfu-center-score{min-width:54px}
+  #match .cfu-center-team{font-size:13px}
+  #match .cfu-center-team .cfu-badge{width:40px;height:46px}
+}
+@media(min-width:768px){
+  #match .cfu-center-hero{padding:22px 24px}
+  #match .cfu-center-board{max-width:680px;margin:22px auto 16px}
+  #match .cfu-center-team{font-size:18px}
+  #match .cfu-center-team .cfu-badge{width:56px;height:62px;font-size:18px}
+  #match .cfu-center-info{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #match .cfu-center-info>div:nth-child(2){grid-column:auto}
+  #match .cfu-center-lineups{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -1487,6 +1559,7 @@ function polishedMatchHTML(model){
 }
 function renderMatch(){
   const route=currentRoute();if(route.section!=='match')return;
+  if(isCfuMatchId(route.key)){renderCfuMatch(route);return}
   const model=matchCenter(route.key),root=$('match');
   const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==='team'?'К команде':route.origin==='table'?'К чемпионату':route.origin==='player'?'К футболисту':route.origin==='home'?'На главную':'К матчам'}</button>`;
   let html=back+'<h2 tabindex="-1" id="match-title">Центр матча</h2>';
@@ -1548,6 +1621,9 @@ function currentRoute(){
   return {section:["home","matches","table","squad","news"].includes(section)?section:"home",role};
 }
 function routeParent(route){
+  if(route.section==="match"&&isCfuMatchId(route.key)){
+    return route.origin==="team"&&isCfuTeamId(route.teamId)?clubHref(route.teamId):"#table";
+  }
   if(route.section==="match"&&route.origin==="team")return platformTeam(route.teamId)?clubHref(route.teamId):"#table";
   if(route.section==="match"&&route.origin==="player"&&route.profileRoute)return route.profileRoute;
   if(route.section==="player"&&route.origin==="team")return platformTeam(route.teamId)||isCfuTeamId(route.teamId)?clubHref(route.teamId):"#table";
@@ -1604,7 +1680,7 @@ function applyRoute(restore=false){
   const animateTab=prepareTabTransition($(route.section));
   if(PLAYER_ROLE!==route.role){PLAYER_ROLE=route.role;renderSquad()}
   document.querySelectorAll('main section').forEach(el=>el.classList.toggle("on",el.id===route.section));
-  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileRoute?profileParentTab(route.profileRoute):route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?(route.origin==="team"?"table":route.origin):route.section;
+  const tab=route.section==="team"?"table":route.section==="player"?(route.origin==="team"?"table":route.origin==="match"?matchParentTab(route.matchParent):route.origin):route.origin==="player"?(route.profileRoute?profileParentTab(route.profileRoute):route.profileOrigin==="table"?"table":route.profileOrigin==="home"?"home":route.profileOrigin==="match"?matchParentTab(route.profileBack):"squad"):route.section==="match"?(isCfuMatchId(route.key)?"table":route.origin==="team"?"table":route.origin):route.section;
   document.querySelectorAll('#nav button').forEach(el=>{
     const active=el.dataset.t===tab;
     el.classList.toggle("on",active);
@@ -1635,9 +1711,10 @@ function openMatch(event){
   const link=event.target.closest("a[data-match]");
   if(!link||!plainClick(event))return;
   event.preventDefault();
-  const origin=currentRoute().section;
+  const route=currentRoute(),origin=route.section;
   rememberPosition(link.dataset.match,undefined,link.dataset.goal);
-  history.pushState({matchEntry:true,parent:location.hash},"",origin==="player"?link.getAttribute("href"):"#match="+encodeURIComponent(link.dataset.match)+"&from="+origin);
+  const team=origin==="team"&&route.teamId?"&team="+encodeURIComponent(route.teamId):"";
+  history.pushState({matchEntry:true,parent:location.hash},"",origin==="player"?link.getAttribute("href"):"#match="+encodeURIComponent(link.dataset.match)+"&from="+origin+team);
   applyRoute();
 }
 for(const section of ["squad","home","match","table","team"])$(section).addEventListener("click",event=>{
@@ -1651,7 +1728,10 @@ function returnToParent(){
   if((route.section==="match"&&history.state?.matchEntry)||(route.section==="player"&&history.state?.playerEntry))history.back();
   else{history.replaceState({},"",routeParent(route));applyRoute()}
 }
-$("match").addEventListener("click",event=>{if(event.target.closest("#match-back"))returnToParent()});
+$("match").addEventListener("click",event=>{
+  if(event.target.closest("#match-back")){returnToParent();return}
+  if(event.target.closest("[data-cfu-match-retry]")){loadCfuPremier();loadCfuMatchDetails();}
+});
 $("player").addEventListener("click",event=>{
   if(event.target.closest("#player-back"))returnToParent();
   if(event.target.closest("[data-cfu-rosters-retry]"))loadCfuRosters();
@@ -2144,6 +2224,7 @@ function clubStandingsHTML(){
 const COMPETITION_KEY='sudak-competition-v1';
 const CFU_PREMIER_KEY='sudak-cfu-premier-v1';
 const CFU_ROSTERS_KEY='sudak-cfu-premier-rosters-v1';
+const CFU_MATCH_DETAILS_KEY='sudak-cfu-premier-match-details-v1';
 const CFU_TABLE_URL='https://www.cfu2015.com/matches/premier-leagueCFU/table/?season=2026';
 const CFU_COMPETITION='cfu-premier-2026';
 const CFU_VIEWS=['standings','calendar','teams'];
@@ -2155,6 +2236,7 @@ const CFU_POSITION_GROUPS=Object.freeze({'Вратари':'Вратарь','За
 let COMPETITION=(()=>{try{return localStorage.getItem(COMPETITION_KEY)==='cfu'?'cfu':'rfk'}catch{return 'rfk'}})();
 let CFU_PREMIER=null,CFU_ERROR='',CFU_LOADING=false,CFU_SAVED=false;
 let CFU_ROSTERS=null,CFU_ROSTERS_ERROR='',CFU_ROSTERS_LOADING=false,CFU_ROSTERS_SAVED=false;
+let CFU_MATCH_DETAILS=null,CFU_MATCH_DETAILS_ERROR='',CFU_MATCH_DETAILS_LOADING=false,CFU_MATCH_DETAILS_SAVED=false;
 let CFU_STATE={view:'standings',round:null,team:'all',all:false};
 
 function saveCompetition(){try{localStorage.setItem(COMPETITION_KEY,COMPETITION)}catch{}}
@@ -2217,6 +2299,133 @@ function cfuMatchSourceURL(match){
   if(!href)return '';
   const url=new URL(href);
   return /^\/matches\/premier-leagueCFU\/match_\d+\/$/.test(url.pathname)&&!url.search?href:'';
+}
+function isCfuMatchId(id){return typeof id==='string'&&id.startsWith('cfu:match:')}
+function cfuMatch(id){return isCfuMatchId(id)?CFU_PREMIER?.matchesById?.[id]||null:null}
+function cfuMatchDetail(id){return isCfuMatchId(id)?CFU_MATCH_DETAILS?.matchesById?.[id]||null:null}
+function cfuMatchSourceURLFromID(id){
+  const number=/^cfu:match:([1-9]\d*)$/.exec(id||'')?.[1];
+  return number?`https://www.cfu2015.com/matches/premier-leagueCFU/match_${number}/`:'';
+}
+function cfuMatchCenterHref(match){
+  const route=currentRoute(),team=route.section==='team'&&isCfuTeamId(route.teamId)?'&team='+encodeURIComponent(route.teamId):'';
+  return '#match='+encodeURIComponent(match.matchId)+'&from='+(route.section==='team'?'team':'table')+team;
+}
+function cfuMatchPlayerHref(playerId,teamId){
+  const back=location.hash.startsWith('#match=')?'&back='+encodeURIComponent(location.hash):'';
+  return '#player='+encodeURIComponent(playerId)+'&team='+encodeURIComponent(teamId)+'&from=match'+back;
+}
+function cfuPlayerInRoster(teamId,playerId){
+  return (cfuRoster(teamId)?.entries||[]).some(entry=>entry?.playerId===playerId);
+}
+function cfuMatchProtocolVerified(match,detail){
+  if(!match||!detail||detail.provider!=='cfu'||detail.matchId!==match.matchId)return null;
+  if(detail.sourceMatchId!==match.sourceMatchId||detail.sourceUrl!==cfuMatchSourceURL(match))return null;
+  if(detail.homeTeamId!==match.homeTeamId||detail.awayTeamId!==match.awayTeamId)return null;
+  if(detail.round!==match.round)return null;
+  if(detail.date!==null&&match.date!==null&&detail.date!==match.date)return null;
+  if(detail.time!==null&&match.time!==null&&detail.time!==match.time)return null;
+  if(detail.homeScore!==null&&detail.awayScore!==null&&match.homeScore!==null&&match.awayScore!==null&&
+    (detail.homeScore!==match.homeScore||detail.awayScore!==match.awayScore))return null;
+  return detail;
+}
+function validCfuMatchDetails(snapshot){
+  try{
+    if(!snapshot||typeof snapshot!=='object'||Array.isArray(snapshot))return false;
+    if(snapshot.schemaVersion!==1||snapshot.provider!=='cfu'||
+      snapshot.competitionKey!==CFU_COMPETITION||snapshot.season!==2026)return false;
+    const matches=snapshot.matchesById;
+    if(!matches||typeof matches!=='object'||Array.isArray(matches))return false;
+    if(!snapshot.sourceMetadata||typeof snapshot.sourceMetadata!=='object'||
+      snapshot.sourceMetadata.provider!=='cfu'||snapshot.sourceMetadata.season!==2026)return false;
+    if(!Array.isArray(snapshot.unresolvedRecords))return false;
+    for(const [id,detail] of Object.entries(matches)){
+      if(!isCfuMatchId(id)||!detail||detail.matchId!==id||detail.provider!=='cfu'||
+        detail.sourceMatchId!==id.slice('cfu:match:'.length)||!cfuMatchSourceURL(detail))return false;
+      const calendarMatch=CFU_PREMIER?.matchesById?.[id];
+      if(calendarMatch){
+        if(detail.homeTeamId!==calendarMatch.homeTeamId||detail.awayTeamId!==calendarMatch.awayTeamId||
+          detail.round!==calendarMatch.round)return false;
+        if(detail.date!==null&&calendarMatch.date!==null&&detail.date!==calendarMatch.date)return false;
+        if(detail.time!==null&&calendarMatch.time!==null&&detail.time!==calendarMatch.time)return false;
+        if(detail.homeScore!==null&&detail.awayScore!==null&&calendarMatch.homeScore!==null&&calendarMatch.awayScore!==null&&
+          (detail.homeScore!==calendarMatch.homeScore||detail.awayScore!==calendarMatch.awayScore))return false;
+      }
+      if(!Number.isInteger(detail.round)||detail.round<1)return false;
+      if(detail.date!==null&&!/^\d{4}-\d{2}-\d{2}$/.test(detail.date||''))return false;
+      if(detail.time!==null&&detail.time!==undefined&&!/^\d{2}:\d{2}$/.test(detail.time))return false;
+      const home=detail.homeScore,away=detail.awayScore;
+      if(!((home===null&&away===null)||
+        (Number.isInteger(home)&&home>=0&&Number.isInteger(away)&&away>=0)))return false;
+      if(!(detail.status===null||typeof detail.status==='string'))return false;
+      if(!['schedule','result','events','full'].includes(detail.coverage))return false;
+      if(!Array.isArray(detail.missingSections)||!Array.isArray(detail.goals)||!Array.isArray(detail.events))return false;
+      if(typeof detail.goalsComplete!=='boolean'||typeof detail.eventsComplete!=='boolean')return false;
+      if(typeof detail.sourceSha256!=='string'||!/^[0-9a-f]{64}$/.test(detail.sourceSha256))return false;
+      if(!/^\d{4}-\d{2}-\d{2}/.test(detail.checkedAt||''))return false;
+      const eventTypes=new Set(['goal','penalty','own_goal','missed_penalty','yellow','second_yellow','red','substitution','substitution_in','substitution_out']);
+      for(const event of detail.events){
+        if(!event||!eventTypes.has(event.type)||!['home','away'].includes(event.side)||
+          typeof event.player!=='string'||!event.player.trim())return false;
+        if(event.minute!==null&&!/^(?:[1-9]\d?|1[01]\d|120)(?:\+(?:[1-9]|[12]\d|30))?$/.test(event.minute))return false;
+        if(event.playerId!==null&&event.playerId!==undefined){
+          if(!isCfuPlayerId(event.playerId))return false;
+          if(CFU_ROSTERS&&!cfuPlayer(event.playerId))return false;
+        }
+        if(event.score!==null&&event.score!==undefined&&
+          (!Array.isArray(event.score)||event.score.length!==2||!event.score.every(value=>Number.isInteger(value)&&value>=0)))return false;
+      }
+      const eventKey=event=>JSON.stringify([event.type,event.side,event.player,event.playerId??null,event.minute,event.score??null]);
+      const goalEvents=detail.events.filter(event=>['goal','penalty','own_goal'].includes(event.type));
+      if(detail.goals.length!==goalEvents.length||
+        detail.goals.some((goal,index)=>eventKey(goal)!==eventKey(goalEvents[index])))return false;
+      if(detail.lineups!==null){
+        if(!detail.lineups||typeof detail.lineups!=='object'||Array.isArray(detail.lineups))return false;
+        for(const side of ['home','away']){
+          const groups=detail.lineups[side];if(groups===undefined)continue;
+          if(!groups||typeof groups!=='object'||Array.isArray(groups))return false;
+          for(const group of ['starters','substitutes']){
+            const entries=groups[group];if(entries===undefined)continue;
+            if(!Array.isArray(entries))return false;
+            for(const entry of entries){
+              if(!entry||!isCfuPlayerId(entry.playerId)||typeof entry.name!=='string'||!entry.name.trim())return false;
+              if(entry.number!==null&&!(Number.isInteger(entry.number)&&entry.number>=0&&entry.number<=99))return false;
+              if(CFU_ROSTERS&&!cfuPlayerInRoster(side==='home'?detail.homeTeamId:detail.awayTeamId,entry.playerId))return false;
+            }
+          }
+        }
+      }
+    }
+    return true;
+  }catch{return false}
+}
+function restoreCfuMatchDetails(){
+  try{
+    const raw=localStorage.getItem(CFU_MATCH_DETAILS_KEY),snapshot=raw?JSON.parse(raw):null;
+    if(validCfuMatchDetails(snapshot)){CFU_MATCH_DETAILS=snapshot;CFU_MATCH_DETAILS_SAVED=true}
+  }catch{/* Storage may be disabled; the network remains available. */}
+}
+async function loadCfuMatchDetails(){
+  if(CFU_MATCH_DETAILS_LOADING)return;
+  CFU_MATCH_DETAILS_LOADING=true;CFU_MATCH_DETAILS_ERROR='';
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
+  try{
+    const url=new URL('cfu-premier-match-details-2026.json',document.baseURI);
+    const response=await fetch(url.href,{cache:'no-store',signal:controller.signal,headers:{Accept:'application/json'}});
+    if(!response.ok)throw Error('HTTP '+response.status);
+    const snapshot=await response.json();
+    if(!validCfuMatchDetails(snapshot))throw Error('Неожиданный формат протоколов КФС');
+    CFU_MATCH_DETAILS=snapshot;CFU_MATCH_DETAILS_SAVED=false;
+    try{localStorage.setItem(CFU_MATCH_DETAILS_KEY,JSON.stringify(snapshot))}catch{}
+  }catch{
+    CFU_MATCH_DETAILS_ERROR=CFU_MATCH_DETAILS?'Не удалось получить свежие протоколы КФС.':'Протоколы КФС недоступны. Проверьте подключение к интернету.';
+  }finally{
+    clearTimeout(timeout);CFU_MATCH_DETAILS_LOADING=false;refreshCfuMatchView();
+  }
+}
+function refreshCfuMatchView(){
+  const route=currentRoute();
+  if(route.section==='match'&&isCfuMatchId(route.key))renderMatch();
 }
 function validCfuSnapshot(snapshot){
   try{
@@ -2359,6 +2568,8 @@ function refreshCfuViews(){
     renderClub();
   }else if(route.section==='player'&&isCfuPlayerId(route.player)){
     renderPlayer();
+  }else if(route.section==='match'&&isCfuMatchId(route.key)){
+    renderMatch();
   }
 }
 function competitionSwitchHTML(){
@@ -2400,8 +2611,9 @@ function cfuTeamOptions(){
 }
 function cfuMatchHTML(match,showRound=false){
   const scored=cfuScored(match),score=scored?`${match.homeScore}:${match.awayScore}`:'—';
-  const source=cfuMatchSourceURL(match);
-  return `<article class="cfu-match" data-cfu-match="${esc(match.matchId)}"><div class="cfu-match-head">${showRound?`<span>${esc(cfuRoundTitle(match.round,match.circle))}</span>`:''}<time${match.date?` datetime="${esc(match.date)}"`:''}>${esc(cfuDateLabel(match.date))}${match.time?' · '+esc(match.time):''}</time></div><div class="cfu-match-main"><div class="cfu-match-teams">${cfuClubLink(match.homeTeamId)}${cfuClubLink(match.awayTeamId)}</div><div class="cfu-match-result"><b>${score}</b>${scored?'':'<small>Счёт не опубликован</small>'}</div></div>${match.venue?`<p class="cfu-match-venue">${esc(match.venue)}</p>`:''}${source?`<a class="cfu-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Матч на сайте КФС ↗</a>`:''}</article>`;
+  const source=cfuMatchSourceURL(match),center=cfuMatchCenterHref(match);
+  const actions=`<div class="cfu-match-actions"><a class="cfu-center-link" data-match="${esc(match.matchId)}" data-club-protocol href="${esc(center)}">Центр матча <span aria-hidden="true">→</span></a>${source?`<a class="cfu-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Матч на сайте КФС ↗</a>`:''}</div>`;
+  return `<article class="cfu-match" data-cfu-match="${esc(match.matchId)}"><div class="cfu-match-head">${showRound?`<span>${esc(cfuRoundTitle(match.round,match.circle))}</span>`:''}<time${match.date?` datetime="${esc(match.date)}"`:''}>${esc(cfuDateLabel(match.date))}${match.time?' · '+esc(match.time):''}</time></div><div class="cfu-match-main"><div class="cfu-match-teams">${cfuClubLink(match.homeTeamId)}${cfuClubLink(match.awayTeamId)}</div><div class="cfu-match-result"><b>${score}</b>${scored?'':'<small>Счёт не опубликован</small>'}</div></div>${match.venue?`<p class="cfu-match-venue">${esc(match.venue)}</p>`:''}${actions}</article>`;
 }
 function cfuStandingsHTML(){
   const standings=CFU_PREMIER.standings,checked=cfuCheckedAt('table');
@@ -2477,7 +2689,7 @@ function cfuRosterHTML(team){
 function renderCfuPlayer(route){
   ensureCfuCompetition();
   const root=$('player'),player=cfuPlayer(route.player);
-  const back=`<button type="button" class="match-back" id="player-back">← ${route.origin==='team'?'К команде':'К чемпионату'}</button>`;
+  const back=`<button type="button" class="match-back" id="player-back">← ${route.origin==='team'?'К команде':route.origin==='match'?'К матчу':'К чемпионату'}</button>`;
   if(!CFU_ROSTERS){
     const loading=!CFU_ROSTERS_ERROR;
     root.innerHTML=back+`<h2 id="player-title" tabindex="-1">Футболист КФС</h2><div class="card empty cfu-unavailable" role="status"><p>${loading?'Загружаем официальный состав КФС…':esc(CFU_ROSTERS_ERROR)}</p>${loading?'':'<button type="button" class="cfu-retry" data-cfu-rosters-retry>Повторить загрузку</button>'}</div>`;
@@ -2520,6 +2732,94 @@ function renderCfuClub(route){
   const source=cfuTeamSourceURL(team);
   html+=`<div class="cfu-club-hero">${cfuBadge(team)}<div><h2 id="team-title" tabindex="-1">${esc(team.name)}</h2><p class="cfu-club-city">${esc(team.city||'Город не указан')}</p><p class="cfu-club-season">Премьер-лига КФС · 2026</p></div></div><div class="card cfu-club-stats"><dl class="cfu-club-metrics"><div><dt>Место</dt><dd>${standing?metric(standing.rank):'—'}</dd></div><div><dt>Очки</dt><dd>${standing?metric(standing.points):'—'}</dd></div><div><dt>Игры</dt><dd>${standing?metric(standing.played):'—'}</dd></div></dl>${standing?`<dl class="cfu-club-record">${record.map(([label,value])=>`<div><dt>${label}</dt><dd>${metric(value)}</dd></div>`).join('')}</dl>`:''}</div><p class="hint cfu-note">Положение в таблице КФС после ${esc(CFU_PREMIER.standings.asOfRound)}-го тура. Проверено: ${esc(cfuCheckedAt('table'))}.</p>${source?`<p class="hint"><a class="cfu-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Официальная страница клуба КФС ↗</a></p>`:''}${cfuRosterHTML(team)}<h2 id="club-results" tabindex="-1">Опубликованные результаты <span class="football-count">${results.length}</span></h2><div class="cfu-match-list">${results.length?results.map(match=>cfuMatchHTML(match,true)).join(''):'<p class="empty">Опубликованных результатов пока нет.</p>'}</div><h2>Остальные матчи календаря <span class="football-count">${other.length}</span></h2><div class="cfu-match-list">${other.length?other.map(match=>cfuMatchHTML(match,true)).join(''):'<p class="empty">Других матчей в календаре нет.</p>'}</div><p class="hint cfu-note">Счёт показан только там, где он опубликован; статус матчей отдельно не подтверждён.</p>`;
   root.innerHTML=html;document.title=team.name+' · ФК «Судак»';
+}
+function cfuMatchStatusHTML(detail){
+  const label=typeof detail?.statusLabel==='string'&&detail.statusLabel.trim()?detail.statusLabel:'Статус не подтверждён';
+  return `<span class="cfu-center-status${label==='Статус не подтверждён'?' muted':''}">${esc(label)}</span>`;
+}
+function cfuMatchTeamHTML(teamId,side){
+  const team=cfuTeam(teamId),role=side==='home'?'Хозяева':'Гости';
+  if(!team)return `<div class="cfu-center-team"><span class="cfu-badge" aria-hidden="true">?</span><b>Команда не опубликована</b><small>${role}</small></div>`;
+  return `<a class="cfu-center-team" data-team="${esc(teamId)}" href="${clubHref(teamId)}">${cfuBadge(team)}<b>${esc(team.name)}</b><small>${role}</small></a>`;
+}
+function cfuMatchPersonHTML(name,playerId,teamId,entry){
+  const player=playerId?cfuPlayer(playerId):null;
+  if(!player||!cfuPlayerInRoster(teamId,playerId))return `<span>${esc(player?.name||name||'Футболист не указан')}</span>`;
+  return `<a class="cfu-center-player" data-player="${esc(playerId)}" data-match-player="${esc(entry)}" href="${esc(cfuMatchPlayerHref(playerId,teamId))}">${esc(player.name)}<span class="sr-only"> — профиль футболиста</span></a>`;
+}
+function cfuMatchGoalsHTML(match,detail){
+  if(!detail)return '';
+  if(!detail.goals.length){
+    if(detail.goalsComplete&&match.homeScore===0&&match.awayScore===0)return '<article class="cfu-center-goals-block"><h2>Голы</h2><div class="card cfu-center-goals"><p class="cfu-center-note">В этом матче голов не было.</p></div></article>';
+    return '<article class="cfu-center-goals-block"><h2>Голы</h2><div class="card cfu-center-goals"><p class="cfu-center-note">Голы в сохранённом официальном протоколе не подтверждены. Это не означает, что голов не было.</p></div></article>';
+  }
+  const teams={home:match.homeTeamId,away:match.awayTeamId};
+  const groups=['home','away'].map(side=>{
+    const goals=detail.goals.filter(goal=>goal.side===side);
+    if(!goals.length)return '';
+    const team=cfuTeam(teams[side]);
+    return `<div class="cfu-center-team-goals"><h3>${esc(team?.name||(side==='home'?'Хозяева':'Гости'))}</h3><ul class="cfu-center-goal-list">${goals.map((goal,index)=>`<li class="cfu-center-goal" data-cfu-goal="${side}-${index}"><b class="cfu-center-goal-minute">${esc(goal.minute||'—')}${goal.minute?'′':''}</b><span class="cfu-center-goal-body">${cfuMatchPersonHTML(goal.player,goal.playerId,teams[side],'goal-'+side+'-'+index)}<small>${esc(MATCH_EVENT_LABELS[goal.type]||'Гол')}</small></span></li>`).join('')}</ul></div>`;
+  }).join('');
+  const incomplete=detail.goalsComplete?'':'<p class="cfu-center-note cfu-center-warning">Список голов может быть неполным: официальный источник подтвердил не все события.</p>';
+  return `<article class="cfu-center-goals-block"><h2>Голы</h2><div class="card cfu-center-goals">${groups}${incomplete}</div>${detail.eventsComplete?'':'<p class="hint cfu-center-note">Голы сгруппированы по командам. Полная хронология в сохранённом официальном HTML отсутствует.</p>'}</article>`;
+}
+function cfuMatchEventsHTML(match,detail){
+  if(!detail)return '';
+  const items=(detail.events||[]).filter(event=>!MATCH_GOAL_TYPES.includes(event.type));
+  if(!items.length)return '';
+  const teams={home:match.homeTeamId,away:match.awayTeamId};
+  return `<article class="cfu-center-events-block"><h2>События</h2><div class="card cfu-center-goals"><ul class="cfu-center-goal-list">${items.map((event,index)=>`<li class="cfu-center-goal" data-cfu-event="${esc(event.type)}-${index}"><b class="cfu-center-goal-minute">${event.minute?esc(event.minute)+'′':'—'}</b><span class="cfu-center-goal-body">${cfuMatchPersonHTML(event.player,event.playerId,teams[event.side],'event-'+index)}<small>${esc(MATCH_EVENT_LABELS[event.type]||event.type)}</small></span></li>`).join('')}</ul></div></article>`;
+}
+function cfuMatchLineupsHTML(match,detail){
+  if(!detail||!detail.lineups||typeof detail.lineups!=='object')return '';
+  const teams={home:match.homeTeamId,away:match.awayTeamId};
+  const cards=['home','away'].map(side=>{
+    const groups=detail.lineups[side];if(!groups)return '';
+    const team=cfuTeam(teams[side]);
+    const list=(entries,group)=>`<ul class="cfu-center-lineup-list">${entries.map((entry,index)=>`<li>${Number.isInteger(entry.number)?`<span class="cfu-center-shirt">${entry.number}</span>`:''}${cfuMatchPersonHTML(entry.name,entry.playerId,teams[side],side+'-'+group+'-'+index)}</li>`).join('')}</ul>`;
+    const starters=Array.isArray(groups.starters)?groups.starters:[];
+    const substitutes=Array.isArray(groups.substitutes)?groups.substitutes:[];
+    return `<div class="card cfu-center-lineup"><h3>${esc(team?.name||(side==='home'?'Хозяева':'Гости'))}</h3>${starters.length?'<h4>Стартовый состав</h4>'+list(starters,'starters'):''}${substitutes.length?'<h4>Запасные</h4>'+list(substitutes,'substitutes'):''}</div>`;
+  }).join('');
+  return cards?`<article class="cfu-center-lineups-block"><h2>Составы команд</h2><div class="cfu-center-lineups">${cards}</div></article>`:'';
+}
+function renderCfuMatch(route){
+  ensureCfuCompetition();
+  const root=$('match'),source=cfuMatchSourceURLFromID(route.key);
+  const back=`<button type="button" class="match-back" id="match-back">← ${route.origin==='team'?'К команде':'К чемпионату КФС'}</button>`;
+  let html=back+'<h2 id="match-title" tabindex="-1">Центр матча</h2>';
+  const match=cfuMatch(route.key);
+  if(!CFU_PREMIER){
+    const loading=!CFU_ERROR;
+    html+=`<div class="card empty cfu-center-unavailable" role="status"><p>${loading?'Загружаем данные матча КФС…':esc(CFU_ERROR)}</p>${loading?'':'<button type="button" class="cfu-center-retry" data-cfu-match-retry>Повторить загрузку</button>'}${source?`<p class="hint"><a class="cfu-center-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Официальный матч КФС ↗</a></p>`:''}</div>`;
+  }else if(!match){
+    html+=`<div class="card empty cfu-center-unavailable" role="status"><p>Матч отсутствует в подтверждённом календаре Премьер-лиги КФС 2026.</p><p class="hint">Это не означает, что матча не было: его официальный ID не найден в опубликованном календаре.</p>${source?`<p class="hint"><a class="cfu-center-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Официальный матч КФС ↗</a></p>`:''}</div><p class="hint"><a href="#table">К чемпионату КФС →</a></p>`;
+  }else{
+    const detail=cfuMatchProtocolVerified(match,cfuMatchDetail(route.key));
+    const homeScore=Number.isInteger(match.homeScore)?match.homeScore:Number.isInteger(detail?.homeScore)?detail.homeScore:null;
+    const awayScore=Number.isInteger(match.awayScore)?match.awayScore:Number.isInteger(detail?.awayScore)?detail.awayScore:null;
+    const scored=Number.isInteger(homeScore)&&Number.isInteger(awayScore);
+    const scoreLabel=scored?(detail?.status==='finished'?'Итоговый счёт':'Счёт опубликован'):'Счёт не опубликован';
+    const roundText=cfuRoundTitle(match.round,match.circle);
+    const official=cfuMatchSourceURL(match)||source;
+    const scoreHTML=scored?`<b>${esc(homeScore)}:${esc(awayScore)}</b>`:'<span class="cfu-center-dash" aria-label="Счёт не опубликован">—</span>';
+    html+=`<div class="cfu-center"><div class="card cfu-center-hero"><div class="cfu-center-head"><span class="cfu-center-competition">Премьер-лига КФС · 2026</span>${cfuMatchStatusHTML(detail)}</div><p class="cfu-center-round">${esc(roundText)}</p><div class="cfu-center-board">${cfuMatchTeamHTML(match.homeTeamId,'home')}<div class="cfu-center-score">${scoreHTML}<small>${scoreLabel}</small></div>${cfuMatchTeamHTML(match.awayTeamId,'away')}</div><p class="cfu-center-meta">${esc(cfuDateLabel(match.date))}${match.time?' · '+esc(match.time):''}${match.venue?'<br>'+esc(match.venue):''}</p></div><dl class="card cfu-center-info"><div><dt>Турнир</dt><dd>Премьер-лига КФС · 2026</dd></div><div><dt>Тур и круг</dt><dd>${esc(roundText)}</dd></div><div><dt>Дата</dt><dd>${esc(cfuDateLabel(match.date))}</dd></div><div><dt>Время</dt><dd>${match.time?esc(match.time):'Не указано'}</dd></div><div><dt>Стадион</dt><dd>${esc(match.venue||'Не указан')}</dd></div></dl><div class="cfu-center-actions">${official?`<a class="cfu-center-source" href="${esc(official)}" target="_blank" rel="noopener noreferrer">Официальный матч КФС ↗</a>`:''}</div>`;
+    if(detail){
+      html+=cfuMatchGoalsHTML(match,detail)+cfuMatchEventsHTML(match,detail)+cfuMatchLineupsHTML(match,detail);
+      if(!scored&&!detail.events.length)html+='<p class="hint cfu-center-note">Официальный протокол импортирован, но результат и события в сохранённом HTML не опубликованы. Это не означает, что матч не состоится.</p>';
+      const missing=Array.isArray(detail.missingSections)?detail.missingSections:[];
+      if(missing.includes('lineups')||missing.includes('chronology'))html+='<p class="hint cfu-center-note">Составы и полная хронология в сохранённом официальном HTML отсутствуют: сайт КФС загружает эти вкладки динамически. Приложение не дополняет их предположениями.</p>';
+      html+=`<p class="hint cfu-center-note">Протокол проверен: ${esc(cfuDateLabel(String(detail.checkedAt||'').slice(0,10)))}.</p>`;
+    }else{
+      html+='<p class="hint cfu-center-note">Подробный протокол этого матча пока не импортирован. Это не означает, что в матче не было событий.</p>';
+      if(CFU_MATCH_DETAILS_ERROR)html+=`<p class="hint cfu-center-note cfu-center-warning" role="status">${esc(CFU_MATCH_DETAILS_ERROR)}</p>`;
+      if(CFU_MATCH_DETAILS_LOADING)html+='<p class="hint cfu-center-note" role="status">Проверяем независимый снимок протоколов…</p>';
+      html+=`<p class="hint cfu-center-note">${scored?'Счёт взят из проверенного календаря; статус матча отдельно не подтверждён.':'Результат в календаре не опубликован; статус матча отдельно не подтверждён.'}</p>`;
+    }
+    html+='</div>';
+  }
+  if(root.innerHTML!==html)root.innerHTML=html;
+  document.title=(match?cfuTeam(match.homeTeamId)?.name+' — '+cfuTeam(match.awayTeamId)?.name:'Матч')+' · ФК «Судак»';
 }
 function renderChampionship(){
   const root=$('table');
@@ -2604,6 +2904,7 @@ $('table').addEventListener('input',event=>{
 
 restoreCfuPremier();
 restoreCfuRosters();
+restoreCfuMatchDetails();
 restoreSavedData();
 render();
 applyRoute(true);
@@ -2616,6 +2917,7 @@ if($('launch-splash')){
 refreshData();
 loadCfuPremier();
 loadCfuRosters();
+loadCfuMatchDetails();
 $("retry-data").addEventListener("click",()=>refreshData(true));
 setInterval(()=>{if(!document.hidden)refreshData()},DATA_POLL_MS);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshData()});

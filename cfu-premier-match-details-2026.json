@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "provider": "cfu",
+  "competitionKey": "cfu-premier-2026",
+  "season": 2026,
+  "matchesById": {
+    "cfu:match:18763": {
+      "matchId": "cfu:match:18763",
+      "provider": "cfu",
+      "sourceMatchId": "18763",
+      "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18763/",
+      "checkedAt": "2026-11-11T18:00:00+00:00",
+      "sourceSha256": "3f74d93b2a302e44a0c3124f541ead81f56e156ecea42cd1060bb68ee1f51477",
+      "homeTeamId": "cfu:team:gfc-yalta",
+      "awayTeamId": "cfu:team:tavriya",
+      "round": 24,
+      "date": "2026-10-31",
+      "time": "15:00",
+      "venue": "СЦ \"Скиф\", Новопавловка, Бахчисарайский район",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "statusLabel": "Матч завершен",
+      "coverage": "events",
+      "missingSections": [
+        "lineups",
+        "chronology"
+      ],
+      "goalsComplete": true,
+      "eventsComplete": false,
+      "goals": [
+        {
+          "type": "goal",
+          "side": "away",
+          "player": "Роман Климентовский",
+          "playerId": "cfu:player:280",
+          "minute": "44",
+          "score": null
+        },
+        {
+          "type": "goal",
+          "side": "away",
+          "player": "Владимир Клепча",
+          "playerId": "cfu:player:1776",
+          "minute": "48",
+          "score": null
+        }
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "side": "away",
+          "player": "Роман Климентовский",
+          "playerId": "cfu:player:280",
+          "minute": "44",
+          "score": null
+        },
+        {
+          "type": "goal",
+          "side": "away",
+          "player": "Владимир Клепча",
+          "playerId": "cfu:player:1776",
+          "minute": "48",
+          "score": null
+        }
+      ],
+      "lineups": null
+    },
+    "cfu:match:18769": {
+      "matchId": "cfu:match:18769",
+      "provider": "cfu",
+      "sourceMatchId": "18769",
+      "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18769/",
+      "checkedAt": "2026-11-11T18:00:00+00:00",
+      "sourceSha256": "4c15483ad9a988e2c133850efb50740bb04d6aea1a482e648fc66c1d868a6477",
+      "homeTeamId": "cfu:team:zarechnoe",
+      "awayTeamId": "cfu:team:fc-okean",
+      "round": 26,
+      "date": "2026-11-15",
+      "time": "14:00",
+      "venue": "СЦ \"Скиф\", Новопавловка, Бахчисарайский район",
+      "homeScore": null,
+      "awayScore": null,
+      "status": null,
+      "statusLabel": null,
+      "coverage": "schedule",
+      "missingSections": [
+        "result",
+        "goals",
+        "events",
+        "lineups",
+        "chronology"
+      ],
+      "goalsComplete": false,
+      "eventsComplete": false,
+      "goals": [],
+      "events": [],
+      "lineups": null
+    }
+  },
+  "sourceMetadata": {
+    "provider": "cfu",
+    "season": 2026,
+    "competitionUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/",
+    "robotsUrl": "https://www.cfu2015.com/robots.txt",
+    "crawlDelaySeconds": 40,
+    "retrieval": "saved_official_html",
+    "retrievedAt": "2026-11-11T18:00:00+00:00",
+    "matchPagePattern": "https://www.cfu2015.com/matches/premier-leagueCFU/match_<id>/",
+    "calendarSnapshot": "cfu-premier-2026.json",
+    "sources": {
+      "cfu:match:18763": {
+        "url": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18763/",
+        "checkedAt": "2026-11-11T18:00:00+00:00",
+        "sourceSha256": "3f74d93b2a302e44a0c3124f541ead81f56e156ecea42cd1060bb68ee1f51477",
+        "httpStatus": 200,
+        "coverage": "events",
+        "reason": "official_match_page_parsed"
+      },
+      "cfu:match:18769": {
+        "url": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18769/",
+        "checkedAt": "2026-11-11T18:00:00+00:00",
+        "sourceSha256": "4c15483ad9a988e2c133850efb50740bb04d6aea1a482e648fc66c1d868a6477",
+        "httpStatus": 200,
+        "coverage": "schedule",
+        "reason": "official_match_page_parsed"
+      }
+    }
+  },
+  "unresolvedRecords": [
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18763",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18763/",
+        "section": "chronology"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18763",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18763/",
+        "section": "lineups"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18769",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18769/",
+        "section": "chronology"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18769",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18769/",
+        "section": "lineups"
+      }
+    }
+  ]
+}
