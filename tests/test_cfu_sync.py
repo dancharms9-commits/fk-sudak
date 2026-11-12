@@ -70,18 +70,119 @@ class OfficialFixtureClient:
 
 
 class SchedulingTests(unittest.TestCase):
+    def matchday(self, times, day='2026-11-11'):
+        """Synthetic kickoff changes; real source fixtures remain untouched."""
+        value = baseline()
+        value['calendar']['sourceMetadata']['sections']['calendar']['checkedAt'] = day + 'T00:00:00+03:00'
+        fixtures = [m for m in value['calendar']['matchesById'].values() if m['round'] == 25]
+        for index, match in enumerate(fixtures):
+            match['date'] = day if index < len(times) else '2026-12-01'
+            match['time'] = times[index] if index < len(times) else None
+        return value
+
+    def test_1400_and_1500_kickoffs_have_four_hourly_windows(self):
+        value = self.matchday(['14:00', '15:00'])
+        self.assertIsNone(sync.due_slot(value, datetime.fromisoformat('2026-11-11T14:59:00+03:00')))
+        for hour in (15, 16, 17, 18):
+            with self.subTest(hour=hour):
+                now = datetime.fromisoformat(f'2026-11-11T{hour}:07:00+03:00')
+                self.assertEqual(sync.due_slot(value, now), f'2026-11-11T{hour}:00:00+03:00')
+        value['sync']['lastSlot'] = '2026-11-11T18:00:00+03:00'
+        self.assertIsNone(sync.due_slot(value, NOW))
+
     def test_wednesday_and_saturday_follow_dates_not_weekdays(self):
         for day in ('2026-11-11', '2026-11-21'):
-            value = baseline()
-            value['calendar']['sourceMetadata']['sections']['calendar']['checkedAt'] = day + 'T00:00:00+03:00'
-            for match in value['calendar']['matchesById'].values():
-                if match['round'] == 25:
-                    match['date'] = day
+            value = self.matchday(['14:00', '14:00', '15:00'], day)
             morning = datetime.fromisoformat(day + 'T10:00:00+03:00')
             self.assertIsNone(sync.due_slot(value, morning))
-            for hour in (20, 23):
+            for hour in (15, 16, 17, 18):
                 now = datetime.fromisoformat(day + f'T{hour}:07:00+03:00')
                 self.assertEqual(sync.due_slot(value, now), day + f'T{hour}:00:00+03:00')
+
+    def test_different_kickoffs_and_partial_confirmation_keep_full_day_window(self):
+        value = self.matchday(['12:00', '14:00', '17:00'])
+        for hour in range(13, 21):
+            now = datetime.fromisoformat(f'2026-11-11T{hour}:00:00+03:00')
+            self.assertEqual(sync.due_slot(value, now), now.isoformat())
+        for match in value['calendar']['matchesById'].values():
+            if match['round'] == 25 and match['time'] != '14:00':
+                match['status'] = 'finished'
+        # Even with the earliest/latest games confirmed, use all kickoffs.
+        now = datetime.fromisoformat('2026-11-11T20:00:00+03:00')
+        self.assertEqual(sync.due_slot(value, now), now.isoformat())
+
+    def test_non_hour_kickoffs_use_hourly_workflow_boundaries(self):
+        value = self.matchday(['14:30', '15:30'])
+        self.assertIsNone(sync.due_slot(value, datetime.fromisoformat('2026-11-11T15:29:00+03:00')))
+        for hour in (16, 17, 18):
+            now = datetime.fromisoformat(f'2026-11-11T{hour}:00:00+03:00')
+            self.assertEqual(sync.due_slot(value, now), now.isoformat())
+        value['sync']['lastSlot'] = '2026-11-11T18:00:00+03:00'
+        self.assertIsNone(sync.due_slot(value, NOW))
+
+    def test_missing_kickoffs_keep_evening_fallback(self):
+        for times in ([None, None, None], ['14:00', None, '15:00']):
+            value = self.matchday(times)
+            for hour in (20, 23):
+                now = datetime.fromisoformat(f'2026-11-11T{hour}:05:00+03:00')
+                self.assertEqual(sync.due_slot(value, now), f'2026-11-11T{hour}:00:00+03:00')
+            value['sync']['lastSlot'] = '2026-11-11T23:00:00+03:00'
+            self.assertIsNone(sync.due_slot(value, NOW))
+        known = self.matchday(['14:00', None, '15:00'])
+        self.assertEqual(sync.due_slot(known, datetime.fromisoformat('2026-11-11T15:00:00+03:00')),
+                         '2026-11-11T15:00:00+03:00')
+        unknown = self.matchday([None, None, None])
+        self.assertIsNone(sync.due_slot(unknown, datetime.fromisoformat('2026-11-11T19:59:00+03:00')))
+
+    def test_late_kickoff_window_continues_across_midnight(self):
+        value = self.matchday(['22:00', '23:00'])
+        for time in ('2026-11-11T23:00:00+03:00', '2026-11-12T00:00:00+03:00',
+                     '2026-11-12T01:00:00+03:00', '2026-11-12T02:00:00+03:00'):
+            self.assertEqual(sync.due_slot(value, datetime.fromisoformat(time)), time)
+
+    def test_confirmed_results_and_current_table_stop_same_day_and_morning_requests(self):
+        client = OfficialFixtureClient()
+        value = sync.refresh(baseline(), datetime.fromisoformat('2026-11-11T15:05:00+03:00'), client, ROSTERS)
+        self.assertIsNone(value['sync']['error'])
+        self.assertEqual(value['sync']['pending'], [])
+        no_requests = Mock()
+        for time in ('2026-11-11T16:00:00+03:00', '2026-11-11T18:00:00+03:00',
+                     '2026-11-12T09:00:00+03:00', '2026-11-13T09:00:00+03:00'):
+            self.assertEqual(sync.refresh(value, datetime.fromisoformat(time), no_requests), value)
+        no_requests.get.assert_not_called()
+
+    def test_unconfirmed_score_keeps_hourly_then_one_daily_retry(self):
+        client = OfficialFixtureClient()
+        client.score(18767, 0, 0, 'Ожидается подтверждение')
+        value = sync.refresh(baseline(), datetime.fromisoformat('2026-11-11T15:05:00+03:00'), client, ROSTERS)
+        match = value['calendar']['matchesById']['cfu:match:18767']
+        self.assertIsNone(match['status'])
+        self.assertIn(match['matchId'], value['sync']['pending'])
+        for hour in (16, 17, 18):
+            now = datetime.fromisoformat(f'2026-11-11T{hour}:05:00+03:00')
+            value = sync.refresh(value, now, client, ROSTERS)
+            self.assertIsNone(value['sync']['error'])
+            self.assertEqual(value['sync']['lastSlot'], f'2026-11-11T{hour}:00:00+03:00')
+            self.assertIsNone(value['calendar']['matchesById'][match['matchId']]['status'])
+        self.assertIsNone(sync.due_slot(value, datetime.fromisoformat('2026-11-12T08:59:00+03:00')))
+        morning = datetime.fromisoformat('2026-11-12T09:05:00+03:00')
+        value = sync.refresh(value, morning, client, ROSTERS)
+        count = len(client.calls)
+        self.assertEqual(sync.refresh(value, morning + timedelta(hours=1), client, ROSTERS), value)
+        self.assertEqual(len(client.calls), count)
+        self.assertEqual(sync.due_slot(value, morning + timedelta(days=1)), '2026-11-13T09:00:00+03:00')
+
+    def test_lagging_table_or_error_alone_requires_daily_retry(self):
+        for issue in ('table', 'error'):
+            value = sync.seed_state(ROOT)  # all November 11 results confirmed
+            if issue == 'table':
+                value['calendar']['standings']['asOfRound'] = 24
+            else:
+                value['sync'].update(error='Timeout: offline', lastAttemptAt=NOW.isoformat())
+            self.assertEqual(value['sync']['pending'], [])
+            before = datetime.fromisoformat('2026-11-12T08:59:00+03:00')
+            self.assertIsNone(sync.due_slot(value, before))
+            self.assertEqual(sync.due_slot(value, before + timedelta(minutes=1)), '2026-11-12T09:00:00+03:00')
 
     def test_no_matches_and_no_pending_means_zero_source_requests(self):
         client = Mock()
@@ -104,10 +205,42 @@ class SchedulingTests(unittest.TestCase):
     def test_delayed_run_uses_latest_slot_and_rerun_does_not_refetch(self):
         client = OfficialFixtureClient()
         value = sync.refresh(baseline(), NOW, client, ROSTERS)
-        self.assertEqual(value['sync']['lastSlot'], '2026-11-11T23:00:00+03:00')
+        self.assertEqual(value['sync']['lastSlot'], '2026-11-11T18:00:00+03:00')
         count = len(client.calls)
         self.assertEqual(sync.refresh(value, NOW + timedelta(minutes=10), client), value)
         self.assertEqual(len(client.calls), count)
+
+    def test_failed_delayed_window_is_not_repeated_after_checkpoint_restore(self):
+        client = Mock()
+        client.get.side_effect = requests.Timeout('offline')
+        old = baseline()
+        # This scenario runs before the saved evening protocol retrievals.
+        # Use an older baseline revision so restoration selects the new attempt.
+        checked = '2026-11-10T18:00:00+00:00'
+        old['details']['sourceMetadata']['retrievedAt'] = checked
+        for key, detail in old['details']['matchesById'].items():
+            detail['checkedAt'] = checked
+            old['details']['sourceMetadata']['sources'][key]['checkedAt'] = checked
+        now = datetime.fromisoformat('2026-11-11T17:47:00+03:00')
+        failed = sync.refresh(old, now, client)
+        self.assertEqual(failed['sync']['lastSlot'], '2026-11-11T17:00:00+03:00')
+        restored = sync.choose_state(old, failed)
+        self.assertEqual(sync.refresh(restored, now + timedelta(minutes=12), client), restored)
+        self.assertEqual(client.get.call_count, 1)
+        later = sync.refresh(restored, now + timedelta(minutes=20), client)
+        self.assertEqual(later['sync']['lastSlot'], '2026-11-11T18:00:00+03:00')
+        self.assertEqual(client.get.call_count, 2)
+        self.assertEqual(sync.refresh(later, NOW, client), later)
+        self.assertEqual(client.get.call_count, 2)
+
+    def test_force_can_check_outside_automatic_windows(self):
+        client = OfficialFixtureClient()
+        now = datetime.fromisoformat('2026-11-11T10:00:00+03:00')
+        self.assertEqual(sync.refresh(baseline(), now, client, ROSTERS), baseline())
+        self.assertEqual(client.calls, [])
+        value = sync.refresh(baseline(), now, client, ROSTERS, force=True)
+        self.assertIsNone(value['sync']['error'])
+        self.assertEqual(len(client.calls), 7)
 
 
 class ReconciliationTests(unittest.TestCase):
@@ -327,6 +460,25 @@ class PersistenceTests(unittest.TestCase):
 
 
 class RateLimitTests(unittest.TestCase):
+    def test_robots_cannot_lower_40_second_minimum_during_hourly_check(self):
+        for robots_delay in (0, 20, 40):
+            with self.subTest(robots_delay=robots_delay):
+                clock = [0.0]
+                starts = []
+                def sleep(seconds):
+                    clock[0] += seconds
+                def get(url, **kwargs):
+                    starts.append(clock[0])
+                    body = (f'User-agent: *\nCrawl-delay: {robots_delay}'.encode()
+                            if url == sync.ROBOTS_URL else b'x' * 1500)
+                    return Mock(status_code=200, content=body)
+                session = Mock(headers={})
+                session.get.side_effect = get
+                client = sync.PoliteClient(session, clock=lambda: clock[0], sleep=sleep)
+                for url in (sync.ROBOTS_URL, sync.CALENDAR_URL, sync.TABLE_URL):
+                    client.get(url)
+                self.assertEqual(starts, [0.0, 40.0, 80.0])
+
     def test_robots_retries_and_redirects_all_use_same_minimum_delay(self):
         now = [0.0]
         sleeps = []
