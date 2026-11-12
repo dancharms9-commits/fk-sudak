@@ -1,4 +1,5 @@
 /* Real SW + staged Pages: provisional -> official, stale CDN, offline/reconnect. */
+const {disconnectServer}=require('./pwa-offline.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http'),path=require('node:path');
 const root=path.resolve(__dirname,'../_site');
@@ -73,11 +74,15 @@ const server=http.createServer((req,res)=>{
       return urls;
     });
     assert(!cached.some(url=>new URL(url).pathname.endsWith('/cfu-sync-2026.json')));
-    await context.setOffline(true);await page.reload();await ready();
+    await context.setOffline(true);
+    const reconnect=await disconnectServer(server);
+    assert((await page.reload()).fromServiceWorker(),'Offline HTML must come from the actual service worker');
+    await ready();
     assert.equal(await page.locator('.cfu-center-score b').innerText(),'2:0');
     assert.equal(await page.locator('.cfu-center-status').innerText(),'Матч завершен');
-    await context.setOffline(false);status=200;
+    status=200;
     published=structuredClone(official);published.sync.lastAttemptAt=new Date(revision+60000).toISOString();
+    await reconnect();await context.setOffline(false);
     await page.evaluate(()=>window.dispatchEvent(new Event('online')));
     await page.waitForFunction(stamp=>CFU_BUNDLE.sync.lastAttemptAt===stamp,published.sync.lastAttemptAt);
     assert.equal(await page.evaluate(()=>CFU_ERROR),'');
