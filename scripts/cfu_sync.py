@@ -27,7 +27,9 @@ from scripts.cfu_match_details_schema import validate_match_details
 PUBLIC_STATE = 'cfu-sync-2026.json'
 CALENDAR_FILE = 'cfu-premier-2026.json'
 DETAILS_FILE = 'cfu-premier-match-details-2026.json'
-FINAL = {'finished', 'technical', 'cancelled', 'postponed'}
+FINAL = {'finished', 'technical'}  # immutable, confirmed played results
+CLOSED = FINAL | {'cancelled'}
+LABELLED = CLOSED | {'postponed'}
 IDENTITY = ('sourceMatchId', 'sourceUrl', 'homeTeamId', 'awayTeamId', 'round', 'circle')
 FACTS = ('date', 'time', 'homeScore', 'awayScore', 'status')
 try:
@@ -73,7 +75,7 @@ def validate_state(state):
                 'Success time does not come from source metadata')
     for key, match in calendar['matchesById'].items():
         detail = details['matchesById'].get(key)
-        if match['status'] in FINAL:
+        if match['status'] in LABELLED:
             require(detail is not None and detail['status'] == match['status'],
                     f'Unconfirmed terminal status: {key}')
     return state
@@ -125,7 +127,7 @@ def due_slot(state, now):
         if not match.get('date'):
             continue
         match_day = datetime.fromisoformat(match['date']).date()
-        if ((match['status'] not in FINAL and match_day >= start) or match['matchId'] in pending):
+        if ((match['status'] not in CLOSED and match_day >= start) or match['matchId'] in pending):
             if match_day <= today:
                 dates.add(match_day)
     slots = []
@@ -222,7 +224,7 @@ def refresh(state, now=None, client=None, rosters=None, force=False):
     start = timestamp(previous['sourceMetadata']['sections']['calendar']['checkedAt']).astimezone(SCHEDULER_TZ).date().isoformat()
     pending = set(sync['pending'])
     targets = {key for key, match in previous['matchesById'].items()
-               if match.get('date') and start <= match['date'] <= today and match['status'] not in FINAL}
+               if match.get('date') and start <= match['date'] <= today and match['status'] not in CLOSED}
     targets |= pending
     try:
         client = client or PoliteClient()
@@ -246,6 +248,8 @@ def refresh(state, now=None, client=None, rosters=None, force=False):
             # publication caught up after a missed matchday job.
             elif any(before[f] != after[f] for f in ('date', 'time', 'homeScore', 'awayScore')):
                 targets.add(key)
+            elif before['status'] in LABELLED:
+                after['status'], after['statusLabel'] = before['status'], before['statusLabel']
         details = copy.deepcopy(state['details'])
         pending = set()
         for key in sorted(targets):
@@ -277,7 +281,7 @@ def refresh(state, now=None, client=None, rosters=None, force=False):
             added = protocol_import.build_snapshot(candidate, rosters, {key: html}, {key: checked},
                                                    retrieval='direct_http_matchday')
             details = _merge_protocols(details, added, candidate)
-            if record['status'] not in FINAL and (not expected.get('date') or expected['date'] <= today):
+            if record['status'] not in CLOSED and (not expected.get('date') or expected['date'] <= today):
                 pending.add(key)
         validate_match_details(details, candidate, rosters)
         # The official table may be published later than the protocols. Keep it

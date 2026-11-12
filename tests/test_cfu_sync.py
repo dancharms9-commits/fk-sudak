@@ -188,6 +188,37 @@ class ReconciliationTests(unittest.TestCase):
         self.assertIsNone(value['calendar']['matchesById']['cfu:match:18767']['status'])
         self.assertIn('cfu:match:18767', value['sync']['pending'])
 
+    def test_postponed_match_can_receive_a_verified_new_date_and_later_result(self):
+        client = OfficialFixtureClient()
+        client.score(18767, 0, 0, 'Матч перенесен')
+        postponed = sync.refresh(baseline(), NOW, client, ROSTERS)
+        self.assertEqual(postponed['calendar']['matchesById']['cfu:match:18767']['status'], 'postponed')
+        self.assertIn('cfu:match:18767', postponed['sync']['pending'])
+        # Both NEW official sources agree on the changed date. A postponed
+        # fixture is not an immutable played result.
+        future = OfficialFixtureClient()
+        calendar = BeautifulSoup(future.pages[sync.CALENDAR_URL], 'html.parser')
+        row = calendar.select_one('a[href$="/match_18767/"]')
+        date = row.select_one('.entry-row-values .entry-title strong')
+        date.string = date.get_text().replace('11 ноября 2026', '15 ноября 2026')
+        row.select_one('.score').string = '—'
+        future.pages[sync.CALENDAR_URL] = str(calendar)
+        url = f'{sync.BASE}/matches/premier-leagueCFU/match_18767/'
+        page = BeautifulSoup(future.pages[url].replace('11 ноября 2026', '15 ноября 2026'), 'html.parser')
+        page.select_one('.matchesDetails-header .score strong').string = '—'
+        page.select_one('.labelRow .label').string = 'Матч не начался'
+        future.pages[url] = str(page)
+        rescheduled = sync.refresh(postponed, datetime.fromisoformat('2026-11-12T09:00:00+03:00'), future, ROSTERS)
+        self.assertIsNone(rescheduled['sync']['error'])
+        match = rescheduled['calendar']['matchesById']['cfu:match:18767']
+        self.assertEqual((match['date'], match['status'], match['homeScore']), ('2026-11-15', 'scheduled', None))
+        self.assertNotIn(match['matchId'], rescheduled['sync']['pending'])
+        self.assertEqual(sync.choose_state(postponed, rescheduled), rescheduled)
+        self.assertIsNone(sync.due_slot(rescheduled, datetime.fromisoformat('2026-11-13T21:00:00+03:00')))
+        # A later confirmed result on the same date is also a valid transition.
+        finished = sync.refresh(postponed, datetime.fromisoformat('2026-11-12T09:00:00+03:00'), OfficialFixtureClient(), ROSTERS)
+        self.assertEqual(finished['calendar']['matchesById']['cfu:match:18767']['status'], 'finished')
+
     def test_conflicting_score_team_date_id_competition_or_season_retains_snapshot(self):
         mutations = [('<strong>2:0</strong>', '<strong>3:0</strong>'),
                      ('/teams/tavriya/', '/teams/fc-okean/'),

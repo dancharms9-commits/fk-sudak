@@ -85,6 +85,15 @@ test('a snapshot captured during the matchday becomes stale after the next morni
   assert.match(ui.run('cfuStatusNote()'),/могли устареть/);
 });
 
+test('a postponed fixture can advance to a verified played result',()=>{
+  const ui=setup(),postponed=bundle(),key='cfu:match:18767';
+  Object.assign(postponed.calendar.matchesById[key],{homeScore:0,awayScore:0,status:'postponed',statusLabel:'Матч перенесен'});
+  Object.assign(postponed.details.matchesById[key],{homeScore:0,awayScore:0,status:'postponed',statusLabel:'Матч перенесен',goals:[],events:[],goalsComplete:false});
+  ui.run(`adoptCfuBundle(${JSON.stringify(postponed)});adoptCfuBundle(${JSON.stringify(bundle())})`);
+  assert.equal(ui.run("cfuMatch('cfu:match:18767').status"),'finished');
+  assert.equal(ui.run("cfuMatch('cfu:match:18767').homeScore"),2);
+});
+
 test('service worker always passes dynamic results to the network including versioned URLs',()=>{
   const listeners={};
   const context=vm.createContext({URL,self:{location:{origin:'https://example.test'},addEventListener:(name,fn)=>{listeners[name]=fn}}});

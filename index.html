@@ -2551,12 +2551,12 @@ function adoptCfuBundle(bundle){
   for(const [id,old] of Object.entries(CFU_PREMIER?.matchesById||{})){
     const next=bundle.calendar.matchesById[id];
     if(!next||['sourceMatchId','homeTeamId','awayTeamId','round'].some(f=>old[f]!==next[f]))throw Error('Конфликт идентификаторов КФС');
-    if(['finished','technical','cancelled','postponed'].includes(old.status)&&
+    if(['finished','technical'].includes(old.status)&&
       ['date','homeScore','awayScore','status'].some(f=>old[f]!==next[f]))throw Error('Конфликт подтверждённого результата КФС');
   }
   for(const [id,old] of Object.entries(CFU_MATCH_DETAILS?.matchesById||{})){
     const next=bundle.details.matchesById[id];
-    if(['finished','technical','cancelled','postponed'].includes(old.status)&&
+    if(['finished','technical'].includes(old.status)&&
       (!next||['date','time','homeScore','awayScore','status'].some(f=>old[f]!==next[f])))throw Error('Конфликт подтверждённого протокола КФС');
   }
   CFU_BUNDLE=bundle;CFU_PREMIER=bundle.calendar;CFU_MATCH_DETAILS=bundle.details;
