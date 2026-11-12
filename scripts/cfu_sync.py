@@ -110,30 +110,54 @@ def choose_state(*candidates):
 
 
 def due_slot(state, now):
-    """20/23 on match dates, 09 next day; unresolved checks retry daily at 09.
+    """Hourly from first kickoff + 1h through last + 3h; 20/23 if time is missing.
 
     The latest elapsed slot absorbs delayed Actions jobs. A persisted slot makes
     reruns idempotent, including failures. Historical unverified fixtures before
-    the saved calendar check are deliberately not bulk-downloaded.
+    the saved calendar check are deliberately not bulk-downloaded. Unresolved
+    results, errors and a lagging table retry daily at 09 Moscow time.
     """
     now = now.astimezone(SCHEDULER_TZ)
     today, yesterday = now.date(), now.date() - timedelta(days=1)
     sync = state['sync']
-    matches = state['calendar']['matchesById'].values()
+    calendar = state['calendar']
+    matches = calendar['matchesById'].values()
     start = timestamp(state['calendar']['sourceMetadata']['sections']['calendar']['checkedAt']).astimezone(now.tzinfo).date()
     pending = set(sync['pending'])
     dates = set()
+    by_day = {}
     for match in matches:
         if not match.get('date'):
             continue
         match_day = datetime.fromisoformat(match['date']).date()
-        if ((match['status'] not in CLOSED and match_day >= start) or match['matchId'] in pending):
+        by_day.setdefault(match_day, []).append(match)
+        table_lagging = (match['status'] in FINAL
+                         and match['round'] > calendar['standings']['asOfRound'])
+        if ((match['status'] not in CLOSED and match_day >= start)
+                or match['matchId'] in pending or table_lagging):
             if match_day <= today:
                 dates.add(match_day)
     slots = []
-    if today in dates:
-        slots += [datetime.combine(today, day_time(hour), now.tzinfo) for hour in (20, 23)]
-    if yesterday in dates or any(day < yesterday for day in dates):
+    for day in dates & {today, yesterday}:
+        fixtures = by_day[day]
+        # Keep completed fixtures in the window calculation: confirmation of
+        # the earliest game must not shift the remaining hourly slots.
+        kickoffs = [datetime.combine(day, day_time.fromisoformat(m['time']), now.tzinfo)
+                    for m in fixtures if m.get('time')]
+        if kickoffs:
+            first, last = min(kickoffs) + timedelta(hours=1), max(kickoffs) + timedelta(hours=3)
+            slot = first.replace(minute=0)
+            if slot < first:
+                slot += timedelta(hours=1)
+            while slot <= last:
+                if slot.date() == today:
+                    slots.append(slot)
+                slot += timedelta(hours=1)
+        if any(not m.get('time') for m in fixtures) and day == today:
+            slots += [datetime.combine(day, day_time(hour), now.tzinfo) for hour in (20, 23)]
+    failed_before_today = (sync.get('error') and sync.get('lastAttemptAt')
+                           and timestamp(sync['lastAttemptAt']).astimezone(now.tzinfo).date() < today)
+    if any(day < today for day in dates) or failed_before_today:
         slots.append(datetime.combine(today, day_time(9), now.tzinfo))
     elapsed = [slot for slot in slots if slot <= now]
     if not elapsed:
