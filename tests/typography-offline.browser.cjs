@@ -3,6 +3,7 @@ const {currentWorker,disconnectServer}=require('./pwa-offline.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const root=path.resolve(__dirname,'..'),out=path.resolve(process.env.TYPOGRAPHY_DIR||path.join(root,'docs/typography-refresh'));
+const cacheName=fs.readFileSync(path.join(root,'sw.js'),'utf8').match(/const CACHE="([^"]+)"/)[1];
 const oldWorker=fs.readFileSync(path.join(__dirname,'fixtures/sw-matches-v14.js'));
 let previous=true;
 const server=http.createServer((req,res)=>{
@@ -21,9 +22,9 @@ async function actualFonts(p,selector){const c=await p.context().newCDPSession(p
   const c=await browser.newContext({serviceWorkers:'allow',reducedMotion:'reduce',viewport:{width:320,height:844}});let p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));
   await p.goto(base,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>!loadingData&&!!PLATFORM);await p.evaluate(()=>navigator.serviceWorker.ready);await p.waitForFunction(()=>!!navigator.serviceWorker.controller);
   assert((await p.evaluate(()=>caches.keys())).includes('sudak-matches-v14'));
-  previous=false;await currentWorker(p,'sudak-typography-v15');
+  previous=false;await currentWorker(p,cacheName);
   assert(!(await p.evaluate(()=>caches.keys())).includes('sudak-matches-v14'),'v14 cache retired after activation');
-  const cached=await p.evaluate(async()=>{const c=await caches.open('sudak-typography-v15');return (await c.keys()).map(r=>r.url)});
+  const cached=await p.evaluate(async name=>{const c=await caches.open(name);return (await c.keys()).map(r=>r.url)},cacheName);
   assert.equal(cached.filter(u=>u.endsWith('.woff2')).length,3,'All weights precached before visiting other screens: '+JSON.stringify(cached));
   // Close the document and bypass the HTTP cache. Only the SW cache can serve fonts.
   await p.close();await c.setOffline(true);const reconnect=await disconnectServer(server);p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));const cdp=await c.newCDPSession(p);await cdp.send('Network.enable');await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});
@@ -37,6 +38,6 @@ async function actualFonts(p,selector){const c=await p.context().newCDPSession(p
   const fallback=await browser.newContext({serviceWorkers:'block',reducedMotion:'reduce',viewport:{width:320,height:844}});await fallback.route('**/*.woff2',r=>r.abort());await fallback.route('https://rffk-roo.ru/**',r=>r.abort());
   const f=await fallback.newPage();await f.goto(base+'#team=930');await f.waitForFunction(()=>!loadingData&&!!PLATFORM);await f.locator('#launch-splash').waitFor({state:'detached'});await f.evaluate(()=>document.fonts.ready);
   const fonts=await actualFonts(f,'#team-title');assert(fonts.every(f=>!f.isCustomFont),'Failed font downloads use the system fallback');assert.equal(await f.evaluate(()=>document.documentElement.scrollWidth),320);results.push({name:'fallback',fonts});await fallback.close();assert.deepEqual(errors,[]);
-  fs.writeFileSync(path.join(out,'offline.json'),JSON.stringify({upgrade:'v14 → v15',httpCacheDisabled:true,originTransportDisconnected:true,swNetworkEvents:true,unvisitedRoutes:true,cachedFonts:cached.filter(u=>u.endsWith('.woff2')).map(u=>new URL(u).pathname),results,errors},null,2)+'\n');console.log('PASS v14→v15, all offline weights, cold documents, both themes, five direct routes, recovery and real system fallback');
+  fs.writeFileSync(path.join(out,'offline.json'),JSON.stringify({upgrade:'v14 → '+cacheName,httpCacheDisabled:true,originTransportDisconnected:true,swNetworkEvents:true,unvisitedRoutes:true,cachedFonts:cached.filter(u=>u.endsWith('.woff2')).map(u=>new URL(u).pathname),results,errors},null,2)+'\n');console.log('PASS v14 → '+cacheName+', all offline weights, cold documents, both themes, five direct routes, recovery and real system fallback');
  }finally{await browser.close();await new Promise(r=>server.close(r))}
 })().catch(e=>{console.error(e);process.exitCode=1;server.close()});

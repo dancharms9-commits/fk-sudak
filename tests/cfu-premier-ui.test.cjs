@@ -50,7 +50,7 @@ test('published JSON is the certified snapshot with the full calendar contract',
   assert.equal(Object.keys(published.matchesById).length,84);
   assert.equal(new Set(Object.values(published.matchesById).map(m=>m.round)).size,28);
   assert.equal(new Set(Object.values(published.matchesById).map(m=>m.circle)).size,4);
-  assert.equal(published.standings.asOfRound,24);
+  assert.equal(published.standings.asOfRound,25);
 });
 
 test('client validation accepts the snapshot and rejects unsafe contracts',()=>{
@@ -84,7 +84,7 @@ test('default round is the nearest round without a published score',()=>{
 
 test('standings keep official order and expose all seven clubs',()=>{
   const markup=ui.run('cfuStandingsHTML()');
-  assert(markup.includes('Официальная таблица после 24-го тура'));
+  assert(markup.includes('Официальная таблица после 25-го тура'));
   assert(markup.includes('Проверено: 11.11.2026'));
   assert(markup.indexOf('ФК &quot;Таврия&quot;')<markup.indexOf('ГФК &quot;Ялта&quot;'));
   assert.equal((markup.match(/data-cfu-standing=/g)||[]).length,7);

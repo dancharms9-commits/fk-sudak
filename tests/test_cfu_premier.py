@@ -251,8 +251,18 @@ class CfuPremierTests(unittest.TestCase):
     def test_committed_snapshot_is_valid_and_matches_fixtures(self):
         committed = importer.load_snapshot(ROOT / 'docs/cfu-premier-2026/snapshot.json')
         self.assertEqual(committed['teamsById'], self.snapshot['teamsById'])
-        self.assertEqual(committed['matchesById'], self.snapshot['matchesById'])
-        self.assertEqual(committed['standings'], self.snapshot['standings'])
+        # The historical foundation fixtures remain fixed. The current snapshot
+        # additionally includes the independently saved post-matchday sources.
+        current = ROOT / 'tests/fixtures/cfu-auto-refresh'
+        matches, _, _ = importer.parse_calendar(
+            (current / 'cfu-calendar.html').read_text(), committed['teamsById'])
+        for number in (18766, 18767, 18768):
+            protocol = importer.parse_match_page((current / f'cfu-match-{number}.html').read_text())
+            match = matches[f'cfu:match:{number}']
+            match['status'], match['statusLabel'] = protocol['status'], protocol['statusLabel']
+        self.assertEqual(committed['matchesById'], matches)
+        self.assertEqual(committed['standings'], importer.parse_standings(
+            (current / 'cfu-table.html').read_text(), committed['teamsById']))
         self.assertEqual(committed['unresolvedRecords'], self.snapshot['unresolvedRecords'])
 
     def test_published_snapshot_is_staged_byte_identical(self):

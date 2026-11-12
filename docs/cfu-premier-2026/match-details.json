@@ -96,6 +96,178 @@
       "goals": [],
       "events": [],
       "lineups": null
+    },
+    "cfu:match:18766": {
+      "matchId": "cfu:match:18766",
+      "provider": "cfu",
+      "sourceMatchId": "18766",
+      "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18766/",
+      "checkedAt": "2026-11-11T20:13:01.548569+00:00",
+      "sourceSha256": "b1a4d09e9f72f13732b5a988839e7c434a29f22daba93e405b53dee9a3daad19",
+      "homeTeamId": "cfu:team:fc-sparta-kt",
+      "awayTeamId": "cfu:team:fc-feodosiya",
+      "round": 25,
+      "date": "2026-11-11",
+      "time": "14:00",
+      "venue": "Стадион \"Крымтеплица\", Аграрное, г. Симферополь",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "statusLabel": "Матч завершен",
+      "coverage": "events",
+      "missingSections": [
+        "lineups",
+        "chronology"
+      ],
+      "goalsComplete": true,
+      "eventsComplete": false,
+      "goals": [
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Богдан Пересунько",
+          "playerId": "cfu:player:2157",
+          "minute": "46",
+          "score": null
+        }
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Богдан Пересунько",
+          "playerId": "cfu:player:2157",
+          "minute": "46",
+          "score": null
+        }
+      ],
+      "lineups": null
+    },
+    "cfu:match:18767": {
+      "matchId": "cfu:match:18767",
+      "provider": "cfu",
+      "sourceMatchId": "18767",
+      "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18767/",
+      "checkedAt": "2026-11-11T20:12:13.324569+00:00",
+      "sourceSha256": "3985c95b7895a7905acade50f6942f2354416841001ab2458f7d4e8795b48d06",
+      "homeTeamId": "cfu:team:tavriya",
+      "awayTeamId": "cfu:team:zarechnoe",
+      "round": 25,
+      "date": "2026-11-11",
+      "time": "15:00",
+      "venue": "ЦСПСК РК, Симферополь",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "statusLabel": "Матч завершен",
+      "coverage": "events",
+      "missingSections": [
+        "lineups",
+        "chronology"
+      ],
+      "goalsComplete": true,
+      "eventsComplete": false,
+      "goals": [
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Илья Зинченко",
+          "playerId": "cfu:player:1463",
+          "minute": "35",
+          "score": null
+        },
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Илья Зинченко",
+          "playerId": "cfu:player:1463",
+          "minute": "76",
+          "score": null
+        }
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Илья Зинченко",
+          "playerId": "cfu:player:1463",
+          "minute": "35",
+          "score": null
+        },
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Илья Зинченко",
+          "playerId": "cfu:player:1463",
+          "minute": "76",
+          "score": null
+        }
+      ],
+      "lineups": null
+    },
+    "cfu:match:18768": {
+      "matchId": "cfu:match:18768",
+      "provider": "cfu",
+      "sourceMatchId": "18768",
+      "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18768/",
+      "checkedAt": "2026-11-11T20:13:34.748569+00:00",
+      "sourceSha256": "55d369e39cc808bf1d898d74c8fe8dc58875f0287763209ad4fd3690a5c85d15",
+      "homeTeamId": "cfu:team:gfc-yalta",
+      "awayTeamId": "cfu:team:fc-okean",
+      "round": 25,
+      "date": "2026-11-11",
+      "time": "14:00",
+      "venue": "УТЦ \"Авангард\", Ялта",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "statusLabel": "Матч завершен",
+      "coverage": "events",
+      "missingSections": [
+        "goals",
+        "events",
+        "lineups",
+        "chronology"
+      ],
+      "goalsComplete": false,
+      "eventsComplete": false,
+      "goals": [
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Никита Торгашов",
+          "playerId": "cfu:player:1748",
+          "minute": "11",
+          "score": null
+        },
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Рамазан Наниев",
+          "playerId": "cfu:player:2060",
+          "minute": "90+4",
+          "score": null
+        }
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Никита Торгашов",
+          "playerId": "cfu:player:1748",
+          "minute": "11",
+          "score": null
+        },
+        {
+          "type": "goal",
+          "side": "home",
+          "player": "Рамазан Наниев",
+          "playerId": "cfu:player:2060",
+          "minute": "90+4",
+          "score": null
+        }
+      ],
+      "lineups": null
     }
   },
   "sourceMetadata": {
@@ -105,7 +277,7 @@
     "robotsUrl": "https://www.cfu2015.com/robots.txt",
     "crawlDelaySeconds": 40,
     "retrieval": "saved_official_html",
-    "retrievedAt": "2026-11-11T18:00:00+00:00",
+    "retrievedAt": "2026-11-11T20:13:34.748569+00:00",
     "matchPagePattern": "https://www.cfu2015.com/matches/premier-leagueCFU/match_<id>/",
     "calendarSnapshot": "cfu-premier-2026.json",
     "sources": {
@@ -123,6 +295,30 @@
         "sourceSha256": "4c15483ad9a988e2c133850efb50740bb04d6aea1a482e648fc66c1d868a6477",
         "httpStatus": 200,
         "coverage": "schedule",
+        "reason": "official_match_page_parsed"
+      },
+      "cfu:match:18766": {
+        "url": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18766/",
+        "checkedAt": "2026-11-11T20:13:01.548569+00:00",
+        "sourceSha256": "b1a4d09e9f72f13732b5a988839e7c434a29f22daba93e405b53dee9a3daad19",
+        "httpStatus": 200,
+        "coverage": "events",
+        "reason": "official_match_page_parsed"
+      },
+      "cfu:match:18767": {
+        "url": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18767/",
+        "checkedAt": "2026-11-11T20:12:13.324569+00:00",
+        "sourceSha256": "3985c95b7895a7905acade50f6942f2354416841001ab2458f7d4e8795b48d06",
+        "httpStatus": 200,
+        "coverage": "events",
+        "reason": "official_match_page_parsed"
+      },
+      "cfu:match:18768": {
+        "url": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18768/",
+        "checkedAt": "2026-11-11T20:13:34.748569+00:00",
+        "sourceSha256": "55d369e39cc808bf1d898d74c8fe8dc58875f0287763209ad4fd3690a5c85d15",
+        "httpStatus": 200,
+        "coverage": "events",
         "reason": "official_match_page_parsed"
       }
     }
@@ -162,6 +358,95 @@
         "matchId": "cfu:match:18769",
         "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18769/",
         "section": "lineups"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18766",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18766/",
+        "section": "chronology"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18766",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18766/",
+        "section": "lineups"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18767",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18767/",
+        "section": "chronology"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18767",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18767/",
+        "section": "lineups"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "unknown_event_icon",
+      "raw": {
+        "side": "home",
+        "icon": "match_icon1_4.svg",
+        "text": "56' Валерий Дзёнь",
+        "matchId": "cfu:match:18767",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18767/"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18768",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18768/",
+        "section": "chronology"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "dynamic_tab_not_in_saved_html",
+      "raw": {
+        "matchId": "cfu:match:18768",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18768/",
+        "section": "lineups"
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "goal_events_incomplete",
+      "raw": {
+        "matchId": "cfu:match:18768",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18768/",
+        "publishedScore": [
+          2,
+          1
+        ],
+        "confirmedGoals": 2
+      }
+    },
+    {
+      "kind": "protocol_section",
+      "reason": "unknown_event_icon",
+      "raw": {
+        "side": "away",
+        "icon": "match_icon1_3.svg",
+        "text": "Артём Арутюнян 54'",
+        "matchId": "cfu:match:18768",
+        "sourceUrl": "https://www.cfu2015.com/matches/premier-leagueCFU/match_18768/"
       }
     }
   ]

@@ -24,7 +24,7 @@ import requests
 # Support both imports in tests and `python scripts/build_pages.py`.
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts import multi_club_sources, multi_club_schema, multi_club_rosters, multi_club_matches
+from scripts import multi_club_sources, multi_club_schema, multi_club_rosters, multi_club_matches, cfu_sync
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_JSON = 5_000_000
@@ -179,7 +179,7 @@ def published_data(site_url, session=None):
             time.sleep(2)
 
 
-def successful_checkpoint(repository, token, session=None):
+def successful_checkpoint(repository, token, session=None, include_cfu=False):
     """Read the newest successful production checkpoint, never a failed/PR run.
 
     API failures are fatal: ignoring a checkpoint could accept stale CDN data.
@@ -216,9 +216,18 @@ def successful_checkpoint(repository, token, session=None):
                 entries = [n for n in archive.namelist() if n.split("/")[-1] == "data.json"]
                 require(len(entries) == 1, "Checkpoint has no unique data.json")
                 require(archive.getinfo(entries[0]).file_size <= MAX_JSON, "Oversized checkpoint")
-                return decode_json(archive.read(entries[0]))
+                data = decode_json(archive.read(entries[0]))
+                if not include_cfu:
+                    return data
+                states = [n for n in archive.namelist() if n.split('/')[-1] == cfu_sync.PUBLIC_STATE]
+                require(len(states) <= 1, 'Ambiguous CFU checkpoint')
+                cfu = None
+                if states:
+                    require(archive.getinfo(states[0]).file_size <= MAX_JSON, 'Oversized CFU checkpoint')
+                    cfu = cfu_sync.validate_state(json.loads(archive.read(states[0])))
+                return data, cfu
         url = response.links.get("next", {}).get("url")
-    return None
+    return (None, None) if include_cfu else None
 
 
 def football_revision(data):
@@ -316,7 +325,7 @@ def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_
     return accepted
 
 
-def stage_site(source, output, data):
+def stage_site(source, output, data, cfu=None):
     require(not output.exists(), "Output directory already exists")
     output.mkdir(parents=True)
     # Preserve application assets and future static files, exclude build tools.
@@ -332,6 +341,8 @@ def stage_site(source, output, data):
         else:
             shutil.copy2(item, target)
     write_json(output / "data.json", data)
+    if cfu is not None or all((source / name).exists() for name in (cfu_sync.CALENDAR_FILE, cfu_sync.DETAILS_FILE)):
+        cfu_sync.stage(output, cfu if cfu is not None else cfu_sync.seed_state(source))
     (output / ".nojekyll").touch()
     for name in ("index.html", "sw.js", "manifest.json", "icon-192.png", "icon-512.png"):
         require((output / name).is_file(), f"Missing PWA asset: {name}")
@@ -341,16 +352,24 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--site-url", required=True)
     parser.add_argument("--output", type=Path, default=Path("_site"))
+    parser.add_argument('--force-cfu', action='store_true', default=os.environ.get('CFU_FORCE') == 'true',
+                        help='One explicit manual CFU check outside matchday slots')
     args = parser.parse_args()
+    cfu_sync.require_current_workflow(ROOT, os.environ['GITHUB_REPOSITORY'], os.environ['GH_TOKEN'],
+                                       os.environ.get('GITHUB_WORKFLOW_SHA'))
     seed = decode_json((ROOT / "data.json").read_bytes())
     live = published_data(args.site_url)
-    checkpoint = successful_checkpoint(os.environ["GITHUB_REPOSITORY"], os.environ["GH_TOKEN"])
+    checkpoint, cfu_checkpoint = successful_checkpoint(os.environ["GITHUB_REPOSITORY"], os.environ["GH_TOKEN"], include_cfu=True)
     baseline = choose_baseline(seed, live, checkpoint)
+    cfu_baseline = cfu_sync.choose_state(cfu_sync.seed_state(ROOT),
+                                         cfu_sync.published_state(args.site_url), cfu_checkpoint)
     with tempfile.TemporaryDirectory(prefix="sudak-pages-") as directory:
         data = refresh(baseline, Path(directory), platform_loader=multi_club_sources.fetch_season,
                        roster_loader=multi_club_rosters.NetworkLoader(),
                        match_loader=multi_club_matches.NetworkLoader())
-    stage_site(ROOT, args.output, data)
+    cfu = cfu_sync.refresh(cfu_baseline, rosters=json.loads((ROOT / 'cfu-premier-rosters-2026.json').read_text()),
+                           force=args.force_cfu)
+    stage_site(ROOT, args.output, data, cfu=cfu)
     state = ROOT / "_state"
     state.mkdir(exist_ok=True)
     write_json(state / "player_stats_cache_2026.json", data["player_stats_2026"])

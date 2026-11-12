@@ -1,0 +1,26 @@
+{
+  "teams": {
+    "file": "cfu-teams.html",
+    "checkedAt": "2026-11-11T20:17:24.572569+00:00"
+  },
+  "table": {
+    "file": "cfu-table.html",
+    "checkedAt": "2026-11-11T20:16:03.956569+00:00"
+  },
+  "calendar": {
+    "file": "cfu-calendar.html",
+    "checkedAt": "2026-11-11T20:15:43.772569+00:00"
+  },
+  "18766": {
+    "file": "cfu-match-18766.html",
+    "checkedAt": "2026-11-11T20:13:01.548569+00:00"
+  },
+  "18767": {
+    "file": "cfu-match-18767.html",
+    "checkedAt": "2026-11-11T20:12:13.324569+00:00"
+  },
+  "18768": {
+    "file": "cfu-match-18768.html",
+    "checkedAt": "2026-11-11T20:13:34.748569+00:00"
+  }
+}

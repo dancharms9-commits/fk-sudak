@@ -39,7 +39,7 @@ test('published protocol copy is the committed snapshot and stays CFU-only',()=>
   assert.equal(details.provider,'cfu');
   assert.equal(details.competitionKey,'cfu-premier-2026');
   assert.equal(details.season,2026);
-  assert.equal(Object.keys(details.matchesById).length,2);
+  assert.equal(Object.keys(details.matchesById).length,5);
   assert(!JSON.stringify(details).toLowerCase().includes('rffk'));
 });
 

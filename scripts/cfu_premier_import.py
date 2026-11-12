@@ -348,7 +348,7 @@ def parse_match_page(html, season=SEASON):
     round_match = re.search(r'(\d+)-й\s+тур', meta_text)
     label = details.select_one('.labelRow .label')
     status_label = label.get_text(' ', strip=True) if label else None
-    status = STATUS_LABELS.get(status_label.casefold()) if status_label else None
+    status = STATUS_LABELS.get(status_label.casefold().replace('ё', 'е')) if status_label else None
     spans = meta.find_all('span', recursive=False)
     venue = spans[1].get_text(' ', strip=True) if len(spans) > 1 else None
     return {

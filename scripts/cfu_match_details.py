@@ -209,7 +209,8 @@ def parse_match_protocol(html, expected, rosters=None, checked_at=None,
         score = (parsed['homeScore'], parsed['awayScore'])
     goals_complete = False
     if score is not None:
-        goals_complete = (sum(1 for goal in goals if goal['side'] == 'home') == score[0]
+        goals_complete = (parsed['status'] in {'finished', 'technical'}
+                          and sum(1 for goal in goals if goal['side'] == 'home') == score[0]
                           and sum(1 for goal in goals if goal['side'] == 'away') == score[1])
         if not goals_complete:
             event_issues.append({

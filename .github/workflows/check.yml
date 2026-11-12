@@ -8,6 +8,7 @@ on:
       - "fetch_data.py"
       - "update_player_stats.py"
       - "data.json"
+      - "cfu-premier*-2026.json"
       - "sw.js"
       - "manifest.json"
       - "modern-home.css"
@@ -114,6 +115,14 @@ jobs:
       - run: npm install --no-save --package-lock=false playwright@1.48.2
       - run: npx playwright install chromium
       - run: node --test tests/*.test.cjs
+      - name: Package the site snapshot for review (no deployment)
+        run: |
+          python - <<'PYTHON'
+          from scripts.build_pages import ROOT, decode_json, stage_site
+          stage_site(ROOT, ROOT / "_site", decode_json((ROOT / "data.json").read_bytes()))
+          PYTHON
+      - run: node tests/pages-pwa.browser.cjs
+      - run: node tests/cfu-auto-refresh.browser.cjs
       - run: node tests/browser.cjs
       - name: Prepare base HTML for visual comparison
         if: github.event_name == 'pull_request'
@@ -194,13 +203,6 @@ jobs:
             tab-screenshots/
             reload-frames/
           if-no-files-found: ignore
-      - name: Package the site snapshot for review (no deployment)
-        run: |
-          python - <<'PYTHON'
-          from scripts.build_pages import ROOT, decode_json, stage_site
-          stage_site(ROOT, ROOT / "_site", decode_json((ROOT / "data.json").read_bytes()))
-          PYTHON
-      - run: node tests/pages-pwa.browser.cjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
