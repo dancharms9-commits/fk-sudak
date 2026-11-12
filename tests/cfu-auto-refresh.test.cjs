@@ -94,6 +94,13 @@ test('a postponed fixture can advance to a verified played result',()=>{
   assert.equal(ui.run("cfuMatch('cfu:match:18767').homeScore"),2);
 });
 
+test('calendar cards use the already verified protocol status for older fixtures',()=>{
+  const ui=setup();ui.run(`adoptCfuBundle(${JSON.stringify(bundle())})`);
+  const markup=ui.run("cfuMatchHTML(cfuMatch('cfu:match:18763'))");
+  assert.match(markup,/Матч завершен/);
+  assert(!markup.includes('Предварительный счёт'));
+});
+
 test('service worker always passes dynamic results to the network including versioned URLs',()=>{
   const listeners={};
   const context=vm.createContext({URL,self:{location:{origin:'https://example.test'},addEventListener:(name,fn)=>{listeners[name]=fn}}});

@@ -10,6 +10,18 @@ const initial=structuredClone(official),key='cfu:match:18767';
 Object.assign(initial.calendar.matchesById[key],{homeScore:0,awayScore:0,status:null,statusLabel:null});
 delete initial.details.matchesById[key];delete initial.details.sourceMetadata.sources[key];
 initial.sync.pending=[key];
+// Roll the official table back one round for this synthetic older publication.
+// The test must observe changed standings as well as the changed match result.
+initial.calendar.standings.asOfRound=24;
+for(const match of Object.values(official.calendar.matchesById).filter(m=>m.round===25)){
+  for(const [side,other] of [['home','away'],['away','home']]){
+    const row=initial.calendar.standings.rows.find(r=>r.teamId===match[side+'TeamId']);
+    const own=match[side+'Score'],opponent=match[other+'Score'];
+    row.played--;row.wins-=Number(own>opponent);row.draws-=Number(own===opponent);row.losses-=Number(own<opponent);
+    row.goalsFor-=own;row.goalsAgainst-=opponent;row.goalDifference-=own-opponent;
+    row.points-=own>opponent?3:own===opponent?1:0;
+  }
+}
 const revision=Date.parse(official.calendar.sourceMetadata.retrievedAt)+60000;
 let published=initial,rffk=structuredClone(seed),status=200;
 const seen=[];
@@ -50,6 +62,8 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
     assert.equal(await page.locator('.cfu-center-score b').innerText(),'0:0');
     assert.equal(await page.locator('.cfu-center-status').innerText(),'Статус не подтверждён');
+    assert.equal(await page.evaluate(()=>CFU_PREMIER.standings.asOfRound),24);
+    assert.equal(await page.evaluate(()=>CFU_PREMIER.standings.rows[0].points),46);
     await page.evaluate(()=>{window.__controller=navigator.serviceWorker.controller;window.__marker='open-cfu'});
     published=structuredClone(official);published.sync.lastAttemptAt=new Date(revision).toISOString();
     rffk.updated=new Date(Date.parse(seed.updated)+60000).toISOString();
@@ -57,6 +71,7 @@ const server=http.createServer((req,res)=>{
     assert.equal(await page.locator('.cfu-center-score b').innerText(),'2:0');
     assert.equal(await page.locator('.cfu-center-status').innerText(),'Матч завершен');
     assert.equal(await page.evaluate(()=>CFU_PREMIER.standings.asOfRound),25);
+    assert.equal(await page.evaluate(()=>CFU_PREMIER.standings.rows[0].points),49);
     assert((await page.locator('#match').innerText()).includes('Данные КФС проверены:'));
     assert.equal(await page.evaluate(()=>CFU_MATCH_DETAILS.matchesById['cfu:match:18767'].goals.length),2);
     assert.equal(await page.evaluate(()=>Object.keys(PLATFORM.teamsById).length),11);
