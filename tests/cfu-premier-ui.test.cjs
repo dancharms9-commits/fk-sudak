@@ -85,7 +85,7 @@ test('default round is the nearest round without a published score',()=>{
 test('standings keep official order and expose all seven clubs',()=>{
   const markup=ui.run('cfuStandingsHTML()');
   assert(markup.includes('Официальная таблица после 25-го тура'));
-  assert(markup.includes('Проверено: 11.11.2026'));
+  assert(markup.replace(/<[^>]+>/g,'').includes('Проверено: 11.11.2026'));
   assert(markup.indexOf('ФК &quot;Таврия&quot;')<markup.indexOf('ГФК &quot;Ялта&quot;'));
   assert.equal((markup.match(/data-cfu-standing=/g)||[]).length,7);
   assert(markup.includes('https://www.cfu2015.com/matches/premier-leagueCFU/table/?season=2026'));

@@ -78,6 +78,48 @@ const server=http.createServer((req,res)=>{
     assert.equal(await page.evaluate(()=>Object.keys(MATCH_DETAILS).length),16);
     assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('sudak-data-v1')).updated),rffk.updated);
     assert(await page.evaluate(()=>window.__marker==='open-cfu'&&window.__controller===navigator.serviceWorker.controller));
+    // Count the real calls and retain actual DOM nodes across unchanged polls.
+    await page.locator('#nav button[data-t="table"]').click();
+    await page.locator('.cfu-table').waitFor();
+    await page.evaluate(()=>{
+      window.__perf={stringify:0,snapshotStringify:0,writes:0,render:0,table:0};
+      window.__tableNode=document.querySelector('.cfu-table');
+      const stringify=JSON.stringify,setItem=Storage.prototype.setItem,fullRender=render,tableRender=renderChampionship;
+      JSON.stringify=function(value,...args){
+        __perf.stringify++;if(value&&(value.updated&&value.table||value.calendar&&value.details))__perf.snapshotStringify++;
+        return stringify.call(this,value,...args);
+      };
+      Storage.prototype.setItem=function(...args){__perf.writes++;return setItem.apply(this,args)};
+      render=function(...args){__perf.render++;return fullRender(...args)};
+      renderChampionship=function(...args){__perf.table++;return tableRender(...args)};
+    });
+    for(let i=0;i<3;i++)await poll();
+    assert.deepEqual(await page.evaluate(()=>({...__perf})),{stringify:0,snapshotStringify:0,writes:0,render:0,table:0});
+    assert(await page.evaluate(()=>__tableNode===document.querySelector('.cfu-table')&&__tableNode.isConnected));
+    published.sync.lastSuccessAt=new Date(revision).toISOString();await poll();
+    assert.equal(await page.evaluate(()=>__perf.snapshotStringify),1);
+    assert.equal(await page.evaluate(()=>__perf.writes),1);
+    assert.equal(await page.evaluate(()=>__perf.table),0);
+    assert.equal(await page.evaluate(()=>__perf.render),0);
+    assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('sudak-cfu-sync-v1')).sync.lastSuccessAt),published.sync.lastSuccessAt);
+    assert.equal(await page.locator('#table [data-cfu-status]').innerHTML(),await page.evaluate(()=>cfuStatusNote()));
+    published.sync.error='Source conflict';await poll();
+    assert((await page.locator('#table [data-cfu-status]').innerText()).includes('конфликт'));
+    published.sync.error=null;published.sync.pending=[key];await poll();
+    assert((await page.locator('#table [data-cfu-status]').innerText()).includes('Ожидается официальное подтверждение'));
+    published.sync.pending=[];
+    published.calendar.sourceMetadata.sections.table.checkedAt='2026-11-12T02:00:00Z';await poll();
+    assert.equal(await page.locator('[data-cfu-table-checked]').innerText(),'12.11.2026');
+    assert(!(await page.locator('#table [data-cfu-status]').innerText()).includes('Ожидается официальное подтверждение'));
+    assert(await page.evaluate(()=>__tableNode===document.querySelector('.cfu-table')&&__tableNode.isConnected));
+    assert.equal(await page.evaluate(()=>__perf.table),0);
+    await page.evaluate(()=>{location.hash='#match=cfu%3Amatch%3A18767'});
+    await page.locator('.cfu-center-score b').waitFor();
+    await page.evaluate(()=>{window.__scoreNode=document.querySelector('.cfu-center-score')});
+    published.details.matchesById[key].checkedAt='2026-11-12T02:00:00Z';await poll();
+    assert.equal(await page.locator('[data-cfu-protocol-checked]').innerText(),'12.11.2026');
+    assert(await page.evaluate(()=>__scoreNode===document.querySelector('.cfu-center-score')&&__scoreNode.isConnected));
+    console.log('PASS operation counters: 3 equal RFFK/CFU polls = 0 stringify/storage/full/table renders; CFU metadata retains real table and score nodes');
     const latest=published.sync.lastAttemptAt;
     published=initial;await poll();
     assert.equal(await page.locator('.cfu-center-score b').innerText(),'2:0');
