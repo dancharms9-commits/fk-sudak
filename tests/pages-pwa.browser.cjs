@@ -85,5 +85,22 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(stamp=>JSON.parse(localStorage.getItem('sudak-data-v1')).updated===stamp,published.updated);
     assert.deepEqual(errors,[]);
     console.log('PASS stale CDN + HTTP 503 preserve last-good data; offline reload retains 16 protocols, 41 profiles, portraits and 22 rounds; reconnect updates without reload');
+    // The real RFFK ranking turnover used to discard this whole calendar.
+    const recovered=require('./rffk-refresh-fixtures.cjs').new;
+    await page.locator('#champ-round').selectOption('19');
+    await page.locator('#champ-team').selectOption('all');
+    published=recovered;await page.evaluate(()=>window.__poll());
+    await page.waitForFunction(stamp=>JSON.parse(localStorage.getItem('sudak-data-v1')).updated===stamp,recovered.updated);
+    const row=page.locator('[data-champ-match="4:2026:19:930:117"]');
+    assert.equal(await row.locator('.champ-score').textContent(),'1:4');
+    await row.locator('.champ-open').click();
+    await page.waitForFunction(()=>location.hash.includes('rffk-38768'));
+    assert.equal((await page.locator('#match .center-score-numbers').textContent()).replace(/\s/g,''),'1:4');
+    assert(await page.locator('#match a[href="https://rffk-roo.ru/matches/38768/"]').count());
+    await context.setOffline(true);await page.reload();await ready();
+    assert.equal((await page.locator('#match .center-score-numbers').textContent()).replace(/\s/g,''),'1:4');
+    assert.equal(await revision(),recovered.updated);
+    assert.deepEqual(errors,[]);
+    console.log('PASS official RFFK match 38768: new revision renders 1:4 in round 19 and match center; real SW offline reload retains the recovered result');
   }finally{await context.close();await browser.close();await new Promise(r=>server.close(r))}
 })().catch(error=>{console.error(error);process.exitCode=1});

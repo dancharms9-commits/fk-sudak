@@ -116,7 +116,8 @@ def project_snapshot(data, previous=None, source_updated_at=None):
         p['matchesById'][key] = {
             'matchId': key, 'competitionId': '4', 'seasonId': '22', 'roundId': raw['round_id'],
             'homeTeamId': raw['home_id'], 'awayTeamId': raw['away_id'],
-            'sourceMatchId': raw['source_id'], 'sourceUrl': raw['source_url'],
+            'sourceMatchId': raw['source_id'] or old_match.get('sourceMatchId'),
+            'sourceUrl': raw['source_url'] or old_match.get('sourceUrl'),
             'date': raw['date'], 'time': raw['time'], 'timeZone': 'Europe/Moscow', 'venue': raw['venue'],
             'homeScore': raw['home_score'], 'awayScore': raw['away_score'], 'status': raw['status'],
             'quality': quality(SEASON_URL, verified=calendar.get('updated'))}
@@ -225,5 +226,8 @@ def update_platform(data, previous=None, loader=None, checked_at=None, source_up
             q.update(status='stale' if table['rows'] else 'temporarily_unavailable', checkedAt=now,
                      reason='standings_source_unavailable', lastAttemptStatus='temporarily_unavailable',
                      errorCode=type(exc).__name__)
+            error = str(exc).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+            print(f'::warning::platform.standings[{SEASON_KEY}]: {type(exc).__name__}: {error}; '
+                  f'retained {len(table["rows"])} official rows, lastVerifiedAt={q["lastVerifiedAt"]}; calendar preserved independently')
     validate_platform(p, previous)
     return p

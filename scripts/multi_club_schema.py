@@ -123,6 +123,7 @@ def match_record(key, m, teams):
 
 def validate_platform(p, previous=None):
     """Validate populated models and their foreign keys; old root JSON is optional."""
+    location = 'platform'
     try:
         require(isinstance(p, dict) and type(p['schemaVersion']) is int
                 and p['schemaVersion'] == 1 and p['provider'] == 'rffk', 'Unknown platform schema')
@@ -132,6 +133,7 @@ def validate_platform(p, previous=None):
         teams = p['teamsById']
         require(set(teams) == TEAM_IDS and len(teams) == 11, 'Expected exactly 11 clubs')
         for key, t in teams.items():
+            location = f'platform.teamsById[{key}]'
             require(t['teamId'] == key and t['sourceTeamId'] == key and t['provider'] == 'rffk',
                     'Club identity mismatch')
             require(source_id(t['sourceUrl'], 'teams') == key, 'Wrong club URL')
@@ -141,6 +143,7 @@ def validate_platform(p, previous=None):
             require(t['branding']['accent'] is None, 'Unaudited branding')
             quality(t['quality'])
         seasons = p['competitionSeasons']
+        location = 'platform.competitionSeasons[4:22]'
         require(set(seasons) == {SEASON_KEY}, 'Unexpected season')
         season = seasons[SEASON_KEY]
         context(season)
@@ -221,11 +224,13 @@ def validate_platform(p, previous=None):
         matches = p['matchesById']
         protocol_ids = []
         for key, m in matches.items():
+            location = f'platform.matchesById[{key}] sourceMatchId={m.get("sourceMatchId")}'
             match_record(key, m, teams)
             if m['sourceMatchId']:
                 protocol_ids.append(m['sourceMatchId'])
         require(len(protocol_ids) == len(set(protocol_ids)), 'Duplicate source match ID')
         for key, stats in p['playerSeasonStats'].items():
+            location = f'platform.playerSeasonStats[{key}]'
             context(stats)
             require(stats['playerId'] in players and key == f"{stats['playerId']}:{stats['teamId']}:4:22",
                     'Invalid player statistics key')
@@ -258,6 +263,7 @@ def validate_platform(p, previous=None):
                 require(isinstance(unknown, list) and len(unknown) == len(set(unknown)) and all(isinstance(mid, str) and mid.isdigit() and int(mid) > 0 for mid in unknown) and not (set(unknown) & set(ids)), 'Invalid unresolved match evidence')
                 require(all(mid in known and stats['teamId'] in {known[mid]['homeTeamId'], known[mid]['awayTeamId']} for mid in ids), 'Wrong statistics match binding')
         for key, table in p['standings'].items():
+            location = f'platform.standings[{key}]'
             require(key == SEASON_KEY, 'Wrong standings key')
             context(table)
             quality(table['quality'])
@@ -275,6 +281,7 @@ def validate_platform(p, previous=None):
                 require(row['wins'] + row['draws'] + row['losses'] == row['played']
                         and row['goalsFor'] - row['goalsAgainst'] == row['goalDifference'], 'Inconsistent standings')
         for key, protocol in p['protocolsByMatchId'].items():
+            location = f'platform.protocolsByMatchId[{key}] sourceMatchId={protocol.get("sourceMatchId")}'
             require(key in matches and protocol['matchId'] == key, 'Orphan protocol')
             m = matches[key]
             require(protocol['sourceMatchId'] == m['sourceMatchId']
@@ -341,16 +348,28 @@ def validate_platform(p, previous=None):
             require(any(raw['record'][f] not in teams for f in ('home_id', 'away_id')), 'Resolved match quarantined')
             require(raw['reason'] == 'identity_not_confirmed', 'Invalid unresolved reason')
         if previous is not None:
+            location = 'platform.retention'
             validate_platform(previous)
             require(stamp(p['sourceUpdatedAt']) >= stamp(previous['sourceUpdatedAt']), 'Older platform snapshot')
             for name in COLLECTIONS:
-                require(previous[name].keys() <= p[name].keys(), 'Lost platform collection: ' + name)
+                missing = previous[name].keys() - p[name].keys()
+                require(not missing, f'Lost platform collection: {name}, IDs={sorted(missing)}')
+            for key, old in previous['matchesById'].items():
+                location = f'platform.matchesById[{key}] sourceMatchId={old["sourceMatchId"]}'
+                new = matches[key]
+                require(not old['sourceMatchId'] or new['sourceMatchId'] == old['sourceMatchId'], 'Changed official match ID')
+                if old['status'] in {'finished', 'technical'} and old['homeScore'] is not None:
+                    require(all(new[f] == old[f] for f in ('status', 'date', 'homeScore', 'awayScore')),
+                            'Lost or conflicting confirmed result')
             for key, old in previous['rosters'].items():
+                location = f'platform.rosters[{key}]'
                 require(set(old['playerIds']) <= set(p['rosters'][key]['playerIds']), 'Lost roster players')
             for key, old in previous['playerSeasonStats'].items():
+                location = f'platform.playerSeasonStats[{key}]'
                 require(all(old[field] is None or p['playerSeasonStats'][key][field] is not None
                             for field in STATS), 'Lost confirmed statistic')
             for key, old in previous['standings'].items():
+                location = f'platform.standings[{key}]'
                 table = p['standings'][key]
                 require(not old['rows'] or bool(table['rows']), 'Lost standings')
                 old_time = old['quality']['lastVerifiedAt']
@@ -358,6 +377,7 @@ def validate_platform(p, previous=None):
                 require(old_time is None or (new_time is not None and stamp(new_time) >= stamp(old_time)),
                         'Older verified standings')
             for key, old in previous['protocolsByMatchId'].items():
+                location = f'platform.protocolsByMatchId[{key}]'
                 new = p['protocolsByMatchId'][key]
                 require(len(new['events']) >= len(old['events']), 'Lost protocol events')
                 require(not old['eventsComplete'] or new['eventsComplete'], 'Lost complete protocol')
@@ -373,5 +393,5 @@ def validate_platform(p, previous=None):
                 require(previous['unresolvedSourceRecords'][name].keys() <= unresolved[name].keys(),
                         'Lost unresolved source history')
     except (KeyError, TypeError, AttributeError, IndexError, ValueError) as exc:
-        raise InvalidPlatform(str(exc)) from exc
+        raise InvalidPlatform(f'{location}: {exc}') from exc
     return p

@@ -819,6 +819,78 @@ def parse_championship_scorers(soup, teams):
     return {"players": players, "coverage": "published_list"}
 
 
+def retain_calendar_source_ids(calendar, previous):
+    """Keep verified URLs when the source's rotating teaser stops linking them."""
+    by_id = {m['id']: m for m in previous.get('matches', [])}
+    for match in calendar['matches']:
+        prior = by_id.get(match['id'], {})
+        if not match['source_id'] and prior.get('source_id'):
+            match.update(source_id=prior['source_id'], source_url=prior['source_url'])
+
+
+def check_calendar_update(calendar, previous=None):
+    """Check a complete calendar before promoting this independent section."""
+    def check(ok, rule):
+        if not ok:
+            raise ValueError(f"championship.calendar: {rule}")
+    matches = {m['id']: m for m in calendar['matches']}
+    rounds = {r['id'] for r in calendar['rounds']}
+    teams = {t['id'] for t in calendar['teams']}
+    check(len(matches) == len(calendar['matches']), 'Duplicate match ID')
+    for key, m in matches.items():
+        check(key == f"4:2026:{m['round_id']}:{m['home_id']}:{m['away_id']}", f'{key}: Wrong match identity')
+        check(m['round_id'] in rounds and {m['home_id'], m['away_id']} <= teams, f'{key}: Unknown round/team')
+        scores = [m['home_score'], m['away_score']]
+        check(m['status'] in {'finished', 'technical', 'scheduled', 'postponed', 'cancelled', 'suspended'}, f'{key}: Invalid status')
+        check((all(type(n) is int and n >= 0 for n in scores) if m['status'] in {'finished', 'technical'}
+               else scores == [None, None]), f'{key}: Incomplete or unplayed score')
+        check((m['source_id'] is None and m['source_url'] is None) or
+              (isinstance(m['source_id'], str) and m['source_id'].isdigit() and
+               m['source_url'] == f"{BASE}/matches/{m['source_id']}/"), f'{key}: Invalid official source ID')
+    source_ids = [m['source_id'] for m in matches.values() if m['source_id']]
+    check(len(source_ids) == len(set(source_ids)), 'Duplicate official source ID')
+    if previous:
+        for field in ('rounds', 'teams', 'matches'):
+            missing = {r['id'] for r in previous[field]} - {r['id'] for r in calendar[field]}
+            check(not missing, f'Lost published {field}: {sorted(missing)}')
+        for old in previous['matches']:
+            key, new = old['id'], matches[old['id']]
+            if old['source_id']:
+                check(new['source_id'] == old['source_id'], f'{key}: Changed official source ID {old["source_id"]} -> {new["source_id"]}')
+            if old['status'] in {'finished', 'technical'} and old['home_score'] is not None:
+                check(all(new[f] == old[f] for f in ('status', 'date', 'home_score', 'away_score')),
+                      f'{key} source_id={old["source_id"]}: Lost or conflicting confirmed result')
+
+
+def check_scorers_update(scorers, previous=None):
+    """A published ranking is a bounded list, not the historical player catalog.
+
+    Turnover at its goal cutoff is valid; a missing higher scorer or a shorter
+    response is still rejected. Player profiles/statistics live independently.
+    """
+    def check(ok, rule):
+        if not ok:
+            raise ValueError(f"championship.scorers: {rule}")
+    players = scorers['players']
+    check(bool(players), 'Empty published ranking')
+    ids = {p['id'] for p in players}
+    check(len(ids) == len(players), 'Duplicate player ID')
+    last_goals, last_rank = None, 0
+    for p in players:
+        check(type(p['goals']) is int and p['goals'] >= 0 and type(p['rank']) is int
+              and p['rank'] >= last_rank and p['rank'] >= 1, f'player_id={p["id"]}: Invalid goals/rank')
+        check(last_goals is None or p['goals'] <= last_goals, f'player_id={p["id"]}: Inconsistent ranking order')
+        check(p['rank'] != last_rank or p['goals'] == last_goals, f'player_id={p["id"]}: Inconsistent tied rank')
+        last_goals, last_rank = p['goals'], p['rank']
+    if previous:
+        check(len(players) >= len(previous['players']), 'Lost championship players: truncated published ranking')
+        for old in previous['players']:
+            if old['id'] not in ids:
+                check(scorers.get('coverage') == previous.get('coverage') == 'published_list'
+                      and old['goals'] <= players[-1]['goals'],
+                      f'Lost championship players: player_id={old["id"]}, goals={old["goals"]}, cutoff={players[-1]["goals"]}')
+
+
 def update_championship(previous=None, loader=None, club_details=None):
     """Independent last-good snapshots: a failed section cannot erase another."""
     import copy
@@ -832,30 +904,29 @@ def update_championship(previous=None, loader=None, club_details=None):
     except (requests.RequestException, ValueError, TypeError) as exc:
         for name in ("calendar", "scorers"):
             hub.setdefault(name, {})["stale"] = True
-        print(f"Чемпионат: источник недоступен ({type(exc).__name__}); сохранены прежние данные")
+        print(f"::warning::championship.calendar/scorers: {type(exc).__name__}: {exc}; сохранены прежние данные и даты подтверждения")
         return hub
     source = urljoin(BASE, path)
     for name in ("calendar", "scorers"):
         try:
             if name == "calendar":
                 parsed = parse_championship_calendar(page)
-                # Catch truncated responses while allowing empty newly announced rounds.
                 old = hub.get(name, {})
-                old_ids = {r["id"] for r in old.get("rounds", [])}
-                if not old_ids.issubset({r["id"] for r in parsed["rounds"]}):
-                    raise ValueError("Ответ потерял опубликованные туры")
-                if len(parsed["matches"]) < len(old.get("matches", [])):
-                    raise ValueError("Ответ потерял опубликованные матчи")
+                retain_calendar_source_ids(parsed, old)
+                check_calendar_update(parsed, old)
             else:
                 parsed = parse_championship_scorers(page, hub.get("calendar", {}).get("teams", []))
-                if len(parsed["players"]) < len(hub.get(name, {}).get("players", [])):
-                    raise ValueError("Ответ потерял часть рейтинга")
+                old = hub.get(name, {})
+                check_scorers_update(parsed, old)
+                removed = {p['id'] for p in old.get('players', [])} - {p['id'] for p in parsed['players']}
+                if removed:
+                    print(f"championship.scorers: обновлён опубликованный список; выбыли ID={sorted(removed)}; профили и статистика сохранены отдельно")
             hub[name] = {**parsed, "source_url": source,
                          "updated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
                          "stale": False}
         except (ValueError, TypeError, KeyError, AttributeError) as exc:
             hub.setdefault(name, {})["stale"] = True
-            print(f"Чемпионат, {name}: {exc}; сохранены прежние данные")
+            print(f"::warning::championship.{name}: {type(exc).__name__}: {exc}; сохранены прежние данные, updated={hub[name].get('updated')}; другой раздел проверяется независимо")
     # Strict source IDs join the two calendars. No opponent/date-only guesswork.
     details_by_id = {str(d["id"]): (key, d) for key, d in (club_details or {}).items() if d.get("id")}
     for match in hub.get("calendar", {}).get("matches", []):
