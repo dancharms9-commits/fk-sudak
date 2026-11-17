@@ -67,10 +67,14 @@ const server=http.createServer((req,res)=>{
    }
   }
   console.log('PASS profiles from all 10 foreign rosters × 320/390/768 × light/dark; published goals match exact club context');
+  const registrationIds=(snapshot,id)=>Object.values(snapshot.platform.registrations)
+    .filter(reg=>reg.playerId===id).map(reg=>reg.registrationId);
+  const displayedRegistrations=()=>p.locator('#player [data-registration]').evaluateAll(rows=>rows.map(row=>row.dataset.registration));
   for(const [tid,goals,minutes] of [['117','1','337'],['146','6','445']]){
    await p.goto(base+`#player=rffk-1698&team=${tid}&competition=4&season=22`);await ready(p);
    assert.equal(await p.locator('#player [data-stat="league_goals"] b').innerText(),goals);
    assert.equal(await p.locator('#player [data-stat="league_minutes"] b').innerText(),minutes);
+   assert.deepEqual(await displayedRegistrations(),registrationIds(data,'1698'));
    await p.locator('#player-back').click();await p.locator('#team.on').waitFor();assert.equal(await p.locator('#team-title').innerText(),data.platform.teamsById[tid].name);
   }
   for(const hash of ['#player=rffk-999999&team=936&competition=4&season=22','#player=rffk-1698&team=117&competition=4&season=20','#player=rffk-1698&team=1029&competition=4&season=22']){
@@ -91,18 +95,28 @@ const server=http.createServer((req,res)=>{
   assert.equal(await p.locator('#player [data-stat="league_minutes"] b').innerText(),'—');assert.equal(await p.locator('#player [data-stat="league_yellow_cards"] b').innerText(),'0');
   const r=payload.platform.rosters['4:22:936'],unknown=r.unverifiedPlayerIds[0];
   if(unknown){await p.goto(base+`#player=rffk-${unknown}&team=936&competition=4&season=22`);await ready(p);assert((await p.locator('#player').innerText()).includes('не подтверждена'))}
-  payload=structuredClone(data);payload.updated=new Date(Date.parse(data.updated)+2000).toISOString();
-  const hr=payload.platform.rosters['4:22:936'],historicalId=hr.playerIds[0];
+  const historical=structuredClone(data);historical.updated=new Date(Date.parse(data.updated)+2000).toISOString();
+  const hr=historical.platform.rosters['4:22:936'],historicalId=hr.playerIds[0];
   hr.playerIds=hr.playerIds.filter(id=>id!==historicalId);hr.historicalPlayerIds=[historicalId];
   hr.unverifiedPlayerIds=hr.unverifiedPlayerIds.filter(id=>id!==historicalId);
-  delete payload.platform.playerSeasonStats[`${historicalId}:936:4:22`];
-  for(const [key,reg] of Object.entries(payload.platform.registrations))if(reg.playerId===historicalId&&reg.teamId==='936'){
-   if(reg.scope==='competition_season')delete payload.platform.registrations[key];
+  delete historical.platform.playerSeasonStats[`${historicalId}:936:4:22`];
+  for(const [key,reg] of Object.entries(historical.platform.registrations))if(reg.playerId===historicalId&&reg.teamId==='936'){
+   if(reg.scope==='competition_season')delete historical.platform.registrations[key];
    else{reg.registeredAt='2025-01-01';reg.releasedAt='2025-12-31'}
   }
-  await p.goto(base+`#player=rffk-${historicalId}&team=936&competition=4&season=22`);await p.reload();await ready(p);
+  await p.goto(base+`#player=rffk-${historicalId}&team=936&competition=4&season=22`);await ready(p);
+  await p.waitForFunction(name=>document.getElementById('player-title')?.textContent===name,data.platform.playersById[historicalId].name);
+  const originalIds=await displayedRegistrations();
+  assert.deepEqual(originalIds,registrationIds(data,historicalId));
+  assert.match(await p.locator('#player .profile-season').innerText(),/Клуб в чемпионате/);
+  payload=historical;
+  await p.evaluate(()=>refreshData(true));
+  const updatedIds=await displayedRegistrations();
+  assert(updatedIds.length<originalIds.length);
+  assert.deepEqual(updatedIds,registrationIds(historical,historicalId));
   assert((await p.locator('#player').innerText()).includes('Историческая связь с клубом'));
   assert.equal(await p.locator('#player [data-stat="league_games"] b').innerText(),'—');
+  console.log('PASS live snapshot replaces registration periods in place and preserves historical club state');
   payload=structuredClone(data);payload.updated=new Date(Date.parse(data.updated)+3000).toISOString();const er=payload.platform.rosters['4:22:936'];
   er.playerIds=[];er.clubPlayerIds=[];er.entriesByPlayerId={};er.unverifiedPlayerIds=[];er.historicalPlayerIds=[];
   er.clubListQuality={...er.clubListQuality,status:'temporarily_unavailable',lastVerifiedAt:null,lastSuccessAt:null};
