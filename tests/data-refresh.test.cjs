@@ -108,7 +108,10 @@ for(const [label,mutate,warning] of [
 test('pending and error disappearance remove warnings without table replacement',async()=>{
   for(const field of ['pending','error']){
     const initial=bundle();initial.sync[field]=field==='pending'?[cfuKey]:'Conflict';
-    const ui=setup(savedCfu(initial));ui.run('renderChampionship()');ui.reset();ui.respond(null,bundle());
+    const ui=setup(savedCfu(initial));
+    // Isolate the sync warnings from staleness of the fixture after the matchday.
+    ui.run(`Date.now=()=>${Date.parse(initial.sync.lastSuccessAt)};renderChampionship()`);
+    ui.reset();ui.respond(null,bundle());
     await ui.run('loadCfuPremier()');assert.equal(ui.counts.writes,1);assert.equal(ui.counts.cfuTableRender,0);
     assert(!ui.node('table').querySelector('[data-cfu-status]').innerHTML.includes('cfu-warning'));
   }
