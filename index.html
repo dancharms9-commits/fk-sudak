@@ -2355,7 +2355,7 @@ function cfuPhotoPath(player){
 }
 function cfuAvatarHTML(player,photoPath,lazy=false){
   const initials=player.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join('');
-  return `<span>${esc(initials)}</span>${photoPath?`<img class="cfu-photo-pending" data-cfu-photo="${esc(photoPath)}" alt="" decoding="async"${lazy?' loading="lazy"':''}>`:''}`;
+  return `<span aria-hidden="true">${esc(initials)}</span>${photoPath?`<img class="cfu-photo-pending" data-cfu-photo="${esc(photoPath)}" alt="" decoding="async"${lazy?' loading="lazy"':''}>`:''}`;
 }
 function loadCfuAvatars(root){
   for(const image of root.querySelectorAll('img[data-cfu-photo]')){
@@ -2903,8 +2903,8 @@ function renderCfuPlayer(route){
   const sourceHTML=source?`<p class="hint"><a class="club-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">${photoPath?'Источник фото · профиль на сайте КФС':'Профиль на сайте КФС'} ↗</a></p>`:'';
   const checked=primary?cfuRosterCheckedAt(primary.roster):'дата проверки не указана';
   const heroDereg=primary?.entry?.deregisteredAt?'<span class="cfu-deregistered">Отзаявлен</span>':'';
-  root.innerHTML=back+`<div class="card player-hero"><div class="player-avatar" aria-hidden="true">${cfuAvatarHTML(player,photoPath)}</div><div><h2 id="player-title" tabindex="-1">${esc(player.name)}</h2><p class="stats-role">${position}${primary&&Number.isInteger(primary.entry.shirtNumber)?' · № '+primary.entry.shirtNumber:''} ${heroDereg}</p><div class="profile-club">${teamHTML}</div><p class="profile-season">Премьер-лига КФС · сезон 2026</p></div></div><h2 class="profile-competition">Чемпионат Премьер-лиги КФС · 2026</h2><div class="card profile-statistics"><dl class="profile-secondary"><div><dt>Дата рождения</dt><dd>${player.dateOfBirth?esc(cfuDateLabel(player.dateOfBirth)):'Не опубликована'}</dd></div><div><dt>Позиция</dt><dd>${position}</dd></div><div><dt>Игровой номер</dt><dd>${number}</dd></div></dl><p class="hint">Статистика матчей и голов для этого профиля не импортирована.</p></div>${dereg}${othersHTML}${sourceHTML}<p class="hint">Проверено: ${esc(checked)}.</p>`;
-  loadCfuAvatars(root);
+  root.innerHTML=back+`<div class="card player-hero"><div class="player-avatar">${cfuAvatarHTML(player,photoPath)}</div><div><h2 id="player-title" tabindex="-1">${esc(player.name)}</h2><p class="stats-role">${position}${primary&&Number.isInteger(primary.entry.shirtNumber)?' · № '+primary.entry.shirtNumber:''} ${heroDereg}</p><div class="profile-club">${teamHTML}</div><p class="profile-season">Премьер-лига КФС · сезон 2026</p></div></div><h2 class="profile-competition">Чемпионат Премьер-лиги КФС · 2026</h2><div class="card profile-statistics"><dl class="profile-secondary"><div><dt>Дата рождения</dt><dd>${player.dateOfBirth?esc(cfuDateLabel(player.dateOfBirth)):'Не опубликована'}</dd></div><div><dt>Позиция</dt><dd>${position}</dd></div><div><dt>Игровой номер</dt><dd>${number}</dd></div></dl><p class="hint">Статистика матчей и голов для этого профиля не импортирована.</p></div>${dereg}${othersHTML}${sourceHTML}<p class="hint">Проверено: ${esc(checked)}.</p>`;
+  if(photoPath)loadCfuAvatars(root);
   document.title=player.name+' · ФК «Судак»';
 }
 function renderCfuClub(route){

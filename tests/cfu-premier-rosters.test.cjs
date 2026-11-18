@@ -189,7 +189,7 @@ test('unsafe optional photo never becomes an image and leaves the roster readabl
     roster.playersById[id].photo={...photo,...patch};
     run(`CFU_ROSTERS=${JSON.stringify(roster)};renderCfuPlayer({player:'${id}'});true`);
     assert.equal(run('validCfuRosters(CFU_ROSTERS)'),true);
-    assert(node('player').innerHTML.includes('<span>ВМ</span>'));
+    assert(node('player').innerHTML.includes('<span aria-hidden="true">ВМ</span>'));
     assert(!node('player').innerHTML.includes('data-cfu-photo'));
   }
 });
