@@ -8,6 +8,7 @@ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
 const cacheName=fs.readFileSync(path.join(root,'sw.js'),'utf8').match(/const CACHE="([^"]+)"/)[1];
 const tabs=['home','matches','table','squad','news'];
+const {rfkUpdate,bundle}=require('./data-refresh-harness.cjs');
 let previousWorker=false;
 const server=http.createServer((req,res)=>{
   const pathname=new URL(req.url,'http://localhost').pathname.replace(/^\/fk-sudak(?=\/)/,'');
@@ -24,7 +25,13 @@ const server=http.createServer((req,res)=>{
 });
 
 function observeInitialContent(){
-  const probe=window.initialContent={samples:[],animations:[],ready:false,done:false};
+  const probe=window.initialContent={samples:[],animations:[],writes:[],ready:false,done:false};
+  const innerHTML=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');
+  Object.defineProperty(Element.prototype,'innerHTML',{...innerHTML,set(value){
+    if(this.matches('main > section'))probe.writes.push(this.id);
+    else if(this.matches('#home > [data-home-block]'))probe.writes.push('home:'+this.dataset.homeBlock);
+    innerHTML.set.call(this,value);
+  }});
   const sample=source=>{
     const covered=!!document.querySelector('#launch-splash:not([hidden])');
     const sections=[...document.querySelectorAll('main>section')].filter(el=>el.textContent.trim()).map(el=>{
@@ -45,7 +52,12 @@ function observeInitialContent(){
   };
   const observer=new MutationObserver(()=>sample('mutation'));
   observer.observe(document,{subtree:true,childList:true,attributes:true,attributeFilter:['class','hidden']});
-  window.addEventListener('sudak:ready',()=>{sample('ready');probe.ready=true},{once:true});
+  window.addEventListener('sudak:ready',()=>{
+    sample('ready');
+    probe.initialWrites=probe.writes.slice();
+    probe.initialSections=[...document.querySelectorAll('main > section')].filter(el=>el.childElementCount).map(el=>el.id);
+    probe.ready=true;
+  },{once:true});
   document.addEventListener('DOMContentLoaded',()=>sample('DOMContentLoaded'),{once:true});
   let readyFrame;
   function frame(time){
@@ -82,9 +94,14 @@ function observeInitialContent(){
     await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));
     await new Promise(requestAnimationFrame);
   });
+  const checkInitialWrites=(probe,section)=>{
+    assert.deepEqual(probe.initialSections,[section]);
+    assert.deepEqual(probe.initialWrites,section==='home'?['home:intro','home:featured','home:dashboard']:[section]);
+  };
   const check=async(page,section,label,{reload=true}={})=>{
     await page.waitForFunction(()=>initialContent.done);
     const probe=await page.evaluate(()=>initialContent);
+    checkInitialWrites(probe,section);
     if(process.env.VISUAL_SCREENSHOT_DIR){
       fs.mkdirSync(process.env.VISUAL_SCREENSHOT_DIR,{recursive:true});
       fs.writeFileSync(path.join(process.env.VISUAL_SCREENSHOT_DIR,label+'.json'),JSON.stringify(probe,null,2));
@@ -109,7 +126,45 @@ function observeInitialContent(){
   };
   try{
     // This is the red test: open app -> switch from home -> real document reload.
-    let page=await setup();await page.goto(base);await ready(page);
+    let page=await setup();
+    await page.route(/\/cfu-sync-2026\.json\?v=/,route=>route.fulfill({json:bundle()}));
+    await page.goto(base);await ready(page);
+    checkInitialWrites(await page.evaluate(()=>initialContent),'home');
+    await page.waitForFunction(()=>CFU_BUNDLE&&!CFU_LOADING&&!CFU_ROSTERS_LOADING);
+    assert.equal(await page.locator('#table').innerHTML(),'','CFU loaded while the championship had never opened');
+    const visit=async section=>{
+      await page.locator(`#nav [data-t="${section}"]`).click();
+      await page.locator(`#${section}.on`).waitFor();
+      await settle(page);
+    };
+    await page.evaluate(()=>{initialContent.writes.length=0});
+    for(const section of [...tabs.slice(1),'home'])await visit(section);
+    assert.deepEqual(await page.evaluate(()=>initialContent.writes),tabs.slice(1));
+    await page.evaluate(()=>{initialContent.writes.length=0});
+    for(const section of [...tabs.slice(1),'home'])await visit(section);
+    assert.deepEqual(await page.evaluate(()=>initialContent.writes),[]);
+    await visit('table');
+    await page.locator('#table [data-competition="cfu"]').click();
+    assert.equal(await page.locator('#table .cfu-table tbody tr').count(),7);
+    await page.locator('#table [data-competition="rfk"]').click();
+    assert.equal(await page.locator('#table .champ-standing tbody tr').count(),data.table.length);
+
+    await visit('matches');
+    const next=rfkUpdate();
+    next.player_stats_2026.players.find(p=>p.name==='Донской Илья').name='Донской Илья (новая запись)';
+    await page.route(/\/data\.json\?v=/,route=>route.fulfill({json:next}));
+    await page.evaluate(async()=>{
+      initialContent.writes.length=0;
+      await refreshData(true);
+    });
+    assert.deepEqual(await page.evaluate(()=>initialContent.writes),['matches']);
+    assert.equal(await page.locator('#matches .result-link .sc').first().textContent(),`${next.res[0][2]}:${next.res[0][3]} ›`);
+    assert(!(await page.locator('#squad').innerHTML()).includes('новая запись'));
+    await visit('squad');
+    assert.deepEqual(await page.evaluate(()=>initialContent.writes),['matches','squad']);
+    assert((await page.locator('#squad').innerHTML()).includes('Донской Илья (новая запись)'));
+    console.log('PASS Chromium DOM writes: cold home only, one first write per tab, zero on repeats, active refresh and deferred hidden update');
+    page=await setup();await page.goto(base);await ready(page);
     await page.locator('#nav [data-t="squad"]').click();await settle(page);
     await page.reload();await check(page,'squad','regression-squad-reload');
     console.log('PASS early reload regression: no home in any initial sample/frame');
@@ -118,7 +173,7 @@ function observeInitialContent(){
     const shellSections=[...html.matchAll(/<section id="([^"]+)"[^>]*>([\s\S]*?)<\/section>/g)];
     assert.deepEqual(shellSections.map(([,id])=>id),['home','matches','table','squad','news','match','player','team']);
     assert(shellSections.every(([,id,content])=>content===''),'Parser shell has no populated default route');
-    assert(/restoreSavedData\(\);\s*render\(\);\s*applyRoute\(true\);/.test(html),'Render and route must share a synchronous inline task');
+    assert(/restoreSavedData\(\);\s*applyRoute\(true\);\s*window\.dispatchEvent\(new Event\("sudak:ready"\)\);/.test(html),'Render and route must share a synchronous inline task');
     // All five actual tab clicks/reloads, every requested viewport/theme/motion.
     for(const width of [320,390,768,1440])for(const colorScheme of ['light','dark'])for(const reducedMotion of ['no-preference','reduce']){
       await page.setViewportSize({width,height:844});await page.emulateMedia({colorScheme,reducedMotion});
@@ -133,11 +188,24 @@ function observeInitialContent(){
     const row=data.res[0],matchKey=[2026,row[0],row[1],row[5]].join('|');
     const player=data.player_stats_2026.players.find(p=>p.profile_url?.endsWith('/202/'));
     assert(player,'Stable real player fixture');
-    const deepLinks=[['match',await page.locator('#matches .result-link').first().getAttribute('href')],
-      ['player',await page.locator('#squad a[data-player="rffk-202"]').getAttribute('href')],['team','#team=936']];
+    await page.locator('#nav [data-t="matches"]').click();await settle(page);
+    const matchLink=await page.locator('#matches .result-link').first().getAttribute('href');
+    await page.locator('#nav [data-t="squad"]').click();await settle(page);
+    const playerLink=await page.locator('#squad a[data-player="rffk-202"]').getAttribute('href');
+    const deepLinks=[['match',matchLink],['player',playerLink],['team','#team=936']];
     for(const saved of [false,true])for(const [section,hash] of deepLinks){
       if(!saved)await page.evaluate(()=>localStorage.removeItem('sudak-data-v1'));
-      await page.goto(base+'?direct='+section+'-'+saved+hash);await ready(page);
+      const rfkURL=/\/data\.json\?v=/;
+      let release;
+      const gate=new Promise(resolve=>{release=resolve});
+      if(!saved)await page.route(rfkURL,async route=>{await gate;await route.continue()});
+      try{
+        await page.goto(base+'?direct='+section+'-'+saved+hash,{waitUntil:'domcontentloaded'});
+        checkInitialWrites(await page.evaluate(()=>initialContent),section);
+        if(!saved)assert(await page.evaluate(()=>loadingData&&!hasSavedData),'Detail must be ready before the first data response');
+      }finally{release()}
+      if(!saved)await page.unroute(rfkURL);
+      await ready(page);
       await check(page,section,`direct-${section}-${saved}`,{reload:false});
       if(section==='match')assert.equal(await page.locator('#match .center-timeline li').count(),data.match_details[matchKey].events.length);
       else if(section==='player')assert.equal(await page.locator('#player-title').innerText(),player.name);
