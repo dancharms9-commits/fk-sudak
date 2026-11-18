@@ -139,6 +139,15 @@ jobs:
       - run: node tests/multi-club.browser.cjs
       - run: node tests/cfu-premier.browser.cjs
       - run: node tests/cfu-premier-rosters.browser.cjs
+      - run: node tests/cfu-player-photos.browser.cjs
+        env:
+          CFU_PHOTOS_SCREENSHOTS: cfu-player-photos-screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cfu-player-photos-screenshots
+          path: cfu-player-photos-screenshots/
+          if-no-files-found: ignore
       - run: node tests/cfu-premier-match-center.browser.cjs
       - run: node tests/design-polish.browser.cjs
         env:

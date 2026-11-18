@@ -454,6 +454,11 @@ def run_import(output, public_output, teams_path, fetch=fetch_pages,
     if previous is not None and _all_complete(previous) and not _all_complete(snapshot):
         raise InvalidCfuRosterData(
             'Refusing to replace a complete roster snapshot with a partial source response')
+    if previous is not None:
+        for player_id, player in snapshot['playersById'].items():
+            photo = previous['playersById'].get(player_id, {}).get('photo')
+            if photo is not None:
+                player['photo'] = photo
     write_rosters(snapshot, output, public_output,
                   expected_team_ids=set(teams))
     return snapshot

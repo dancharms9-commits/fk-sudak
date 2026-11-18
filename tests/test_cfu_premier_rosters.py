@@ -214,6 +214,30 @@ class CfuRosterImportTests(unittest.TestCase):
             self.assertEqual(output.read_bytes(), before_docs)
             self.assertEqual(public.read_bytes(), before_public)
 
+
+    def test_team_reimport_carries_approved_photo_by_official_id(self):
+        original = copy.deepcopy(self.snapshot)
+        photo = {
+            'status': 'approved',
+            'sourceUrl': 'https://www.cfu2015.com/players/2111/',
+            'imageUrl': 'https://img.cfu2015.com/i/rectangle/286x380/test.jpg',
+            'sha256': '1' * 64,
+        }
+        original['playersById']['cfu:player:2111']['photo'] = photo
+        with tempfile.TemporaryDirectory() as directory:
+            archive = Path(directory) / 'archive.json'
+            public = Path(directory) / 'public.json'
+            importer.write_rosters(original, archive, public)
+            pages = page_set()
+            hashes = {key: hashlib.sha256(html.encode()).hexdigest()
+                      for key, html in pages.items()}
+            result = importer.run_import(
+                archive, public, ROOT / 'docs/cfu-premier-2026/snapshot.json',
+                fetch=lambda *args, **kwargs: (pages, checked_set(), hashes),
+                retrieval='saved_official_html')
+            self.assertEqual(result, original)
+            self.assertEqual(archive.read_bytes(), public.read_bytes())
+
     def test_offline_fetch_uses_saved_official_html(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory)

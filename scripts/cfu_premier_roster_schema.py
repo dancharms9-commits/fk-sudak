@@ -22,6 +22,8 @@ PLAYER_URL_RE = re.compile(r'/players/([1-9][0-9]*)/')
 TEAM_URL_RE = re.compile(r'/teams/([a-z0-9][a-z0-9-]*)/')
 DATE_RE = re.compile(r'\d{4}-\d{2}-\d{2}')
 SHA256_RE = re.compile(r'[0-9a-f]{64}')
+PHOTO_URL_RE = re.compile(
+    r'https://img\.cfu2015\.com/i/rectangle/286x380/[A-Za-z0-9_-]+\.[Jj][Pp][Gg]')
 
 POSITION_GROUPS = {
     'Вратари': 'Вратарь',
@@ -73,6 +75,15 @@ def player_url(player_id):
     return f'{BASE}/players/{player_id}/'
 
 
+def valid_player_photo(photo, source_id):
+    return (isinstance(photo, dict) and photo.get('status') == 'approved'
+            and photo.get('sourceUrl') == player_url(source_id)
+            and isinstance(photo.get('imageUrl'), str)
+            and bool(PHOTO_URL_RE.fullmatch(photo['imageUrl']))
+            and isinstance(photo.get('sha256'), str)
+            and bool(SHA256_RE.fullmatch(photo['sha256'])))
+
+
 def iso_date(value, field):
     require(isinstance(value, str) and DATE_RE.fullmatch(value),
             f'Invalid {field}')
@@ -99,6 +110,8 @@ def _player(player_id, player):
             'Missing player name')
     if player.get('dateOfBirth') is not None:
         iso_date(player['dateOfBirth'], 'date of birth')
+    if 'photo' in player:
+        require(valid_player_photo(player['photo'], source_id), 'Invalid approved player photo')
 
 
 def _entry(entry, team_id, players, seen):
