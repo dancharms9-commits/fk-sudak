@@ -2,9 +2,10 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 import unittest
-from unittest.mock import MagicMock, Mock
+from unittest.mock import MagicMock, Mock, patch
 
 from scripts import cfu_player_photos as photos
 from scripts.cfu_premier_roster_schema import InvalidCfuRosterData, validate_rosters
@@ -15,7 +16,8 @@ SNAPSHOT = json.loads((ROOT / 'cfu-premier-rosters-2026.json').read_text())
 HTML = (FIXTURES / 'profile.html').read_text()
 IMAGE = (FIXTURES / 'test-portrait.jpg').read_bytes()
 IMAGE_URL = 'https://img.cfu2015.com/i/rectangle/286x380/test-portrait.jpg'
-PLAYER = SNAPSHOT['playersById']['cfu:player:258']
+PLAYER = {key: value for key, value in SNAPSHOT['playersById']['cfu:player:258'].items()
+          if key != 'photo'}
 PROFILE = PLAYER['sourceUrl']
 SHA = hashlib.sha256(IMAGE).hexdigest()
 PHOTO = {'status': 'approved', 'sourceUrl': PROFILE, 'imageUrl': IMAGE_URL, 'sha256': SHA}
@@ -34,6 +36,8 @@ class PhotoParserTests(unittest.TestCase):
                                               PROFILE, '258')['status'], 'missing')
         self.assertEqual(photos.parse_profile(HTML.replace(IMAGE_URL, photos.PLACEHOLDER),
                                               PROFILE, '258')['status'], 'placeholder')
+        self.assertEqual(photos.parse_profile(HTML.replace(IMAGE_URL, IMAGE_URL.replace(
+            'test-portrait.jpg', 'no_people_photo.jpg')), PROFILE, '258')['status'], 'placeholder')
 
     def test_rejects_unrecognized_schemes_hosts_paths_and_files(self):
         for url in (IMAGE_URL.replace('https:', 'http:'),
@@ -70,12 +74,12 @@ class PhotoAuditTests(unittest.TestCase):
                            {**PERMISSION, 'permission': ''}):
             self.assertIsNone(photos.approved_photo(PLAYER, candidate, permission))
         self.assertEqual(photos.approved_photo(PLAYER, candidate, PERMISSION), PHOTO)
-        club_players = SNAPSHOT['playersById']
         key = PLAYER['playerId']
+        club_players = {**SNAPSHOT['playersById'], key: PLAYER}
         counts = photos.report(club_players, {key: candidate}, {})
         self.assertEqual((counts['checked'], counts['found'], counts['rightsUnconfirmed']), (1, 1, 1))
         self.assertEqual(counts['unchecked'], len(club_players) - 1)
-        self.assertEqual(counts['inSnapshot'], 0)
+        self.assertEqual(counts['inSnapshot'], sum('photo' in p for p in club_players.values()))
         self.assertEqual(photos.ambiguous_ids({key: candidate, 'other': candidate}), {key, 'other'})
         client.image.side_effect = ValueError('Invalid image')
         failed = photos.audit_player(PLAYER, client)
@@ -136,3 +140,52 @@ class PhotoAuditTests(unittest.TestCase):
         value['playersById'][PLAYER['playerId']]['photo']['sourceUrl'] = PROFILE.replace('258', '259')
         with self.assertRaisesRegex(InvalidCfuRosterData, 'Invalid approved player photo'):
             validate_rosters(value)
+
+    def test_tavriya_publish_resumes_from_asset_and_checkpoint(self):
+        original = copy.deepcopy(SNAPSHOT)
+        key = PLAYER['playerId']
+        original['playersById'][key] = PLAYER.copy()
+        team = original['rostersByTeamId'][photos.TAVRIYA]
+        client = Mock()
+        client.profile.return_value = HTML
+        client.image.return_value = IMAGE
+        with TemporaryDirectory() as workspace:
+            directory = Path(workspace)
+            public, archive, state = (directory / name for name in ('public.json', 'archive.json', 'audit.json'))
+            photos.write_rosters(original, archive, public)
+            asset_path = photos.asset_path
+            args = ['cfu_player_photos', '--team', photos.TAVRIYA, '--publish',
+                    '--limit', '1', '--state', str(state)]
+            with (patch.object(photos, 'SNAPSHOT', public), patch.object(photos, 'ARCHIVE', archive),
+                  patch.object(photos, 'STATE', directory),
+                  patch.object(photos, 'asset_path', side_effect=lambda player, photo:
+                               asset_path(player, photo, directory / 'assets')),
+                  patch.object(photos, 'PhotoClient', return_value=client), patch.object(sys, 'argv', args),
+                  patch('builtins.print')):
+                photos.main()
+                published = photos.load_rosters(public)
+                self.assertEqual(published['playersById'][key]['photo'], PHOTO)
+                self.assertEqual(published['rostersByTeamId'][photos.TAVRIYA], team)
+                self.assertEqual(archive.read_bytes(), public.read_bytes())
+                self.assertEqual(json.loads(state.read_bytes())[key]['status'], 'verified')
+                client.profile.assert_called_once_with(PROFILE)
+                client.image.assert_called_once_with(IMAGE_URL)
+
+                # Simulate an interruption after updating the archive, before the public copy.
+                photos._write_atomic(public, photos._payload(original))
+                args.extend(['--ids', '258'])
+                client.reset_mock()
+                photos.main()
+                self.assertEqual(archive.read_bytes(), public.read_bytes())
+                self.assertEqual(photos.load_rosters(public), published)
+                client.profile.assert_not_called()
+                client.image.assert_not_called()
+
+                args.extend(['--recheck'])
+                client.image.side_effect = ValueError('Invalid JPEG')
+                photos.main()
+                self.assertEqual(photos.load_rosters(public), published)
+
+                args[args.index('258')] = '2168'  # Okean, outside the selected roster.
+                with self.assertRaises(SystemExit):
+                    photos.main()

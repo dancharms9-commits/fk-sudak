@@ -217,12 +217,8 @@ class CfuRosterImportTests(unittest.TestCase):
 
     def test_team_reimport_carries_approved_photo_by_official_id(self):
         original = copy.deepcopy(self.snapshot)
-        photo = {
-            'status': 'approved',
-            'sourceUrl': 'https://www.cfu2015.com/players/2111/',
-            'imageUrl': 'https://img.cfu2015.com/i/rectangle/286x380/test.jpg',
-            'sha256': '1' * 64,
-        }
+        published = importer.load_rosters(ROOT / 'cfu-premier-rosters-2026.json')
+        photo = published['playersById']['cfu:player:2111']['photo']
         original['playersById']['cfu:player:2111']['photo'] = photo
         with tempfile.TemporaryDirectory() as directory:
             archive = Path(directory) / 'archive.json'
