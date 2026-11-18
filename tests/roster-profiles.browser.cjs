@@ -3,6 +3,35 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(path.join(root,'data.json'),'utf8'));
 const screenshots=process.env.ROSTER_SCREENSHOT_DIR;
+const profileRoutes=[
+ ['#player=rffk-202','Донской Илья'],
+ ['#player=rffk-1151&from=home','Семенов Владимир'],
+ ['#player=rffk-202&team=141&competition=4&season=22','Донской Илья'],
+ ['#player=rffk-146&team=936&competition=4&season=22',data.platform.playersById['146'].name],
+ ['#player=rffk-1698',data.platform.playersById['1698'].name],
+ ['#player=cfu%3Aplayer%3A258&team=cfu%3Ateam%3Atavriya&from=team','Валентин Манякин'],
+ ['#player=rffk-999999','Футболист недоступен'],
+];
+async function measureProfileRenders(page){
+ await page.waitForFunction(()=>!!CFU_PREMIER&&!!CFU_ROSTERS);
+ return page.evaluate(routes=>{
+  const player=document.getElementById('player');
+  const {get,set}=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');
+  let writes=0;
+  Object.defineProperty(player,'innerHTML',{configurable:true,get,set(markup){writes++;set.call(this,markup)}});
+  const startingUrl=location.href,startingState=history.state,startingCompetition=COMPETITION;
+  try{
+   return routes.map(([hash])=>{
+    writes=0;history.replaceState({},'',hash);applyRoute();
+    return {writes,markup:player.innerHTML,title:document.getElementById('player-title').textContent};
+   });
+  }finally{
+   delete player.innerHTML;
+   if(COMPETITION!==startingCompetition){COMPETITION=startingCompetition;saveCompetition()}
+   history.replaceState(startingState,'',startingUrl);applyRoute();
+  }
+ },profileRoutes);
+}
 let payload=data;
 const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,'http://localhost').pathname.replace(/^\/fk-sudak(?=\/)/,'');
@@ -84,6 +113,33 @@ const server=http.createServer((req,res)=>{
   assert.equal(await p.locator('#player [data-stat="league_goals"] b').innerText(),'—');
   // Existing Sudak deep link must retain the old profile, portrait and goal list.
   await p.goto(base+'#player=rffk-202&name=x&from=home');await ready(p);assert.equal(await p.locator('#player-title').innerText(),'Донской Илья');assert.equal(await p.locator('#player .player-goals').count(),1);
+  const sudakHash=new URL(p.url()).hash;
+  const matchLink=p.locator('#player a[data-match^="rffk-"]').first();
+  await matchLink.click();await p.locator('#match.on').waitFor();
+  await p.locator('#match-back').click();await p.locator('#player.on').waitFor();
+  assert.equal(new URL(p.url()).hash,sudakHash);
+  assert(await matchLink.evaluate(el=>el===document.activeElement));
+  await p.locator('#nav button[data-t="news"]').click();await p.locator('#news.on').waitFor();
+  await p.goBack();await p.locator('#player.on').waitFor();
+  assert.equal(new URL(p.url()).hash,sudakHash);
+  assert.equal(await p.locator('#nav button[data-t="home"]').getAttribute('aria-current'),'page');
+
+  const current=await measureProfileRenders(p);
+  for(const [i,[hash,title]] of profileRoutes.entries()){
+   assert.equal(current[i].title,title,hash);
+   assert.equal(current[i].writes,1,hash);
+  }
+  if(process.env.MULTI_CLUB_BASELINE_HTML){
+   const baselineUrl=base+'?profile-baseline';
+   const baselineContext=await context(),baselinePage=await baselineContext.newPage();attach(baselinePage);
+   await baselinePage.route(baselineUrl,r=>r.fulfill({contentType:'text/html;charset=utf-8',path:process.env.MULTI_CLUB_BASELINE_HTML}));
+   await baselinePage.goto(baselineUrl+'#squad');await ready(baselinePage);
+   const baseline=await measureProfileRenders(baselinePage);
+   for(const [i,[hash]] of profileRoutes.entries())assert.equal(current[i].markup,baseline[i].markup,hash);
+   console.table(profileRoutes.map(([hash],i)=>({hash,before:baseline[i].writes,after:current[i].writes})));
+   await baselineContext.close();
+   console.log('PASS identical serialized Chromium DOM for all seven profile routes');
+  }
   console.log('PASS real transfer, direct contextual and context-free links, unknown/wrong-season IDs, old Sudak profile');
   // Synthetic missing field/history fixtures never enter the published JSON.
   payload=structuredClone(data);payload.updated=new Date(Date.parse(data.updated)+1000).toISOString();
