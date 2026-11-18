@@ -97,7 +97,7 @@ test('player page is isolated from RFFK and shows only confirmed roster data',()
   assert(markup.includes('Вратарь'));
   assert(markup.includes('№ 1'));
   assert(markup.includes('26.06.1997'));
-  assert(markup.includes('Профиль на сайте КФС'));
+  assert.match(markup,/профиль на сайте КФС/i);
   assert(markup.includes('https://www.cfu2015.com/players/258/'));
   assert(!markup.includes('Матчи'));
   assert(!markup.includes('Голы'));

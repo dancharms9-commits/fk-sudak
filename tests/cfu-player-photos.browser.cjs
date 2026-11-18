@@ -1,21 +1,27 @@
-/* Chromium checks use a repository-owned geometric JPEG and a synthetic roster response. */
+/* Chromium checks the published roster and the official JPEGs served from the repository. */
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {createHash}=require('node:crypto');
 const root=path.resolve(__dirname,'..'), shots=process.env.CFU_PHOTOS_SCREENSHOTS||path.join(root,'_state/cfu-player-photos/screenshots');
 const rosterFile='cfu-premier-rosters-2026.json';
-const original=JSON.parse(fs.readFileSync(path.join(root,rosterFile),'utf8'));
-const fixture=fs.readFileSync(path.join(root,'tests/fixtures/cfu-premier-rosters/player-photos/test-portrait.jpg'));
-const sha256=createHash('sha256').update(fixture).digest('hex');
-const enriched=structuredClone(original);
-for(const number of [258,280]){
-  const player=enriched.playersById['cfu:player:'+number];
-  player.photo={status:'approved',sourceUrl:player.sourceUrl,sha256,
-    imageUrl:`https://img.cfu2015.com/i/rectangle/286x380/test-${number}.jpg`};
-}
 const asset='/assets/cfu-player-photos/';
+const enriched=JSON.parse(fs.readFileSync(path.join(root,rosterFile),'utf8'));
+const original=structuredClone(enriched);
+const entries=enriched.rostersByTeamId['cfu:team:tavriya'].entries;
+const portraits=new Map();
+for(const {playerId} of entries){
+  const {photo,sourcePlayerId,sourceUrl}=enriched.playersById[playerId];
+  if(!photo)continue;
+  assert.equal(photo.sourceUrl,sourceUrl);
+  const url=`${asset}${sourcePlayerId}/${photo.sha256}.jpg`;
+  const bytes=fs.readFileSync(path.join(root,url.slice(1)));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'),photo.sha256);
+  portraits.set(playerId,url);
+  delete original.playersById[playerId].photo;
+}
+assert(portraits.has('cfu:player:258'),'The official Manyakin portrait is published');
 const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript','.json':'application/json',
-  '.css':'text/css','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2'};
+  '.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2'};
 let snapshot=enriched, broken=false, networkDown=false;
 const requests=[];
 const server=http.createServer((req,res)=>{
@@ -28,10 +34,7 @@ const server=http.createServer((req,res)=>{
   }
   if(pathname.startsWith(asset)){
     requests.push(pathname);
-    if(broken||!['258','280'].some(id=>pathname===asset+id+'/'+sha256+'.jpg')){
-      res.writeHead(404);return res.end();
-    }
-    res.setHeader('Content-Type','image/jpeg');return res.end(fixture);
+    if(broken){res.writeHead(404);return res.end()}
   }
   if(pathname==='/'&&url.searchParams.has('before')&&process.env.MULTI_CLUB_BASELINE_HTML){
     res.setHeader('Content-Type',mime['.html']);
@@ -54,10 +57,11 @@ async function ready(page){
   await page.waitForFunction(()=>!loadingData&&!!CFU_PREMIER&&!!CFU_ROSTERS&&!CFU_ROSTERS_LOADING&&!CFU_MATCH_DETAILS_LOADING);
   await page.locator('#launch-splash').waitFor({state:'detached'});
 }
-async function loaded(avatar){
+async function loaded(avatar,playerId='cfu:player:258'){
   const img=avatar.locator('img:not(.cfu-photo-pending)');
   await img.waitFor();
-  assert.equal(await img.evaluate(node=>node.naturalWidth),128);
+  assert.equal(new URL(await img.evaluate(node=>node.currentSrc)).pathname,'/fk-sudak'+portraits.get(playerId));
+  assert(await img.evaluate(node=>node.naturalWidth>0&&node.naturalHeight>0));
   assert.equal(await img.evaluate(node=>getComputedStyle(node).objectFit),'cover');
   return img;
 }
@@ -77,7 +81,8 @@ async function layout(page){
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const origin='http://127.0.0.1:'+server.address().port;
   const base=origin+'/fk-sudak/';
-  const browser=await chromium.launch();
+  const browser=await chromium.launch(process.env.CHROMIUM_EXECUTABLE_PATH?
+    {executablePath:process.env.CHROMIUM_EXECUTABLE_PATH}:{});
   const errors=[];
   const contextFor=async(width,theme,serviceWorkers='block')=>{
     const context=await browser.newContext({viewport:{width,height:844},reducedMotion:'reduce',serviceWorkers});
@@ -106,12 +111,30 @@ async function layout(page){
           const thumb=await loaded(page.locator(small));
           assert.equal(await thumb.getAttribute('loading'),'lazy');
           assert.equal(await thumb.getAttribute('decoding'),'async');
-          assert.equal(await page.locator(small).evaluate(node=>getComputedStyle(node).width),'30px');
+          assert.deepEqual(await page.locator(small).evaluate(node=>{
+            const {width,height,borderTopLeftRadius}=getComputedStyle(node);
+            return [width,height,borderTopLeftRadius];
+          }),['30px','30px','50%']);
           assert.equal(await page.locator(row+' .cfu-shirt').textContent(),'1');
           assert((await page.locator('#team .cfu-roster-player .cfu-deregistered').count())>0);
           assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
           await layout(page);
           await page.locator('#team .cfu-roster-group').first().screenshot({path:path.join(shots,`after-roster-${width}-${theme}.png`)});
+          if(width===390&&theme==='light'){
+            for(const {playerId,deregisteredAt} of entries){
+              const entry=page.locator(`#team [data-player="${playerId}"]`);
+              const avatar=entry.locator('.cfu-roster-avatar');
+              assert.equal(await entry.locator('.cfu-deregistered').count(),Number(Boolean(deregisteredAt)));
+              if(portraits.has(playerId)){
+                await entry.scrollIntoViewIfNeeded();
+                await loaded(avatar,playerId);
+              }else{
+                assert.equal(await avatar.locator('img').count(),0);
+                assert.match(await avatar.textContent(),/^\p{L}{1,2}$/u);
+              }
+            }
+            await page.locator('#team .cfu-roster').screenshot({path:path.join(shots,'after-full-roster-390-light.png')});
+          }
 
           await page.locator(row).click();
           await page.locator('#player.on').waitFor();
@@ -140,7 +163,8 @@ async function layout(page){
 
       await page.goto(base+'#match=cfu%3Amatch%3A18763');await ready(page);
       await page.locator('#match a[data-player="cfu:player:280"]').first().click();
-      await loaded(page.locator(large));
+      if(portraits.has('cfu:player:280'))await loaded(page.locator(large),'cfu:player:280');
+      else assert.equal(await page.locator(large).textContent(),'РК');
       assert.match(await page.locator('#player-back').textContent(),/К матчу/);
       await page.locator('#player-back').click();
       await page.locator('#match.on').waitFor();
