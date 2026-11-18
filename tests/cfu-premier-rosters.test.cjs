@@ -150,3 +150,46 @@ test('a saved valid roster snapshot restores offline; invalid storage is ignored
   broken.run('restoreCfuRosters();true');
   assert.equal(broken.run('CFU_ROSTERS'),null);
 });
+
+test('approved CFU photo is shared by identity without changing the registrations',()=>{
+  const {run,node}=setup();
+  const roster=clone(rosters), id='cfu:player:2111', player=roster.playersById[id];
+  player.photo={status:'approved',sourceUrl:player.sourceUrl,
+    imageUrl:'https://img.cfu2015.com/i/rectangle/286x380/test-portrait.jpg',sha256:'a'.repeat(64)};
+  run(`CFU_PREMIER=${JSON.stringify(premier)};CFU_ROSTERS=${JSON.stringify(roster)};true`);
+  assert.equal(run('validCfuRosters(CFU_ROSTERS)'),true);
+  const asset='assets/cfu-player-photos/2111/'+player.photo.sha256+'.jpg';
+  for(const team of ['cfu:team:tavriya','cfu:team:fc-mak-dzhankoy']){
+    run(`renderCfuClub({teamId:'${team}'});true`);
+    const row=node('team').innerHTML.match(/<a class="cfu-roster-player" data-player="cfu:player:2111".*?<\/a>/)[0];
+    assert(row.includes(asset));
+    assert(row.includes('loading="lazy"')&&row.includes('decoding="async"'));
+    const entry=roster.rostersByTeamId[team].entries.find(item=>item.playerId===id);
+    assert.equal(row.includes('Отзаявлен'),Boolean(entry.deregisteredAt));
+    assert(row.includes('Игровой номер '+entry.shirtNumber));
+  }
+  run(`renderCfuPlayer({player:'${id}',teamId:'cfu:team:tavriya'});true`);
+  assert(node('player').innerHTML.includes(asset));
+  assert(node('player').innerHTML.includes('Источник фото · профиль на сайте КФС'));
+});
+
+test('unsafe optional photo never becomes an image and leaves the roster readable',()=>{
+  const {run,node}=setup(), roster=clone(rosters), id='cfu:player:258';
+  const sourceUrl=roster.playersById[id].sourceUrl;
+  const photo={status:'approved',sourceUrl,sha256:'a'.repeat(64),
+    imageUrl:'https://img.cfu2015.com/i/rectangle/286x380/test-portrait.jpg'};
+  for(const patch of [
+    {status:'verified'}, {sourceUrl:sourceUrl.replace('258','259')},
+    {imageUrl:'http://img.cfu2015.com/i/rectangle/286x380/test-portrait.jpg'},
+    {imageUrl:'https://img.cfu2015.com.evil.test/i/rectangle/286x380/test-portrait.jpg'},
+    {imageUrl:photo.imageUrl+'\n'}, {imageUrl:photo.imageUrl.replace('.jpg','.svg')},
+    {imageUrl:'javascript:alert(1)'}, {imageUrl:'data:image/jpeg;base64,AA'},
+    {sha256:'../258.jpg'}
+  ]){
+    roster.playersById[id].photo={...photo,...patch};
+    run(`CFU_ROSTERS=${JSON.stringify(roster)};renderCfuPlayer({player:'${id}'});true`);
+    assert.equal(run('validCfuRosters(CFU_ROSTERS)'),true);
+    assert(node('player').innerHTML.includes('<span>ВМ</span>'));
+    assert(!node('player').innerHTML.includes('data-cfu-photo'));
+  }
+});
