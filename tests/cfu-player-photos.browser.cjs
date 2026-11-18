@@ -98,17 +98,20 @@ async function checkClub({slug,entriesCount,deregisteredCount,sampleId},base,con
     style:'#nav { visibility: hidden }'});
 
   for(const theme of ['light','dark']){
-    for(const width of [320,390,768]){
-      const {context,page}=await contextFor(width,theme);
-      const group=page.locator('#team .cfu-roster-group').filter({has:page.locator(`[data-player="${playerId}"]`)});
-      try{
-        snapshot=original;
-        await page.goto(base+'?before'+club);await ready(page);
-        await page.locator(row).waitFor();
-        await layout(page);
-        await rosterShot(group,`before-roster-${width}-${theme}.png`);
-        await page.goto(base+'?before'+player);await ready(page);
-        await page.locator('#player .player-hero').screenshot({path:path.join(shotDir,`before-profile-${width}-${theme}.png`)});
+    const {context,page}=await contextFor(320,theme);
+    const group=page.locator('#team .cfu-roster-group').filter({has:page.locator(`[data-player="${playerId}"]`)});
+    try{
+      for(const width of [320,390,768]){
+        await page.setViewportSize({width,height:844});
+        if(slug==='tavriya'){
+          snapshot=original;
+          await page.goto(base+'?before'+club);await ready(page);
+          await page.locator(row).waitFor();
+          await layout(page);
+          await rosterShot(group,`before-roster-${width}-${theme}.png`);
+          await page.goto(base+'?before'+player);await ready(page);
+          await page.locator('#player .player-hero').screenshot({path:path.join(shotDir,`before-profile-${width}-${theme}.png`)});
+        }
 
         snapshot=enriched;
         await page.goto(base+club);await ready(page);
@@ -154,8 +157,8 @@ async function checkClub({slug,entriesCount,deregisteredCount,sampleId},base,con
         assert.match(await page.locator('#player a.club-source').textContent(),/Источник фото/);
         await layout(page);
         await page.locator('#player .player-hero').screenshot({path:path.join(shotDir,`after-profile-${width}-${theme}.png`)});
-      }finally{await context.close()}
-    }
+      }
+    }finally{await context.close()}
   }
 
   const {context,page}=await contextFor(390,'dark');
