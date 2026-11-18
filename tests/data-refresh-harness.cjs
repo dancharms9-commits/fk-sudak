@@ -13,13 +13,18 @@ const keys={data:'sudak-data-v1',cfu:'sudak-cfu-sync-v1'};
 function setup({stored={},hash='',competition='rfk',html=process.env.PERF_HTML||path.join(root,'index.html')}={}){
   const source=fs.readFileSync(html,'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
   const values={...stored},nodes=new Map(),requests=[],listeners={window:{},document:{}},intervals=[];
+  const sectionIds=['home','matches','table','squad','news','match','player','team'];
+  const domWrites=[],events=[];
+  let activeSection='home';
   const counts={stringify:0,snapshotStringify:0,writes:0,render:0,cfuTableRender:0};
   function element(id=''){
     let markup='',parts=new Map();
-    return {id,dataset:{},children:[],textContent:'',hidden:false,
+    return {id,dataset:{},children:[],textContent:'',hidden:false,focus(){},
+      classList:{toggle(name,on){if(name==='on'&&on&&sectionIds.includes(id))activeSection=id}},
       get innerHTML(){return markup},
       set innerHTML(value){
         markup=value;parts=new Map();
+        if(sectionIds.includes(id)||this.dataset.homeBlock)domWrites.push(this.dataset.homeBlock?'home:'+this.dataset.homeBlock:id);
         if(id==='table'&&value.includes('cfu-table'))counts.cfuTableRender++;
         // Only the three small note targets need querying in these tests.
         for(const attr of ['data-cfu-status','data-cfu-table-checked','data-cfu-protocol-checked']){
@@ -36,12 +41,16 @@ function setup({stored={},hash='',competition='rfk',html=process.env.PERF_HTML||
     };
   }
   const node=id=>{if(!nodes.has(id))nodes.set(id,element(id));return nodes.get(id)};
-  const context=vm.createContext({URL,URLSearchParams,Intl,console,AbortController,setTimeout,clearTimeout,counts,
+  const context=vm.createContext({URL,URLSearchParams,Intl,console,AbortController,Event,setTimeout,clearTimeout,counts,
     setInterval:(fn,ms)=>{intervals.push({fn,ms})},
     location:{hash},history:{state:{},scrollRestoration:'auto'},
     document:{baseURI:'https://example.test/fk-sudak/',title:'',readyState:'loading',hidden:false,
-      getElementById:node,createElement:()=>element(),addEventListener:(name,fn)=>{listeners.document[name]=fn}},
-    window:{addEventListener:(name,fn)=>{listeners.window[name]=fn},scrollY:123,scrollTo(){}},
+      getElementById:id=>id==='launch-splash'?null:node(id),createElement:()=>element(),
+      querySelector:selector=>selector==='main section.on'?node(activeSection):null,
+      querySelectorAll:selector=>selector==='main section'?sectionIds.map(node):[],
+      addEventListener:(name,fn)=>{listeners.document[name]=fn}},
+    window:{addEventListener:(name,fn)=>{listeners.window[name]=fn},scrollY:123,scrollTo(){},
+      dispatchEvent:event=>events.push({type:event.type,section:activeSection,writes:[...domWrites]})},
     localStorage:{getItem:key=>key==='sudak-competition-v1'?competition:values[key]??null,
       setItem:(key,value)=>{counts.writes++;values[key]=value}},
     fetch:async()=>{throw Error('offline')},
@@ -52,10 +61,10 @@ function setup({stored={},hash='',competition='rfk',html=process.env.PERF_HTML||
     return nativeStringify(value,...args);
   }`);
   run(source.slice(0,source.lastIndexOf('\nrestoreSavedData();')));
-  run('const originalRender=render;render=function(){counts.render++;return originalRender()}');
+  run('const originalRender=render;render=function(...args){counts.render++;return originalRender(...args)}');
   // Install exactly the production polling/foreground/reconnection handlers.
   run(source.slice(source.indexOf('function refreshFootball('),source.indexOf('if("serviceWorker" in navigator)')));
-  const reset=()=>{for(const key of Object.keys(counts))counts[key]=0};
+  const reset=()=>{for(const key of Object.keys(counts))counts[key]=0;domWrites.length=0};
   const respond=(rffk,cfu)=>{context.fetch=async(url,options)=>{
     requests.push({url,options});
     const value=new URL(url).pathname.endsWith('/data.json')?rffk:cfu;
@@ -64,7 +73,8 @@ function setup({stored={},hash='',competition='rfk',html=process.env.PERF_HTML||
   }};
   const settle=async()=>{await new Promise(resolve=>setImmediate(resolve));
     if(run('loadingData||CFU_LOADING'))throw Error('request did not settle')};
-  return {context,run,node,values,counts,reset,respond,requests,listeners,intervals,settle};
+  const boot=()=>run(source.slice(source.lastIndexOf('\nrestoreSavedData();'),source.indexOf('// Главная появляется после настоящей заставки')));
+  return {context,run,node,values,counts,reset,respond,requests,listeners,intervals,settle,boot,domWrites,events};
 }
 function rfkUpdate(){const next=data();next.updated=new Date(Date.parse(next.updated)+60000).toISOString();next.res[0][2]++;return next}
 function provisional(){const value=bundle(),key='cfu:match:18767';

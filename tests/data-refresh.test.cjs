@@ -7,17 +7,19 @@ const savedCfu=value=>({hash:'#table',competition:'cfu',stored:{[keys.cfu]:JSON.
 const noWork=ui=>assert.deepEqual(ui.counts,{stringify:0,snapshotStringify:0,writes:0,render:0,cfuTableRender:0});
 
 test('first launch renders fallback, then adopts and renders the first RFK response',async()=>{
-  const ui=setup();ui.run('restoreSavedData();render()');
+  const ui=setup({hash:'#matches'});ui.run('restoreSavedData();render()');
   assert.match(ui.node('matches').innerHTML,/Результаты/);assert.equal(ui.counts.render,1);
   ui.reset();ui.respond(data());await ui.run('refreshData(true)');
   assert.equal(ui.counts.stringify,1);assert.equal(ui.counts.writes,1);assert.equal(ui.counts.render,1);
   assert.deepEqual(JSON.parse(ui.values[keys.data]),data());
+  assert.equal(ui.node('squad').innerHTML,'');
+  ui.context.location.hash='#squad';ui.run('applyRoute()');
   assert.match(ui.node('squad').innerHTML,/Донской Илья/);
   assert.equal(ui.run('hasNetworkData'),true);
 });
 
 test('restored RFK is rendered initially; repeated equal revisions do no JSON/storage/render work',async()=>{
-  const ui=setup(savedRfk());ui.run('restoreSavedData();render()');
+  const ui=setup({...savedRfk(),hash:'#squad'});ui.run('restoreSavedData();render()');
   assert.equal(ui.run('hasSavedData'),true);assert.match(ui.node('squad').innerHTML,/Донской Илья/);
   ui.reset();ui.respond(data());
   for(let i=0;i<4;i++)await ui.run('refreshData(true)');
@@ -50,8 +52,8 @@ for(const [label,mutate,expression,expected] of [
 });
 
 test('RFK refresh preserves search focus, caret and scroll for a real update',async()=>{
-  const ui=setup(savedRfk()),calls=[],active={id:'champ-search',selectionStart:3};
-  ui.run('restoreSavedData()');ui.context.document.activeElement=active;
+  const ui=setup({...savedRfk(),hash:'#table'}),calls=[],active={id:'champ-search',selectionStart:3};
+  ui.run("restoreSavedData();CHAMP_STATE.view='scorers';applyRoute()");ui.context.document.activeElement=active;
   Object.assign(ui.node(active.id),{type:'search',focus:options=>calls.push(options),setSelectionRange:(a,b)=>calls.push([a,b])});
   ui.context.window.scrollTo=(...args)=>calls.push(args);ui.respond(rfkUpdate());await ui.run('refreshData(true)');
   assert.equal(calls[0].preventScroll,true);assert.deepEqual(calls.slice(1),[[3,3],[0,123]]);

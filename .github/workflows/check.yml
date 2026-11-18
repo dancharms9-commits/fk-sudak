@@ -133,6 +133,9 @@ jobs:
           echo "MULTI_CLUB_BASELINE_HTML=$RUNNER_TEMP/multi-club-base.html" >> "$GITHUB_ENV"
           git show "$BASE_SHA:data.json" > "$RUNNER_TEMP/roster-base-data.json"
           echo "ROSTER_BASELINE_DATA=$RUNNER_TEMP/roster-base-data.json" >> "$GITHUB_ENV"
+      - name: Compare deferred rendering with base HTML
+        if: github.event_name == 'pull_request'
+        run: PERF_BASE_HTML="$MULTI_CLUB_BASELINE_HTML" node tests/deferred-tab-rendering-benchmark.cjs
       - run: node tests/multi-club.browser.cjs
       - run: node tests/cfu-premier.browser.cjs
       - run: node tests/cfu-premier-rosters.browser.cjs
