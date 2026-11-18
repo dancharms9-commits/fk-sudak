@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
 import unittest
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, call, patch
 
 from scripts import cfu_player_photos as photos
 from scripts.cfu_premier_roster_schema import InvalidCfuRosterData, validate_rosters
@@ -189,3 +189,52 @@ class PhotoAuditTests(unittest.TestCase):
                 args[args.index('258')] = '2168'  # Okean, outside the selected roster.
                 with self.assertRaises(SystemExit):
                     photos.main()
+
+    def test_okean_publish_checks_only_its_full_roster_and_resumes(self):
+        original = copy.deepcopy(SNAPSHOT)
+        entries = original['rostersByTeamId'][photos.OKEAN]['entries']
+        players = {entry['playerId']: original['playersById'][entry['playerId']] for entry in entries}
+        self.assertEqual(len(players), 45)
+        self.assertEqual(sum(bool(entry['deregisteredAt']) for entry in entries), 21)
+        for player in players.values():
+            player.pop('photo', None)
+        client = Mock()
+        sample = next(iter(players.values()))
+        source = sample['sourceUrl']
+        expected = {**PHOTO, 'sourceUrl': source}
+
+        def profile(url):
+            html = HTML.replace('/players/258/', url.removeprefix(photos.BASE))
+            return html if url == source else html.replace(IMAGE_URL, photos.PLACEHOLDER)
+
+        client.profile.side_effect = profile
+        client.image.return_value = IMAGE
+        with TemporaryDirectory() as workspace:
+            directory = Path(workspace)
+            public, archive = directory / 'public.json', directory / 'archive.json'
+            tavriya_state = directory / 'tavriya.json'
+            tavriya_state.write_text('{}', encoding='utf-8')
+            photos.write_rosters(original, archive, public)
+            asset_path = photos.asset_path
+            args = ['cfu_player_photos', '--team', photos.OKEAN, '--publish', '--retry-failed']
+            with (patch.object(photos, 'SNAPSHOT', public), patch.object(photos, 'ARCHIVE', archive),
+                  patch.object(photos, 'STATE', directory),
+                  patch.object(photos, 'asset_path', side_effect=lambda player, photo:
+                               asset_path(player, photo, directory / 'assets')),
+                  patch.object(photos, 'PhotoClient', return_value=client), patch.object(sys, 'argv', args),
+                  patch('builtins.print')):
+                photos.main()
+                self.assertEqual(client.profile.call_args_list,
+                                 [call(player['sourceUrl']) for player in players.values()])
+                client.image.assert_called_once_with(IMAGE_URL)
+                state = json.loads((directory / 'fc-okean.json').read_bytes())
+                self.assertEqual(set(state), set(players))
+                self.assertEqual(tavriya_state.read_text(encoding='utf-8'), '{}')
+                sample['photo'] = expected
+                self.assertEqual(photos.load_rosters(public), original)
+                self.assertEqual(public.read_bytes(), archive.read_bytes())
+
+                client.reset_mock()
+                photos.main()
+                client.profile.assert_not_called()
+                client.image.assert_not_called()
