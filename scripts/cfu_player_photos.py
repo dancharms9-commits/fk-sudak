@@ -1,4 +1,4 @@
-"""Audit CFU portraits and stage verified Tavriya photos in the roster snapshots."""
+"""Audit CFU portraits and stage verified photos in the roster snapshots."""
 import argparse
 from collections import Counter, defaultdict
 import fcntl
@@ -29,6 +29,8 @@ ARCHIVE = Path('docs/cfu-premier-rosters-2026/rosters.json')
 ASSETS = Path('assets/cfu-player-photos')
 STATE = Path('_state/cfu-player-photos')
 TAVRIYA = 'cfu:team:tavriya'
+OKEAN = 'cfu:team:fc-okean'
+OFFICIAL_TEAMS = (TAVRIYA, OKEAN)
 
 
 def parse_profile(html, source_url, source_id):
@@ -308,14 +310,14 @@ def main():
     parser.add_argument('--report-only', action='store_true')
     parser.add_argument('--permissions', type=Path, help='Per-ID URL, SHA-256 and evidence of permission')
     parser.add_argument('--publish', action='store_true',
-                        help='Stage roster photos; with --team cfu:team:tavriya, fetch and import them')
+                        help='Fetch and publish for Tavriya or Okean, or stage explicitly permitted photos')
     args = parser.parse_args()
     if args.recheck and not args.ids:
         parser.error('--recheck requires --ids')
-    official = args.team == TAVRIYA and args.permissions is None
+    official = args.team in OFFICIAL_TEAMS and args.permissions is None
     if args.publish and (args.report_only or not official and
                          (not args.permissions or not args.permissions.is_file())):
-        parser.error('--publish requires --team cfu:team:tavriya or a permissions file')
+        parser.error(f'--publish requires --team {TAVRIYA}, --team {OKEAN} or a permissions file')
     snapshot = load_rosters(SNAPSHOT)
     players = snapshot['playersById']
     if args.team:
@@ -339,9 +341,11 @@ def main():
                          ensure_ascii=False, indent=2))
         return
 
-    lock_state = default_state if official else args.state
-    lock_state.parent.mkdir(parents=True, exist_ok=True)
-    with lock_state.with_suffix(lock_state.suffix + '.lock').open('a') as lock:
+    # Official club imports share request limits and publish to the same snapshots.
+    lock_path = (STATE / 'publish.lock' if official or args.publish
+                 else args.state.with_suffix(args.state.suffix + '.lock'))
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         records = _read_json(args.state)
         with requests.Session() as session:

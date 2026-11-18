@@ -222,7 +222,13 @@
       "sourcePlayerId": "694",
       "sourceUrl": "https://www.cfu2015.com/players/694/",
       "name": "Владислав Семенишин",
-      "dateOfBirth": "2000-04-14"
+      "dateOfBirth": "2000-04-14",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/694/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/semenishin_vladislav_20220319.jpg",
+        "sha256": "fbc907b94254247314dd6c1886403a7f126b6349940b268c7f9606dc2521e321",
+        "status": "approved"
+      }
     },
     "cfu:player:715": {
       "playerId": "cfu:player:715",
@@ -254,7 +260,13 @@
       "sourcePlayerId": "803",
       "sourceUrl": "https://www.cfu2015.com/players/803/",
       "name": "Азамат Атаев",
-      "dateOfBirth": "1994-10-24"
+      "dateOfBirth": "1994-10-24",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/803/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/ataev_azamat_20260812.jpg",
+        "sha256": "08f324aa9535d34e876d8002fa7041a7f693cc336e1f855e57c169a0ee532da5",
+        "status": "approved"
+      }
     },
     "cfu:player:812": {
       "playerId": "cfu:player:812",
@@ -420,7 +432,13 @@
       "sourcePlayerId": "1277",
       "sourceUrl": "https://www.cfu2015.com/players/1277/",
       "name": "Даниил Красов",
-      "dateOfBirth": "2001-09-07"
+      "dateOfBirth": "2001-09-07",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1277/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/krasov_daniil_20250225.jpg",
+        "sha256": "c7c82d14ae0b212c90526e2328da345542905116478aa61119c34f07c4bab50a",
+        "status": "approved"
+      }
     },
     "cfu:player:1340": {
       "playerId": "cfu:player:1340",
@@ -428,7 +446,13 @@
       "sourcePlayerId": "1340",
       "sourceUrl": "https://www.cfu2015.com/players/1340/",
       "name": "Руслан Короев",
-      "dateOfBirth": "1996-10-21"
+      "dateOfBirth": "1996-10-21",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1340/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/koroev_ruslan_20260331.jpg",
+        "sha256": "63ab1c98570589dd5acf57cae3e6db87b4f8e525b8c430abdfc9142612e7c72d",
+        "status": "approved"
+      }
     },
     "cfu:player:1343": {
       "playerId": "cfu:player:1343",
@@ -444,7 +468,13 @@
       "sourcePlayerId": "1350",
       "sourceUrl": "https://www.cfu2015.com/players/1350/",
       "name": "Владимир Яцук",
-      "dateOfBirth": "1984-06-28"
+      "dateOfBirth": "1984-06-28",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1350/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/yacuk_vladimir_20260331.jpg",
+        "sha256": "81349ebde3540b859473505450e7ec883f9ff6aabcccd28b756c596b9b93512f",
+        "status": "approved"
+      }
     },
     "cfu:player:1394": {
       "playerId": "cfu:player:1394",
@@ -542,7 +572,13 @@
       "sourcePlayerId": "1566",
       "sourceUrl": "https://www.cfu2015.com/players/1566/",
       "name": "Имеда Бухрикидзе",
-      "dateOfBirth": "1999-03-16"
+      "dateOfBirth": "1999-03-16",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1566/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/buhrikidze_imeda_20260331.jpg",
+        "sha256": "3a7b30a2877fbfe775a47519bed792b6978d087819fb8a1ddb5a553f48e67df8",
+        "status": "approved"
+      }
     },
     "cfu:player:1632": {
       "playerId": "cfu:player:1632",
@@ -580,7 +616,13 @@
       "sourcePlayerId": "1652",
       "sourceUrl": "https://www.cfu2015.com/players/1652/",
       "name": "Артём Арутюнян",
-      "dateOfBirth": "2004-04-01"
+      "dateOfBirth": "2004-04-01",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1652/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/arutyunyan_artem_202060812.jpg",
+        "sha256": "165f1c1dc184ed042fb662a346c7a3e699843e844fbc0b137c2ce94c8b95fc60",
+        "status": "approved"
+      }
     },
     "cfu:player:1653": {
       "playerId": "cfu:player:1653",
@@ -634,7 +676,13 @@
       "sourcePlayerId": "1703",
       "sourceUrl": "https://www.cfu2015.com/players/1703/",
       "name": "Александр Погорелов",
-      "dateOfBirth": "2006-03-15"
+      "dateOfBirth": "2006-03-15",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1703/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/pogorelov_aleksandr_20250404.jpg",
+        "sha256": "9afc38be1bbcdf05d42af2400d86e0238add4817028de9a2dec9acc4bc7a9891",
+        "status": "approved"
+      }
     },
     "cfu:player:1704": {
       "playerId": "cfu:player:1704",
@@ -642,7 +690,13 @@
       "sourcePlayerId": "1704",
       "sourceUrl": "https://www.cfu2015.com/players/1704/",
       "name": "Евгений Радченко",
-      "dateOfBirth": "1994-07-22"
+      "dateOfBirth": "1994-07-22",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1704/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/radchenko_evgeniy__20260331.jpg",
+        "sha256": "186305989b1456b3e1297e5935c230f05e7ad4c9045895009dd84d267ce3c666",
+        "status": "approved"
+      }
     },
     "cfu:player:1710": {
       "playerId": "cfu:player:1710",
@@ -706,7 +760,13 @@
       "sourcePlayerId": "1771",
       "sourceUrl": "https://www.cfu2015.com/players/1771/",
       "name": "Рамазан Исаев",
-      "dateOfBirth": "1998-01-17"
+      "dateOfBirth": "1998-01-17",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1771/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/isaev_ramazan_20260331.jpg",
+        "sha256": "d5843c5f5620005d893772bd6c6a73032e44491e954d6f94e752b45751d69eb9",
+        "status": "approved"
+      }
     },
     "cfu:player:1772": {
       "playerId": "cfu:player:1772",
@@ -722,7 +782,13 @@
       "sourcePlayerId": "1773",
       "sourceUrl": "https://www.cfu2015.com/players/1773/",
       "name": "Артем Бундев",
-      "dateOfBirth": "2003-10-14"
+      "dateOfBirth": "2003-10-14",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1773/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/bundev_artem_202060812.jpg",
+        "sha256": "3f3f51972095207dd929a15d8e7d4b39697c6cb177bbcae0c62b4cbf28733aca",
+        "status": "approved"
+      }
     },
     "cfu:player:1776": {
       "playerId": "cfu:player:1776",
@@ -752,7 +818,13 @@
       "sourcePlayerId": "1782",
       "sourceUrl": "https://www.cfu2015.com/players/1782/",
       "name": "Данил Новиков",
-      "dateOfBirth": "2005-01-05"
+      "dateOfBirth": "2005-01-05",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1782/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/novikov_danil_20260327.jpg",
+        "sha256": "e7104904e40916b66beb71858cf7c5583ca8974ae137a0da3b2a7c18654ff549",
+        "status": "approved"
+      }
     },
     "cfu:player:1783": {
       "playerId": "cfu:player:1783",
@@ -858,7 +930,13 @@
       "sourcePlayerId": "1834",
       "sourceUrl": "https://www.cfu2015.com/players/1834/",
       "name": "Даниил Фоменко",
-      "dateOfBirth": "2003-11-26"
+      "dateOfBirth": "2003-11-26",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1834/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/fomenko_daniil_20261026.jpg",
+        "sha256": "b5cb44bf402348eb48f59936b7d2f7849a75801a8b72160ab4e3c98068e0c23b",
+        "status": "approved"
+      }
     },
     "cfu:player:1844": {
       "playerId": "cfu:player:1844",
@@ -874,7 +952,13 @@
       "sourcePlayerId": "1860",
       "sourceUrl": "https://www.cfu2015.com/players/1860/",
       "name": "Роман Микишенко",
-      "dateOfBirth": "2006-04-19"
+      "dateOfBirth": "2006-04-19",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1860/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/mikishenko_roman_20260820.jpg",
+        "sha256": "c45607bb2330fa761ea878242037e7e32a90b0346b9544dd546926cbc4237af0",
+        "status": "approved"
+      }
     },
     "cfu:player:1864": {
       "playerId": "cfu:player:1864",
@@ -906,7 +990,13 @@
       "sourcePlayerId": "1870",
       "sourceUrl": "https://www.cfu2015.com/players/1870/",
       "name": "Никита Лисименко",
-      "dateOfBirth": "2002-01-09"
+      "dateOfBirth": "2002-01-09",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1870/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/lisimenko_nikita_20260331.jpg",
+        "sha256": "53b2ba1a7c10a0f2d4a2dc2d2e2e931498b66d104f239ae2c80fba9df3d35aaf",
+        "status": "approved"
+      }
     },
     "cfu:player:1872": {
       "playerId": "cfu:player:1872",
@@ -1066,7 +1156,13 @@
       "sourcePlayerId": "1960",
       "sourceUrl": "https://www.cfu2015.com/players/1960/",
       "name": "Арсен Черткоев",
-      "dateOfBirth": "2004-05-22"
+      "dateOfBirth": "2004-05-22",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1960/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/chertkoev_arsen_202060812.jpg",
+        "sha256": "ffeadca23aac699d3a1ccc323a2b26ddb0c376e31873157b09dafb4b2baf4bc7",
+        "status": "approved"
+      }
     },
     "cfu:player:1967": {
       "playerId": "cfu:player:1967",
@@ -1142,7 +1238,13 @@
       "sourcePlayerId": "1995",
       "sourceUrl": "https://www.cfu2015.com/players/1995/",
       "name": "Семен Заец",
-      "dateOfBirth": "2003-02-27"
+      "dateOfBirth": "2003-02-27",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/1995/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/zaec_semen_202060812.jpg",
+        "sha256": "eb92928905ea8e68c3624aebdc561e152297d8c22e5fb8883c1adc06ef172396",
+        "status": "approved"
+      }
     },
     "cfu:player:2001": {
       "playerId": "cfu:player:2001",
@@ -1248,7 +1350,13 @@
       "sourcePlayerId": "2032",
       "sourceUrl": "https://www.cfu2015.com/players/2032/",
       "name": "Яхъя Бадакшанов",
-      "dateOfBirth": "2007-01-13"
+      "dateOfBirth": "2007-01-13",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2032/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/badakshanov_yahya_20261006.jpg",
+        "sha256": "29126aa4f115ed3c1dbe83c2161427f2c853a9f0bdec9577fb3dce625754c13a",
+        "status": "approved"
+      }
     },
     "cfu:player:2033": {
       "playerId": "cfu:player:2033",
@@ -1272,7 +1380,13 @@
       "sourcePlayerId": "2035",
       "sourceUrl": "https://www.cfu2015.com/players/2035/",
       "name": "Кирилл Коркин",
-      "dateOfBirth": "2003-10-22"
+      "dateOfBirth": "2003-10-22",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2035/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/korkin_kirill_20260331.jpg",
+        "sha256": "2a7ba051f09579fd57478f9322a59ab6cba87bbd62fd3d8e2400d9e60033b792",
+        "status": "approved"
+      }
     },
     "cfu:player:2036": {
       "playerId": "cfu:player:2036",
@@ -1280,7 +1394,13 @@
       "sourcePlayerId": "2036",
       "sourceUrl": "https://www.cfu2015.com/players/2036/",
       "name": "Вячеслав Коркин",
-      "dateOfBirth": "2003-10-22"
+      "dateOfBirth": "2003-10-22",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2036/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/korkin_vyacheslav_20260331.jpg",
+        "sha256": "97974db7e85d768fb48fbb8c21a80fd99fdffe7e14e4bfe6723f33af2b64228a",
+        "status": "approved"
+      }
     },
     "cfu:player:2037": {
       "playerId": "cfu:player:2037",
@@ -1288,7 +1408,13 @@
       "sourcePlayerId": "2037",
       "sourceUrl": "https://www.cfu2015.com/players/2037/",
       "name": "Егор Елисеев",
-      "dateOfBirth": "2003-11-17"
+      "dateOfBirth": "2003-11-17",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2037/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/eliseev_egor_20260331.jpg",
+        "sha256": "fab7cd9bf597c3c12cf8d96d9056a7ed1dcf70896db2a53dc742e5d84bce81ef",
+        "status": "approved"
+      }
     },
     "cfu:player:2038": {
       "playerId": "cfu:player:2038",
@@ -1296,7 +1422,13 @@
       "sourcePlayerId": "2038",
       "sourceUrl": "https://www.cfu2015.com/players/2038/",
       "name": "Родион Лоленко",
-      "dateOfBirth": "2008-07-08"
+      "dateOfBirth": "2008-07-08",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2038/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/lolenko_rodion_20261026.jpg",
+        "sha256": "d072092e82234c8a9692f0ec364ce422776c3c30fc59995f4273e0a93614888f",
+        "status": "approved"
+      }
     },
     "cfu:player:2039": {
       "playerId": "cfu:player:2039",
@@ -1304,7 +1436,13 @@
       "sourcePlayerId": "2039",
       "sourceUrl": "https://www.cfu2015.com/players/2039/",
       "name": "Андрей Валенко",
-      "dateOfBirth": "2009-12-13"
+      "dateOfBirth": "2009-12-13",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2039/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/valenko_andrey_20260331.jpg",
+        "sha256": "144a763736409eaf26347fcea7ee1c0acbf612f9e296ec8fa512fc158d2fe0a5",
+        "status": "approved"
+      }
     },
     "cfu:player:2040": {
       "playerId": "cfu:player:2040",
@@ -1320,7 +1458,13 @@
       "sourcePlayerId": "2041",
       "sourceUrl": "https://www.cfu2015.com/players/2041/",
       "name": "Данила Кабанов",
-      "dateOfBirth": "2007-06-01"
+      "dateOfBirth": "2007-06-01",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2041/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/kabanov_danila_20260331.jpg",
+        "sha256": "a8453a5da9b0950943d48c945a93e040abe31654831438659ba1d1b7c7ff0e43",
+        "status": "approved"
+      }
     },
     "cfu:player:2042": {
       "playerId": "cfu:player:2042",
@@ -1328,7 +1472,13 @@
       "sourcePlayerId": "2042",
       "sourceUrl": "https://www.cfu2015.com/players/2042/",
       "name": "Иван Нестеров",
-      "dateOfBirth": "2005-09-23"
+      "dateOfBirth": "2005-09-23",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2042/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/nesterov_ivan__20260331.jpg",
+        "sha256": "941dc766c7ab2d605c484e3225db49ac93dee998779155e76fd20d0321cf00bf",
+        "status": "approved"
+      }
     },
     "cfu:player:2043": {
       "playerId": "cfu:player:2043",
@@ -1572,7 +1722,13 @@
       "sourcePlayerId": "2072",
       "sourceUrl": "https://www.cfu2015.com/players/2072/",
       "name": "Анушервон Джебов",
-      "dateOfBirth": "2003-03-08"
+      "dateOfBirth": "2003-03-08",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2072/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/dzhebov_anushervon_20260409.jpg",
+        "sha256": "4eced8a5b65de1e559e8f953fb6c7a5342b4296d3c36aafab8a099c7bdf49617",
+        "status": "approved"
+      }
     },
     "cfu:player:2073": {
       "playerId": "cfu:player:2073",
@@ -1580,7 +1736,13 @@
       "sourcePlayerId": "2073",
       "sourceUrl": "https://www.cfu2015.com/players/2073/",
       "name": "Илья Дорофеев",
-      "dateOfBirth": "2005-08-12"
+      "dateOfBirth": "2005-08-12",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2073/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/dorofeev_ilya_20260409.jpg",
+        "sha256": "5c820da0e0f85c93199c60654fc654f06d6d58b339a1df00b153105f59939a01",
+        "status": "approved"
+      }
     },
     "cfu:player:2074": {
       "playerId": "cfu:player:2074",
@@ -1700,7 +1862,13 @@
       "sourcePlayerId": "2109",
       "sourceUrl": "https://www.cfu2015.com/players/2109/",
       "name": "Анатолий Воробьев",
-      "dateOfBirth": "2006-03-26"
+      "dateOfBirth": "2006-03-26",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2109/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/vorobev_anatoliy_20260604.jpg",
+        "sha256": "ffc1b47b312e98226d0a736e85579e28ff0a69714c400c1187c3cefae03f52f9",
+        "status": "approved"
+      }
     },
     "cfu:player:2110": {
       "playerId": "cfu:player:2110",
@@ -1900,7 +2068,13 @@
       "sourcePlayerId": "2137",
       "sourceUrl": "https://www.cfu2015.com/players/2137/",
       "name": "Аким Абдоков",
-      "dateOfBirth": "2000-04-17"
+      "dateOfBirth": "2000-04-17",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2137/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/abdokov_akim_202060812.jpg",
+        "sha256": "44b3ab3084d3f81875c3fa9b53e54f034cdf48bc0c15ba87708612063fd6f2c2",
+        "status": "approved"
+      }
     },
     "cfu:player:2138": {
       "playerId": "cfu:player:2138",
@@ -1908,7 +2082,13 @@
       "sourcePlayerId": "2138",
       "sourceUrl": "https://www.cfu2015.com/players/2138/",
       "name": "Илья Голуб",
-      "dateOfBirth": "2004-02-03"
+      "dateOfBirth": "2004-02-03",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2138/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/golub_ilya_20260820.jpg",
+        "sha256": "6e03680b91e6d8398f639fe24b77bfbababd559a35fbb48baac0f204eafa6659",
+        "status": "approved"
+      }
     },
     "cfu:player:2139": {
       "playerId": "cfu:player:2139",
@@ -1916,7 +2096,13 @@
       "sourcePlayerId": "2139",
       "sourceUrl": "https://www.cfu2015.com/players/2139/",
       "name": "Анзор Кештов",
-      "dateOfBirth": "2007-09-05"
+      "dateOfBirth": "2007-09-05",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2139/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/keshtov_anzor_202060812.jpg",
+        "sha256": "4b250c29f60d874b50724a55091ced5742c3576f132c7b7738296c6b091650d5",
+        "status": "approved"
+      }
     },
     "cfu:player:2140": {
       "playerId": "cfu:player:2140",
@@ -1924,7 +2110,13 @@
       "sourcePlayerId": "2140",
       "sourceUrl": "https://www.cfu2015.com/players/2140/",
       "name": "Булат Бакиров",
-      "dateOfBirth": "2005-01-19"
+      "dateOfBirth": "2005-01-19",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2140/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/bakirov_bulat_20260820.jpg",
+        "sha256": "02774f5a9c476a5f665bbfc0c52998be127b6a03d4498c9403fb8bf9777090c4",
+        "status": "approved"
+      }
     },
     "cfu:player:2141": {
       "playerId": "cfu:player:2141",
@@ -1932,7 +2124,13 @@
       "sourcePlayerId": "2141",
       "sourceUrl": "https://www.cfu2015.com/players/2141/",
       "name": "Владимир Абрамов",
-      "dateOfBirth": "2002-04-05"
+      "dateOfBirth": "2002-04-05",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2141/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/abramov_vladimir_202060812.jpg",
+        "sha256": "428d585948f56ed339719b54dcab5fbc8dd356aaf6edecae73007c067f5b689d",
+        "status": "approved"
+      }
     },
     "cfu:player:2142": {
       "playerId": "cfu:player:2142",
@@ -1940,7 +2138,13 @@
       "sourcePlayerId": "2142",
       "sourceUrl": "https://www.cfu2015.com/players/2142/",
       "name": "Артём Тимошенко",
-      "dateOfBirth": "2005-01-17"
+      "dateOfBirth": "2005-01-17",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2142/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/timoshenko_artem_202060812.jpg",
+        "sha256": "c6550329d17de876f0ae941df022ae4a307b1a2b0698472647971a6df072ed9e",
+        "status": "approved"
+      }
     },
     "cfu:player:2143": {
       "playerId": "cfu:player:2143",
@@ -1948,7 +2152,13 @@
       "sourcePlayerId": "2143",
       "sourceUrl": "https://www.cfu2015.com/players/2143/",
       "name": "Тамерлан Дзугулов",
-      "dateOfBirth": "2007-09-08"
+      "dateOfBirth": "2007-09-08",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2143/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/dzugulov_tamerlan_202060812.jpg",
+        "sha256": "e095d4320c97f6253d00524ee029d40f4c6f4e040194628ab479e042ce7cb031",
+        "status": "approved"
+      }
     },
     "cfu:player:2144": {
       "playerId": "cfu:player:2144",
@@ -1956,7 +2166,13 @@
       "sourcePlayerId": "2144",
       "sourceUrl": "https://www.cfu2015.com/players/2144/",
       "name": "Мухамед Цицов",
-      "dateOfBirth": "2008-04-02"
+      "dateOfBirth": "2008-04-02",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2144/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/cicov_muhamed_202060812.jpg",
+        "sha256": "adc613b87ff946152ee570509bc6c943022f299df0864dbe5a757e3001f0f74e",
+        "status": "approved"
+      }
     },
     "cfu:player:2145": {
       "playerId": "cfu:player:2145",
@@ -1964,7 +2180,13 @@
       "sourcePlayerId": "2145",
       "sourceUrl": "https://www.cfu2015.com/players/2145/",
       "name": "Кантемир Болотоков",
-      "dateOfBirth": "2007-07-24"
+      "dateOfBirth": "2007-07-24",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2145/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/bolotokov_kantemir_202060812.jpg",
+        "sha256": "8f3d36f0a54e61803641867043dbce83fa42d4024f9aea13318b41a429a59598",
+        "status": "approved"
+      }
     },
     "cfu:player:2153": {
       "playerId": "cfu:player:2153",
@@ -1980,7 +2202,13 @@
       "sourcePlayerId": "2154",
       "sourceUrl": "https://www.cfu2015.com/players/2154/",
       "name": "Эмиль Кишиев",
-      "dateOfBirth": "2005-01-26"
+      "dateOfBirth": "2005-01-26",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2154/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/kishiev_emil_20260820.jpg",
+        "sha256": "457340a66f9819a4b8fda3f8f2be2d15e28efb064ee316f302e81c4b1265a148",
+        "status": "approved"
+      }
     },
     "cfu:player:2155": {
       "playerId": "cfu:player:2155",
@@ -2012,7 +2240,13 @@
       "sourcePlayerId": "2158",
       "sourceUrl": "https://www.cfu2015.com/players/2158/",
       "name": "Эрик Нахатакян",
-      "dateOfBirth": "2008-05-12"
+      "dateOfBirth": "2008-05-12",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2158/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/nahatakyan_erik_20260921.jpg",
+        "sha256": "eed32b712549ce0147c3d44a8ee521706964bad233e438a977cc879eb77cd124",
+        "status": "approved"
+      }
     },
     "cfu:player:2159": {
       "playerId": "cfu:player:2159",
@@ -2042,7 +2276,13 @@
       "sourcePlayerId": "2161",
       "sourceUrl": "https://www.cfu2015.com/players/2161/",
       "name": "Владислав Янченко",
-      "dateOfBirth": "2003-11-11"
+      "dateOfBirth": "2003-11-11",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2161/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/yanchenko_vladislav_20260310.jpg",
+        "sha256": "858e7c1e40917e147d0f3f9682a993f5fbb4977757e0c4d7290a8734b7a2d106",
+        "status": "approved"
+      }
     },
     "cfu:player:2162": {
       "playerId": "cfu:player:2162",
@@ -2066,7 +2306,13 @@
       "sourcePlayerId": "2164",
       "sourceUrl": "https://www.cfu2015.com/players/2164/",
       "name": "Карим Лалаян",
-      "dateOfBirth": "2009-07-13"
+      "dateOfBirth": "2009-07-13",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2164/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/lalayan_karim_20261009.jpg",
+        "sha256": "2a3c18b92a7d89303d8c0adfa09be2426fc573a28931652d4dbfb78cd5dc2442",
+        "status": "approved"
+      }
     },
     "cfu:player:2165": {
       "playerId": "cfu:player:2165",
@@ -2074,7 +2320,13 @@
       "sourcePlayerId": "2165",
       "sourceUrl": "https://www.cfu2015.com/players/2165/",
       "name": "Мурад Магомедов",
-      "dateOfBirth": "2005-02-11"
+      "dateOfBirth": "2005-02-11",
+      "photo": {
+        "sourceUrl": "https://www.cfu2015.com/players/2165/",
+        "imageUrl": "https://img.cfu2015.com/i/rectangle/286x380/magomedov_murad_20261026.jpg",
+        "sha256": "7e88ee7228fdf20cf8488eb1dc78bd1bd76f5c70a1115cefa3f1f78284ad93f9",
+        "status": "approved"
+      }
     },
     "cfu:player:2166": {
       "playerId": "cfu:player:2166",
