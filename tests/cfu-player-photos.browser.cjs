@@ -16,9 +16,10 @@ for(const number of [258,280]){
 const asset='/assets/cfu-player-photos/';
 const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript','.json':'application/json',
   '.css':'text/css','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2'};
-let snapshot=enriched, broken=false;
+let snapshot=enriched, broken=false, networkDown=false;
 const requests=[];
 const server=http.createServer((req,res)=>{
+  if(networkDown){req.socket.destroy();return}
   const url=new URL(req.url,'http://localhost');
   const pathname=url.pathname.replace(/^\/fk-sudak(?=\/)/,'');
   if(pathname==='/'+rosterFile){
@@ -160,13 +161,15 @@ async function layout(page){
       assert.equal(requests.length,initialRequests,'Home requests no CFU portraits');
       assert.equal(await offline.page.locator('img[data-cfu-photo]').count(),0);
       assert.equal(await offline.page.locator('#table').evaluate(node=>node.childElementCount),0);
+      // Chromium can still fetch through the service worker under page-level emulation.
+      networkDown=true;
       await offline.context.setOffline(true);
       await offline.page.goto(base+player);
       await offline.page.reload();await ready(offline.page);
       await offline.page.locator(large+' img').waitFor({state:'detached'});
       assert.equal(await offline.page.locator(large).textContent(),'ВМ');
       assert.equal(await offline.page.locator('#player-title').textContent(),'Валентин Манякин');
-    }finally{await offline.context.close()}
+    }finally{networkDown=false;await offline.context.close()}
 
     assert.deepEqual(errors,[]);
     console.log('PASS CFU photos: 320/390/768, light/dark, source, club and match routes, refresh, failure, offline and deferred Home');

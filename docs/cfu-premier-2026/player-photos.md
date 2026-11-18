@@ -62,3 +62,12 @@ python -m scripts.cfu_player_photos --permissions /path/to/permissions.json --pu
 Изображения запрашиваются с того же сайта, что и PWA. Состав использует `loading="lazy"` и `decoding="async"`. Главная и неоткрытые вкладки портретов не запрашивают. При офлайн-перезагрузке недоступное изображение уступает место инициалам. Service Worker использует обычный кэш ранее загруженных файлов, обязательный precache не меняется.
 
 Локальные проверки запускаются через `python -m unittest discover -s tests -v`, `node --test tests/*.test.cjs` и `git diff --check`. Chromium в GitHub Actions проверяет состав и профиль на ширинах 320, 390 и 768 px в двух темах, переходы из состава и центра матча, прямые ссылки, обновление, ошибку фото и перезагрузку офлайн. Проверка РФФК и ленивая отрисовка дополнительно покрыты существующими тестами. Артефакт `cfu-player-photos-screenshots` содержит снимки `before-*` и `after-*` для каждой пары ширины и темы. На кадрах с включённым фото показан геометрический тестовый образец.
+
+Локально прошли 226 тестов Python, 196 тестов Node и `git diff --check`. [Проверки PR и полная матрица скриншотов Chromium](https://github.com/dancharms9-commits/fk-sudak/pull/49/checks).
+
+### Кадры Chromium на 390 px в светлой теме
+
+| Экран | До | После с тестовым изображением |
+| --- | --- | --- |
+| Профиль | ![Профиль с инициалами](player-photos/before-profile-390-light.png) | ![Профиль с тестовым JPEG](player-photos/after-profile-390-light.png) |
+| Состав | ![Строки состава до добавления аватаров](player-photos/before-roster-390-light.png) | ![Круглые аватары с тестовым JPEG и инициалами](player-photos/after-roster-390-light.png) |
