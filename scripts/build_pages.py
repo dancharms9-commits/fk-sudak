@@ -24,14 +24,13 @@ import requests
 # Support both imports in tests and `python scripts/build_pages.py`.
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from fetch_data import check_calendar_update, check_scorers_update, retain_calendar_source_ids
+from fetch_data import check_calendar_update, check_scorers_update, make_player_stats, retain_calendar_source_ids
 from scripts import multi_club_sources, multi_club_schema, multi_club_rosters, multi_club_matches, cfu_sync
+from update_player_stats import LEAGUE_URL, PROFILE_STAT_FIELDS
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_JSON = 5_000_000
-STAT_NUMBERS = ("league_games", "league_goals", "league_penalty_goals", "league_minutes",
-                "league_starts", "league_substitutions")
-STAT_FIELDS = (*STAT_NUMBERS, "profile_url", "photo_url", "photo_source_url")
+STAT_FIELDS = (*PROFILE_STAT_FIELDS.values(), "profile_url", "photo_url", "photo_source_url")
 
 
 class InvalidData(ValueError):
@@ -71,6 +70,48 @@ def identities(rows, field):
     return ids
 
 
+def validate_player_stats(stats, names, previous=None):
+    require(stats["season"] == 2026 and stats["source_url"] == LEAGUE_URL, "Wrong player statistics context")
+    require(identities(stats["players"], "name") == names, "Player profiles differ from squad")
+    player_ids = set()
+    for player in stats["players"]:
+        pid = multi_club_schema.source_id(player.get("profile_url"), "players")
+        location = f'club.player_stats_2026[{pid or player["name"]}]'
+        try:
+            values = {field: player.get(legacy) for field, legacy in PROFILE_STAT_FIELDS.items()}
+            multi_club_schema.season_stat_numbers(values)
+            if player.get("stats_verified_at") is not None:
+                multi_club_schema.stamp(player["stats_verified_at"])
+            if pid:
+                require(pid not in player_ids, "Duplicate Sudak player ID")
+                player_ids.add(pid)
+        except ValueError as exc:
+            raise InvalidData(f'{location}: {exc}') from exc
+    if previous is not None:
+        players = {p["name"]: p for p in stats["players"]}
+        for old in previous["players"]:
+            for field in STAT_FIELDS:
+                if old.get(field) is not None:
+                    require(players.get(old["name"], {}).get(field) is not None,
+                            f'club.player_stats_2026[{old["name"]}]: Lost confirmed player field: {field}')
+
+
+def retain_player_stats(previous, squad):
+    stats = copy.deepcopy(previous)
+    players = {p["name"]: p for p in stats["players"]}
+    # New squad entries can still be published with empty optional statistics.
+    for player in make_player_stats(squad, {}, False)["players"]:
+        if player["name"] not in players:
+            stats["players"].append(player)
+    for player in stats["players"]:
+        player.update(stats_current=False, leaderboard_current=False)
+        player.pop("leaderboard_stats", None)
+    stats["verified"] = False
+    if "fresh_players" in stats:
+        stats["fresh_players"] = 0
+    return stats
+
+
 def validate(data, previous=None):
     """Reject incomplete responses, including plausible but truncated HTML parses."""
     section = 'root'
@@ -102,12 +143,8 @@ def validate(data, previous=None):
         require(len(names) >= 10, "Incomplete squad")
         require(isinstance(data["coach"], str) and bool(data["coach"].strip()), "Missing coach")
         section = 'club.player_stats_2026'
-        stats = data["player_stats_2026"]
-        require(stats["season"] == 2026, "Wrong player season")
-        require(identities(stats["players"], "name") == names, "Player profiles differ from squad")
-        for player in stats["players"]:
-            require(all(player.get(f) is None or (type(player[f]) is int and player[f] >= 0)
-                        for f in STAT_NUMBERS), "Invalid player statistics")
+        validate_player_stats(data["player_stats_2026"], names,
+                              previous["player_stats_2026"] if previous is not None else None)
         section = 'club.match_details'
         details = data["match_details"]
         require(isinstance(details, dict), "Invalid match protocols")
@@ -152,13 +189,6 @@ def validate(data, previous=None):
                                     f"Truncated protocol {field}")
                     if old.get("events_complete"):
                         require(new.get("events_complete") is True, "Incomplete protocol events")
-            players = {p["name"]: p for p in stats["players"]}
-            for old in previous["player_stats_2026"]["players"]:
-                section = f'club.player_stats_2026[{old["name"]}]'
-                for field in STAT_FIELDS:
-                    if old.get(field) is not None:
-                        require(players.get(old["name"], {}).get(field) is not None,
-                                f"Lost confirmed player field: {field}")
             # Calendar history is durable; scorers is a bounded published list.
             # Both retention contracts were checked above, including cutoff
             # evidence for legitimate ranking turnover.
@@ -173,11 +203,15 @@ def validate(data, previous=None):
     return data
 
 
-def decode_json(raw):
+def read_json(raw):
     require(len(raw) <= MAX_JSON, "Oversized JSON")
     def invalid_constant(value):
         raise InvalidData(f"Invalid JSON number: {value}")
-    return validate(json.loads(raw, parse_constant=invalid_constant))
+    return json.loads(raw, parse_constant=invalid_constant)
+
+
+def decode_json(raw):
+    return validate(read_json(raw))
 
 
 def published_data(site_url, session=None):
@@ -309,6 +343,8 @@ def refresh_summary(previous, data):
         value = data['championship'][name]
         if value.get('stale'):
             print(f'::warning::championship.{name}: last-good section retained; lastVerifiedAt={value.get("updated")}')
+    print(f'RFFK championship.calendar: lastVerifiedAt={data["championship"]["calendar"].get("updated")}; '
+          f'previousLastVerifiedAt={previous["championship"]["calendar"].get("updated")}')
 
 
 def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_loader=None, match_loader=None):
@@ -321,10 +357,10 @@ def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_
         write_json(work / "player_stats_cache_2026.json", accepted["player_stats_2026"])
         try:
             runner([sys.executable, str(ROOT / script)], cwd=work, check=True, timeout=480)
-            raw = (work / "data.json").read_bytes()
+            candidate = read_json((work / "data.json").read_bytes())
+            require(isinstance(candidate, dict), "JSON must be an object")
             # Existing fetch_data intentionally reconstructs the old root object.
             # Restore only a missing extension, then validate before promotion.
-            candidate = decode_json(raw)
             if "platform" not in candidate and "platform" in accepted:
                 candidate["platform"] = copy.deepcopy(accepted["platform"])
             # fetch_data uses minute precision; our deployed revision uses
@@ -336,6 +372,14 @@ def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_
             next_core_revision = max(core_revision, new_stamp)
             if new_stamp < old_stamp:
                 candidate["updated"] = accepted["updated"]
+            names = roster(candidate)
+            previous_stats = accepted["player_stats_2026"]
+            try:
+                validate_player_stats(candidate["player_stats_2026"], names, previous_stats)
+            except (KeyError, TypeError, ValueError) as exc:
+                warning(f'{script} player statistics', exc,
+                        f'player statistics stats_as_of={previous_stats.get("stats_as_of")}')
+                candidate["player_stats_2026"] = retain_player_stats(previous_stats, candidate["squad"])
             if "platform" in candidate:
                 # Validate one coherent snapshot, rather than accepting new
                 # legacy matches with the previous platform until a later step.
@@ -344,7 +388,7 @@ def refresh(baseline, work, runner=subprocess.run, platform_loader=None, roster_
             validate(candidate, accepted)
             accepted = candidate
             core_revision = next_core_revision
-        except (subprocess.SubprocessError, OSError, ValueError) as exc:
+        except (subprocess.SubprocessError, OSError, KeyError, TypeError, ValueError) as exc:
             warning(script, exc, f'football data revision={accepted["updated"]}; '
                     f'calendar lastVerifiedAt={accepted["championship"]["calendar"].get("updated")}')
     if platform_loader is not None or accepted != baseline or "platform" not in accepted:
