@@ -188,8 +188,11 @@ class ChampionshipTests(unittest.TestCase):
         fresh = parser.make_player_stats(data['squad'], {'Донской Илья': {'games': 15, 'goals': 6, 'minutes': 1141, 'penalty_goals': 0}}, True)
         parser.preserve_player_enrichment(fresh, previous, team_page, 16, 63, True)
         player = next(p for p in fresh['players'] if p['name'] == 'Донской Илья')
-        self.assertEqual(player['league_goals'], 6)
-        self.assertNotIn('league_starts', player)
+        old = next(p for p in players if p['name'] == player['name'])
+        for field in ('league_games', 'league_goals', 'league_starts', 'league_substitutions'):
+            self.assertEqual(player[field], old[field])
+        self.assertEqual(player['leaderboard_stats']['league_goals'], 6)
+        self.assertFalse(player['stats_current'])
         self.assertTrue(player['leaderboard_current'])
 
     def test_stale_saved_metrics_do_not_block_fresh_profile_stats(self):

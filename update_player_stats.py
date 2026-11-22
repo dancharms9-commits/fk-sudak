@@ -38,6 +38,13 @@ SEASON_ROW = re.compile(
     re.IGNORECASE,
 )
 PLAYER_PATH = re.compile(r"^/players/\d+/?$")
+LEADERBOARD_STAT_FIELDS = {
+    "games": "league_games", "goals": "league_goals",
+    "penaltyGoals": "league_penalty_goals", "minutes": "league_minutes",
+}
+LEADERBOARD_FIELDS = tuple(LEADERBOARD_STAT_FIELDS.values())
+APPEARANCE_FIELDS = ("league_starts", "league_substitutions")
+PROFILE_STAT_FIELDS = {**LEADERBOARD_STAT_FIELDS, "starts": "league_starts", "substitutions": "league_substitutions"}
 
 
 def normalized_text(soup):
@@ -149,17 +156,18 @@ def atomic_json(path, payload):
 def valid_stat_fields(item, played, team_goals):
     if not isinstance(item, dict):
         return None
-    keys = ("league_games", "league_goals", "league_penalty_goals", "league_minutes")
-    if any(type(item.get(key)) is not int for key in keys):
+    if any(type(item.get(key)) is not int for key in LEADERBOARD_FIELDS):
         return None
-    games, goals, penalty, minutes = (item[k] for k in keys)
+    games, goals, penalty, minutes = (item[k] for k in LEADERBOARD_FIELDS)
     if not (1 <= games <= played and 0 <= goals <= team_goals
             and 0 <= penalty <= goals and 0 <= minutes <= games * 120):
         return None
-    output = {k: item[k] for k in keys}
-    starts, subs = item.get("league_starts"), item.get("league_substitutions")
-    if (type(starts) is int and type(subs) is int
-            and starts >= 0 and subs >= 0 and starts + subs == games):
+    output = {k: item[k] for k in LEADERBOARD_FIELDS}
+    starts, subs = (item.get(key) for key in APPEARANCE_FIELDS)
+    if starts is not None or subs is not None:
+        if not (type(starts) is int and type(subs) is int
+                and starts >= 0 and subs >= 0 and starts + subs == games):
+            return None
         output.update(league_starts=starts, league_substitutions=subs)
     if item.get("profile_url") and safe_player_url(item["profile_url"]) == item["profile_url"]:
         output["profile_url"] = item["profile_url"]
@@ -167,6 +175,21 @@ def valid_stat_fields(item, played, team_goals):
             and safe_photo_url(item.get("photo_url"))):
         output.update(photo_url=item["photo_url"], photo_source_url=item["photo_source_url"])
     return output
+
+
+def profile_verified_at(item, stats_as_of, platform_stats=None):
+    if "stats_verified_at" in item:
+        return item["stats_verified_at"]
+    if any(item.get(field) is None for field in APPEARANCE_FIELDS):
+        return None
+    if item.get("stats_current") is True and not item.get("leaderboard_current"):
+        return stats_as_of
+    # Older caches did not store a date per player. Recover it only when the
+    # ID-based snapshot confirms the same set of values.
+    if platform_stats and all(item.get(legacy) == platform_stats.get(field)
+                              for field, legacy in PROFILE_STAT_FIELDS.items()):
+        return platform_stats["quality"]["lastVerifiedAt"]
+    return None
 
 
 def fetch_one_player(name, url, played, team_goals):
@@ -212,7 +235,8 @@ def main():
 
     previous_from_data = data.get("player_stats_2026", {})
     previous_from_cache = read_json(CACHE_FILE)
-    saved = {}
+    saved, saved_ranks = {}, {}
+    platform_stats = data.get("platform", {}).get("playerSeasonStats", {})
     # Cache is the durable previous set: fetch_data.py can overwrite its own
     # stats subsection before this script runs, without destroying the cache.
     for source in (previous_from_data, previous_from_cache):
@@ -226,7 +250,17 @@ def main():
             name = item.get("name")
             checked = valid_stat_fields(item, played, team_goals)
             if name in roster and checked:
-                saved[name] = {**saved.get(name, {}), **checked}
+                url = checked.get("profile_url", "")
+                pid = url.rstrip("/").rsplit("/", 1)[-1]
+                checked["stats_verified_at"] = profile_verified_at(
+                    item, source.get("stats_as_of"), platform_stats.get(f"{pid}:141:4:22"))
+                observed_at = checked["stats_verified_at"]
+                if item.get("leaderboard_current") and "league_starts" not in checked:
+                    observed_at = source.get("stats_as_of")
+                rank = ("league_starts" in checked, observed_at or "")
+                if rank >= saved_ranks.get(name, (False, "")):
+                    saved[name] = checked
+                    saved_ranks[name] = rank
 
     links = {}
     fresh = {}
@@ -246,14 +280,14 @@ def main():
             if stats:
                 # When the tournament's separate scorer list is available,
                 # reject contradicting profile statistics rather than guessing.
-                from_leaderboard = valid_stat_fields(next(
+                entry = next(
                     (p for p in previous_from_data.get("players", [])
                      if isinstance(p, dict) and p.get("name") == name
-                     and p.get("leaderboard_current", True)), {}),
-                    played, team_goals)
+                     and p.get("leaderboard_current") is True), {})
+                from_leaderboard = valid_stat_fields(
+                    entry.get("leaderboard_stats", entry), played, team_goals)
                 if from_leaderboard and any(
-                    stats[k] != from_leaderboard[k]
-                    for k in ("league_games", "league_goals", "league_penalty_goals", "league_minutes")
+                    stats[k] != from_leaderboard[k] for k in LEADERBOARD_FIELDS
                 ):
                     print(f"Несовпадение источников для {name}; используем предыдущие подтверждённые данные")
                     continue
@@ -277,6 +311,7 @@ def main():
             "league_substitutions": stats.get("league_substitutions"),
             "profile_url": stats.get("profile_url", links.get(name)),
             "stats_current": name in fresh,
+            "stats_verified_at": now if name in fresh else stats.get("stats_verified_at"),
         }
         if stats.get("photo_url"):
             row.update(photo_url=stats["photo_url"], photo_source_url=stats["photo_source_url"])

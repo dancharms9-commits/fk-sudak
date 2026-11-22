@@ -12,8 +12,9 @@ from bs4 import BeautifulSoup
 
 from scripts.multi_club_schema import (
     BASE, CLUBS, SEASON_KEY, SEASON_URL, TEAM_IDS, STATS,
-    InvalidPlatform, require, source_id, validate_platform,
+    InvalidPlatform, require, season_stat_numbers, source_id, stamp, validate_platform,
 )
+from update_player_stats import PROFILE_STAT_FIELDS, profile_verified_at
 
 
 def quality(url, status='stale', reason='imported_snapshot', verified=None, coverage='partial', checked=None):
@@ -130,8 +131,6 @@ def project_snapshot(data, previous=None, source_updated_at=None):
     # already verified the Sudak/2026 context; do not rejoin SQUAD by names.
     stats = data['player_stats_2026']
     require(stats['season'] == 2026 and stats['source_url'] == BASE + '/tournaments/4/', 'Wrong player context')
-    mapping = {'games': 'league_games', 'goals': 'league_goals', 'penaltyGoals': 'league_penalty_goals',
-               'minutes': 'league_minutes', 'starts': 'league_starts', 'substitutions': 'league_substitutions'}
     roster = p['rosters']['4:22:141']
     player_ids = []
     for raw in stats['players']:
@@ -143,24 +142,39 @@ def project_snapshot(data, previous=None, source_updated_at=None):
         p['playersById'][pid] = {**p['playersById'].get(pid, {}), 'playerId': pid, 'name': raw['name'], 'sourceUrl': raw['profile_url'],
                                 'quality': quality(raw['profile_url'])}
         p['legacyLinks']['players']['rffk-' + pid] = pid
-        old = p['playerSeasonStats'].get(f'{pid}:141:4:22', {})
-        # stats_as_of is aggregate: another player's success must never make a
-        # cached individual's values freshly verified. Missing stats_current
-        # denotes the legacy leaderboard projection, not a profile import.
-        verified = (stats.get('stats_as_of') if raw.get('stats_current') is True
-                    else old.get('quality', {}).get('lastVerifiedAt'))
+        key = f'{pid}:141:4:22'
+        old = p['playerSeasonStats'].get(key)
         row = {'playerId': pid, 'teamId': '141', 'competitionId': '4', 'seasonId': '22',
-               'sourceUrl': raw['profile_url'], **{field: None for field in STATS},
-               'quality': quality(raw['profile_url'], verified=verified)}
-        if type(raw.get('stats_current')) is bool:
-            row.update({field: raw.get(source) for field, source in mapping.items()})
-        for field in STATS:
-            if row[field] is None and old.get(field) is not None:
-                row[field] = old[field]
-                row['quality']['reason'] = 'last_good_statistic'
-                row['quality']['lastVerifiedAt'] = old['quality']['lastVerifiedAt']
-                row['quality']['lastSuccessAt'] = old['quality']['lastSuccessAt']
-        p['playerSeasonStats'][f'{pid}:141:4:22'] = row
+               'sourceUrl': raw['profile_url'], **{field: None for field in STATS}}
+        verified = None
+        if type(raw.get('stats_current')) is bool and not raw.get('leaderboard_current'):
+            row.update({field: raw.get(source) for field, source in PROFILE_STAT_FIELDS.items()})
+            verified = profile_verified_at(raw, stats.get('stats_as_of'), old)
+        usable = True
+        try:
+            season_stat_numbers(row)
+            verified_stamp = stamp(verified) if verified is not None else None
+        except ValueError as exc:
+            print(f'::warning::platform.playerSeasonStats[{key}]: {exc}; invalid statistics discarded')
+            usable = False
+        if old and (not usable or any(old[field] is not None for field in STATS)):
+            old_verified = old['quality']['lastVerifiedAt']
+            if (not usable or raw.get('stats_current') is not True or verified_stamp is None
+                    or (old_verified is not None and verified_stamp < stamp(old_verified))
+                    or any(old[field] is not None and row[field] is None for field in STATS)):
+                if old['quality']['status'] == 'current':
+                    old['quality'].update(status='stale', reason='last_good_statistic')
+                continue
+        if not usable:
+            row.update(dict.fromkeys(STATS))
+            verified = None
+        if (verified and raw.get('stats_current') is True and raw.get('stats_verified_at')
+                and all(row[field] is not None for field in PROFILE_STAT_FIELDS)):
+            row['quality'] = quality(raw['profile_url'], status='current', reason='official_player_profile',
+                                     verified=verified, checked=verified)
+        else:
+            row['quality'] = quality(raw['profile_url'], verified=verified)
+        p['playerSeasonStats'][key] = row
     roster['playerIds'] = list(dict.fromkeys(roster['playerIds'] + player_ids))
     roster['quality'] = quality(BASE + '/teams/141/', coverage='partial')
     # Lineups provide official profile URLs, not a season roster or totals.

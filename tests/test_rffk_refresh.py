@@ -14,12 +14,19 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 import requests
 import fetch_data as parser
-from scripts import build_pages as build, multi_club_sources as sources
+import update_player_stats as profiles
+from scripts import build_pages as build, multi_club_schema as schema, multi_club_sources as sources
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / 'tests/fixtures/rffk-refresh'
 SEED = json.loads((ROOT / 'data.json').read_text())
 MATCH = '4:2026:19:930:117'
+PLAYER_KEY = '1151:141:4:22'
+
+
+def semenov(data):
+    return next(row for row in data['player_stats_2026']['players']
+                if schema.source_id(row.get('profile_url'), 'players') == '1151')
 
 
 def baseline():
@@ -227,6 +234,127 @@ class RffkRefreshTests(unittest.TestCase):
         for text in ('::warning::fetch_data.py', 'platform.protocolsByMatchId', '4:2026:19:1028:521', 'Protocol does not match current result', 'using last-good', 'lastVerifiedAt=', 'retained sections='):
             self.assertIn(text, log)
         self.assertEqual(result, self.old)
+
+
+class Round21RefreshTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.old = baseline()
+        cls.old['championship']['calendar']['updated'] = '2026-11-16T14:56:30+00:00'
+        cls.old['platform']['playerSeasonStats'][PLAYER_KEY]['quality'].update(
+            lastVerifiedAt='2026-11-16T14:56+00:00', lastSuccessAt='2026-11-16T14:56+00:00')
+        semenov(cls.old)['stats_current'] = False
+        cls.incoming = copy.deepcopy(cls.old)
+
+        def round21_loader(path):
+            soup = loader(path)
+            if path != parser.LEAGUE_PATH:
+                captured = BeautifulSoup((FIXTURES / 'round-21-2026-11-22.html').read_text(), 'html.parser')
+                soup.select_one('.tour_calendar .list > [data-id="21"]').replace_with(
+                    captured.select_one('[data-id="21"]'))
+                soup.select_one('.champ_data_calendar').insert_before(captured.select_one('.up_container'))
+            return soup
+
+        cls.incoming['championship'] = parser.update_championship(
+            cls.old['championship'], loader=round21_loader, club_details=cls.old['match_details'])
+        cls.incoming['updated'] = cls.incoming['championship']['calendar']['updated']
+
+    def test_invalid_appearances_retain_stats_but_publish_round21_and_history(self):
+        candidate = copy.deepcopy(self.incoming)
+        semenov(candidate).update(league_games=14, league_goals=11, league_minutes=1129, stats_current=True)
+        candidate['player_stats_2026']['stats_as_of'] = candidate['updated']
+        with self.assertRaisesRegex(build.InvalidData, r'1151.*Invalid appearances'):
+            build.validate(candidate)
+        invalid_platform = copy.deepcopy(self.old['platform'])
+        invalid_platform['playerSeasonStats'][PLAYER_KEY]['games'] = 14
+        with self.assertRaisesRegex(schema.InvalidPlatform, r'1151.*Invalid appearances'):
+            schema.validate_platform(invalid_platform)
+
+        result = refresh(self.old, candidate)
+        calendar = result['championship']['calendar']
+        self.assertEqual(calendar, self.incoming['championship']['calendar'])
+        self.assertGreater(schema.stamp(calendar['updated']), schema.stamp(self.old['championship']['calendar']['updated']))
+        self.assertFalse(calendar['stale'])
+        matches = {m['id']: m for m in calendar['matches']}
+        expected_round = {
+            '4:2026:21:757:146': ('38783', 'technical', None, 0, 3),
+            '4:2026:21:1028:1030': ('38782', 'finished', '2026-11-22', 2, 4),
+            '4:2026:21:930:932': ('38781', 'finished', '2026-11-22', 4, 3),
+            '4:2026:21:934:141': ('38784', 'finished', '2026-11-22', 1, 3),
+            '4:2026:21:521:117': (None, 'scheduled', '2026-11-25', None, None),
+        }
+        self.assertEqual({m['id'] for m in matches.values() if m['round_id'] == '21'}, set(expected_round))
+        for key, expected in expected_round.items():
+            row = result['platform']['matchesById'][key]
+            self.assertEqual(tuple(matches[key][f] for f in ('source_id', 'status', 'date', 'home_score', 'away_score')), expected)
+            self.assertEqual(tuple(row[f] for f in ('sourceMatchId', 'status', 'date', 'homeScore', 'awayScore')), expected)
+            self.assertEqual(row['quality']['lastVerifiedAt'], calendar['updated'])
+        for old in self.old['championship']['calendar']['matches']:
+            self.assertIn(old['id'], matches)
+            if old['status'] in {'finished', 'technical'} and old['home_score'] is not None:
+                for field in ('date', 'status', 'home_score', 'away_score', 'source_id'):
+                    self.assertEqual(matches[old['id']][field], old[field], (old['id'], field))
+        self.assertEqual(result['platform']['playerSeasonStats'][PLAYER_KEY],
+                         self.old['platform']['playerSeasonStats'][PLAYER_KEY])
+        stats = result['player_stats_2026']
+        self.assertEqual(stats['stats_as_of'], self.old['player_stats_2026']['stats_as_of'])
+        self.assertFalse(stats['verified'])
+        self.assertFalse(semenov(result)['stats_current'])
+
+    def test_partial_leaderboard_cannot_backfill_appearances_or_restart_verification(self):
+        candidate = copy.deepcopy(self.incoming)
+        raw = semenov(candidate)
+        raw.update(league_games=14, league_goals=11, league_minutes=1129, stats_current=True)
+        raw.pop('league_starts')
+        raw.pop('league_substitutions')
+        candidate['player_stats_2026']['stats_as_of'] = candidate['updated']
+        p = sources.project_snapshot(candidate, self.old['platform'])
+        self.assertEqual(p['playerSeasonStats'][PLAYER_KEY], self.old['platform']['playerSeasonStats'][PLAYER_KEY])
+
+    def test_conflicting_profile_uses_whole_cache_and_its_own_verification_date(self):
+        for agree in (False, True):
+            with self.subTest(agree=agree), tempfile.TemporaryDirectory() as tmp:
+                data = copy.deepcopy(self.old)
+                cached = copy.deepcopy(data['player_stats_2026'])
+                old = semenov(data)
+                name, url = old['name'], old['profile_url']
+                roster = BeautifulSoup(f'<a href="{url}">{name}</a>', 'html.parser')
+                new_stats = dict(zip(profiles.LEADERBOARD_FIELDS, (14, 11, 0, 1129)))
+                stats = parser.make_player_stats(data['squad'], {
+                    name: {'games': 14, 'goals': 11, 'penalty_goals': 0, 'minutes': 1129},
+                }, True, self.incoming['updated'])
+                data['player_stats_2026'] = parser.preserve_player_enrichment(
+                    stats, cached, roster, 18, 75, leaderboard_current=True,
+                    platform_stats=data['platform']['playerSeasonStats'])
+                self.assertEqual(semenov(data)['leaderboard_stats'], new_stats)
+                self.assertEqual(data['player_stats_2026']['stats_as_of'], cached['stats_as_of'])
+                self.assertFalse(data['player_stats_2026']['verified'])
+                for field in profiles.PROFILE_STAT_FIELDS.values():
+                    self.assertEqual(semenov(data)[field], old[field])
+
+                profile_stats = {**new_stats, 'profile_url': url, 'league_starts': 14, 'league_substitutions': 0}
+                if not agree:
+                    profile_stats.update(league_games=13, league_starts=13)
+                target = Path(tmp) / 'data.json'
+                cache_file = Path(tmp) / 'player_stats_cache_2026.json'
+                build.write_json(target, data)
+                build.write_json(cache_file, cached)
+                with patch.multiple(profiles, DATA_FILE=target, CACHE_FILE=cache_file), \
+                        patch.object(profiles, 'fetch_html', return_value=roster), \
+                        patch.object(profiles, 'fetch_one_player', return_value=(name, profile_stats)):
+                    profiles.main()
+                result = json.loads(target.read_text())
+                projected = sources.project_snapshot(result, self.old['platform'])['playerSeasonStats'][PLAYER_KEY]
+                if agree:
+                    self.assertEqual((projected['games'], projected['starts'], projected['substitutions']), (14, 14, 0))
+                    self.assertEqual(projected['quality']['lastVerifiedAt'], semenov(result)['stats_verified_at'])
+                    self.assertEqual(projected['quality']['status'], 'current')
+                    self.assertTrue(semenov(result)['stats_current'])
+                else:
+                    self.assertEqual(projected, self.old['platform']['playerSeasonStats'][PLAYER_KEY])
+                    self.assertEqual(semenov(result)['stats_verified_at'], '2026-11-16T14:56+00:00')
+                    self.assertFalse(semenov(result)['stats_current'])
+                self.assertEqual(result['championship'], self.old['championship'])
 
 
 if __name__ == '__main__':

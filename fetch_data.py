@@ -622,31 +622,39 @@ def parse_news(soup, year=SEASON_YEAR, limit=6):
     return [row for _, row in news[:limit]]
 
 
-def preserve_player_enrichment(stats, previous, team_page, played, team_goals, leaderboard_current=False):
+def preserve_player_enrichment(stats, previous, team_page, played, team_goals,
+                               leaderboard_current=False, platform_stats=None):
     """Keep all 41 profile IDs/photos even for players without season metrics."""
-    from update_player_stats import player_profile_urls, safe_player_url, safe_photo_url, valid_stat_fields
+    from update_player_stats import (
+        LEADERBOARD_FIELDS, player_profile_urls, profile_verified_at, safe_player_url,
+        safe_photo_url, valid_stat_fields,
+    )
+    platform_stats = platform_stats or {}
     old_players = {p["name"]: p for p in previous.get("players", []) if isinstance(p, dict) and p.get("name")}
     links = player_profile_urls(team_page, {p["name"] for p in stats["players"]})
     for player in stats["players"]:
         old = old_players.get(player["name"], {})
         source = links.get(player["name"]) or safe_player_url(old.get("profile_url", ""))
         same_person = source and source == old.get("profile_url")
-        current = {k: v for k, v in player.items() if k.startswith("league_")}
-        fresh = leaderboard_current and current.get("league_games") is not None
+        fresh = leaderboard_current and player.get("league_games") is not None
         checked = valid_stat_fields(old, played, team_goals) if same_person else None
-        if checked:
-            player.update(checked)
+        keep_profile = checked and "league_starts" in checked
+        if checked and (keep_profile or not fresh):
             if fresh:
-                player.update(current)
-                if current.get("league_games") != checked.get("league_games"):
-                    player.pop("league_starts", None)
-                    player.pop("league_substitutions", None)
+                player["leaderboard_stats"] = {field: player[field] for field in LEADERBOARD_FIELDS}
+            player.update(checked)
+            pid = source.rstrip("/").rsplit("/", 1)[-1]
+            player["stats_verified_at"] = profile_verified_at(
+                old, previous.get("stats_as_of"), platform_stats.get(f"{pid}:141:4:22"))
         if source:
             player["profile_url"] = source
         if same_person and old.get("photo_source_url") == source and safe_photo_url(old.get("photo_url")):
             player.update(photo_url=old["photo_url"], photo_source_url=source)
-        player["stats_current"] = fresh
+        player["stats_current"] = fresh and not keep_profile
         player["leaderboard_current"] = fresh
+    stats["verified"] = any(player["stats_current"] for player in stats["players"])
+    if not stats["verified"]:
+        stats["stats_as_of"] = previous.get("stats_as_of")
     return stats
 
 
@@ -1002,7 +1010,8 @@ def update_club_data():
     preserve_player_enrichment(player_stats, previous.get("player_stats_2026", {}), soup,
                                played or len(res), int(next(row[2].split("–")[0]
                                for row in table if norm_team(row[0]) == "фк судак")),
-                               leaderboard_current=league_verified)
+                               leaderboard_current=league_verified,
+                               platform_stats=previous.get("platform", {}).get("playerSeasonStats"))
     print(f"Статистика чемпионата 2026: подтверждено {len(league_stats)} игроков")
 
     match_details = load_match_details(res, match_refs)

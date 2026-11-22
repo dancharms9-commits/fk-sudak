@@ -92,6 +92,19 @@ def number(value, nullable=False):
             'Expected a nonnegative integer or permitted null')
 
 
+def season_stat_numbers(stats):
+    for field in STATS:
+        number(stats.get(field), nullable=True)
+    games, starts, subs = (stats.get(f) for f in ('games', 'starts', 'substitutions'))
+    if games is not None:
+        if starts is not None and subs is not None:
+            require(starts + subs == games, 'Invalid appearances')
+        if stats.get('minutes') is not None:
+            require(stats['minutes'] <= games * 120, 'Invalid minutes')
+    if stats.get('penaltyGoals') is not None and stats.get('goals') is not None:
+        require(stats['penaltyGoals'] <= stats['goals'], 'Invalid penalties')
+
+
 def match_record(key, m, teams):
     context(m, teams)
     require(m['matchId'] == key, 'Match key mismatch')
@@ -235,15 +248,7 @@ def validate_platform(p, previous=None):
             require(stats['playerId'] in players and key == f"{stats['playerId']}:{stats['teamId']}:4:22",
                     'Invalid player statistics key')
             require(source_id(stats['sourceUrl'], 'players') == stats['playerId'], 'Wrong statistics source')
-            for field in STATS:
-                number(stats[field], nullable=True)
-            if stats['games'] is not None:
-                if stats['starts'] is not None and stats['substitutions'] is not None:
-                    require(stats['starts'] + stats['substitutions'] == stats['games'], 'Invalid appearances')
-                if stats['minutes'] is not None:
-                    require(stats['minutes'] <= stats['games'] * 120, 'Invalid minutes')
-            if stats['penaltyGoals'] is not None and stats['goals'] is not None:
-                require(stats['penaltyGoals'] <= stats['goals'], 'Invalid penalties')
+            season_stat_numbers({field: stats[field] for field in STATS})
             quality(stats['quality'])
             if 'fieldQuality' in stats:
                 require(set(stats['fieldQuality']) == set(STATS), 'Invalid field quality keys')
