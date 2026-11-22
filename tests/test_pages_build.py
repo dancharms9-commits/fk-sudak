@@ -16,6 +16,7 @@ import yaml
 import fetch_data
 import update_player_stats
 from scripts import build_pages as build
+from scripts import wait_for_pages_artifact as wait
 
 ROOT = Path(__file__).resolve().parents[1]
 SEED = json.loads((ROOT / 'data.json').read_text())
@@ -270,18 +271,85 @@ class RefreshTests(unittest.TestCase):
             self.assertEqual((ROOT / name).read_bytes(), raw)
 
 
+class PagesArtifactTests(unittest.TestCase):
+    name = 'github-pages-123-2'
+
+    def setUp(self):
+        self.gh = self.enterContext(patch.object(wait.subprocess, 'run'))
+        self.clock = self.enterContext(patch.object(wait, 'time'))
+        self.elapsed = 0
+        self.clock.monotonic.side_effect = lambda: self.elapsed
+        self.clock.sleep.side_effect = self.advance
+
+    def advance(self, seconds):
+        self.elapsed += seconds
+
+    def result(self, *pages):
+        return Mock(stdout=json.dumps([{'artifacts': page} for page in pages]))
+
+    def record(self, **overrides):
+        return {'id': 456, 'name': self.name, 'expired': False,
+                'workflow_run': {'id': 123}, **overrides}
+
+    def test_retries_transient_errors_and_waits_for_this_upload(self):
+        other_artifacts = [self.record(name='github-pages'), self.record(name='github-pages-123-1'),
+                           self.record(name=self.name.upper()), self.record(workflow_run={'id': 124})]
+        self.gh.side_effect = [
+            subprocess.CalledProcessError(1, 'gh', stderr='gh: Unavailable (HTTP 503)'),
+            self.result(other_artifacts),
+            self.result(other_artifacts + [self.record(expired=True)]),
+            self.result(other_artifacts + [self.record(id=455)]),
+            self.result(other_artifacts + [self.record()]),
+        ]
+        wait.wait_for_artifact('owner/repo', 123, self.name, 456)
+        self.assertEqual(self.gh.call_count, 5)
+        command = self.gh.call_args.args[0]
+        self.assertIn('repos/owner/repo/actions/runs/123/artifacts', command)
+        self.assertIn(f'name={self.name}', command)
+        self.assertIn('--paginate', command)
+        self.assertEqual([call.args[0] for call in self.clock.sleep.call_args_list], [5] * 4)
+
+    def test_duplicate_name_fails_even_across_pages_and_with_an_expired_record(self):
+        self.gh.return_value = self.result([self.record()], [self.record(id=455, expired=True)])
+        with self.assertRaisesRegex(RuntimeError, 'Multiple artifacts.*github-pages-123-2.*found 2'):
+            wait.wait_for_artifact('owner/repo', 123, self.name, 456)
+        self.assertEqual(self.gh.call_count, 1)
+        self.clock.sleep.assert_not_called()
+
+    def test_missing_artifact_explains_which_run_and_name_timed_out(self):
+        self.gh.return_value = self.result([])
+        with self.assertRaisesRegex(RuntimeError, 'Timed out.*github-pages-123-2.*run 123.*no exact match'):
+            wait.wait_for_artifact('owner/repo', 123, self.name, 456)
+        self.assertEqual(self.elapsed, wait.WAIT_SECONDS)
+
+    def test_api_timeouts_use_the_same_deadline_as_sleep(self):
+        def timeout(command, *, timeout, **kwargs):
+            self.advance(timeout)
+            raise subprocess.TimeoutExpired(command, timeout)
+
+        self.gh.side_effect = timeout
+        with self.assertRaisesRegex(RuntimeError, 'Timed out.*GitHub API request timed out'):
+            wait.wait_for_artifact('owner/repo', 123, self.name, 456)
+        self.assertGreaterEqual(self.elapsed, 90)
+        self.assertLess(self.elapsed, 120)
+        self.assertEqual(self.elapsed, wait.WAIT_SECONDS)
+
+
 class WorkflowTests(unittest.TestCase):
     def test_production_triggers_permissions_and_transaction_lock(self):
         workflow = yaml.safe_load((ROOT / '.github/workflows/update.yml').read_text())
         triggers = workflow.get('on', workflow.get(True))  # YAML 1.1 treats on as bool
         self.assertEqual(triggers['schedule'][0]['cron'], '0 * * * *')
         self.assertEqual(triggers['push']['branches'], ['main'])
-        self.assertIn('workflow_dispatch', triggers)
+        self.assertIs(triggers['workflow_dispatch']['inputs']['force_cfu']['default'], False)
         publish = workflow['jobs']['publish']
         self.assertEqual(publish['if'], "github.ref == 'refs/heads/main'")
         self.assertEqual(publish['concurrency']['group'], 'football-pages-production')
         self.assertIs(publish['concurrency']['cancel-in-progress'], False)
-        self.assertEqual(publish['permissions']['contents'], 'read')
+        self.assertEqual(publish['permissions'], {
+            'contents': 'read', 'actions': 'read', 'pages': 'write', 'id-token': 'write',
+        })
+        self.assertEqual(publish['environment']['name'], 'github-pages')
         steps = publish['steps']
         checkout = next(s for s in steps if s.get('uses', '').startswith('actions/checkout@'))
         self.assertEqual(checkout['with']['ref'], 'main')
@@ -291,6 +359,33 @@ class WorkflowTests(unittest.TestCase):
         for step in steps[1:]:
             self.assertEqual(step['if'], "steps.source.outputs.enabled == 'true'")
         self.assertEqual(next(s for s in steps if s.get('id') == 'pages')['with']['enablement'], False)
+
+    def test_pages_artifact_name_wait_and_checkpoint(self):
+        workflow = yaml.safe_load((ROOT / '.github/workflows/update.yml').read_text())
+        publish = workflow['jobs']['publish']
+        name = publish['env']['PAGES_ARTIFACT_NAME']
+        # Both contexts are numeric; substitute fixture values to check rerun names.
+        name = name.replace('${{ github.run_id }}', '123')
+        self.assertEqual([name.replace('${{ github.run_attempt }}', str(attempt)) for attempt in (1, 2)],
+                         ['github-pages-123-1', 'github-pages-123-2'])
+        upload, checkpoint, poll, deploy = publish['steps'][-4:]
+        self.assertEqual(upload['uses'], 'actions/upload-pages-artifact@v3')
+        self.assertEqual(deploy['uses'], 'actions/deploy-pages@v4')
+        self.assertEqual(upload['with']['name'], '${{ env.PAGES_ARTIFACT_NAME }}')
+        self.assertEqual(upload['with']['name'], deploy['with']['artifact_name'])
+        self.assertEqual(poll['run'], 'python scripts/wait_for_pages_artifact.py')
+        self.assertEqual(poll['env']['GH_TOKEN'], '${{ github.token }}')
+        self.assertEqual(poll['env']['PAGES_ARTIFACT_ID'], f"${{{{ steps.{upload['id']}.outputs.artifact_id }}}}")
+        self.assertEqual(poll['timeout-minutes'], 2)
+        self.assertNotIn('continue-on-error', poll)
+        self.assertNotIn('continue-on-error', deploy)
+        self.assertEqual(checkpoint['uses'], 'actions/upload-artifact@v4')
+        self.assertEqual(checkpoint['with'], {
+            'name': 'football-state-${{ github.run_id }}-${{ github.run_attempt }}',
+            'path': '_site/data.json\n_site/cfu-sync-2026.json\n_state/player_stats_cache_2026.json\n',
+            'retention-days': 90,
+            'if-no-files-found': 'error',
+        })
 
     def test_no_workflow_can_write_generated_data_to_main(self):
         for file in (ROOT / '.github/workflows').glob('*.yml'):
