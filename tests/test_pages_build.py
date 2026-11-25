@@ -394,7 +394,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_each_build_upload_has_a_unique_name(self):
         metadata, upload, _ = self.build['steps'][-3:]
-        self.assertEqual(upload['uses'], 'actions/upload-pages-artifact@v4')
+        self.assertEqual(upload['uses'], 'actions/upload-pages-artifact@v3')
         self.assertEqual(upload['with']['name'], f"${{{{ steps.{metadata['id']}.outputs.name }}}}")
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / 'outputs'

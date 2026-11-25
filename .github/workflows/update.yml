@@ -77,7 +77,8 @@ jobs:
         id: pages_metadata
         if: steps.source.outputs.enabled == 'true'
         run: printf 'name=github-pages-%s-%s\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-pages-artifact@v4
+      # v3 preserves the staged .nojekyll file.
+      - uses: actions/upload-pages-artifact@v3
         id: pages_artifact
         if: steps.source.outputs.enabled == 'true'
         with:
