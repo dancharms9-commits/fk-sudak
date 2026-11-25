@@ -8,7 +8,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 import zipfile
 
 import requests
@@ -307,7 +307,21 @@ class PagesArtifactTests(unittest.TestCase):
         self.assertIn('repos/owner/repo/actions/runs/123/artifacts', command)
         self.assertIn(f'name={self.name}', command)
         self.assertIn('--paginate', command)
-        self.assertEqual([call.args[0] for call in self.clock.sleep.call_args_list], [5] * 4)
+        self.assertEqual(self.clock.sleep.call_args_list, [call(5)] * 4 + [call(25)])
+
+    def test_stabilization_starts_only_after_a_valid_rest_match(self):
+        with patch.object(wait, 'WAIT_SECONDS', 6):
+            self.gh.side_effect = [self.result([]), self.result([self.record()])]
+            wait.wait_for_artifact('owner/repo', 123, self.name, 456)
+        self.assertEqual(self.gh.call_count, 2)
+        self.assertEqual(self.clock.sleep.call_args_list, [call(5), call(25)])
+
+    def test_missing_build_identity_fails_before_polling(self):
+        for name, artifact_id in (('', 456), (self.name, 0)):
+            with self.subTest(name=name, artifact_id=artifact_id):
+                with self.assertRaisesRegex(ValueError, 'Build did not provide'):
+                    wait.wait_for_artifact('owner/repo', 123, name, artifact_id)
+        self.gh.assert_not_called()
 
     def test_duplicate_name_fails_even_across_pages_and_with_an_expired_record(self):
         self.gh.return_value = self.result([self.record()], [self.record(id=455, expired=True)])
@@ -321,6 +335,7 @@ class PagesArtifactTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'Timed out.*github-pages-123-2.*run 123.*no exact match'):
             wait.wait_for_artifact('owner/repo', 123, self.name, 456)
         self.assertEqual(self.elapsed, wait.WAIT_SECONDS)
+        self.assertNotIn(call(25), self.clock.sleep.call_args_list)
 
     def test_api_timeouts_use_the_same_deadline_as_sleep(self):
         def timeout(command, *, timeout, **kwargs):
@@ -336,49 +351,88 @@ class PagesArtifactTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
+    def setUp(self):
+        self.workflow = yaml.safe_load((ROOT / '.github/workflows/update.yml').read_text())
+        self.build = self.workflow['jobs']['build']
+        self.deploy = self.workflow['jobs']['deploy']
+
     def test_production_triggers_permissions_and_transaction_lock(self):
-        workflow = yaml.safe_load((ROOT / '.github/workflows/update.yml').read_text())
+        workflow = self.workflow
         triggers = workflow.get('on', workflow.get(True))  # YAML 1.1 treats on as bool
+        self.assertEqual(set(triggers), {'schedule', 'push', 'workflow_dispatch'})
         self.assertEqual(triggers['schedule'][0]['cron'], '0 * * * *')
         self.assertEqual(triggers['push']['branches'], ['main'])
         self.assertIs(triggers['workflow_dispatch']['inputs']['force_cfu']['default'], False)
-        publish = workflow['jobs']['publish']
-        self.assertEqual(publish['if'], "github.ref == 'refs/heads/main'")
-        self.assertEqual(publish['concurrency']['group'], 'football-pages-production')
-        self.assertIs(publish['concurrency']['cancel-in-progress'], False)
-        self.assertEqual(publish['permissions'], {
+        self.assertEqual(workflow['concurrency']['group'],
+                         "${{ github.ref == 'refs/heads/main' && 'football-pages-production' || github.run_id }}")
+        self.assertIs(workflow['concurrency']['cancel-in-progress'], False)
+        self.assertEqual(set(workflow['jobs']), {'build', 'deploy'})
+        self.assertNotIn('concurrency', self.build)
+        self.assertNotIn('concurrency', self.deploy)
+        self.assertEqual(self.deploy['needs'], 'build')
+        self.assertEqual(self.build['if'], "github.ref == 'refs/heads/main'")
+        self.assertEqual(self.deploy['if'],
+                         "github.ref == 'refs/heads/main' && needs.build.outputs.pages_enabled == 'true'")
+        self.assertEqual(self.build['permissions'], {
+            'contents': 'read', 'actions': 'read', 'pages': 'read',
+        })
+        self.assertEqual(self.deploy['permissions'], {
             'contents': 'read', 'actions': 'read', 'pages': 'write', 'id-token': 'write',
         })
-        self.assertEqual(publish['environment']['name'], 'github-pages')
-        steps = publish['steps']
+        self.assertNotIn('environment', self.build)
+        self.assertEqual(self.deploy['environment'], {
+            'name': 'github-pages', 'url': '${{ steps.deployment.outputs.page_url }}',
+        })
+        steps = self.build['steps']
         checkout = next(s for s in steps if s.get('uses', '').startswith('actions/checkout@'))
         self.assertEqual(checkout['with']['ref'], 'main')
         self.assertIs(checkout['with']['persist-credentials'], False)
-        self.assertTrue(steps[-1]['uses'].startswith('actions/deploy-pages@'))
         self.assertEqual(steps[0]['id'], 'source')
         for step in steps[1:]:
             self.assertEqual(step['if'], "steps.source.outputs.enabled == 'true'")
         self.assertEqual(next(s for s in steps if s.get('id') == 'pages')['with']['enablement'], False)
 
-    def test_pages_artifact_name_wait_and_checkpoint(self):
-        workflow = yaml.safe_load((ROOT / '.github/workflows/update.yml').read_text())
-        publish = workflow['jobs']['publish']
-        name = publish['env']['PAGES_ARTIFACT_NAME']
-        # Both contexts are numeric; substitute fixture values to check rerun names.
-        name = name.replace('${{ github.run_id }}', '123')
-        self.assertEqual([name.replace('${{ github.run_attempt }}', str(attempt)) for attempt in (1, 2)],
-                         ['github-pages-123-1', 'github-pages-123-2'])
-        upload, checkpoint, poll, deploy = publish['steps'][-4:]
+    def test_each_build_upload_has_a_unique_name(self):
+        metadata, upload, _ = self.build['steps'][-3:]
         self.assertEqual(upload['uses'], 'actions/upload-pages-artifact@v3')
+        self.assertEqual(upload['with']['name'], f"${{{{ steps.{metadata['id']}.outputs.name }}}}")
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'outputs'
+            for run_id, attempt in ((123, 1), (123, 2), (124, 1)):
+                subprocess.run(['sh', '-ec', metadata['run']], check=True, env={
+                    **os.environ, 'GITHUB_OUTPUT': str(output),
+                    'GITHUB_RUN_ID': str(run_id), 'GITHUB_RUN_ATTEMPT': str(attempt),
+                })
+            self.assertEqual(output.read_text().splitlines(), [
+                'name=github-pages-123-1', 'name=github-pages-123-2', 'name=github-pages-124-1',
+            ])
+
+    def test_deploy_only_rerun_uses_the_successful_build_outputs(self):
+        upload = self.build['steps'][-2]
+        checkout, poll, deploy = self.deploy['steps']
+        self.assertEqual(self.build['outputs'], {
+            'pages_enabled': '${{ steps.source.outputs.enabled }}',
+            'pages_artifact_name': upload['with']['name'],
+            'pages_artifact_id': f"${{{{ steps.{upload['id']}.outputs.artifact_id }}}}",
+        })
+        self.assertEqual(checkout['uses'], 'actions/checkout@v4')
+        self.assertEqual(checkout['with']['ref'], '${{ github.workflow_sha }}')
+        self.assertIs(checkout['with']['persist-credentials'], False)
         self.assertEqual(deploy['uses'], 'actions/deploy-pages@v4')
-        self.assertEqual(upload['with']['name'], '${{ env.PAGES_ARTIFACT_NAME }}')
-        self.assertEqual(upload['with']['name'], deploy['with']['artifact_name'])
-        self.assertEqual(poll['run'], 'python scripts/wait_for_pages_artifact.py')
-        self.assertEqual(poll['env']['GH_TOKEN'], '${{ github.token }}')
-        self.assertEqual(poll['env']['PAGES_ARTIFACT_ID'], f"${{{{ steps.{upload['id']}.outputs.artifact_id }}}}")
-        self.assertEqual(poll['timeout-minutes'], 2)
+        self.assertEqual(poll['run'], 'python3 scripts/wait_for_pages_artifact.py')
+        self.assertEqual(poll['env'], {
+            'GH_TOKEN': '${{ github.token }}',
+            'PAGES_ARTIFACT_NAME': '${{ needs.build.outputs.pages_artifact_name }}',
+            'PAGES_ARTIFACT_ID': '${{ needs.build.outputs.pages_artifact_id }}',
+        })
+        self.assertEqual(deploy['with']['artifact_name'], poll['env']['PAGES_ARTIFACT_NAME'])
+        self.assertNotIn('run_attempt', yaml.safe_dump(self.deploy).lower())
+        self.assertGreater(poll['timeout-minutes'] * 60, wait.WAIT_SECONDS + wait.STABILIZATION_SECONDS)
         self.assertNotIn('continue-on-error', poll)
         self.assertNotIn('continue-on-error', deploy)
+
+    def test_football_state_checkpoint_stays_in_build(self):
+        checkpoint = self.build['steps'][-1]
         self.assertEqual(checkpoint['uses'], 'actions/upload-artifact@v4')
         self.assertEqual(checkpoint['with'], {
             'name': 'football-state-${{ github.run_id }}-${{ github.run_attempt }}',
@@ -397,6 +451,18 @@ class WorkflowTests(unittest.TestCase):
                 if isinstance(scope, dict):
                     self.assertNotEqual(scope.get('contents'), 'write', file.name)
             self.assertNotRegex(file.read_text(), r'git\s+(?:push|commit)|contents:\s*write')
+
+    def test_no_workflow_can_auto_merge_pull_requests(self):
+        for file in (ROOT / '.github/workflows').glob('*.y*ml'):
+            source = file.read_text()
+            workflow = yaml.safe_load(source)
+            scopes = [workflow.get('permissions', {})]
+            scopes.extend(job.get('permissions', {}) for job in workflow['jobs'].values())
+            for scope in scopes:
+                self.assertNotEqual(scope, 'write-all', file.name)
+                if isinstance(scope, dict):
+                    self.assertNotEqual(scope.get('pull-requests'), 'write', file.name)
+            self.assertNotRegex(source, r'gh\s+pr\s+merge|auto[-_]?merge|enablePullRequestAutoMerge|mergePullRequest')
 
 
 if __name__ == '__main__':
