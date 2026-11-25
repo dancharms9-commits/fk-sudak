@@ -15,27 +15,26 @@ on:
 permissions:
   contents: read
 
+# Hold the lock from baseline recovery through publication. Feature-branch
+# dispatches get their own group so they cannot replace a queued main run.
+concurrency:
+  group: ${{ github.ref == 'refs/heads/main' && 'football-pages-production' || github.run_id }}
+  cancel-in-progress: false
+
 jobs:
-  publish:
+  build:
     # Manual runs on feature branches must never publish to production.
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
-    # Lock the WHOLE read -> parse -> upload -> deploy transaction. Do not
-    # cancel deployments that may already have been accepted by Pages.
-    concurrency:
-      group: football-pages-production
-      cancel-in-progress: false
     permissions:
       contents: read
       actions: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+      pages: read
+    outputs:
+      pages_enabled: ${{ steps.source.outputs.enabled }}
+      pages_artifact_name: ${{ steps.pages_metadata.outputs.name }}
+      pages_artifact_id: ${{ steps.pages_artifact.outputs.artifact_id }}
     steps:
       - name: Check Pages source without changing settings
         id: source
@@ -74,11 +73,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           CFU_FORCE: ${{ inputs.force_cfu || false }}
-      - uses: actions/upload-pages-artifact@v3
+      - name: Name this Pages upload
+        id: pages_metadata
+        if: steps.source.outputs.enabled == 'true'
+        run: printf 'name=github-pages-%s-%s\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-pages-artifact@v4
         id: pages_artifact
         if: steps.source.outputs.enabled == 'true'
         with:
-          name: ${{ env.PAGES_ARTIFACT_NAME }}
+          name: ${{ steps.pages_metadata.outputs.name }}
           path: _site
       # Stored before deploy; restoration only accepts successful runs.
       # This checkpoint also protects against lagging Pages CDN responses.
@@ -92,16 +95,37 @@ jobs:
             _state/player_stats_cache_2026.json
           retention-days: 90
           if-no-files-found: error
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && needs.build.outputs.pages_enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+          sparse-checkout: /scripts/wait_for_pages_artifact.py
+          sparse-checkout-cone-mode: false
+      # A deploy-only rerun reads the successful build's outputs from the
+      # earlier attempt, even though GITHUB_RUN_ATTEMPT has since changed.
       - name: Wait for Pages artifact visibility
-        if: steps.source.outputs.enabled == 'true'
-        timeout-minutes: 2
+        timeout-minutes: 3
         env:
           GH_TOKEN: ${{ github.token }}
-          PAGES_ARTIFACT_ID: ${{ steps.pages_artifact.outputs.artifact_id }}
-        run: python scripts/wait_for_pages_artifact.py
+          PAGES_ARTIFACT_NAME: ${{ needs.build.outputs.pages_artifact_name }}
+          PAGES_ARTIFACT_ID: ${{ needs.build.outputs.pages_artifact_id }}
+        run: python3 scripts/wait_for_pages_artifact.py
       - name: Publish Pages artifact
-        if: steps.source.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
+          artifact_name: ${{ needs.build.outputs.pages_artifact_name }}

@@ -1,4 +1,4 @@
-"""Wait for the uploaded Pages artifact to appear in the workflow run's REST API."""
+"""Verify the uploaded Pages artifact in REST and allow its metadata to propagate."""
 
 import json
 import os
@@ -9,9 +9,13 @@ import time
 WAIT_SECONDS = 105
 POLL_SECONDS = 5
 API_TIMEOUT_SECONDS = 10
+STABILIZATION_SECONDS = 25
 
 
 def wait_for_artifact(repository, run_id, name, uploaded_id):
+    if not name or uploaded_id <= 0:
+        raise ValueError("Build did not provide a valid Pages artifact name and ID")
+
     endpoint = f"repos/{repository}/actions/runs/{run_id}/artifacts"
     command = ["gh", "api", "--method", "GET", "--paginate", "--slurp",
                "-H", "Cache-Control: no-cache", endpoint, "-f", f"name={name}"]
@@ -41,9 +45,15 @@ def wait_for_artifact(repository, run_id, name, uploaded_id):
             elif matches[0].get("id") != uploaded_id:
                 status = f"matching artifact has unexpected ID {matches[0].get('id')}"
             else:
-                print(f"Found exactly one unexpired {target}")
+                print(f"Found exactly one unexpired {target} via REST", flush=True)
+                # deploy-pages lists artifacts through the Actions Results service.
+                # REST can see an upload before the Results listing does.
+                print(f"Waiting {STABILIZATION_SECONDS}s for Pages artifact metadata to propagate", flush=True)
+                time.sleep(STABILIZATION_SECONDS)
+                print(f"Finished stabilization wait for {target}", flush=True)
                 return
 
+        print(f"Waiting for {target}: {status}", flush=True)
         delay = min(POLL_SECONDS, deadline - time.monotonic())
         if delay > 0:
             time.sleep(delay)
